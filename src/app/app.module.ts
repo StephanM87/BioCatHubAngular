@@ -9,7 +9,12 @@ import { BiocathubComponent } from './biocathub/biocathub.component';
 import { HeaderComponent } from './component/header/header.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { StartpageComponent } from './component/startpage/startpage.component';
-import { UserdataComponent } from './component/userdata/userdata.component';
+
+import { FormsModule } from '@angular/forms';
+import { EnzymeComponent } from './component/enzyme/enzyme.component';
+import { MeasurementComponent } from './component/measurement/measurement.component';
+import { ReagentComponent } from './component/reagent/reagent.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +23,17 @@ import { UserdataComponent } from './component/userdata/userdata.component';
     HeaderComponent,
     NavigationComponent,
     StartpageComponent,
-    UserdataComponent
+    EnzymeComponent,
+    MeasurementComponent,
+    ReagentComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
