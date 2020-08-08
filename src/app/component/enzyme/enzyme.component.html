@@ -1,0 +1,121 @@
+<!-- Enzym Dialog -->
+<div class="clr-row">
+    <div class="clr-col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">Enzyme Specification</div>
+                <div class="card-text">
+                    <form clrForm clrLayout="vertical">
+                        <div class="clr-row">
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Enzyme ID</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.id" [disabled]="true" name="enzymeId"/>
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Enzyme name</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.enzymeName" name="enzymeName"/>
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Host organism</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.hostOrganism" name="hostOrganism" />
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Amino acid sequence</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.aminoAcidSequence" name="aminoAcidSequence" />
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Production organism</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.productionOrganism" name="productionOrganism" />
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-input-container>
+                                    <label>Concentration value</label>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.concentration" name="concentration" />
+                                </clr-input-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-select-container>
+                                    <label>Unit</label>
+                                    <select clrSelect [(ngModel)]="newEnzyme.unit" [(ngModel)]="newEnzyme.unit" name="unit">
+                                      <option value="mmol/L">mmol/L</option>
+                                      <option value="mmoL/L">mmoL/L</option>
+                                      <option value="mg/mL">mg/mL</option>
+                                      <option value="mL">mL</option>
+                                    </select>
+                                </clr-select-container>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="add-button" *ngIf="buttonAddVisible">
+                    <button class="btn btn-primary" (click)="addEnzymeToList()">Add Enzyme</button>
+                </div>
+                <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                    <button class="btn btn-success" (click)="saveEnzyme()">Save</button>
+                    <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enzym Tabelle -->
+<div class="clr-row">
+    <div class="clr-col-12">
+        <h3 class="table-headline">Enzymes</h3>
+        <clr-datagrid>
+            <!-- Überschriften Zeile -->
+            <clr-dg-column>ID</clr-dg-column>
+            <clr-dg-column>Enzyme name</clr-dg-column>
+            <clr-dg-column>Amino acid sequence</clr-dg-column>
+            <clr-dg-column>Concentraition</clr-dg-column>
+            <clr-dg-column>Host organism</clr-dg-column>
+            <clr-dg-column>Production organism</clr-dg-column>
+            <clr-dg-column>Unit</clr-dg-column>
+            <clr-dg-column></clr-dg-column>
+        
+            <!-- Tabellen Inhalte -->
+            <clr-dg-row *clrDgItems="let enzyme of enzymeList">
+                <clr-dg-cell>{{enzyme.id}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.enzymeName}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.aminoAcidSequence}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.concentration}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.hostOrganism}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.productionOrganism}}</clr-dg-cell>
+                <clr-dg-cell>{{enzyme.unit}}</clr-dg-cell>
+                <clr-dg-cell>
+                    <div class="btn-group btn-icon btn-link">
+                        <button class="btn" (click)="editEnzyme(enzyme.id)">
+                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                        </button>
+                        <button class="btn" (click)="copyEnzyme(enzyme.id)">
+                            <clr-icon shape="copy"></clr-icon>
+                        </button>
+                        <button class="btn" (click)="deleteEnzyme(enzyme.id)">
+                            <clr-icon shape="trash" class="is-error"></clr-icon>
+                        </button>
+                    </div>
+                </clr-dg-cell>
+            </clr-dg-row>
+        
+            <!-- Fußzeile -->
+            <clr-dg-footer>
+                <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                    <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Enzymes per page</clr-dg-page-size>
+                    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                    of {{pagination.totalItems}} enzymes
+                </clr-dg-pagination>
+            </clr-dg-footer>
+        </clr-datagrid>  
+    </div>
+</div>
