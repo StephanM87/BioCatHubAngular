@@ -7,4 +7,13 @@
  .clr-select{
      width: 100%;
  }
+ .enzyme-count {
+    font-size: 0.8rem;
+ }
+ .enzyme-table {
+    margin-bottom : 1rem;
+ }
+ .table td {
+    vertical-align: middle;
+ }
  
