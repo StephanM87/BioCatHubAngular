@@ -1,9 +1,12 @@
-.clr-form-control {
-    align-items: unset;
+ .reagents-count {
+    font-size: 0.8rem;
  }
- .clr-input{
-    width: 100%;
+ .reagent-table {
+    margin-bottom : 1rem;
  }
- .clr-select{
-     width: 100%;
+ .table td {
+    vertical-align: middle;
+ }
+ .add-row {
+    background-color: #d8e3e9;
  }
