@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { User } from '../../model/user'
+import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-header',
@@ -12,18 +13,17 @@ export class HeaderComponent implements OnInit {
   public user: User;
   public userDataVisible: boolean;
 
-  constructor() {
+  constructor(public dataService: DataService) {
     this.userDataVisible = false;
-    this.user = {
-      firstName: 'Max',
-      lastName: 'Mustermann',
-      email: 'max@mustermann.de',
-      institution: 'FZ Jülich',
-      orcid: '4711'
-    };
   }
 
   ngOnInit(): void {
+    this.user = this.dataService.getUser();
+  }
+
+  public getUserName(): string {
+    var userName = this.dataService.getUser().firstName + " " + this.dataService.getUser().lastName;
+    return userName;
   }
 
   public saveUserData(): void {

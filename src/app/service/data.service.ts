@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Enzyme } from '../model/enzyme';
-import { Reagent } from '../model/reagent'
+import { Reagent } from '../model/reagent';
+import { User } from '../model/user';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 const TEST_ENZYMES: Enzyme[] = [
@@ -19,6 +20,8 @@ const TEST_REAGENTS: Reagent[] = [
   {id: 5, reagentName: "Reagent E", concentration: "Concentraition 5", unit: "mmol/L", kind:"Substrate"}
 ];
 
+const TEST_USER: User = {firstName: 'Max', lastName: 'Mustermann', email: 'max@mustermann.de', institution: 'FZ Jülich', orcid: '4711'};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,10 +29,18 @@ export class DataService {
 
   enzymes: Enzyme[];
   reagents: Reagent[];
+  user: User;
 
   constructor() { 
     this.enzymes = TEST_ENZYMES;
     this.reagents = TEST_REAGENTS;
+    this.user = TEST_USER;
+  }
+
+  // User Methods
+
+  public getUser(): User {
+    return this.user;
   }
 
   // Enzyme Methods
