@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Enzyme } from '../../model/enzyme'
-
-const TEST_DATA: Enzyme[] = [
-  {id: 1, enzymeName: "Enzyme A", aminoAcidSequence: "Amino Acid 1", concentration: "Concentraition 1", hostOrganism: "Host 1", productionOrganism: "Production 1", unit: "mmol/L"},
-  {id: 2, enzymeName: "Enzyme B", aminoAcidSequence: "Amino Acid 2", concentration: "Concentraition 2", hostOrganism: "Host 2", productionOrganism: "Production 2", unit: "mmol/L"},
-  {id: 3, enzymeName: "Enzyme C", aminoAcidSequence: "Amino Acid 3", concentration: "Concentraition 3", hostOrganism: "Host 3", productionOrganism: "Production 3", unit: "mmol/L"},
-  {id: 4, enzymeName: "Enzyme D", aminoAcidSequence: "Amino Acid 4", concentration: "Concentraition 4", hostOrganism: "Host 4", productionOrganism: "Production 4", unit: "mmol/L"},
-  {id: 5, enzymeName: "Enzyme E", aminoAcidSequence: "Amino Acid 5", concentration: "Concentraition 5", hostOrganism: "Host 5", productionOrganism: "Production 5", unit: "mmol/L"}
-];
+import { Enzyme } from '../../model/enzyme';
+import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-enzyme',
@@ -18,27 +11,28 @@ const TEST_DATA: Enzyme[] = [
 export class EnzymeComponent implements OnInit {
 
   public newEnzyme: Enzyme;
-  public enzymeList: Enzyme[];
 
   public buttonAddVisible: boolean;
   public buttonsEditVisible: boolean;
 
-  constructor() {
-    this.enzymeList = TEST_DATA;
+  constructor(public dataService: DataService) {
     this.resetNewEnzyme();
     this.showAddButtons();
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public getEnzymes(): Enzyme[] {
+    return this.dataService.getEnzymes();
   }
 
   public addEnzymeToList(): void {
-    this.enzymeList.push(this.newEnzyme);
+    this.getEnzymes().push(this.newEnzyme);
     this.resetNewEnzyme();
   }
 
   public saveEnzyme(): void {
-    for(let enzyme of this.enzymeList) {
+    for(let enzyme of this.getEnzymes()) {
       if(enzyme.id == this.newEnzyme.id) {
         enzyme.enzymeName = this.newEnzyme.enzymeName;
         enzyme.aminoAcidSequence = this.newEnzyme.aminoAcidSequence;
@@ -69,11 +63,11 @@ export class EnzymeComponent implements OnInit {
   }
 
   public deleteEnzyme(id: number) {
-    for(let enzyme of this.enzymeList) {
+    for(let enzyme of this.getEnzymes()) {
       if(id == enzyme.id) {
-        const index: number = this.enzymeList.indexOf(enzyme);
+        const index: number = this.getEnzymes().indexOf(enzyme);
         if (index !== -1) {
-          this.enzymeList.splice(index, 1);
+          this.getEnzymes().splice(index, 1);
         }
       }
     }
@@ -92,7 +86,7 @@ export class EnzymeComponent implements OnInit {
   }
 
   copyEnzymeToDialog(id: number): void {
-    for(let enzyme of this.enzymeList) {
+    for(let enzyme of this.getEnzymes()) {
       if(id == enzyme.id) {
         this.newEnzyme.id = enzyme.id;
         this.newEnzyme.enzymeName = enzyme.enzymeName;
@@ -107,7 +101,7 @@ export class EnzymeComponent implements OnInit {
 
   getNextId(): number {
     var max: number = 1;
-    for(let enzyme of this.enzymeList) {
+    for(let enzyme of this.getEnzymes()) {
       if(enzyme.id > max) {
         max = enzyme.id;
       }

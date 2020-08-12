@@ -67,7 +67,7 @@
         </div>
     </div>
     <div class="clr-col-12">
-        <h3 class="table-headline">Enzymes <span class="enzyme-count">({{enzymeList.length}})</span></h3>
+        <h3 class="table-headline">Enzymes <span class="enzyme-count">({{getEnzymes().length}})</span></h3>
     </div>
     <div class="clr-col-12">
         <div class="enzyme-table">
@@ -85,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let enzyme of enzymeList">
+                    <tr *ngFor="let enzyme of getEnzymes()">
                         <td class="left">{{enzyme.id}}</td>
                         <td class="left">{{enzyme.enzymeName}}</td>
                         <td class="left">{{enzyme.aminoAcidSequence}}</td>
