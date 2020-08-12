@@ -20,27 +20,19 @@ export class ReagentComponent implements OnInit {
     this.showAddButtons();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public getReagents(): Reagent[] {
     return this.dataService.getReagents();
   }
 
   public addReagentToList(): void {
-    this.getReagents().push(this.newReagent);
+    this.dataService.addReagent(this.newReagent);
     this.resetNewReagent();
   }
 
   public saveReagent(): void {
-    for(let reagent of this.getReagents()) {
-      if(reagent.id == this.newReagent.id) {
-        reagent.reagentName = this.newReagent.reagentName;
-        reagent.concentration = this.newReagent.concentration;
-        reagent.unit = this.newReagent.unit;
-        reagent.kind = this.newReagent.kind;
-      }
-    }
+    this.dataService.updateReagent(this.newReagent);
     this.resetNewReagent();
     this.showAddButtons();
   }
@@ -57,19 +49,12 @@ export class ReagentComponent implements OnInit {
 
   public copyReagent(id: number) {
     this.copyReagentToDialog(id);
-    this.newReagent.id = this.getNextId();
+    this.newReagent.id = this.dataService.getNextReagentId();
     this.showAddButtons();
   }
 
   public deleteReagent(id: number) {
-    for(let reagent of this.getReagents()) {
-      if(id == reagent.id) {
-        const index: number = this.getReagents().indexOf(reagent);
-        if (index !== -1) {
-          this.getReagents().splice(index, 1);
-        }
-      }
-    }
+    this.dataService.deleteReagent(id);
   }
 
   resetNewReagent(): void {
@@ -79,29 +64,16 @@ export class ReagentComponent implements OnInit {
       concentration: undefined, 
       unit: undefined, 
       kind: undefined }
-    this.newReagent.id = this.getNextId();
+    this.newReagent.id = this.dataService.getNextReagentId();
   }
 
   copyReagentToDialog(id: number): void {
-    for(let reagent of this.getReagents()) {
-      if(id == reagent.id) {
-        this.newReagent.id = reagent.id;
-        this.newReagent.reagentName = reagent.reagentName;
-        this.newReagent.concentration = reagent.concentration;
-        this.newReagent.unit = reagent.unit;
-        this.newReagent.kind = reagent.kind;
-      }
-    }
-  }
-
-  getNextId(): number {
-    var max: number = 1;
-    for(let reagent of this.getReagents()) {
-      if(reagent.id > max) {
-        max = reagent.id;
-      }
-    }
-    return max+1;
+    var reagent = this.dataService.getReagent(id);
+    this.newReagent.id = reagent.id;
+    this.newReagent.reagentName = reagent.reagentName;
+    this.newReagent.concentration = reagent.concentration;
+    this.newReagent.unit = reagent.unit;
+    this.newReagent.kind = reagent.kind;
   }
 
   showAddButtons(): void {

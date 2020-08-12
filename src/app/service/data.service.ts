@@ -32,10 +32,6 @@ export class DataService {
     this.reagents = TEST_REAGENTS;
   }
 
-  public getReagents(): Reagent[] {
-    return this.reagents;
-  }
-
   // Enzyme Methods
 
   public getEnzymes(): Enzyme[] {
@@ -76,6 +72,49 @@ export class DataService {
     for(let enzyme of this.enzymes) {
       if(enzyme.id > max) {
         max = enzyme.id;
+      }
+    }
+    return max+1;
+  }
+
+  // Reagent Methods
+
+  public getReagents(): Reagent[] {
+    return this.reagents;
+  }
+
+  public getReagent(id: number): Reagent {
+    for(let reagent of this.reagents) {
+      if(id == reagent.id) {
+        return reagent;
+      }
+    }
+  }
+
+  public addReagent(newReagent: Reagent): void {
+    this.reagents.push(newReagent);
+  }
+
+  public deleteReagent(id: number) {
+    const index: number = this.reagents.indexOf(this.getReagent(id));
+    if (index !== -1) {
+      this.reagents.splice(index, 1);
+    }
+  }
+
+  public updateReagent(newReagent: Reagent): void {
+    var reagent = this.getReagent(newReagent.id);
+    reagent.reagentName = newReagent.reagentName;
+    reagent.concentration = newReagent.concentration;
+    reagent.unit = newReagent.unit;
+    reagent.kind = newReagent.kind;
+  }
+
+  public getNextReagentId(): number {
+    var max: number = 1;
+    for(let reagent of this.reagents) {
+      if(reagent.id > max) {
+        max = reagent.id;
       }
     }
     return max+1;
