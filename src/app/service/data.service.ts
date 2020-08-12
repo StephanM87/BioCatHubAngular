@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Enzyme } from '../model/enzyme';
 import { Reagent } from '../model/reagent'
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 const TEST_ENZYMES: Enzyme[] = [
   {id: 1, enzymeName: "Enzyme A", aminoAcidSequence: "Amino Acid 1", concentration: "Concentraition 1", hostOrganism: "Host 1", productionOrganism: "Production 1", unit: "mmol/L"},
@@ -31,12 +32,53 @@ export class DataService {
     this.reagents = TEST_REAGENTS;
   }
 
+  public getReagents(): Reagent[] {
+    return this.reagents;
+  }
+
+  // Enzyme Methods
+
   public getEnzymes(): Enzyme[] {
     return this.enzymes;
   }
 
-  public getReagents(): Reagent[] {
-    return this.reagents;
+  public getEnzyme(id: number): Enzyme {
+    for(let enzyme of this.enzymes) {
+      if(id == enzyme.id) {
+        return enzyme;
+      }
+    }
+  }
+
+  public addEnzyme(newEnzyme: Enzyme): void {
+    this.enzymes.push(newEnzyme);
+  }
+
+  public deleteEnzyme(id: number) {
+    const index: number = this.enzymes.indexOf(this.getEnzyme(id));
+    if (index !== -1) {
+      this.enzymes.splice(index, 1);
+    }
+  }
+
+  public updateEnzyme(newEnzyme: Enzyme): void {
+    var enzyme = this.getEnzyme(newEnzyme.id);
+    enzyme.enzymeName = newEnzyme.enzymeName;
+    enzyme.aminoAcidSequence = newEnzyme.aminoAcidSequence;
+    enzyme.concentration = newEnzyme.concentration;
+    enzyme.hostOrganism = newEnzyme.hostOrganism;
+    enzyme.productionOrganism = newEnzyme.productionOrganism;
+    enzyme.unit = newEnzyme.unit;
+  }
+
+  public getNextEnzymeId(): number {
+    var max: number = 1;
+    for(let enzyme of this.enzymes) {
+      if(enzyme.id > max) {
+        max = enzyme.id;
+      }
+    }
+    return max+1;
   }
 
 }

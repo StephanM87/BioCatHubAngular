@@ -27,21 +27,12 @@ export class EnzymeComponent implements OnInit {
   }
 
   public addEnzymeToList(): void {
-    this.getEnzymes().push(this.newEnzyme);
+    this.dataService.addEnzyme(this.newEnzyme);
     this.resetNewEnzyme();
   }
 
   public saveEnzyme(): void {
-    for(let enzyme of this.getEnzymes()) {
-      if(enzyme.id == this.newEnzyme.id) {
-        enzyme.enzymeName = this.newEnzyme.enzymeName;
-        enzyme.aminoAcidSequence = this.newEnzyme.aminoAcidSequence;
-        enzyme.concentration = this.newEnzyme.concentration;
-        enzyme.hostOrganism = this.newEnzyme.hostOrganism;
-        enzyme.productionOrganism = this.newEnzyme.productionOrganism;
-        enzyme.unit = this.newEnzyme.unit;
-      }
-    }
+    this.dataService.updateEnzyme(this.newEnzyme);
     this.resetNewEnzyme();
     this.showAddButtons();
   }
@@ -58,19 +49,12 @@ export class EnzymeComponent implements OnInit {
 
   public copyEnzyme(id: number) {
     this.copyEnzymeToDialog(id);
-    this.newEnzyme.id = this.getNextId();
+    this.newEnzyme.id = this.dataService.getNextEnzymeId();
     this.showAddButtons();
   }
 
   public deleteEnzyme(id: number) {
-    for(let enzyme of this.getEnzymes()) {
-      if(id == enzyme.id) {
-        const index: number = this.getEnzymes().indexOf(enzyme);
-        if (index !== -1) {
-          this.getEnzymes().splice(index, 1);
-        }
-      }
-    }
+    this.dataService.deleteEnzyme(id);
   }
 
   resetNewEnzyme(): void {
@@ -82,31 +66,18 @@ export class EnzymeComponent implements OnInit {
       hostOrganism: undefined, 
       productionOrganism: undefined, 
       unit: undefined }
-    this.newEnzyme.id = this.getNextId();
+    this.newEnzyme.id = this.dataService.getNextEnzymeId();
   }
 
   copyEnzymeToDialog(id: number): void {
-    for(let enzyme of this.getEnzymes()) {
-      if(id == enzyme.id) {
-        this.newEnzyme.id = enzyme.id;
-        this.newEnzyme.enzymeName = enzyme.enzymeName;
-        this.newEnzyme.aminoAcidSequence = enzyme.aminoAcidSequence;
-        this.newEnzyme.concentration = enzyme.concentration;
-        this.newEnzyme.hostOrganism = enzyme.hostOrganism;
-        this.newEnzyme.productionOrganism = enzyme.productionOrganism;
-        this.newEnzyme.unit = enzyme.unit;
-      }
-    }
-  }
-
-  getNextId(): number {
-    var max: number = 1;
-    for(let enzyme of this.getEnzymes()) {
-      if(enzyme.id > max) {
-        max = enzyme.id;
-      }
-    }
-    return max+1;
+    var enzyme = this.dataService.getEnzyme(id);
+    this.newEnzyme.id = enzyme.id;
+    this.newEnzyme.enzymeName = enzyme.enzymeName;
+    this.newEnzyme.aminoAcidSequence = enzyme.aminoAcidSequence;
+    this.newEnzyme.concentration = enzyme.concentration;
+    this.newEnzyme.hostOrganism = enzyme.hostOrganism;
+    this.newEnzyme.productionOrganism = enzyme.productionOrganism;
+    this.newEnzyme.unit = enzyme.unit;
   }
 
   showAddButtons(): void {
