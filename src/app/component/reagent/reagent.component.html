@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="clr-col-12">
-        <h3 class="table-headline">Reagents <span class="reagents-count">({{reagentList.length}})</span></h3>
+        <h3 class="table-headline">Reagents <span class="reagents-count">({{getReagents().length}})</span></h3>
     </div>
     <div class="clr-col-12">
         
@@ -80,7 +80,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let reagent of reagentList">
+            <tr *ngFor="let reagent of getReagents()">
                 <td class="left">{{reagent.id}}</td>
                 <td class="left">{{reagent.reagentName}}</td>
                 <td class="left">{{reagent.concentration}}</td>

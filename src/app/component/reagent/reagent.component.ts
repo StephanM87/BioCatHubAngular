@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Reagent } from '../../model/reagent'
-
-const TEST_DATA: Reagent[] = [
-  {id: 1, reagentName: "Reagent A", concentration: "Concentraition 1", unit: "mmol/L", kind:"Substrate"},
-  {id: 2, reagentName: "Reagent B", concentration: "Concentraition 2", unit: "mmol/L", kind:"Substrate"},
-  {id: 3, reagentName: "Reagent C", concentration: "Concentraition 3", unit: "mmol/L", kind:"Substrate"},
-  {id: 4, reagentName: "Reagent D", concentration: "Concentraition 4", unit: "mmol/L", kind:"Substrate"},
-  {id: 5, reagentName: "Reagent E", concentration: "Concentraition 5", unit: "mmol/L", kind:"Substrate"}
-];
+import { Reagent } from '../../model/reagent';
+import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-reagent',
@@ -18,13 +11,11 @@ const TEST_DATA: Reagent[] = [
 export class ReagentComponent implements OnInit {
 
   public newReagent: Reagent;
-  public reagentList: Reagent[];
 
   public buttonAddVisible: boolean;
   public buttonsEditVisible: boolean;
 
-  constructor() {
-    this.reagentList = TEST_DATA;
+  constructor(public dataService: DataService) {
     this.resetNewReagent();
     this.showAddButtons();
   }
@@ -32,13 +23,17 @@ export class ReagentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public getReagents(): Reagent[] {
+    return this.dataService.getReagents();
+  }
+
   public addReagentToList(): void {
-    this.reagentList.push(this.newReagent);
+    this.getReagents().push(this.newReagent);
     this.resetNewReagent();
   }
 
   public saveReagent(): void {
-    for(let reagent of this.reagentList) {
+    for(let reagent of this.getReagents()) {
       if(reagent.id == this.newReagent.id) {
         reagent.reagentName = this.newReagent.reagentName;
         reagent.concentration = this.newReagent.concentration;
@@ -67,11 +62,11 @@ export class ReagentComponent implements OnInit {
   }
 
   public deleteReagent(id: number) {
-    for(let reagent of this.reagentList) {
+    for(let reagent of this.getReagents()) {
       if(id == reagent.id) {
-        const index: number = this.reagentList.indexOf(reagent);
+        const index: number = this.getReagents().indexOf(reagent);
         if (index !== -1) {
-          this.reagentList.splice(index, 1);
+          this.getReagents().splice(index, 1);
         }
       }
     }
@@ -88,7 +83,7 @@ export class ReagentComponent implements OnInit {
   }
 
   copyReagentToDialog(id: number): void {
-    for(let reagent of this.reagentList) {
+    for(let reagent of this.getReagents()) {
       if(id == reagent.id) {
         this.newReagent.id = reagent.id;
         this.newReagent.reagentName = reagent.reagentName;
@@ -101,7 +96,7 @@ export class ReagentComponent implements OnInit {
 
   getNextId(): number {
     var max: number = 1;
-    for(let reagent of this.reagentList) {
+    for(let reagent of this.getReagents()) {
       if(reagent.id > max) {
         max = reagent.id;
       }
