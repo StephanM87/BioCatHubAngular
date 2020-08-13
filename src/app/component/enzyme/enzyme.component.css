@@ -16,4 +16,7 @@
  .table td {
     vertical-align: middle;
  }
+.button-column {
+   text-align: right;
+}
  

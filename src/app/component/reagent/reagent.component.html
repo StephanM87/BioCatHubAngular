@@ -66,7 +66,7 @@
         
     </div>
 </div> -->
-<h3 class="table-headline">Reagent Specification</h3>
+<h3>Reagent Specification</h3>
 <div class="reagent-table">
     <table class="table table-compact">
         <thead>
@@ -86,7 +86,7 @@
                 <td class="left">{{reagent.concentration}}</td>
                 <td class="left">{{reagent.unit}}</td>
                 <td class="left">{{reagent.kind}}</td>
-                <td>
+                <td class="button-column">
                     <div class="btn-group btn-icon btn-link">
                         <button class="btn" (click)="editReagent(reagent.id)">
                             <clr-icon shape="pencil" class="is-highlight"></clr-icon>
@@ -132,7 +132,7 @@
                         </select>
                     </clr-select-container>
                 </td>
-                <td>
+                <td class="button-column">
                     <div class="add-button" *ngIf="buttonAddVisible">
                         <button class="btn btn-primary" (click)="addReagentToList()">Add Reagent</button>
                     </div>
