@@ -1,8 +1,15 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="content-container">
+        <clr-vertical-nav>
+            <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">Enzyme specification</a>
+            <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">Reagent Specification</a>
+            <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">Measurement Data</a>
+            <div class="nav-divider"></div>
+            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">Submit Data</a>
+        </clr-vertical-nav>
         <div class="content-area">
-            <app-navigation></app-navigation>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

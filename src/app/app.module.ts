@@ -7,7 +7,6 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BiocathubComponent } from './biocathub/biocathub.component';
 import { HeaderComponent } from './component/header/header.component';
-import { NavigationComponent } from './component/navigation/navigation.component';
 import { StartpageComponent } from './component/startpage/startpage.component';
 
 import { FormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     AppComponent,
     BiocathubComponent,
     HeaderComponent,
-    NavigationComponent,
     StartpageComponent,
     EnzymeComponent,
     MeasurementComponent,
