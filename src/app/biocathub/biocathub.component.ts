@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BiocathubComponent implements OnInit {
 
-  constructor() { }
+  public collapsed: boolean;
+
+  constructor() {
+    this.collapsed = false;
+   }
 
   ngOnInit(): void {
   }

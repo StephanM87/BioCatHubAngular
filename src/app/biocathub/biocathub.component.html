@@ -1,12 +1,24 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="content-container">
-        <clr-vertical-nav>
-            <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">Enzyme specification</a>
-            <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">Reagent Specification</a>
-            <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">Measurement Data</a>
+        <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+            <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
+                Enzyme specification
+            </a>
+            <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
+                Reagent Specification
+            </a>
+            <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="ruler-pencil"></clr-icon>
+                Measurement Data
+            </a>
             <div class="nav-divider"></div>
-            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">Submit Data</a>
+            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="bar-chart"></clr-icon>
+                Dashboard
+            </a>
         </clr-vertical-nav>
         <div class="content-area">
             <router-outlet></router-outlet>
