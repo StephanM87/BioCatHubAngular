@@ -10,7 +10,7 @@ export class BiocathubComponent implements OnInit {
   public collapsed: boolean;
 
   constructor() {
-    this.collapsed = false;
+    this.collapsed = true;
    }
 
   ngOnInit(): void {
