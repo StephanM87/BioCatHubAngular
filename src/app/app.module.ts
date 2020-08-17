@@ -15,6 +15,8 @@ import { MeasurementComponent } from './component/measurement/measurement.compon
 import { ReagentComponent } from './component/reagent/reagent.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     AppRoutingModule,
     ClarityModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
