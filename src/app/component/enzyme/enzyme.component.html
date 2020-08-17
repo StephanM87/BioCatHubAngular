@@ -13,10 +13,17 @@
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Enzyme name</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.enzymeName" name="enzymeName"/>
-                                </clr-input-container>
+                                <clr-dropdown>
+                                    <clr-input-container>
+                                        <label>Enzyme name</label>
+                                        <input clrInput type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="newEnzyme.enzymeName" name="enzymeName"/>
+                                    </clr-input-container>
+                                    <ng-template [(clrIfOpen)]="dropdown">
+                                        <clr-dropdown-menu>
+                                            <div clrDropdownItem (click)="selectEnzyme(enzyme)" *ngFor="let enzyme of searchResult">{{enzyme.enzymeName}}</div>
+                                        </clr-dropdown-menu>
+                                    </ng-template>
+                                </clr-dropdown>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
@@ -57,7 +64,16 @@
                     </form>
                 </div>
                 <div class="add-button" *ngIf="buttonAddVisible">
-                    <button class="btn btn-primary" (click)="addEnzymeToList()">Add Enzyme</button>
+                    <div class="clr-row">
+                        <div class="clr-col-11">
+                            <button class="btn btn-primary" (click)="addEnzymeToList()">Add Enzyme</button>
+                        </div>
+                        <div class="clr-col-1 clear-button">
+                            <button type="button" class="btn btn-icon" (click)="resetEnzyme()" aria-label="trash">
+                                <clr-icon shape="trash"></clr-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="edit-buttons" *ngIf="buttonsEditVisible">
                     <button class="btn btn-success" (click)="saveEnzyme()">Save</button>
@@ -95,13 +111,13 @@
                         <td class="left">{{enzyme.unit}}</td>
                         <td class="button-column">
                             <div class="btn-group btn-icon btn-link">
-                                <button class="btn" (click)="editEnzyme(enzyme.id)">
+                                <button class="btn" (click)="editEnzyme(enzyme)">
                                     <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                 </button>
-                                <button class="btn" (click)="copyEnzyme(enzyme.id)">
+                                <button class="btn" (click)="copyEnzyme(enzyme)">
                                     <clr-icon shape="copy"></clr-icon>
                                 </button>
-                                <button class="btn" (click)="deleteEnzyme(enzyme.id)">
+                                <button class="btn" (click)="deleteEnzyme(enzyme)">
                                     <clr-icon shape="trash" class="is-error"></clr-icon>
                                 </button>
                             </div>
