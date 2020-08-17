@@ -9,12 +9,12 @@ import { DashboardComponent } from '../app/component/dashboard/dashboard.compone
 
 
 const routes: Routes = [
-  { path: 'startpage', component: StartpageComponent },
+  { path: 'start', component: StartpageComponent },
   { path: 'enzyme', component: EnzymeComponent },
   { path: 'reagent', component: ReagentComponent },
   { path: 'measurement', component: MeasurementComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: 'startpage', pathMatch: 'full' }
+  { path: '', redirectTo: 'start', pathMatch: 'full' }
 ];
 
 @NgModule({

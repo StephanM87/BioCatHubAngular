@@ -12,3 +12,7 @@ header .branding .title .dark {
 .clr-input{
     width: 100%;
  }
+
+.biocathub-logo {
+    background-image: url(../../../assets/svg/biocathub.svg);
+ }
