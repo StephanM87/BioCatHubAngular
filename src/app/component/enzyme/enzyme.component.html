@@ -9,38 +9,26 @@
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Enzyme ID</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.id" [disabled]="true" name="enzymeId"/>
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.id" [disabled]="true" name="id"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-dropdown>
                                     <clr-input-container>
                                         <label>Enzyme name</label>
-                                        <input clrInput type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="newEnzyme.enzymeName" name="enzymeName"/>
+                                        <input clrInput type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="newEnzyme.name" name="name"/>
                                     </clr-input-container>
                                     <ng-template [(clrIfOpen)]="dropdown">
                                         <clr-dropdown-menu>
-                                            <div clrDropdownItem (click)="selectEnzyme(enzyme)" *ngFor="let enzyme of searchResult">{{enzyme.enzymeName}}</div>
+                                            <div clrDropdownItem (click)="selectEnzyme(enzyme)" *ngFor="let enzyme of searchResult">{{enzyme.name}}</div>
                                         </clr-dropdown-menu>
                                     </ng-template>
                                 </clr-dropdown>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
-                                    <label>Host organism</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.hostOrganism" name="hostOrganism" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
                                     <label>Amino acid sequence</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.aminoAcidSequence" name="aminoAcidSequence" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Production organism</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.productionOrganism" name="productionOrganism" />
+                                    <input clrInput type="text" [(ngModel)]="newEnzyme.sequence" name="sequence" />
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
@@ -52,13 +40,29 @@
                             <div class="clr-col-3">
                                 <clr-select-container>
                                     <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="newEnzyme.unit" [(ngModel)]="newEnzyme.unit" name="unit">
+                                    <select clrSelect [(ngModel)]="newEnzyme.unit" name="unit">
                                       <option value="mmol/L">mmol/L</option>
                                       <option value="mmoL/L">mmoL/L</option>
                                       <option value="mg/mL">mg/mL</option>
                                       <option value="mL">mL</option>
                                     </select>
                                 </clr-select-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-checkbox-container>
+                                    <clr-checkbox-wrapper>
+                                      <input type="checkbox" clrCheckbox [(ngModel)]="newEnzyme.boundary" name="boundary" />
+                                      <label>Boundary</label>
+                                    </clr-checkbox-wrapper>
+                                </clr-checkbox-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-checkbox-container>
+                                    <clr-checkbox-wrapper>
+                                      <input type="checkbox" clrCheckbox [(ngModel)]="newEnzyme.constant" name="constant" />
+                                      <label>Constant</label>
+                                    </clr-checkbox-wrapper>
+                                </clr-checkbox-container>
                             </div>
                         </div>
                     </form>
@@ -94,21 +98,27 @@
                         <th class="left">Enzyme name</th>
                         <th class="left">Amino acid sequence</th>
                         <th class="left">Concentraition</th>
-                        <th class="left">Host organism</th>
-                        <th class="left">Production organism</th>
                         <th class="left">Unit</th>
+                        <th class="left">Boundary</th>
+                        <th class="left">Constant</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let enzyme of getEnzymes()">
                         <td class="left">{{enzyme.id}}</td>
-                        <td class="left">{{enzyme.enzymeName}}</td>
-                        <td class="left">{{enzyme.aminoAcidSequence}}</td>
+                        <td class="left">{{enzyme.name}}</td>
+                        <td class="left">{{enzyme.sequence}}</td>
                         <td class="left">{{enzyme.concentration}}</td>
-                        <td class="left">{{enzyme.hostOrganism}}</td>
-                        <td class="left">{{enzyme.productionOrganism}}</td>
                         <td class="left">{{enzyme.unit}}</td>
+                        <td class="left">
+                            <clr-icon *ngIf="enzyme.boundary" shape="check"></clr-icon>
+                            <clr-icon *ngIf="!enzyme.boundary" shape="times"></clr-icon>
+                        </td>
+                        <td class="left">
+                            <clr-icon *ngIf="enzyme.constant" shape="check"></clr-icon>
+                            <clr-icon *ngIf="!enzyme.constant" shape="times"></clr-icon>
+                        </td>
                         <td class="button-column">
                             <div class="btn-group btn-icon btn-link">
                                 <button class="btn" (click)="editEnzyme(enzyme)">
@@ -122,7 +132,7 @@
                                 </button>
                             </div>
                         </td>
-                </tr>
+                    </tr>
                 </tbody>
             </table>
         </div>

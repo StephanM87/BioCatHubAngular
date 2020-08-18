@@ -76,24 +76,25 @@ export class EnzymeComponent implements OnInit {
   resetNewEnzyme(): void {
     this.newEnzyme = {
       id: undefined, 
-      enzymeName: undefined, 
-      aminoAcidSequence: undefined, 
-      concentration: undefined, 
-      hostOrganism: undefined, 
-      productionOrganism: undefined, 
-      unit: undefined }
+      name: undefined, 
+      sequence: undefined, 
+      concentration: undefined,
+      unit: undefined,
+      boundary: false,
+      constant: false 
+    }
     this.newEnzyme.id = this.dataService.getExperiment().getNextEnzymeId();
   }
 
   // Kopiert ein Enzym in die Enzyme Card
   copyEnzymeToDialog(enzyme: Enzyme): void {
     this.newEnzyme.id = enzyme.id;
-    this.newEnzyme.enzymeName = enzyme.enzymeName;
-    this.newEnzyme.aminoAcidSequence = enzyme.aminoAcidSequence;
+    this.newEnzyme.name = enzyme.name;
+    this.newEnzyme.sequence = enzyme.sequence;
     this.newEnzyme.concentration = enzyme.concentration;
-    this.newEnzyme.hostOrganism = enzyme.hostOrganism;
-    this.newEnzyme.productionOrganism = enzyme.productionOrganism;
     this.newEnzyme.unit = enzyme.unit;
+    this.newEnzyme.boundary = enzyme.boundary;
+    this.newEnzyme.constant = enzyme.constant;
   }
 
   // Validierung der Input Felder
@@ -114,9 +115,9 @@ export class EnzymeComponent implements OnInit {
 
   // Methoden für die Enzyme Suche
   public filterSearchInput(searchValue: string): void {
-    this.newEnzyme.enzymeName = searchValue;
+    this.newEnzyme.name = searchValue;
     this.searchResult = this.enzymeList.filter(function(tag) {
-        return tag.enzymeName.indexOf(searchValue) >= 0;
+        return tag.name.indexOf(searchValue) >= 0;
     });
     this.dropdown = this.searchResult.length > 0;
   }

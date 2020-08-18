@@ -51,12 +51,12 @@ export class Experiment {
 
     public updateEnzyme(newEnzyme: Enzyme): void {
         var enzyme = this.getEnzyme(newEnzyme.id);
-        enzyme.enzymeName = newEnzyme.enzymeName;
-        enzyme.aminoAcidSequence = newEnzyme.aminoAcidSequence;
+        enzyme.name = newEnzyme.name;
+        enzyme.sequence = newEnzyme.sequence;
         enzyme.concentration = newEnzyme.concentration;
-        enzyme.hostOrganism = newEnzyme.hostOrganism;
-        enzyme.productionOrganism = newEnzyme.productionOrganism;
         enzyme.unit = newEnzyme.unit;
+        enzyme.boundary = newEnzyme.boundary;
+        enzyme.constant = newEnzyme.constant;
     }
 
     public getNextEnzymeId(): number {

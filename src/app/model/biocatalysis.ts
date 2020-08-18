@@ -1,11 +1,11 @@
 export interface Enzyme {
     id: number;
-    enzymeName: string;
-    aminoAcidSequence: string;
+    name: string;
+    sequence: string;
     concentration: string;
-    hostOrganism: string;
-    productionOrganism: string;
     unit: string;
+    boundary: boolean;
+    constant: boolean;
 }
 
 export interface Reagent {
@@ -26,6 +26,7 @@ export interface Vessel {
 }
 
 export interface Replicate {
+    id: number;
     replica: string;
     reagent: number;
     type: string;
