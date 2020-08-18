@@ -2,7 +2,7 @@ export interface Enzyme {
     id: number;
     name: string;
     sequence: string;
-    concentration: string;
+    concentration: number;
     unit: string;
     boundary: boolean;
     constant: boolean;

@@ -5,11 +5,11 @@ import { User } from '../model/user';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 const TEST_ENZYMES: Enzyme[] = [
-  {id: 1, name: "Enzyme A", sequence: "Sequence 1", concentration: "Concentraition 1", unit: "mmol/L", boundary: false, constant: false},
-  {id: 2, name: "Enzyme B", sequence: "Sequence 2", concentration: "Concentraition 2", unit: "mmol/L", boundary: false, constant: false},
-  {id: 3, name: "Enzyme C", sequence: "Sequence 3", concentration: "Concentraition 3", unit: "mmol/L", boundary: false, constant: false},
-  {id: 4, name: "Enzyme D", sequence: "Sequence 4", concentration: "Concentraition 4", unit: "mmol/L", boundary: false, constant: false},
-  {id: 5, name: "Enzyme E", sequence: "Sequence 5", concentration: "Concentraition 5", unit: "mmol/L", boundary: false, constant: false}
+  {id: 1, name: "Enzyme A", sequence: "Sequence 1", concentration: 1, unit: "mmol/L", boundary: false, constant: false},
+  {id: 2, name: "Enzyme B", sequence: "Sequence 2", concentration: 2, unit: "mmol/L", boundary: false, constant: false},
+  {id: 3, name: "Enzyme C", sequence: "Sequence 3", concentration: 3, unit: "mmol/L", boundary: false, constant: false},
+  {id: 4, name: "Enzyme D", sequence: "Sequence 4", concentration: 4, unit: "mmol/L", boundary: false, constant: false},
+  {id: 5, name: "Enzyme E", sequence: "Sequence 5", concentration: 5, unit: "mmol/L", boundary: false, constant: false}
 ];
 
 const TEST_REAGENTS: Reagent[] = [
