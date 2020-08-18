@@ -10,9 +10,9 @@ export class Experiment {
     constructor() {
         this.id = undefined;
         this.vessel = new Vessel();
-        this.enzymes = [];
-        this.reagents = [];
-        this.replicates = [];
+        this.enzymes = new Array<Enzyme>();
+        this.reagents = new Array<Reagent>();
+        this.replicates = new Array<Replicate>();
     }
 
     public getId(): number {

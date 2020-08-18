@@ -46,41 +46,28 @@ export class ReagentComponent implements OnInit {
   }
 
   // Icon-Buttons in der Enzyme Tabelle
-  public editReagent(id: number) {
-    this.copyReagentToDialog(id);
+  public editReagent(reagent: Reagent) {
+    this.copyReagentToDialog(reagent);
     this.showEditButtons();
   }
-  public copyReagent(id: number) {
-    this.copyReagentToDialog(id);
+  public copyReagent(reagent: Reagent) {
+    this.copyReagentToDialog(reagent);
     this.newReagent.id = this.dataService.getExperiment().getNextReagentId();
     this.showAddButtons();
   }
-  public deleteReagent(id: number) {
-    this.dataService.getExperiment().deleteReagent(id);
+  public deleteReagent(reagent: Reagent) {
+    this.dataService.getExperiment().deleteReagent(reagent.id);
   }
 
   // Setzt die Werte in der Enzyme Card zurück
   resetNewReagent(): void {
-    this.newReagent = {
-      id: undefined, 
-      name: undefined,  
-      concentration: undefined, 
-      unit: undefined, 
-      boundary: false, 
-      constant: false
-    }
+    this.newReagent = new Reagent();
     this.newReagent.id = this.dataService.getExperiment().getNextReagentId();
   }
 
   // Kopiert ein Enzym in die Enzyme Card
-  copyReagentToDialog(id: number): void {
-    var reagent = this.dataService.getExperiment().getReagent(id);
-    this.newReagent.id = reagent.id;
-    this.newReagent.name = reagent.name;
-    this.newReagent.concentration = reagent.concentration;
-    this.newReagent.unit = reagent.unit;
-    this.newReagent.boundary = reagent.boundary;
-    this.newReagent.constant = reagent.constant;
+  copyReagentToDialog(reagent: Reagent): void {
+    this.newReagent = new Reagent(reagent);
   }
 
   // TODO: Validierung der Input Felder

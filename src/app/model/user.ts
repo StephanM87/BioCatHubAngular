@@ -1,19 +1,11 @@
-export interface IUser {
-    firstName: string;
-    lastName: string;
-    email: string;
-    institution: string;
-    orcid: string;
-}
-
-export class User implements IUser {
+export class User {
     firstName: string;
     lastName: string;
     email: string;
     institution: string;
     orcid: string;
 
-    constructor(user?: IUser) {
+    constructor(user?: User) {
         this.firstName = user && user.firstName || undefined;
         this.lastName = user && user.lastName || undefined;
         this.email = user && user.email || undefined;
@@ -22,6 +14,16 @@ export class User implements IUser {
     }
 
     public getDisplayName(): string {
-        return (this.firstName + " " + this.lastName);
+        var name = "";
+        if(this.firstName != undefined && this.firstName != "") {
+            name += this.firstName;
+        }
+        if(this.lastName != undefined && this.lastName != "") {
+            name += (" " + this.lastName);
+        }
+        if(name.length == 0) {
+            name = "User Data"
+        }
+        return name;
     }
 }

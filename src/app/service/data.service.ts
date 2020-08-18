@@ -20,8 +20,6 @@ const TEST_REAGENTS: Reagent[] = [
   {id: 5, name: "Reagent E", concentration: 5, unit: "mmol/L", boundary: false, constant: false}
 ];
 
-const TEST_USER: User = new User({firstName: 'Max', lastName: 'Mustermann', email: 'max@mustermann.de', institution: 'FZ Jülich', orcid: '4711'});
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +32,7 @@ export class DataService {
     this.experiment = new Experiment();
     this.experiment.enzymes = TEST_ENZYMES;
     this.experiment.reagents = TEST_REAGENTS;
-    this.user = TEST_USER;
+    this.user = new User();
   }
 
   public getExperiment(): Experiment {
