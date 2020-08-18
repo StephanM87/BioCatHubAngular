@@ -10,10 +10,11 @@ export interface Enzyme {
 
 export interface Reagent {
     id: number;
-    reagentName: string;
-    concentration: string;
+    name: string;
+    concentration: number;
     unit: string;
-    kind: string;
+    boundary: boolean;
+    constant: boolean;
 }
 
 export interface Vessel {

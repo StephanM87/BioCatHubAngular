@@ -96,10 +96,11 @@ export class Experiment {
     
     public updateReagent(newReagent: Reagent): void {
         var reagent = this.getReagent(newReagent.id);
-        reagent.reagentName = newReagent.reagentName;
+        reagent.name = newReagent.name;
         reagent.concentration = newReagent.concentration;
         reagent.unit = newReagent.unit;
-        reagent.kind = newReagent.kind;
+        reagent.boundary = newReagent.boundary;
+        reagent.constant = newReagent.constant;
     }
     
     public getNextReagentId(): number {

@@ -13,11 +13,11 @@ const TEST_ENZYMES: Enzyme[] = [
 ];
 
 const TEST_REAGENTS: Reagent[] = [
-  {id: 1, reagentName: "Reagent A", concentration: "Concentraition 1", unit: "mmol/L", kind:"Substrate"},
-  {id: 2, reagentName: "Reagent B", concentration: "Concentraition 2", unit: "mmol/L", kind:"Substrate"},
-  {id: 3, reagentName: "Reagent C", concentration: "Concentraition 3", unit: "mmol/L", kind:"Substrate"},
-  {id: 4, reagentName: "Reagent D", concentration: "Concentraition 4", unit: "mmol/L", kind:"Substrate"},
-  {id: 5, reagentName: "Reagent E", concentration: "Concentraition 5", unit: "mmol/L", kind:"Substrate"}
+  {id: 1, name: "Reagent A", concentration: 1, unit: "mmol/L", boundary: false, constant: false},
+  {id: 2, name: "Reagent B", concentration: 2, unit: "mmol/L", boundary: false, constant: false},
+  {id: 3, name: "Reagent C", concentration: 3, unit: "mmol/L", boundary: false, constant: false},
+  {id: 4, name: "Reagent D", concentration: 4, unit: "mmol/L", boundary: false, constant: false},
+  {id: 5, name: "Reagent E", concentration: 5, unit: "mmol/L", boundary: false, constant: false}
 ];
 
 const TEST_USER: User = new User({firstName: 'Max', lastName: 'Mustermann', email: 'max@mustermann.de', institution: 'FZ Jülich', orcid: '4711'});

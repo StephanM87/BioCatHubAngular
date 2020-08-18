@@ -1,21 +1,21 @@
-<!-- <div class="clr-row">
+<h3>Reagent Specification</h3>
+<div class="clr-row">
     <div class="clr-col-12">
         <div class="card">
             <div class="card-block">
-                <div class="card-title">Reagent Specification</div>
                 <div class="card-text">
                     <form clrForm clrLayout="vertical">
                         <div class="clr-row">
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Reagent ID</label>
-                                    <input clrInput type="text" [(ngModel)]="newReagent.id" [disabled]="true" name="reagentId"/>
+                                    <input clrInput type="text" [(ngModel)]="newReagent.id" [disabled]="true" name="id"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Reagent name</label>
-                                    <input clrInput type="text" [(ngModel)]="newReagent.reagentName" name="reagentName"/>
+                                    <input clrInput type="text" [(ngModel)]="newReagent.name" name="name"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
@@ -36,21 +36,35 @@
                                 </clr-select-container>
                             </div>
                             <div class="clr-col-3">
-                                <clr-select-container>
-                                    <label>Reagent kind</label>
-                                    <select clrSelect [(ngModel)]="newReagent.kind" [(ngModel)]="newReagent.kind" name="kind">
-                                      <option value="Substrate">Substrate</option>
-                                      <option value="Product">Product</option>
-                                      <option value="Additive">Additive</option>
-                                      <option value="Cofactor">Cofactor</option>
-                                    </select>
-                                </clr-select-container>
+                                <clr-checkbox-container>
+                                    <clr-checkbox-wrapper>
+                                      <input type="checkbox" clrCheckbox [(ngModel)]="newReagent.boundary" name="boundary" />
+                                      <label>Boundary</label>
+                                    </clr-checkbox-wrapper>
+                                </clr-checkbox-container>
+                            </div>
+                            <div class="clr-col-3">
+                                <clr-checkbox-container>
+                                    <clr-checkbox-wrapper>
+                                      <input type="checkbox" clrCheckbox [(ngModel)]="newReagent.constant" name="constant" />
+                                      <label>Constant</label>
+                                    </clr-checkbox-wrapper>
+                                </clr-checkbox-container>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="add-button" *ngIf="buttonAddVisible">
-                    <button class="btn btn-primary" (click)="addReagentToList()">Add Reagent</button>
+                    <div class="clr-row">
+                        <div class="clr-col-11">
+                            <button class="btn btn-primary" (click)="addReagentToList()">Add Enzyme</button>
+                        </div>
+                        <div class="clr-col-1 clear-button">
+                            <button type="button" class="btn btn-icon" (click)="resetReagent()" aria-label="trash">
+                                <clr-icon shape="trash"></clr-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="edit-buttons" *ngIf="buttonsEditVisible">
                     <button class="btn btn-success" (click)="saveReagent()">Save</button>
@@ -63,85 +77,91 @@
         <h3 class="table-headline">Reagents <span class="reagents-count">({{getReagents().length}})</span></h3>
     </div>
     <div class="clr-col-12">
-        
+        <div class="reagent-table">
+            <table class="table table-compact">
+                <thead>
+                    <tr>
+                        <th class="left">ID</th>
+                        <th class="left">Reagent name</th>
+                        <th class="left">Concentraition</th>
+                        <th class="left">Unit</th>
+                        <th class="left">Boundary</th>
+                        <th class="left">Constant</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reagent of getReagents()">
+                        <td class="left">{{reagent.id}}</td>
+                        <td class="left">{{reagent.name}}</td>
+                        <td class="left">{{reagent.concentration}}</td>
+                        <td class="left">{{reagent.unit}}</td>
+                        <td class="left">
+                            <clr-icon *ngIf="reagent.boundary" shape="check"></clr-icon>
+                            <clr-icon *ngIf="!reagent.boundary" shape="times"></clr-icon>
+                        </td>
+                        <td class="left">
+                            <clr-icon *ngIf="reagent.constant" shape="check"></clr-icon>
+                            <clr-icon *ngIf="!reagent.constant" shape="times"></clr-icon>
+                        </td>
+                        <td class="button-column">
+                            <div class="btn-group btn-icon btn-link">
+                                <button class="btn" (click)="editReagent(reagent.id)">
+                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                </button>
+                                <button class="btn" (click)="copyReagent(reagent.id)">
+                                    <clr-icon shape="copy"></clr-icon>
+                                </button>
+                                <button class="btn" (click)="deleteReagent(reagent.id)">
+                                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr class="add-row">
+                        <td class="left">{{newReagent.id}}</td>
+                        <td class="left">
+                            <clr-input-container>
+                                <input clrInput type="text" [(ngModel)]="newReagent.reagentName" name="reagentName"/>
+                            </clr-input-container>
+                        </td>
+                        <td class="left">
+                            <clr-input-container>
+                                <input clrInput type="text" [(ngModel)]="newReagent.concentration" name="concentration" />
+                            </clr-input-container>
+                        </td>
+                        <td class="left">
+                            <clr-select-container>
+                                <select clrSelect [(ngModel)]="newReagent.unit" [(ngModel)]="newReagent.unit" name="unit">
+                                  <option value="mmol/L">mmol/L</option>
+                                  <option value="mmoL/L">mmoL/L</option>
+                                  <option value="mg/mL">mg/mL</option>
+                                  <option value="mL">mL</option>
+                                </select>
+                            </clr-select-container>
+                        </td>
+                        <td class="left">
+                            <clr-select-container>
+                                <select clrSelect [(ngModel)]="newReagent.kind" [(ngModel)]="newReagent.kind" name="kind">
+                                  <option value="Substrate">Substrate</option>
+                                  <option value="Product">Product</option>
+                                  <option value="Additive">Additive</option>
+                                  <option value="Cofactor">Cofactor</option>
+                                </select>
+                            </clr-select-container>
+                        </td>
+                        <td class="button-column">
+                            <div class="add-button" *ngIf="buttonAddVisible">
+                                <button class="btn btn-primary" (click)="addReagentToList()">Add Reagent</button>
+                            </div>
+                            <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                                <button class="btn btn-success" (click)="saveReagent()">Save</button>
+                                <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
+                            </div>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
     </div>
-</div> -->
-<h3>Reagent Specification</h3>
-<div class="reagent-table">
-    <table class="table table-compact">
-        <thead>
-            <tr>
-                <th class="left">ID</th>
-                <th class="left">Reagent name</th>
-                <th class="left">Concentraition</th>
-                <th class="left">Unit</th>
-                <th class="left">Reagent kind</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let reagent of getReagents()">
-                <td class="left">{{reagent.id}}</td>
-                <td class="left">{{reagent.reagentName}}</td>
-                <td class="left">{{reagent.concentration}}</td>
-                <td class="left">{{reagent.unit}}</td>
-                <td class="left">{{reagent.kind}}</td>
-                <td class="button-column">
-                    <div class="btn-group btn-icon btn-link">
-                        <button class="btn" (click)="editReagent(reagent.id)">
-                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                        </button>
-                        <button class="btn" (click)="copyReagent(reagent.id)">
-                            <clr-icon shape="copy"></clr-icon>
-                        </button>
-                        <button class="btn" (click)="deleteReagent(reagent.id)">
-                            <clr-icon shape="trash" class="is-error"></clr-icon>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            <tr class="add-row">
-                <td class="left">{{newReagent.id}}</td>
-                <td class="left">
-                    <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="newReagent.reagentName" name="reagentName"/>
-                    </clr-input-container>
-                </td>
-                <td class="left">
-                    <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="newReagent.concentration" name="concentration" />
-                    </clr-input-container>
-                </td>
-                <td class="left">
-                    <clr-select-container>
-                        <select clrSelect [(ngModel)]="newReagent.unit" [(ngModel)]="newReagent.unit" name="unit">
-                          <option value="mmol/L">mmol/L</option>
-                          <option value="mmoL/L">mmoL/L</option>
-                          <option value="mg/mL">mg/mL</option>
-                          <option value="mL">mL</option>
-                        </select>
-                    </clr-select-container>
-                </td>
-                <td class="left">
-                    <clr-select-container>
-                        <select clrSelect [(ngModel)]="newReagent.kind" [(ngModel)]="newReagent.kind" name="kind">
-                          <option value="Substrate">Substrate</option>
-                          <option value="Product">Product</option>
-                          <option value="Additive">Additive</option>
-                          <option value="Cofactor">Cofactor</option>
-                        </select>
-                    </clr-select-container>
-                </td>
-                <td class="button-column">
-                    <div class="add-button" *ngIf="buttonAddVisible">
-                        <button class="btn btn-primary" (click)="addReagentToList()">Add Reagent</button>
-                    </div>
-                    <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                        <button class="btn btn-success" (click)="saveReagent()">Save</button>
-                        <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

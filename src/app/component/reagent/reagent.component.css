@@ -1,12 +1,24 @@
- .reagents-count {
-    font-size: 0.8rem;
- }
- .table td {
-    vertical-align: middle;
- }
- .add-row {
-    background-color: #d8e3e9;
- }
- .button-column {
-   text-align: right;
+.clr-form-control {
+   align-items: unset;
+}
+.clr-input{
+   width: 100%;
+}
+.dropdown{
+   width: 100%;
+}
+.clr-select{
+    width: 100%;
+}
+.reagents-count {
+   font-size: 0.8rem;
+}
+.table td {
+   vertical-align: middle;
+}
+.button-column {
+  text-align: right;
+}
+.clear-button {
+  text-align: right;
 }
