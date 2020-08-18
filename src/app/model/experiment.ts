@@ -115,7 +115,7 @@ export class Experiment {
 
     /* -------------------- Replicas -------------------- */
 
-    public getReplicas(): Replicate[] {
+    public getReplicates(): Replicate[] {
         return this.replicates;
     }
 
