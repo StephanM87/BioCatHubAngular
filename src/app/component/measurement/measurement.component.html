@@ -6,25 +6,25 @@
                 <div class="card-text">
                     <form clrForm clrLayout="vertical">
                         <div class="clr-row">
-                            <div class="clr-col-2">
+                            <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel ID</label>
                                     <input clrInput type="text" [(ngModel)]="vessel.id" [disabled]="true" name="id"/>
                                 </clr-input-container>
                             </div>
-                            <div class="clr-col-2">
+                            <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel name</label>
                                     <input clrInput type="text" [(ngModel)]="vessel.name" name="name"/>
                                 </clr-input-container>
                             </div>
-                            <div class="clr-col-2">
+                            <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Concentration value</label>
                                     <input clrInput type="text" [(ngModel)]="vessel.size" name="size" />
                                 </clr-input-container>
                             </div>
-                            <div class="clr-col-2">
+                            <div class="clr-col-3">
                                 <clr-select-container>
                                     <label>Unit</label>
                                     <select clrSelect [(ngModel)]="vessel.unit" name="unit">
@@ -35,7 +35,7 @@
                                     </select>
                                 </clr-select-container>
                             </div>
-                            <div class="clr-col-2">
+                            <div class="clr-col-3">
                                 <clr-checkbox-container>
                                     <clr-checkbox-wrapper>
                                       <input type="checkbox" clrCheckbox [(ngModel)]="vessel.constant" name="constant" />
@@ -51,9 +51,6 @@
                 <div class="card-text">
                     File Upload...
                 </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-success" (click)="submit()">Submit Data</button>
             </div>
         </div>
     </div>
