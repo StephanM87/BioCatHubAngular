@@ -97,7 +97,7 @@ export class EnzymeComponent implements OnInit {
     this.newEnzyme.constant = enzyme.constant;
   }
 
-  // Validierung der Input Felder
+  // TODO: Validierung der Input Felder
   public validate(): boolean {
     return true;
   }
