@@ -17,13 +17,22 @@ export interface Reagent {
     constant: boolean;
 }
 
-export interface Vessel {
-    id: string;
+export class Vessel {
+    id: number;
     name: string;
     metaId: string;
     constant: boolean;
     size: number;
     unit: string;
+
+    constructor() {
+        this.id = undefined;
+        this.name = undefined;
+        this.metaId = undefined;
+        this.constant = undefined;
+        this.size = undefined;
+        this.unit = undefined;
+    }
 }
 
 export interface Replicate {

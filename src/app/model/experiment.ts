@@ -9,7 +9,7 @@ export class Experiment {
 
     constructor() {
         this.id = undefined;
-        this.vessel = undefined;
+        this.vessel = new Vessel();
         this.enzymes = [];
         this.reagents = [];
         this.replicates = [];

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Vessel } from 'src/app/model/biocatalysis';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-measurement',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeasurementComponent implements OnInit {
 
-  constructor() { }
+  public vessel: Vessel;
+
+  constructor(public dataService: DataService) {
+    this.vessel = dataService.getExperiment().getVessel();
+   }
 
   ngOnInit(): void {
+  }
+
+  public submit(): void {
+
   }
 
 }
