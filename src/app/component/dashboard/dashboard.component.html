@@ -1,17 +1,112 @@
 <h3>Dashboard</h3>
 
-<button class="btn btn-success">Submit data</button>
+<div class="clr-row">
+    <div class="clr-col-6">
+        <div class="clr-row">
+            <div class="clr-col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="card-title">
+                            Enzymes
+                        </div>
+                        <div class="card-text">
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">ID</th>
+                                        <th class="left">Enzyme name</th>
+                                        <th class="left">Amino acid sequence</th>
+                                        <th class="left">Concentraition</th>
+                                        <th class="left">Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let enzyme of experiment.enzymes">
+                                        <td class="left">{{enzyme.id}}</td>
+                                        <td class="left">{{enzyme.name}}</td>
+                                        <td class="left">{{enzyme.sequence}}</td>
+                                        <td class="left">{{enzyme.concentration}}</td>
+                                        <td class="left">{{enzyme.unit}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr-row">
+            <div class="clr-col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="card-title">
+                            Reagents
+                        </div>
+                        <div class="card-text">
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">ID</th>
+                                        <th class="left">Reagent name</th>
+                                        <th class="left">Concentraition</th>
+                                        <th class="left">Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let reagent of experiment.reagents">
+                                        <td class="left">{{reagent.id}}</td>
+                                        <td class="left">{{reagent.name}}</td>
+                                        <td class="left">{{reagent.concentration}}</td>
+                                        <td class="left">{{reagent.unit}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr-row">
+            <div class="clr-col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="card-title">
+                            Vessel
+                        </div>
+                        <div class="card-text">
+                            Hier kommen die Vessel
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr-col-6">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">
+                    Measurement
+                </div>
+                <div class="card-text">
+                    Hier kommen die Messdaten ...
+                </div>
+            </div>
+            <div class="card-block">
+                <div class="card-text">
+                    Und die Grafik
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<br>
-<button class="btn btn-link">
-    <clr-icon shape="upload-cloud"></clr-icon>
-    Upload Project
-</button>
-<button class="btn btn-link">
-    <clr-icon shape="link"></clr-icon>
-    Share Project
-</button>
-<button class="btn btn-link">
-    <clr-icon shape="folder"></clr-icon>
-    Save Project
-</button>
+<div class="clr-row">
+    <button class="btn btn-link">
+        <clr-icon shape="folder"></clr-icon>
+        Export Experiment
+    </button>
+    <button class="btn btn-link">
+        <clr-icon shape="upload-cloud"></clr-icon>
+        Upload To Zenodo
+    </button>
+</div>
