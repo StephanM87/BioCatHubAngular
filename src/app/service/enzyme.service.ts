@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Enzyme } from '../model/enzyme';
+import { Enzyme } from '../model/biocatalysis';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

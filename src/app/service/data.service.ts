@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Enzyme } from '../model/enzyme';
-import { Reagent } from '../model/reagent';
+import { Enzyme, Reagent, Replicate, Vessel } from '../model/biocatalysis';
+import { Experiment} from '../model/experiment';
 import { User } from '../model/user';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
@@ -20,115 +20,29 @@ const TEST_REAGENTS: Reagent[] = [
   {id: 5, reagentName: "Reagent E", concentration: "Concentraition 5", unit: "mmol/L", kind:"Substrate"}
 ];
 
-const TEST_USER: User = {firstName: 'Max', lastName: 'Mustermann', email: 'max@mustermann.de', institution: 'FZ Jülich', orcid: '4711'};
+const TEST_USER: User = new User({firstName: 'Max', lastName: 'Mustermann', email: 'max@mustermann.de', institution: 'FZ Jülich', orcid: '4711'});
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  enzymes: Enzyme[];
-  reagents: Reagent[];
+  experiment: Experiment;
   user: User;
 
   constructor() { 
-    this.enzymes = TEST_ENZYMES;
-    this.reagents = TEST_REAGENTS;
+    this.experiment = new Experiment();
+    this.experiment.enzymes = TEST_ENZYMES;
+    this.experiment.reagents = TEST_REAGENTS;
     this.user = TEST_USER;
   }
 
-  // User Methods
+  public getExperiment(): Experiment {
+    return this.experiment;
+  }
 
   public getUser(): User {
     return this.user;
-  }
-
-  // Enzyme Methods
-
-  public getEnzymes(): Enzyme[] {
-    return this.enzymes;
-  }
-
-  public getEnzyme(id: number): Enzyme {
-    for(let enzyme of this.enzymes) {
-      if(id == enzyme.id) {
-        return enzyme;
-      }
-    }
-  }
-
-  public addEnzyme(newEnzyme: Enzyme): void {
-    this.enzymes.push(newEnzyme);
-  }
-
-  public deleteEnzyme(id: number) {
-    const index: number = this.enzymes.indexOf(this.getEnzyme(id));
-    if (index !== -1) {
-      this.enzymes.splice(index, 1);
-    }
-  }
-
-  public updateEnzyme(newEnzyme: Enzyme): void {
-    var enzyme = this.getEnzyme(newEnzyme.id);
-    enzyme.enzymeName = newEnzyme.enzymeName;
-    enzyme.aminoAcidSequence = newEnzyme.aminoAcidSequence;
-    enzyme.concentration = newEnzyme.concentration;
-    enzyme.hostOrganism = newEnzyme.hostOrganism;
-    enzyme.productionOrganism = newEnzyme.productionOrganism;
-    enzyme.unit = newEnzyme.unit;
-  }
-
-  public getNextEnzymeId(): number {
-    var max: number = 1;
-    for(let enzyme of this.enzymes) {
-      if(enzyme.id > max) {
-        max = enzyme.id;
-      }
-    }
-    return max+1;
-  }
-
-  // Reagent Methods
-
-  public getReagents(): Reagent[] {
-    return this.reagents;
-  }
-
-  public getReagent(id: number): Reagent {
-    for(let reagent of this.reagents) {
-      if(id == reagent.id) {
-        return reagent;
-      }
-    }
-  }
-
-  public addReagent(newReagent: Reagent): void {
-    this.reagents.push(newReagent);
-  }
-
-  public deleteReagent(id: number) {
-    const index: number = this.reagents.indexOf(this.getReagent(id));
-    if (index !== -1) {
-      this.reagents.splice(index, 1);
-    }
-  }
-
-  public updateReagent(newReagent: Reagent): void {
-    var reagent = this.getReagent(newReagent.id);
-    reagent.reagentName = newReagent.reagentName;
-    reagent.concentration = newReagent.concentration;
-    reagent.unit = newReagent.unit;
-    reagent.kind = newReagent.kind;
-  }
-
-  public getNextReagentId(): number {
-    var max: number = 1;
-    for(let reagent of this.reagents) {
-      if(reagent.id > max) {
-        max = reagent.id;
-      }
-    }
-    return max+1;
   }
 
 }

@@ -14,16 +14,14 @@ export class HeaderComponent implements OnInit {
   public userDataVisible: boolean;
 
   constructor(public dataService: DataService) {
+    this.user = dataService.getUser();
     this.userDataVisible = false;
   }
 
-  ngOnInit(): void {
-    this.user = this.dataService.getUser();
-  }
+  ngOnInit(): void {}
 
   public getUserName(): string {
-    var userName = this.dataService.getUser().firstName + " " + this.dataService.getUser().lastName;
-    return userName;
+    return this.user.getDisplayName();
   }
 
   public saveUserData(): void {

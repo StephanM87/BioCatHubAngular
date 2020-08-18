@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Enzyme } from '../../model/enzyme';
+import { Enzyme } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 import { EnzymeService } from '../../service/enzyme.service';
 
@@ -33,13 +33,13 @@ export class EnzymeComponent implements OnInit {
 
   // Zentraler Zugriff auf die Enzyme über den Data-Service
   public getEnzymes(): Enzyme[] {
-    return this.dataService.getEnzymes();
+    return this.dataService.getExperiment().getEnzymes();
   }
 
   // Buttons in der Enzyme Card
   public addEnzymeToList(): void {
     if(this.validate()){
-      this.dataService.addEnzyme(this.newEnzyme);
+      this.dataService.getExperiment().addEnzyme(this.newEnzyme);
       this.resetNewEnzyme();
     }
   }
@@ -48,7 +48,7 @@ export class EnzymeComponent implements OnInit {
   }
   public saveEnzyme(): void {
     if(this.validate()){
-      this.dataService.updateEnzyme(this.newEnzyme);
+      this.dataService.getExperiment().updateEnzyme(this.newEnzyme);
       this.resetNewEnzyme();
       this.showAddButtons();
     }
@@ -65,11 +65,11 @@ export class EnzymeComponent implements OnInit {
   }
   public copyEnzyme(enzyme: Enzyme) {
     this.copyEnzymeToDialog(enzyme);
-    this.newEnzyme.id = this.dataService.getNextEnzymeId();
+    this.newEnzyme.id = this.dataService.getExperiment().getNextEnzymeId();
     this.showAddButtons();
   }
   public deleteEnzyme(enzyme: Enzyme) {
-    this.dataService.deleteEnzyme(enzyme.id);
+    this.dataService.getExperiment().deleteEnzyme(enzyme.id);
   }
 
   // Setzt die Werte in der Enzyme Card zurück
@@ -82,7 +82,7 @@ export class EnzymeComponent implements OnInit {
       hostOrganism: undefined, 
       productionOrganism: undefined, 
       unit: undefined }
-    this.newEnzyme.id = this.dataService.getNextEnzymeId();
+    this.newEnzyme.id = this.dataService.getExperiment().getNextEnzymeId();
   }
 
   // Kopiert ein Enzym in die Enzyme Card

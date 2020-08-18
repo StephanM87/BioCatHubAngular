@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Reagent } from '../../model/reagent';
+import { Reagent } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -23,16 +23,16 @@ export class ReagentComponent implements OnInit {
   ngOnInit(): void {}
 
   public getReagents(): Reagent[] {
-    return this.dataService.getReagents();
+    return this.dataService.getExperiment().getReagents();
   }
 
   public addReagentToList(): void {
-    this.dataService.addReagent(this.newReagent);
+    this.dataService.getExperiment().addReagent(this.newReagent);
     this.resetNewReagent();
   }
 
   public saveReagent(): void {
-    this.dataService.updateReagent(this.newReagent);
+    this.dataService.getExperiment().updateReagent(this.newReagent);
     this.resetNewReagent();
     this.showAddButtons();
   }
@@ -49,12 +49,12 @@ export class ReagentComponent implements OnInit {
 
   public copyReagent(id: number) {
     this.copyReagentToDialog(id);
-    this.newReagent.id = this.dataService.getNextReagentId();
+    this.newReagent.id = this.dataService.getExperiment().getNextReagentId();
     this.showAddButtons();
   }
 
   public deleteReagent(id: number) {
-    this.dataService.deleteReagent(id);
+    this.dataService.getExperiment().deleteReagent(id);
   }
 
   resetNewReagent(): void {
@@ -64,11 +64,11 @@ export class ReagentComponent implements OnInit {
       concentration: undefined, 
       unit: undefined, 
       kind: undefined }
-    this.newReagent.id = this.dataService.getNextReagentId();
+    this.newReagent.id = this.dataService.getExperiment().getNextReagentId();
   }
 
   copyReagentToDialog(id: number): void {
-    var reagent = this.dataService.getReagent(id);
+    var reagent = this.dataService.getExperiment().getReagent(id);
     this.newReagent.id = reagent.id;
     this.newReagent.reagentName = reagent.reagentName;
     this.newReagent.concentration = reagent.concentration;
