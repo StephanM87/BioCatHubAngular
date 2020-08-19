@@ -1,4 +1,24 @@
 <h1>Welcome to BioCatHub</h1>
+
+<div class="clr-row button-row">
+    <div class="clr-col">
+        <div class="btn-group btn-outline-primary">
+            <button class="btn" routerLink="./../enzyme">
+                <clr-icon shape="plus"></clr-icon>
+                New Experiment
+            </button>
+            <button class="btn" (click)="importVisible=true">
+                <clr-icon shape="folder-open"></clr-icon>
+                Import EnzymeML
+            </button>
+            <button class="btn" (click)="downloadVisible=true">
+                <clr-icon shape="download-cloud"></clr-icon>
+                Download from Zenodo
+            </button>
+        </div>
+    </div>
+</div>
+
 <div class="clr-row">
     <div class="clr-col-6">
         <div class="card">
@@ -12,7 +32,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-sm btn-link" routerLink="./../enzyme">Collect experimental data</button>
+                <button class="btn btn-sm btn-link" routerLink="./../enzyme">New Experiment</button>
             </div>
         </div>
     </div>
@@ -64,3 +84,33 @@
         </div>
     </div>
 </div>
+
+<clr-modal [(clrModalOpen)]="importVisible">
+    <h3 class="modal-title">Import EnzymeML</h3>
+    <div class="modal-body">
+        <form clrForm>
+            <clr-input-container>
+                <label class="clr-col-12 clr-col-md-3">File Upload</label>
+                <input class="clr-col-12 clr-col-md-9" clrInput type="text" name="importFile"/>
+            </clr-input-container>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="import()">Import</button>
+    </div>
+</clr-modal>
+
+<clr-modal [(clrModalOpen)]="downloadVisible">
+    <h3 class="modal-title">Download Experiment from Zenodo</h3>
+    <div class="modal-body">
+        <form clrForm>
+            <clr-input-container>
+                <label class="clr-col-12 clr-col-md-3">Zenodo Id:</label>
+                <input class="clr-col-12 clr-col-md-9" clrInput type="text" name="downloadId"/>
+            </clr-input-container>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="download()">Download</button>
+    </div>
+</clr-modal>

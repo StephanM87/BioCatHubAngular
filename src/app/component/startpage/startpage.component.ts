@@ -7,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartpageComponent implements OnInit {
 
+  public importVisible: boolean;
+  public downloadVisible: boolean;
+
   constructor() { 
   }
 
   ngOnInit(): void {
+  }
+
+  public import(): void {
+    this.importVisible = false;
+  }
+
+  public download(): void {
+    this.downloadVisible = false;
   }
 
 }
