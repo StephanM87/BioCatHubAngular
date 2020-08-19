@@ -21,4 +21,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  public upload(): void {
+    
+  }
+
+  public export(): void {
+    console.log(this.experiment);
+  }
+
+  public createPDF(): void {
+    
+  }
+
 }
