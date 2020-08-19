@@ -1,5 +1,20 @@
 <h3>Dashboard</h3>
 
+<div class="btn-group btn-outline-primary">
+    <button class="btn">
+        <clr-icon shape="upload-cloud"></clr-icon>
+        Upload To Zenodo
+    </button>
+    <button class="btn">
+        <clr-icon shape="folder"></clr-icon>
+        Export EnzymeML
+    </button>
+    <button class="btn">
+        <clr-icon shape="file"></clr-icon>
+        Create PDF
+    </button>
+</div>
+
 <div class="clr-row">
     <div class="clr-col-6">
         <div class="clr-row">
@@ -7,7 +22,14 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="card-title">
-                            Enzymes
+                            <div class="clr-row">
+                                <div class="clr-col-11">Enzymes</div>
+                                <div class="clr-col-1">
+                                    <button class="btn btn-icon btn-link" routerLink="./../enzyme">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-text">
                             <table class="table table-noborder table-compact">
@@ -40,7 +62,14 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="card-title">
-                            Reagents
+                            <div class="clr-row">
+                                <div class="clr-col-11">Reagents</div>
+                                <div class="clr-col-1">
+                                    <button class="btn btn-icon btn-link" routerLink="./../reagent">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-text">
                             <table class="table table-noborder table-compact">
@@ -71,10 +100,23 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="card-title">
-                            Vessel
+                            <div class="clr-row">
+                                <div class="clr-col-11">Vessel</div>
+                                <div class="clr-col-1">
+                                    <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-text">
-                            Hier kommen die Vessel
+                            <ul class="list-unstyled">
+                                <li>ID: {{experiment.vessel.id}}</li>
+                                <li>Name: {{experiment.vessel.name}}</li>
+                                <li>Size: {{experiment.vessel.size}}</li>
+                                <li>Unit: {{experiment.vessel.unit}}</li>
+                                <li>Constant: {{experiment.vessel.constant}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -85,7 +127,14 @@
         <div class="card">
             <div class="card-block">
                 <div class="card-title">
-                    Measurement
+                    <div class="clr-row">
+                        <div class="clr-col-11">Measurement Data</div>
+                        <div class="clr-col-1">
+                            <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                                <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-text">
                     Hier kommen die Messdaten ...
@@ -98,15 +147,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="clr-row">
-    <button class="btn btn-link">
-        <clr-icon shape="folder"></clr-icon>
-        Export Experiment
-    </button>
-    <button class="btn btn-link">
-        <clr-icon shape="upload-cloud"></clr-icon>
-        Upload To Zenodo
-    </button>
 </div>
