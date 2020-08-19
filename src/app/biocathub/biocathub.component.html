@@ -2,6 +2,11 @@
     <app-header></app-header>
     <div class="content-container">
         <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+            <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
+                BioCatHub
+            </a>
+            <div class="nav-divider"></div>
             <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
                 Enzyme specification
