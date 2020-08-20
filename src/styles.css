@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+.headline {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.button-group-col {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.card {
+    box-shadow: 0 0 0 0;
+    border-radius: 0;
+}
+
+.table {
+    border-radius: 0;
+}
+
+.modal-dialog .modal-content {
+    border-radius: 0;
+}
