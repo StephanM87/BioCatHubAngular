@@ -1,4 +1,4 @@
-<span class="headline">Welcome to BioCatHub</span>
+<span class="headline">BioCatHub</span>
 <div class="clr-row">
     <div class="clr-col button-group-col">
         <div class="btn-group btn-outline-primary">
@@ -87,12 +87,7 @@
 <clr-modal [(clrModalOpen)]="importVisible">
     <h3 class="modal-title">Import EnzymeML</h3>
     <div class="modal-body">
-        <form clrForm>
-            <clr-input-container>
-                <label class="clr-col-12 clr-col-md-3">File Upload</label>
-                <input class="clr-col-12 clr-col-md-9" clrInput type="text" name="importFile"/>
-            </clr-input-container>
-        </form>
+        <input class="file-upload" type="file" style="display: inline-block;" (change)="incomingFile($event)" accept=".omex">
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="import()">Import</button>

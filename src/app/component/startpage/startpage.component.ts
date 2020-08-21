@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartpageComponent implements OnInit {
 
+  public file: File;
+
   public importVisible: boolean;
   public downloadVisible: boolean;
 
@@ -22,6 +24,10 @@ export class StartpageComponent implements OnInit {
 
   public download(): void {
     this.downloadVisible = false;
+  }
+
+  public incomingFile(event: any): void {
+    this.file = event.target.files[0];
   }
 
 }
