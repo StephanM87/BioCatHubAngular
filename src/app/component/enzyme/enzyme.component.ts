@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Enzyme } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
-import { EnzymeService } from '../../service/enzyme.service';
 
 @Component({
   selector: 'app-enzyme',
@@ -23,10 +22,10 @@ export class EnzymeComponent implements OnInit {
   public searchResult: Enzyme[];
   public dropdown: boolean;
 
-  constructor(public dataService: DataService, public enzymeService: EnzymeService) {
+  constructor(public dataService: DataService) {
     this.resetNewEnzyme();
     this.showAddButtons();
-    this.enzymeList = this.enzymeService.getEnzymes();
+    this.enzymeList = this.dataService.getEnzymeList();
    }
 
   ngOnInit(): void {}
