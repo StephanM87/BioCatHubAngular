@@ -20,6 +20,14 @@
     border-radius: 0;
 }
 
+.headline-col {
+    margin-top: 1rem;
+}
+.table-headline {
+    color: black;
+    font-size: 1.2rem;
+}
+
 .table {
     border-radius: 0;
 }
