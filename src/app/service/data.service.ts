@@ -79,57 +79,56 @@ export class DataService {
   }
 
   getEnzymeSearchList() {
-    this.client.get('/enzymes').subscribe(
+    this.client.get<Enzyme[]>('/enzymes').subscribe(
       data => {
-
+        this.enzymeSearchList = data;
       },
       error => {
-
+        console.log(error);
       }
     );
   }
 
   getEnzymeSpecification(id: string) {
-    this.client.get('/enzyme/' + id).subscribe(
+    this.client.get<Enzyme>('/enzyme/' + id).subscribe(
       data => {
-
+        
       },
       error => {
-        
+        console.log(error);
       }
     );
   }
 
   createEnzymeML(){
-    let body = JSON.stringify(this.experiment);
-    this.client.post('/enzymeml', body, httpOptions).subscribe(
+    this.client.post('/enzymeml', this.experiment, httpOptions).subscribe(
       data => {
 
       },
       error => {
-        
+        console.log(error);
       }
     );
   }
 
   getExperimentFromZenodo(id: string) {
-    this.client.get('/experiment/' + id).subscribe(
+    this.client.get<Experiment>('/experiment/' + id).subscribe(
       data => {
-
+        this.experiment = data;
       },
       error => {
-        
+        console.log(error);
       }
     );
   }
 
   getExperimentFromFile() {
-    this.client.post('/experiment', httpOptions).subscribe(
+    this.client.post<Experiment>('/experiment', httpOptions).subscribe(
       data => {
-
+        this.experiment = data;
       },
       error => {
-        
+        console.log(error);
       }
     );
   }
