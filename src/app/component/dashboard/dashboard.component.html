@@ -118,7 +118,6 @@
                                 <li>Name: {{experiment.vessel.name}}</li>
                                 <li>Size: {{experiment.vessel.size}}</li>
                                 <li>Unit: {{experiment.vessel.unit}}</li>
-                                <li>Constant: {{experiment.vessel.constant}}</li>
                             </ul>
                         </div>
                     </div>
@@ -140,7 +139,35 @@
                     </div>
                 </div>
                 <div class="card-text">
-                    Hier kommen die Messdaten ...
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">x</th>
+                                        <th class="left">Replica 1</th>
+                                        <th class="left">Replica 2</th>
+                                        <th class="left">Replica 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of experiment.measurement.values">
+                                        <td class="left">{{element.x_value}}</td>
+                                        <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col" >
+                            <span class="attribute">Replica: </span>{{experiment.measurement.replica}}, 
+                            <span class="attribute">Reagent: </span>{{experiment.measurement.reagent}}, 
+                            <span class="attribute">Type: </span>{{experiment.measurement.type}}, 
+                            <span class="attribute">Data unit: </span>{{experiment.measurement.data_unit}}, 
+                            <span class="attribute">Time unit: </span>{{experiment.measurement.time_unit}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-block">

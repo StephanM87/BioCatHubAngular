@@ -4,8 +4,6 @@ export class Enzyme {
     sequence: string;
     concentration: number;
     unit: string;
-    boundary: boolean;
-    constant: boolean;
 
     constructor(enzyme?: Enzyme) {
         this.id = enzyme && enzyme.id || undefined;
@@ -13,8 +11,6 @@ export class Enzyme {
         this.sequence = enzyme && enzyme.sequence || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
-        this.boundary = enzyme && enzyme.boundary || undefined;
-        this.constant = enzyme && enzyme.constant || undefined;
     }
 }
 
@@ -23,51 +19,55 @@ export class Reagent {
     name: string;
     concentration: number;
     unit: string;
-    boundary: boolean;
-    constant: boolean;
 
     constructor(reagent?: Reagent) {
         this.id = reagent && reagent.id || undefined;
         this.name = reagent && reagent.name || undefined;
         this.concentration = reagent && reagent.concentration || undefined;
         this.unit = reagent && reagent.unit || undefined;
-        this.boundary = reagent && reagent.boundary || undefined;
-        this.constant = reagent && reagent.constant || undefined;
     }
 }
 
 export class Vessel {
     id: number;
     name: string;
-    metaId: string;
-    constant: boolean;
     size: number;
     unit: string;
 
     constructor(vessel?: Vessel) {
         this.id = vessel && vessel.id || undefined;
         this.name = vessel && vessel.name || undefined;
-        this.metaId = vessel && vessel.metaId || undefined;
-        this.constant = vessel && vessel.constant || undefined;
         this.size = vessel && vessel.size || undefined;
         this.unit = vessel && vessel.unit || undefined;
     }
 }
 
-export class Replicate {
+export class Measurement {
     id: number;
     replica: string;
-    reagent: number;
+    reagent: string;
     type: string;
-    data_unit: number;
-    time_unit: number;
+    data_unit: string;
+    time_unit: string;
+    values: Replicate[];
 
-    constructor(replicate?: Replicate) {
-        this.id = replicate && replicate.id || undefined;
-        this.replica = replicate && replicate.replica || undefined;
-        this.reagent = replicate && replicate.reagent || undefined;
-        this.type = replicate && replicate.type || undefined;
-        this.data_unit = replicate && replicate.data_unit || undefined;
-        this.time_unit = replicate && replicate.time_unit || undefined;
+    constructor(measurement?: Measurement) {
+        this.id = measurement && measurement.id || undefined;
+        this.replica = measurement && measurement.replica || undefined;
+        this.reagent = measurement && measurement.reagent || undefined;
+        this.type = measurement && measurement.type || undefined;
+        this.data_unit = measurement && measurement.data_unit || undefined;
+        this.time_unit = measurement && measurement.time_unit || undefined;
+        this.values = measurement && measurement.values || undefined;
+    }
+}
+
+export class Replicate {
+    x_value: number;
+    replicates: number[];
+
+    constructor(x_value: number, replicates: number[]){
+        this.x_value = x_value;
+        this.replicates = replicates;
     }
 }

@@ -22,15 +22,42 @@ export class DashboardComponent implements OnInit {
   }
 
   public upload(): void {
-    
+    this.dataService.uploadEnzymeML().subscribe(
+      data => {
+        // TODO: Zenodo ID anzeigen (Link generieren?)
+      },
+      error => {
+        this.showError(error);
+      }
+    )
   }
 
   public export(): void {
-    console.log(this.experiment);
+    this.dataService.createEnzymeML().subscribe(
+      blob => {
+        this.download(blob);
+      },
+      error => {
+        this.showError(error);
+      }
+    );
   }
 
   public createPDF(): void {
-    
+    // TODO
+  }
+
+  public showError(error: any): void {
+    console.log(error);
+  }
+
+  public download(blob: Blob): void {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(blob)
+    a.href = objectUrl;
+    a.download = 'archive.zip';
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 
 }

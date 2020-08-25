@@ -48,22 +48,6 @@
                                     </select>
                                 </clr-select-container>
                             </div>
-                            <div class="clr-col-3">
-                                <clr-checkbox-container>
-                                    <clr-checkbox-wrapper>
-                                      <input type="checkbox" clrCheckbox [(ngModel)]="newEnzyme.boundary" name="boundary" />
-                                      <label>Boundary</label>
-                                    </clr-checkbox-wrapper>
-                                </clr-checkbox-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-checkbox-container>
-                                    <clr-checkbox-wrapper>
-                                      <input type="checkbox" clrCheckbox [(ngModel)]="newEnzyme.constant" name="constant" />
-                                      <label>Constant</label>
-                                    </clr-checkbox-wrapper>
-                                </clr-checkbox-container>
-                            </div>
                         </div>
                     </form>
                 </div>
@@ -99,8 +83,6 @@
                         <th class="left">Amino acid sequence</th>
                         <th class="left">Concentraition</th>
                         <th class="left">Unit</th>
-                        <th class="left">Boundary</th>
-                        <th class="left">Constant</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -111,14 +93,6 @@
                         <td class="left">{{enzyme.sequence}}</td>
                         <td class="left">{{enzyme.concentration}}</td>
                         <td class="left">{{enzyme.unit}}</td>
-                        <td class="left">
-                            <clr-icon *ngIf="enzyme.boundary" shape="check"></clr-icon>
-                            <clr-icon *ngIf="!enzyme.boundary" shape="times"></clr-icon>
-                        </td>
-                        <td class="left">
-                            <clr-icon *ngIf="enzyme.constant" shape="check"></clr-icon>
-                            <clr-icon *ngIf="!enzyme.constant" shape="times"></clr-icon>
-                        </td>
                         <td class="button-column">
                             <div class="btn-group btn-icon btn-link">
                                 <button class="btn" (click)="editEnzyme(enzyme)">

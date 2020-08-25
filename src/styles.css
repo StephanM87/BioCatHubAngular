@@ -35,3 +35,7 @@
 .modal-dialog .modal-content {
     border-radius: 0;
 }
+
+.attribute {
+    font-weight: bold;
+ }

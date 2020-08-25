@@ -1,18 +1,18 @@
-import { Enzyme, Reagent, Replicate, Vessel } from './biocatalysis';
+import { Enzyme, Reagent, Measurement, Replicate, Vessel } from './biocatalysis';
 
 export class Experiment {
     id: number;
     vessel: Vessel;
     enzymes: Enzyme[];
     reagents: Reagent[];
-    replicates: Replicate[];
+    measurement: Measurement;
 
     constructor() {
         this.id = undefined;
         this.vessel = new Vessel();
         this.enzymes = new Array<Enzyme>();
         this.reagents = new Array<Reagent>();
-        this.replicates = new Array<Replicate>();
+        this.measurement = new Measurement();
     }
 
     public getId(): number {
@@ -55,8 +55,6 @@ export class Experiment {
         enzyme.sequence = newEnzyme.sequence;
         enzyme.concentration = newEnzyme.concentration;
         enzyme.unit = newEnzyme.unit;
-        enzyme.boundary = newEnzyme.boundary;
-        enzyme.constant = newEnzyme.constant;
     }
 
     public getNextEnzymeId(): number {
@@ -99,8 +97,6 @@ export class Experiment {
         reagent.name = newReagent.name;
         reagent.concentration = newReagent.concentration;
         reagent.unit = newReagent.unit;
-        reagent.boundary = newReagent.boundary;
-        reagent.constant = newReagent.constant;
     }
     
     public getNextReagentId(): number {
@@ -115,8 +111,12 @@ export class Experiment {
 
     /* -------------------- Replicas -------------------- */
 
-    public getReplicates(): Replicate[] {
-        return this.replicates;
+    public getMeasurement(): Measurement {
+        return this.measurement;
+    }
+
+    public setMeasurement(measurement: Measurement): void {
+        this.measurement = measurement;
     }
 
 }

@@ -10,39 +10,31 @@
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel ID</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.id" name="id"/>
+                                    <input clrInput type="text" [(ngModel)]="getVessel().id" name="id"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel name</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.name" name="name"/>
+                                    <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Size</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.size" name="size" />
+                                    <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-select-container>
                                     <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="vessel.unit" name="unit">
+                                    <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
                                       <option value="mmol/L">mmol/L</option>
                                       <option value="mmoL/L">mmoL/L</option>
                                       <option value="mg/mL">mg/mL</option>
                                       <option value="mL">mL</option>
                                     </select>
                                 </clr-select-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-checkbox-container>
-                                    <clr-checkbox-wrapper>
-                                      <input type="checkbox" clrCheckbox [(ngModel)]="vessel.constant" name="constant" />
-                                      <label>Constant</label>
-                                    </clr-checkbox-wrapper>
-                                </clr-checkbox-container>
                             </div>
                         </div>
                     </form>
@@ -61,22 +53,38 @@
                         <div class="clr-col">
                             <input type="file" style="display: inline-block;" (change)="incomingFile($event)" accept=".xlsx">
                             <button type="button" class="btn btn-info btn-sm" (click)="uploadFile()" >Upload</button>
+                            <button type="button" class="btn btn-warning btn-sm" (click)="deleteFile()" >Delete</button>
                         </div>
                     </div>
-                    <div class="clr-row">
-                        <div class="clr-col">
-                            <table class="table table-noborder table-compact" *ngIf="measurementTable">
-                                <thead>
-                                    <tr>
-                                        <th class="left" *ngFor="let value of measurementHeader">{{value}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let element of measurement">
-                                        <td class="left" *ngFor="let value of measurementHeader">{{element[value]}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="measurement-data" *ngIf="measurementTable">
+                        <div class="clr-row">
+                            <div class="clr-col">
+                                <table class="table table-noborder table-compact">
+                                    <thead>
+                                        <tr>
+                                            <th class="left">x</th>
+                                            <th class="left">Replica 1</th>
+                                            <th class="left">Replica 2</th>
+                                            <th class="left">Replica 3</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let element of getMeasurement().values">
+                                            <td class="left">{{element.x_value}}</td>
+                                            <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="clr-row">
+                            <div class="clr-col" >
+                                <span class="attribute">Replica: </span>{{getMeasurement().replica}}, 
+                                <span class="attribute">Reagent: </span>{{getMeasurement().reagent}}, 
+                                <span class="attribute">Type: </span>{{getMeasurement().type}}, 
+                                <span class="attribute">Data unit: </span>{{getMeasurement().data_unit}}, 
+                                <span class="attribute">Time unit: </span>{{getMeasurement().time_unit}}
+                            </div>
                         </div>
                     </div>
                 </div>
