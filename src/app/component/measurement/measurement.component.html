@@ -61,7 +61,7 @@
         </div>
     </div>
 </div>
-<div class="clr-row" *ngIf="measurementTable">
+<div class="clr-row" *ngIf="measurementUploaded">
     <div class="clr-col-6">
         <div class="card">
             <div class="card-block">
@@ -101,11 +101,11 @@
         </div>
     </div>
     <div class="clr-col-6">
-        <div class="card" *ngIf="measurementTable">
+        <div class="card" *ngIf="measurementUploaded">
             <div class="card-block">
                 <div class="card-title">Measurement Analytics</div>
-                <div class="card-text">
-                    Hier die Grafiken einfügen
+                <div class="card-img">
+                    <img [src]="measurementPlot">
                 </div>
             </div>
         </div>

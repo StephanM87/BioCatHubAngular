@@ -12,10 +12,11 @@ import * as XLSX from 'xlsx';
 export class MeasurementComponent implements OnInit {
 
   public file: File;
-  public measurementTable: boolean;
+  public measurementUploaded: boolean;
+  public measurementPlot: any;
 
   constructor(public dataService: DataService) {
-    this.measurementTable = dataService.getExperiment().getMeasurement().values != undefined;
+    this.measurementUploaded = dataService.getExperiment().getMeasurement().values != undefined;
    }
 
   ngOnInit(): void {
@@ -38,6 +39,12 @@ export class MeasurementComponent implements OnInit {
   }
 
   public uploadFile(): void {
+    this.readMeasurementFromFile();
+    this.loadMeasurementImage();
+    this.measurementUploaded = true;
+  }
+
+  public readMeasurementFromFile(): void {
     if(this.file != undefined){
       let measurement = new Measurement();
 
@@ -75,14 +82,39 @@ export class MeasurementComponent implements OnInit {
       };
 
       this.dataService.getExperiment().setMeasurement(measurement);
-      this.measurementTable = true;
     }
   }
 
   public deleteFile(): void {
     this.file = undefined;
-    this.measurementTable = false;
+    this.measurementUploaded = false;
+    this.measurementPlot = undefined;
     this.dataService.getExperiment().setMeasurement(new Measurement());
+  }
+
+  public loadMeasurementImage(): void {
+    this.dataService.plotMeasurement().subscribe(
+      blob => {
+        this.measurementPlot = this.createImageFromBlob(blob);
+      },
+      error => {
+        this.showError(error);
+      }
+    );
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.measurementPlot = reader.result;
+    }, false);
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+ }
+
+  public showError(error: any): void {
+    console.log(error);
   }
 
 }

@@ -46,7 +46,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -83,7 +82,7 @@ export class DataService {
   }
 
   getEnzymeSearchList() {
-    this.client.get<Enzyme[]>('/enzymes').subscribe(
+    this.client.get<Enzyme[]>(this.serverUrl + '/enzymes').subscribe(
       data => {
         this.enzymeSearchList = data;
       },
@@ -94,23 +93,27 @@ export class DataService {
   }
 
   getEnzymeSpecification(id: string): Observable<Enzyme> {
-    return this.client.get<Enzyme>('/enzyme' + id);
+    return this.client.get<Enzyme>(this.serverUrl + '/enzyme' + id);
   }
 
   uploadEnzymeML(): Observable<string> {
-    return this.client.post<string>('/upload', this.experiment, httpOptions);
+    return this.client.post<string>(this.serverUrl + '/upload', this.experiment, httpOptions);
   }
 
   createEnzymeML(): Observable<Blob> {
-    return this.client.post<Blob>('/enzymeml', this.experiment, httpOptions);
+    return this.client.post<Blob>(this.serverUrl + '/enzymeml', this.experiment, httpOptions);
   }
 
   getExperimentFromZenodo(id: string): Observable<Experiment> {
-    return this.client.get<Experiment>('/experiment/' + id);
+    return this.client.get<Experiment>(this.serverUrl + '/experiment/' + id);
   }
 
   getExperimentFromFile(): Observable<Experiment> {
-    return this.client.post<Experiment>('/experiment', httpOptions)
+    return this.client.post<Experiment>(this.serverUrl + '/experiment', httpOptions);
+  }
+
+  plotMeasurement(): Observable<Blob> {
+    return this.client.post(this.serverUrl + '/plot', httpOptions, {responseType: 'blob'});
   }
 
 }
