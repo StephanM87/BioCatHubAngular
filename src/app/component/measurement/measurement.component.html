@@ -56,37 +56,56 @@
                             <button type="button" class="btn btn-warning btn-sm" (click)="deleteFile()" >Delete</button>
                         </div>
                     </div>
-                    <div class="measurement-data" *ngIf="measurementTable">
-                        <div class="clr-row">
-                            <div class="clr-col">
-                                <table class="table table-noborder table-compact">
-                                    <thead>
-                                        <tr>
-                                            <th class="left">x</th>
-                                            <th class="left">Replica 1</th>
-                                            <th class="left">Replica 2</th>
-                                            <th class="left">Replica 3</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let element of getMeasurement().values">
-                                            <td class="left">{{element.x_value}}</td>
-                                            <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="clr-row">
-                            <div class="clr-col" >
-                                <span class="attribute">Replica: </span>{{getMeasurement().replica}}, 
-                                <span class="attribute">Reagent: </span>{{getMeasurement().reagent}}, 
-                                <span class="attribute">Type: </span>{{getMeasurement().type}}, 
-                                <span class="attribute">Data unit: </span>{{getMeasurement().data_unit}}, 
-                                <span class="attribute">Time unit: </span>{{getMeasurement().time_unit}}
-                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clr-row" *ngIf="measurementTable">
+    <div class="clr-col-6">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">Measurement Data</div>
+                <div class="card-text">
+                    <div class="clr-row">
+                        <div class="clr-col">
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">x</th>
+                                        <th class="left">Replica 1</th>
+                                        <th class="left">Replica 2</th>
+                                        <th class="left">Replica 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of getMeasurement().values">
+                                        <td class="left">{{element.x_value}}</td>
+                                        <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div class="clr-row">
+                        <div class="clr-col" >
+                            <span class="attribute">Replica: </span>{{getMeasurement().replica}}, 
+                            <span class="attribute">Reagent: </span>{{getMeasurement().reagent}}, 
+                            <span class="attribute">Type: </span>{{getMeasurement().type}}, 
+                            <span class="attribute">Data unit: </span>{{getMeasurement().data_unit}}, 
+                            <span class="attribute">Time unit: </span>{{getMeasurement().time_unit}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr-col-6">
+        <div class="card" *ngIf="measurementTable">
+            <div class="card-block">
+                <div class="card-title">Measurement Analytics</div>
+                <div class="card-text">
+                    Hier die Grafiken einfügen
                 </div>
             </div>
         </div>
