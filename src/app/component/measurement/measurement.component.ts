@@ -15,19 +15,17 @@ export class MeasurementComponent implements OnInit {
   public measurementUploaded: boolean;
   public measurementPlot: any;
 
+  public measurement: Measurement;
+  public vessel: Vessel;
+
   constructor(public dataService: DataService) {
-    this.measurementUploaded = dataService.getExperiment().getMeasurement().values != undefined;
-   }
+    this.vessel = dataService.getExperiment().getVessel();
+    this.measurement = dataService.getExperiment().getMeasurement();
+    this.measurementUploaded = this.measurement.replicates.length > 0;
+  }
 
   ngOnInit(): void {
-  }
 
-  public getVessel(): Vessel {
-    return this.dataService.getExperiment().getVessel();
-  }
-
-  public getMeasurement(): Measurement {
-    return this.dataService.getExperiment().getMeasurement();
   }
 
   public submit(): void {
@@ -36,60 +34,58 @@ export class MeasurementComponent implements OnInit {
 
   public incomingFile(event: any): void {
     this.file = event.target.files[0];
+    this.readMeasurementFromFile();
   }
 
   public uploadFile(): void {
-    this.readMeasurementFromFile();
-    this.loadMeasurementImage();
-    this.measurementUploaded = true;
+    if(this.file != undefined){
+      this.loadMeasurementImage();
+      this.measurementUploaded = true;
+    }
   }
 
   public readMeasurementFromFile(): void {
-    if(this.file != undefined){
-      let measurement = new Measurement();
+    const reader: FileReader = new FileReader();
+    reader.readAsBinaryString(this.file);
+    reader.onload = (e: any) => {
+      /* Workbook */
+      const binarystr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(binarystr, { type: 'binary' });
 
-      const reader: FileReader = new FileReader();
-      reader.readAsBinaryString(this.file);
-      reader.onload = (e: any) => {
-        /* Workbook */
-        const binarystr: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(binarystr, { type: 'binary' });
-  
-        /* WorkSheets */
-        const firstWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[0]];
-        const secondWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[1]];
-  
-        /* Replicates */
-        const replicatesData = XLSX.utils.sheet_to_json(firstWorkSheet);
-        let replicates = new Array<Replicate>();
-        replicatesData.forEach(element => {
-          let replicas = new Array<number>(element['repl_1'], element['repl_2'], element['repl_3']);
-          let value = new Replicate(element['x_value'], replicas);
-          replicates.push(value);
-        });
-        measurement.values = replicates;
+      /* WorkSheets */
+      const firstWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[0]];
+      const secondWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[1]];
 
-        /* Measurement */
-        const measurementData = XLSX.utils.sheet_to_json(secondWorkSheet);
-        if(measurementData.length == 1){
-          let element = measurementData[0];
-          measurement.replica = element['replica'];
-          measurement.reagent = element['reagent'];
-          measurement.type = element['type'];
-          measurement.data_unit = element['data_unit'];
-          measurement.time_unit = element['time_unit'];
-        }
-      };
+      /* Replicates */
+      const replicatesData = XLSX.utils.sheet_to_json(firstWorkSheet);
+      let replicates = new Array<Replicate>();
+      replicatesData.forEach(element => {
+        let replicate = new Replicate();
+        replicate.x_value = element['x_parameter'];
+        replicate.y_values.push(element['rep_1']);
+        replicate.y_values.push(element['rep_2']);
+        replicate.y_values.push(element['rep_3']);
+        replicates.push(replicate);
+      });
+      this.measurement.replicates = replicates;
 
-      this.dataService.getExperiment().setMeasurement(measurement);
-    }
+      /* Measurement */
+      const measurementData = XLSX.utils.sheet_to_json(secondWorkSheet);
+      if(measurementData.length == 1){
+        let element = measurementData[0];
+        this.measurement.reagent = element['Gemessene Komponente'];
+        this.measurement.x_name = element['x_name'];
+        this.measurement.x_unit = element['x_unit'];
+        this.measurement.y_name = element['y_name'];
+        this.measurement.y_unit = element['y_unit'];
+      }
+    };
   }
 
   public deleteFile(): void {
     this.file = undefined;
     this.measurementUploaded = false;
     this.measurementPlot = undefined;
-    this.dataService.getExperiment().setMeasurement(new Measurement());
   }
 
   public loadMeasurementImage(): void {

@@ -10,25 +10,25 @@
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel ID</label>
-                                    <input clrInput type="text" [(ngModel)]="getVessel().id" name="id"/>
+                                    <input clrInput type="text" [(ngModel)]="vessel.id" name="id"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Vessel name</label>
-                                    <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
+                                    <input clrInput type="text" [(ngModel)]="vessel.name" name="name"/>
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-input-container>
                                     <label>Size</label>
-                                    <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
+                                    <input clrInput type="text" [(ngModel)]="vessel.size" name="size" />
                                 </clr-input-container>
                             </div>
                             <div class="clr-col-3">
                                 <clr-select-container>
                                     <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
+                                    <select clrSelect [(ngModel)]="vessel.unit" name="unit">
                                       <option value="mmol/L">mmol/L</option>
                                       <option value="mmoL/L">mmoL/L</option>
                                       <option value="mg/mL">mg/mL</option>
@@ -51,7 +51,7 @@
                 <div class="card-text">
                     <div class="clr-row">
                         <div class="clr-col">
-                            <input type="file" style="display: inline-block;" (change)="incomingFile($event)" accept=".xlsx">
+                            <input type="file" style="display:  inline-block;" (change)="incomingFile($event)" accept=".xlsx">
                             <button type="button" class="btn btn-info btn-sm" (click)="uploadFile()" >Upload</button>
                             <button type="button" class="btn btn-warning btn-sm" (click)="deleteFile()" >Delete</button>
                         </div>
@@ -61,10 +61,10 @@
         </div>
     </div>
 </div>
-<div class="clr-row" *ngIf="measurementUploaded">
+<div class="clr-row" *ngIf="measurementUploaded" >
     <div class="clr-col-6">
         <div class="card">
-            <div class="card-block">
+            <div class="card-block"  >
                 <div class="card-title">Measurement Data</div>
                 <div class="card-text">
                     <div class="clr-row">
@@ -79,9 +79,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let element of getMeasurement().values">
+                                    <tr *ngFor="let element of measurement.replicates">
                                         <td class="left">{{element.x_value}}</td>
-                                        <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
+                                        <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -89,20 +89,18 @@
                     </div>
                     <div class="clr-row">
                         <div class="clr-col" >
-                            <span class="attribute">Replica: </span>{{getMeasurement().replica}}, 
-                            <span class="attribute">Reagent: </span>{{getMeasurement().reagent}}, 
-                            <span class="attribute">Type: </span>{{getMeasurement().type}}, 
-                            <span class="attribute">Data unit: </span>{{getMeasurement().data_unit}}, 
-                            <span class="attribute">Time unit: </span>{{getMeasurement().time_unit}}
+                            <span class="attribute">Reagent: </span>{{measurement.reagent}}, 
+                            <span class="attribute">X: </span>{{measurement.x_name}} [{{measurement.x_unit}}], 
+                            <span class="attribute">Y: </span>{{measurement.y_name}} [{{measurement.y_unit}}], 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="clr-col-6">
-        <div class="card" *ngIf="measurementUploaded">
-            <div class="card-block">
+    <div class="clr-col-6" >
+        <div class="card" >
+            <div class="card-block" >
                 <div class="card-title">Measurement Analytics</div>
                 <div class="card-img">
                     <img [src]="measurementPlot">

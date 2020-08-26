@@ -149,18 +149,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let element of experiment.measurement.values">
+                            <tr *ngFor="let element of experiment.measurement.replicates">
                                 <td class="left">{{element.x_value}}</td>
-                                <td class="left" *ngFor="let value of element.replicates">{{value}}</td>
+                                <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="data_specification">
-                        <span class="attribute">Replica: </span>{{experiment.measurement.replica}}, 
                         <span class="attribute">Reagent: </span>{{experiment.measurement.reagent}}, 
-                        <span class="attribute">Type: </span>{{experiment.measurement.type}}, 
-                        <span class="attribute">Data unit: </span>{{experiment.measurement.data_unit}}, 
-                        <span class="attribute">Time unit: </span>{{experiment.measurement.time_unit}}
+                        <span class="attribute">X: </span>{{experiment.measurement.x_name}} [{{experiment.measurement.x_unit}}], 
+                        <span class="attribute">Y: </span>{{experiment.measurement.y_name}} [{{experiment.measurement.y_unit}}], 
                     </div>
                 </div>
             </div>

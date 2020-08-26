@@ -43,31 +43,29 @@ export class Vessel {
 }
 
 export class Measurement {
-    id: number;
-    replica: string;
     reagent: string;
-    type: string;
-    data_unit: string;
-    time_unit: string;
-    values: Replicate[];
+    x_unit: string;
+    x_name: string;
+    y_unit: string;
+    y_name: string;
+    replicates: Array<Replicate>;
 
     constructor(measurement?: Measurement) {
-        this.id = measurement && measurement.id || undefined;
-        this.replica = measurement && measurement.replica || undefined;
         this.reagent = measurement && measurement.reagent || undefined;
-        this.type = measurement && measurement.type || undefined;
-        this.data_unit = measurement && measurement.data_unit || undefined;
-        this.time_unit = measurement && measurement.time_unit || undefined;
-        this.values = measurement && measurement.values || undefined;
+        this.x_unit = measurement && measurement.x_unit || undefined;
+        this.x_name = measurement && measurement.x_name || undefined;
+        this.y_unit = measurement && measurement.y_unit || undefined;
+        this.y_name = measurement && measurement.y_name || undefined;
+        this.replicates = measurement && measurement.replicates || new Array<Replicate>();
     }
 }
 
 export class Replicate {
     x_value: number;
-    replicates: number[];
+    y_values: Array<number>;
 
-    constructor(x_value: number, replicates: number[]){
-        this.x_value = x_value;
-        this.replicates = replicates;
+    constructor(replicate?: Replicate){
+        this.x_value = replicate && replicate.x_value || undefined;
+        this.y_values = replicate && replicate.y_values || new Array<number>();
     }
 }

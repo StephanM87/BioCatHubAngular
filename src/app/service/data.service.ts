@@ -109,11 +109,11 @@ export class DataService {
   }
 
   getExperimentFromFile(): Observable<Experiment> {
-    return this.client.post<Experiment>(this.serverUrl + '/experiment', httpOptions);
+    return this.client.post<Experiment>(this.serverUrl + '/experiment/', httpOptions);
   }
 
   plotMeasurement(): Observable<Blob> {
-    return this.client.post(this.serverUrl + '/plot', httpOptions, {responseType: 'blob'});
+    return this.client.post(this.serverUrl + '/plot', this.experiment.measurement, {headers: httpOptions.headers, responseType: 'blob'});
   }
 
 }

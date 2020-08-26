@@ -3,8 +3,8 @@ import { Enzyme, Reagent, Measurement, Replicate, Vessel } from './biocatalysis'
 export class Experiment {
     id: number;
     vessel: Vessel;
-    enzymes: Enzyme[];
-    reagents: Reagent[];
+    enzymes: Array<Enzyme>;
+    reagents: Array<Reagent>;
     measurement: Measurement;
 
     constructor() {
@@ -26,7 +26,7 @@ export class Experiment {
 
     /* -------------------- Enzymes -------------------- */
 
-    public getEnzymes(): Enzyme[] {
+    public getEnzymes(): Array<Enzyme> {
         return this.enzymes;
     }
 
@@ -69,7 +69,7 @@ export class Experiment {
 
     /* -------------------- Reagents -------------------- */
 
-    public getReagents(): Reagent[] {
+    public getReagents(): Array<Reagent> {
         return this.reagents;
     }
     
