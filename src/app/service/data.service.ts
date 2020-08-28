@@ -96,10 +96,6 @@ export class DataService {
     return this.client.get<Enzyme>(this.serverUrl + '/enzyme' + id);
   }
 
-  uploadEnzymeML(): Observable<string> {
-    return this.client.post<string>(this.serverUrl + '/upload', this.experiment, httpOptions);
-  }
-
   createEnzymeML(): Observable<Blob> {
     return this.client.post<Blob>(this.serverUrl + '/enzymeml', this.experiment, httpOptions);
   }
@@ -108,12 +104,16 @@ export class DataService {
     return this.client.get<Experiment>(this.serverUrl + '/experiment/' + id);
   }
 
-  getExperimentFromFile(): Observable<Experiment> {
-    return this.client.post<Experiment>(this.serverUrl + '/experiment/', httpOptions);
+  updateExperiment(): Observable<Experiment> {
+    return this.client.post<Experiment>(this.serverUrl + '/experiment', httpOptions);
   }
 
   plotMeasurement(): Observable<Blob> {
-    return this.client.post(this.serverUrl + '/plot', this.experiment.measurement, {headers: httpOptions.headers, responseType: 'blob'});
+    return this.client.post(this.serverUrl + '/measurement/plot', this.experiment.measurement, {headers: httpOptions.headers, responseType: 'blob'});
+  }
+
+  createPDF(): Observable<Blob> {
+    return this.client.post(this.serverUrl + '/measurement/pdf', this.experiment, {headers: httpOptions.headers, responseType: 'blob'});
   }
 
 }
