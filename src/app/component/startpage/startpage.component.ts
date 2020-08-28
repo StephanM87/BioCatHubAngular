@@ -23,15 +23,7 @@ export class StartpageComponent implements OnInit {
   }
 
   public import(): void {
-    this.importVisible = false;
-    this.dataService.getExperimentFromFile().subscribe(
-      experiment => {
-        this.showDashboard(experiment);
-      },
-      error => {
-        console.log(error);
-      }
-    );;
+    
   }
 
   public download(): void {

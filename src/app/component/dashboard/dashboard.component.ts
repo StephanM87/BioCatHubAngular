@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public upload(): void {
-    this.dataService.uploadEnzymeML().subscribe(
+    this.dataService.updateExperiment().subscribe(
       data => {
         // TODO: Zenodo ID anzeigen (Link generieren?)
       },
