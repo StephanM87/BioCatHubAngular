@@ -82,7 +82,7 @@ export class DataService {
   }
 
   getEnzymeSearchList() {
-    this.client.get<Enzyme[]>(this.serverUrl + '/enzymes').subscribe(
+    this.client.get<Enzyme[]>(this.serverUrl + '/enzyme').subscribe(
       data => {
         this.enzymeSearchList = data;
       },
@@ -93,7 +93,7 @@ export class DataService {
   }
 
   getEnzymeSpecification(id: string): Observable<Enzyme> {
-    return this.client.get<Enzyme>(this.serverUrl + '/enzyme' + id);
+    return this.client.get<Enzyme>(this.serverUrl + '/enzyme/' + id);
   }
 
   createEnzymeML(): Observable<Blob> {
