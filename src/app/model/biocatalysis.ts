@@ -1,17 +1,27 @@
 export class Enzyme {
     id: number;
+    ecNumber: string;
     name: string;
     sequence: string;
     concentration: number;
     unit: string;
+    brendaLink: string;
 
     constructor(enzyme?: Enzyme) {
         this.id = enzyme && enzyme.id || undefined;
+        this.ecNumber = enzyme && enzyme.ecNumber || undefined;
         this.name = enzyme && enzyme.name || undefined;
         this.sequence = enzyme && enzyme.sequence || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
+        this.brendaLink = enzyme && enzyme.brendaLink || undefined;
     }
+}
+
+export interface EnzymeSearch {
+    ecNumber: string;
+    enzymeName: string;
+    brendaLink: string;
 }
 
 export class Reagent {

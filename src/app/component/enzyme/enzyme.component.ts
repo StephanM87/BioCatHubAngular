@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Enzyme } from '../../model/biocatalysis';
+import { Enzyme, EnzymeSearch } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -18,15 +18,14 @@ export class EnzymeComponent implements OnInit {
   public buttonsEditVisible: boolean;
 
   // Filterung
-  public enzymeList: Enzyme[];
-  public searchResult: Enzyme[];
+  public enzymeList: EnzymeSearch[];
   public dropdown: boolean;
 
   constructor(public dataService: DataService) {
     this.resetNewEnzyme();
     this.showAddButtons();
-    this.enzymeList = this.dataService.getEnzymeList();
-   }
+    this.enzymeList = new Array<EnzymeSearch>();
+  }
 
   ngOnInit(): void {}
 
@@ -101,13 +100,16 @@ export class EnzymeComponent implements OnInit {
   // Methoden für die Enzyme Suche
   public filterSearchInput(searchValue: string): void {
     this.newEnzyme.name = searchValue;
-    this.searchResult = this.enzymeList.filter(function(tag) {
-        return tag.name.indexOf(searchValue) >= 0;
-    });
-    this.dropdown = this.searchResult.length > 0;
+    if(searchValue.length > 2) {
+      this.enzymeList = this.dataService.getEnzymeSearchList(searchValue);
+    }
+    this.dropdown = this.enzymeList.length > 0;
   }
-  public selectEnzyme(enzyme: Enzyme): void {
-    this.copyEnzymeToDialog(enzyme);
+
+  public selectEnzyme(selected: EnzymeSearch): void {
+    this.newEnzyme.ecNumber = selected.ecNumber;
+    this.newEnzyme.name = selected.enzymeName;
+    this.newEnzyme.brendaLink = selected.brendaLink;
   }
 
 }
