@@ -1,59 +1,72 @@
-<span class="headline">Measurement Data</span>
 <div class="clr-row">
-    <div class="clr-col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="card-title">Vessel Specification</div>
-                <div class="card-text">
-                    <form clrForm clrLayout="vertical">
-                        <div class="clr-row">
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Vessel ID</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.id" name="id"/>
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Vessel name</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.name" name="name"/>
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Size</label>
-                                    <input clrInput type="text" [(ngModel)]="vessel.size" name="size" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-select-container>
-                                    <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="vessel.unit" name="unit">
-                                      <option value="mmol/L">mmol/L</option>
-                                      <option value="mmoL/L">mmoL/L</option>
-                                      <option value="mg/mL">mg/mL</option>
-                                      <option value="mL">mL</option>
-                                    </select>
-                                </clr-select-container>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="clr-col-6">
+        <span class="headline">Measurement</span>
+    </div>
+    <div class="clr-col-6 button-column" *ngIf="measurementUploaded">
+        <button class="btn btn-link btn-sm" (click)="deleteMeasurement()">
+            <clr-icon shape="trash"></clr-icon> Delete
+        </button>
     </div>
 </div>
-<div class="clr-row">
+
+<div class="clr-row" *ngIf="!measurementUploaded">
     <div class="clr-col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="card-title">Measurement File</div>
+        <div class="file-upload">
+            <ngx-dropzone accept=".xlsx" (change)="onSelect($event)">
+                <ngx-dropzone-label>Upload measurement file!</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                    <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+        </div>
+        <button class="btn btn-primary" (click)="uploadFile()" *ngIf="files.length > 0">Upload</button>
+    </div>
+</div>
+
+<div class="clr-row" *ngIf="measurementUploaded" >
+    <div class="clr-col-12" >
+        <div class="card" >
+            <div class="card-block" >
                 <div class="card-text">
-                    <div class="clr-row">
-                        <div class="clr-col">
-                            <input type="file" style="display:  inline-block;" (change)="incomingFile($event)" accept=".xlsx">
-                            <button type="button" class="btn btn-info btn-sm" (click)="uploadFile()" >Upload</button>
-                            <button type="button" class="btn btn-warning btn-sm" (click)="deleteFile()" >Delete</button>
+                    <div class="clr-row" >
+                        <div class="clr-col-2" >
+                            <clr-radio-container>
+                                <label>Style</label>
+                                <clr-radio-wrapper>
+                                  <input type="radio" clrRadio value="point" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
+                                  <label>Point Chart</label>
+                                </clr-radio-wrapper>
+                                <clr-radio-wrapper>
+                                  <input type="radio" clrRadio value="line" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
+                                  <label>Line Chart</label>
+                                </clr-radio-wrapper>
+                                <clr-radio-wrapper>
+                                  <input type="radio" clrRadio value="box" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
+                                  <label>Box Plot</label>
+                                </clr-radio-wrapper>
+                            </clr-radio-container>
+                            <clr-toggle-container>
+                                <label>Replicates</label>
+                                <clr-toggle-wrapper>
+                                    <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate1" (change)="updateImage()" />
+                                    <label>Replica 1</label>
+                                </clr-toggle-wrapper>
+                                <clr-toggle-wrapper>
+                                    <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate2" (change)="updateImage()" />
+                                    <label>Replica 2</label>
+                                </clr-toggle-wrapper>
+                                <clr-toggle-wrapper>
+                                    <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate3" (change)="updateImage()" />
+                                    <label>Replica 3</label>
+                                </clr-toggle-wrapper>
+                            </clr-toggle-container>
+                            <clr-range-container [clrRangeHasProgress]="true">
+                                <label>Size</label>
+                                <input type="range" clrRange [clrRangeHasProgress]="true" [(ngModel)]="getMeasurement().plot.size" name="size" />
+                            </clr-range-container>
+                        </div>
+                        <div class="clr-col-10" >
+                            <img [src]="measurementPlot">
                         </div>
                     </div>
                 </div>
@@ -61,42 +74,31 @@
         </div>
     </div>
 </div>
-<div class="clr-row" *ngIf="measurementUploaded" >
-    <div class="clr-col-6" >
-        <div class="card" >
-            <div class="card-block" >
-                <div class="card-title">Measurement Analytics</div>
-                <div class="card-img">
-                    <img [src]="measurementPlot">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clr-row" *ngIf="measurementUploaded" >
+
+<div class="clr-row measurement-data" *ngIf="measurementUploaded" >
     <div class="clr-col-12">
-        <div class="card">
-            <div class="card-block" >
-                <div class="card-title">Measurement Data</div>
-                <div class="card-text">
-                    <table class="table table-noborder table-compact">
-                        <thead>
-                            <tr>
-                                <th class="left">x</th>
-                                <th class="left">Replica 1</th>
-                                <th class="left">Replica 2</th>
-                                <th class="left">Replica 3</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let element of measurement.replicates">
-                                <td class="left">{{element.x_value}}</td>
-                                <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <clr-accordion>
+            <clr-accordion-panel>
+              <clr-accordion-title>Measurement Data ({{getMeasurement().file.name}})</clr-accordion-title>
+              <clr-accordion-content *clrIfExpanded>
+                <table class="table table-noborder table-compact">
+                    <thead>
+                        <tr>
+                            <th class="left">x</th>
+                            <th class="left">Replica 1</th>
+                            <th class="left">Replica 2</th>
+                            <th class="left">Replica 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let element of getMeasurement().replicates">
+                            <td class="left">{{element.x_value}}</td>
+                            <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+              </clr-accordion-content>
+            </clr-accordion-panel>
+        </clr-accordion>
     </div>
 </div>

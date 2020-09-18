@@ -10,3 +10,23 @@
  .clr-select{
      width: 100%;
  }
+ .clr-accordion {
+    margin-top: 2rem;
+ }
+
+ .button-column {
+  text-align: right;
+}
+
+.card {
+   margin-top: 0.2rem;
+}
+
+.btn-group {
+   width: 100%;
+   margin: 0;
+}
+
+.file-upload {
+   margin: 1rem 0;
+}

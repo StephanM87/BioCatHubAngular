@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vessel, Measurement, Replicate } from 'src/app/model/biocatalysis';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import * as XLSX from 'xlsx';
 
@@ -10,43 +9,45 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./measurement.component.css']
 })
 export class MeasurementComponent implements OnInit {
-
-  public file: File;
+  
+  public files: File[];
   public measurementUploaded: boolean;
   public measurementPlot: any;
 
-  public measurement: Measurement;
-  public vessel: Vessel;
-
   constructor(public dataService: DataService) {
-    this.vessel = dataService.getExperiment().getVessel();
-    this.measurement = dataService.getExperiment().getMeasurement();
-    this.measurementUploaded = this.measurement.replicates.length > 0;
+    this.files = new Array<File>();
+    this.measurementUploaded = this.getMeasurement().replicates.length > 0;
+    if(this.measurementUploaded) {
+      this.loadMeasurementImage();
+    }
   }
 
   ngOnInit(): void {
-
   }
 
-  public submit(): void {
-
+  public getMeasurement(): Measurement {
+    return this.dataService.getExperiment().getMeasurement();
   }
 
-  public incomingFile(event: any): void {
-    this.file = event.target.files[0];
-    this.readMeasurementFromFile();
-  }
+	public onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+    this.readMeasurementFromFile(this.files[0]);
+	}
+
+	public onRemove(event: any) {
+		this.files.splice(this.files.indexOf(event), 1);
+	}
 
   public uploadFile(): void {
-    if(this.file != undefined){
+    if(this.getMeasurement().replicates.length > 0){
       this.loadMeasurementImage();
       this.measurementUploaded = true;
     }
   }
 
-  public readMeasurementFromFile(): void {
+  public readMeasurementFromFile(file: File): void {
     const reader: FileReader = new FileReader();
-    reader.readAsBinaryString(this.file);
+    reader.readAsBinaryString(file);
     reader.onload = (e: any) => {
       /* Workbook */
       const binarystr: string = e.target.result;
@@ -67,25 +68,27 @@ export class MeasurementComponent implements OnInit {
         replicate.y_values.push(element['rep_3']);
         replicates.push(replicate);
       });
-      this.measurement.replicates = replicates;
+      this.getMeasurement().replicates = replicates;
 
       /* Measurement */
       const measurementData = XLSX.utils.sheet_to_json(secondWorkSheet);
       if(measurementData.length == 1){
         let element = measurementData[0];
-        this.measurement.reagent = element['Gemessene Komponente'];
-        this.measurement.x_name = element['x_name'];
-        this.measurement.x_unit = element['x_unit'];
-        this.measurement.y_name = element['y_name'];
-        this.measurement.y_unit = element['y_unit'];
+        this.getMeasurement().reagent = element['Gemessene Komponente'];
+        this.getMeasurement().x_name = element['x_name'];
+        this.getMeasurement().x_unit = element['x_unit'];
+        this.getMeasurement().y_name = element['y_name'];
+        this.getMeasurement().y_unit = element['y_unit'];
       }
     };
+    this.getMeasurement().file = file;
   }
 
-  public deleteFile(): void {
-    this.file = undefined;
+  public deleteMeasurement(): void {
+    this.files = new Array<File>();
     this.measurementUploaded = false;
     this.measurementPlot = undefined;
+    this.dataService.getExperiment().setMeasurement(new Measurement());
   }
 
   public loadMeasurementImage(): void {
@@ -111,6 +114,10 @@ export class MeasurementComponent implements OnInit {
 
   public showError(error: any): void {
     console.log(error);
+  }
+
+  public updateImage(): void {
+    this.loadMeasurementImage();
   }
 
 }

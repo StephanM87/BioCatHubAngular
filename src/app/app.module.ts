@@ -15,6 +15,8 @@ import { MeasurementComponent } from './component/measurement/measurement.compon
 import { ReagentComponent } from './component/reagent/reagent.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -34,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     ClarityModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDropzoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]
