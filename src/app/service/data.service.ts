@@ -67,7 +67,7 @@ export class DataService {
   }
 
   createEnzymeML(): Observable<Blob> {
-    return this.client.post<Blob>(this.serverUrl + '/enzymeml', this.experiment, httpOptions);
+    return this.client.post(this.serverUrl + '/enzymeml', this.experiment, {headers: httpOptions.headers, responseType: 'blob'});
   }
 
   getExperimentFromZenodo(id: string): Observable<Experiment> {

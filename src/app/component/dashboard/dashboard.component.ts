@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   public exportEnzymeML(): void {
     this.dataService.createEnzymeML().subscribe(
       blob => {
-        this.download(blob);
+        this.download(blob, 'experiment.omex');
       },
       error => {
         this.showError(error);
@@ -59,11 +59,11 @@ export class DashboardComponent implements OnInit {
     console.log(error);
   }
 
-  public download(blob: Blob): void {
+  public download(blob: Blob, fileName: string): void {
     const a = document.createElement('a')
     const objectUrl = URL.createObjectURL(blob)
     a.href = objectUrl;
-    a.download = 'archive.zip';
+    a.download = fileName;
     a.click();
     URL.revokeObjectURL(objectUrl);
   }
