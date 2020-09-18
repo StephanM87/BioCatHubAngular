@@ -1,25 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Enzyme, Reagent, Replicate, Vessel, EnzymeSearch } from '../model/biocatalysis';
+import { Enzyme, Reagent, Replicate, Vessel, Reaction } from '../model/biocatalysis';
+import { EnzymeSearch, ReagentSearch, EnzymeSpecification, ReagentSpecification } from '../model/serviceresult';
 import { Experiment} from '../model/experiment';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
-
-const TEST_ENZYMES: Enzyme[] = [
-  {id: 1, ecNumber:"", name: "Enzyme A", sequence: "Sequence 1", concentration: 1, unit: "mmol/L", brendaLink:""},
-  {id: 2, ecNumber:"", name: "Enzyme B", sequence: "Sequence 2", concentration: 2, unit: "mmol/L", brendaLink:""},
-  {id: 3, ecNumber:"", name: "Enzyme C", sequence: "Sequence 3", concentration: 3, unit: "mmol/L", brendaLink:""},
-  {id: 4, ecNumber:"", name: "Enzyme D", sequence: "Sequence 4", concentration: 4, unit: "mmol/L", brendaLink:""},
-  {id: 5, ecNumber:"", name: "Enzyme E", sequence: "Sequence 5", concentration: 5, unit: "mmol/L", brendaLink:""}
-];
-
-const TEST_REAGENTS: Reagent[] = [
-  {id: 1, name: "Reagent A", concentration: 1, unit: "mmol/L"},
-  {id: 2, name: "Reagent B", concentration: 2, unit: "mmol/L"},
-  {id: 3, name: "Reagent C", concentration: 3, unit: "mmol/L"},
-  {id: 4, name: "Reagent D", concentration: 4, unit: "mmol/L"},
-  {id: 5, name: "Reagent E", concentration: 5, unit: "mmol/L"}
-];
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -34,14 +19,13 @@ export class DataService {
 
   experiment: Experiment;
   user: User;
-  enzymeSearchList: EnzymeSearch[];
+  files: File[];
 
   constructor(private client: HttpClient) { 
     this.experiment = new Experiment();
+    this.experiment.enzymes = new Array<Enzyme>();
+    this.experiment.reagents = new Array<Reagent>();
     this.user = new User();
-    this.experiment.enzymes = TEST_ENZYMES;
-    this.experiment.reagents = TEST_REAGENTS;
-    this.enzymeSearchList = new Array<EnzymeSearch>();
   }
 
   public getExperiment(): Experiment {
@@ -56,23 +40,30 @@ export class DataService {
     return this.user;
   }
 
-  getEnzymeSearchList(enzymeName: string): EnzymeSearch[] {
-    enzymeName = enzymeName.trim();
-    const options = enzymeName ? { params: new HttpParams().set('enzymeName', enzymeName) } : {};
-    this.client.get<EnzymeSearch[]>(this.serverUrl + '/enzyme/search', options).subscribe(
-      data => {
-        console.log(data);
-        this.enzymeSearchList = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    return this.enzymeSearchList;
+  public getFiles(): File[] {
+    return this.files;
   }
 
-  getEnzymeSpecification(id: string): Observable<Enzyme> {
-    return this.client.get<Enzyme>(this.serverUrl + '/enzyme/' + id);
+  getEnzymeSearchList(enzymeName: string): Observable<Array<EnzymeSearch>> {
+    enzymeName = enzymeName.trim();
+    const options = enzymeName ? { params: new HttpParams().set('enzymeName', enzymeName) } : {};
+    return this.client.get<EnzymeSearch[]>(this.serverUrl + '/enzyme/search', options);
+  }
+
+  getReagentSearchList(reagentName: string): Observable<Array<ReagentSearch>> {
+    reagentName = reagentName.trim();
+    const options = reagentName ? { params: new HttpParams().set('reagentName', reagentName) } : {};
+    return this.client.get<ReagentSearch[]>(this.serverUrl + '/enzyme/search', options);
+  }
+
+  getEnzymeSpecification(id: string): Observable<EnzymeSpecification> {
+    const options = id ? { params: new HttpParams().set('enzyme', id) } : {};
+    return this.client.get<EnzymeSpecification>(this.serverUrl + '/enzyme', options);
+  }
+
+  getReagentSpecification(id: string): Observable<ReagentSpecification> {
+    const options = id ? { params: new HttpParams().set('reagent', id) } : {};
+    return this.client.get<ReagentSpecification>(this.serverUrl + '/enzyme', options);
   }
 
   createEnzymeML(): Observable<Blob> {

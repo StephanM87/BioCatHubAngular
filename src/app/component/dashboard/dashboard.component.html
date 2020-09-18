@@ -1,24 +1,21 @@
-<span class="headline">Experiment <span class="experiment-id">#4711</span></span>
 <div class="clr-row">
-    <div class="clr-col button-group-col">
-        <div class="btn-group btn-outline-primary">
-            <button class="btn" (click)="upload()">
-                <clr-icon shape="upload-cloud"></clr-icon>
-                Upload To Zenodo
-            </button>
-            <button class="btn" (click)="export()">
-                <clr-icon shape="folder"></clr-icon>
-                Export EnzymeML
-            </button>
-            <button class="btn" (click)="createPDF()">
-                <clr-icon shape="file"></clr-icon>
-                Create PDF
-            </button>
-        </div>
+    <div class="clr-col-12 button-group-col">
+        <button class="btn btn-primary btn-icon big-button" (click)="uploadToZenodo()">
+            <clr-icon class="button-icon" shape="upload-cloud" size="24"></clr-icon>Upload To Zenodo
+        </button>
+        <button class="btn btn-primary btn-icon big-button" (click)="exportEnzymeML()">
+            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>Export EnzymeML
+        </button>
+        <button class="btn btn-primary btn-icon big-button" (click)="createPdf()">
+            <clr-icon class="button-icon" shape="file" size="24"></clr-icon>Create PDF
+        </button>
+        <button class="btn btn-primary btn-icon big-button" (click)="shareExperiment()">
+            <clr-icon class="button-icon" shape="link" size="24"></clr-icon>Share Experiment
+        </button>
     </div>
 </div>
 
-<div class="clr-row">
+<div class="clr-row content-row">
     <div class="clr-col-6">
         <div class="clr-row">
             <div class="clr-col-12">
@@ -27,7 +24,7 @@
                         <div class="card-title">
                             <div class="clr-row">
                                 <div class="clr-col-11">Enzymes</div>
-                                <div class="clr-col-1">
+                                <div class="clr-col-1 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../enzyme">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -38,18 +35,14 @@
                             <table class="table table-noborder table-compact">
                                 <thead>
                                     <tr>
-                                        <th class="left">ID</th>
                                         <th class="left">Enzyme name</th>
-                                        <th class="left">Amino acid sequence</th>
                                         <th class="left">Concentraition</th>
                                         <th class="left">Unit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let enzyme of experiment.enzymes">
-                                        <td class="left">{{enzyme.id}}</td>
                                         <td class="left">{{enzyme.name}}</td>
-                                        <td class="left">{{enzyme.sequence}}</td>
                                         <td class="left">{{enzyme.concentration}}</td>
                                         <td class="left">{{enzyme.unit}}</td>
                                     </tr>
@@ -67,7 +60,7 @@
                         <div class="card-title">
                             <div class="clr-row">
                                 <div class="clr-col-11">Reagents</div>
-                                <div class="clr-col-1">
+                                <div class="clr-col-1 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../reagent">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -78,7 +71,6 @@
                             <table class="table table-noborder table-compact">
                                 <thead>
                                     <tr>
-                                        <th class="left">ID</th>
                                         <th class="left">Reagent name</th>
                                         <th class="left">Concentraition</th>
                                         <th class="left">Unit</th>
@@ -86,7 +78,6 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let reagent of experiment.reagents">
-                                        <td class="left">{{reagent.id}}</td>
                                         <td class="left">{{reagent.name}}</td>
                                         <td class="left">{{reagent.concentration}}</td>
                                         <td class="left">{{reagent.unit}}</td>
@@ -105,61 +96,77 @@
                         <div class="card-title">
                             <div class="clr-row">
                                 <div class="clr-col-11">Vessel</div>
-                                <div class="clr-col-1">
-                                    <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                                <div class="clr-col-1 button-col">
+                                    <button class="btn btn-icon btn-link" routerLink="./../reagent">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         <div class="card-text">
-                            <ul class="list-unstyled">
-                                <li>ID: {{experiment.vessel.id}}</li>
-                                <li>Name: {{experiment.vessel.name}}</li>
-                                <li>Size: {{experiment.vessel.size}}</li>
-                                <li>Unit: {{experiment.vessel.unit}}</li>
-                            </ul>
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">Vessel name</th>
+                                        <th class="left">Size</th>
+                                        <th class="left">Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="left">{{experiment.vessel.name}}</td>
+                                        <td class="left">{{experiment.vessel.size}}</td>
+                                        <td class="left">{{experiment.vessel.unit}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="clr-col-6">
         <div class="card">
             <div class="card-block">
                 <div class="card-title">
                     <div class="clr-row">
-                        <div class="clr-col-11">Measurement Data</div>
-                        <div class="clr-col-1">
+                        <div class="clr-col-11">Measurement</div>
+                        <div class="clr-col-1 button-col">
                             <button class="btn btn-icon btn-link" routerLink="./../measurement">
                                 <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="card-text">
-                    <table class="table table-noborder table-compact">
-                        <thead>
-                            <tr>
-                                <th class="left">x</th>
-                                <th class="left">Replica 1</th>
-                                <th class="left">Replica 2</th>
-                                <th class="left">Replica 3</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let element of experiment.measurement.replicates">
-                                <td class="left">{{element.x_value}}</td>
-                                <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card-img">
+                    <img [src]="measurementPlot">
                 </div>
-            </div>
-            <div class="card-block">
                 <div class="card-text">
-                    Und die Grafik
+                    <clr-accordion>
+                        <clr-accordion-panel>
+                          <clr-accordion-title>Measurement Data</clr-accordion-title>
+                          <clr-accordion-content *clrIfExpanded>
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">x</th>
+                                        <th class="left">Replica 1</th>
+                                        <th class="left">Replica 2</th>
+                                        <th class="left">Replica 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of experiment.measurement.replicates">
+                                        <td class="left">{{element.x_value}}</td>
+                                        <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </clr-accordion-content>
+                        </clr-accordion-panel>
+                    </clr-accordion>
                 </div>
             </div>
         </div>

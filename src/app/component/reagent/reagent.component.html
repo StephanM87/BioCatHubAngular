@@ -1,83 +1,104 @@
-<span class="headline">Reagent Specification</span>
-<div class="clr-row">
+<div class="searchbar-container" *ngIf="!dialogVisible">
+    <div class="brenda-search-wrapper">
+        <label class="searchbar-label">
+            <clr-dropdown>
+                <clr-icon shape="search" size="24"></clr-icon>
+                <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
+                    <clr-icon shape="close" size="24"></clr-icon>
+                </button>
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for Reagents ..." />
+                <ng-template [(clrIfOpen)]="dropdown">
+                    <clr-dropdown-menu>
+                        <div clrDropdownItem (click)="selectSearchReagent(reagent)" *ngFor="let reagent of reagentList">{{reagent.ligandName}}</div>
+                    </clr-dropdown-menu>
+                </ng-template>
+            </clr-dropdown>
+        </label>
+    </div>
+</div>
+
+<div class="clr-row" *ngIf="dialogVisible">
     <div class="clr-col-12">
         <div class="card">
             <div class="card-block">
                 <div class="card-text">
-                    <form clrForm clrLayout="vertical">
-                        <div class="clr-row">
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Reagent ID</label>
-                                    <input clrInput type="text" [(ngModel)]="newReagent.id" [disabled]="true" name="id"/>
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Reagent name</label>
-                                    <input clrInput type="text" [(ngModel)]="newReagent.name" name="name"/>
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Concentration value</label>
-                                    <input clrInput type="text" [(ngModel)]="newReagent.concentration" name="concentration" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-select-container>
-                                    <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="newReagent.unit" name="unit">
-                                      <option value="mmol/L">mmol/L</option>
-                                      <option value="mmoL/L">mmoL/L</option>
-                                      <option value="mg/mL">mg/mL</option>
-                                      <option value="mL">mL</option>
-                                    </select>
-                                </clr-select-container>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="add-button" *ngIf="buttonAddVisible">
-                    <div class="clr-row">
-                        <div class="clr-col-11">
-                            <button class="btn btn-primary" (click)="addReagentToList()">Add Reagent</button>
-                        </div>
-                        <div class="clr-col-1 clear-button">
-                            <button type="button" class="btn btn-icon" (click)="resetReagent()" aria-label="trash">
-                                <clr-icon shape="trash"></clr-icon>
-                            </button>
-                        </div>
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>Reagent name</label>
+                            <input clrInput type="text" [(ngModel)]="dialogReagent.name" name="name"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>Molecular formula</label>
+                            <input clrInput type="text" [(ngModel)]="dialogReagent.formula" name="formula"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>Concentraition</label>
+                            <input clrInput type="text" [(ngModel)]="dialogReagent.concentration" name="concentration" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>Unit</label>
+                            <select clrSelect [(ngModel)]="dialogReagent.unit" name="unit">
+                                <option value="mmol/L">mmol/L</option>
+                                <option value="mmoL/L">mmoL/L</option>
+                                <option value="mg/mL">mg/mL</option>
+                                <option value="mL">mL</option>
+                            </select>
+                        </clr-select-container>
+                        <clr-select-container>
+                            <label>Reaction role</label>
+                            <select clrSelect [(ngModel)]="dialogReagent.role" name="role">
+                                <option value="Substrate">Substrate</option>
+                                <option value="Product">Product</option>
+                                <option value="Additive">Additive</option>
+                                <option value="Cofactor">Cofactor</option>
+                            </select>
+                        </clr-select-container>
+                    </form><br>
+                    <div class="add-button" *ngIf="buttonAddVisible">
+                        <button class="btn btn-primary" (click)="addReagentToList()">Save</button>
+                        <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
                     </div>
-                </div>
-                <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                    <button class="btn btn-success" (click)="saveReagent()">Save</button>
-                    <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
+                    <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                        <button class="btn btn-primary" (click)="saveReagent()">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="clr-col-12 headline-col">
-        <span class="table-headline">Reagents <span class="reagents-count">({{getReagents().length}})</span></span>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-6">
+        <span class="headline">Reagents</span>
     </div>
+    <div class="clr-col-6 button-column" *ngIf="!dialogVisible">
+        <button class="btn btn-link btn-sm" (click)="showDialog()">
+            <clr-icon shape="plus"></clr-icon> New Reagent
+        </button>
+    </div>
+</div>
+
+<div class="clr-row">
     <div class="clr-col-12">
         <div class="reagent-table">
             <table class="table table-compact">
                 <thead>
                     <tr>
-                        <th class="left">ID</th>
                         <th class="left">Reagent name</th>
+                        <th class="left">Molecular formula</th>
                         <th class="left">Concentraition</th>
                         <th class="left">Unit</th>
+                        <th class="left">Reaction role</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let reagent of getReagents()">
-                        <td class="left">{{reagent.id}}</td>
                         <td class="left">{{reagent.name}}</td>
+                        <td class="left">{{reagent.formula}}</td>
                         <td class="left">{{reagent.concentration}}</td>
                         <td class="left">{{reagent.unit}}</td>
+                        <td class="left">{{reagent.role}}</td>
                         <td class="button-column">
                             <div class="btn-group btn-icon btn-link">
                                 <button class="btn" (click)="editReagent(reagent)">
@@ -94,6 +115,94 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="table-placeholder-container" *ngIf="getReagents().length == 0">
+                <div class="table-placeholder">
+                    No Reagents specified!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clr-row" *ngIf="vesselDialogVisible">
+    <div class="clr-col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-text">
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>Vessel name</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>Size</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>Unit</label>
+                            <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
+                              <option value="mmol/L">mmol/L</option>
+                              <option value="mmoL/L">mmoL/L</option>
+                              <option value="mg/mL">mg/mL</option>
+                              <option value="mL">mL</option>
+                            </select>
+                        </clr-select-container>
+                    </form><br>
+                    <button class="btn btn-primary" (click)="saveVessel()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-6">
+        <span class="headline">Vessel</span>
+    </div>
+    <div class="clr-col-6 button-column">
+        <div *ngIf="!vesselVisible && !vesselDialogVisible">
+            <button class="btn btn-link btn-sm" (click)="showVesselDialog()">
+                <clr-icon shape="plus"></clr-icon> Add Vessel
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="clr-row content-row">
+    <div class="clr-col-12">
+        <div class="vessel-table">
+            <table class="table table-compact">
+                <thead>
+                    <tr>
+                        <th class="left">Vessel name</th>
+                        <th class="left">Size</th>
+                        <th class="left">Unit</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="vesselVisible">
+                    <tr>
+                        <td class="left">{{getVessel().name}}</td>
+                        <td class="left">{{getVessel().size}}</td>
+                        <td class="left">{{getVessel().unit}}</td>
+                        <td class="button-column">
+                            <div class="btn-group btn-icon btn-link">
+                                <button class="btn" (click)="showVesselDialog()">
+                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                </button>
+                                <button class="btn" (click)="deleteVessel()">
+                                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-placeholder-container" *ngIf="!vesselVisible">
+                <div class="table-placeholder">
+                    No Vessel specified!
+                </div>
+            </div>
         </div>
     </div>
 </div>

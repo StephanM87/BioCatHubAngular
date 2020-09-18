@@ -1,86 +1,14 @@
-<span class="headline">BioCatHub</span>
 <div class="clr-row">
-    <div class="clr-col button-group-col">
-        <div class="btn-group btn-outline-primary">
-            <button class="btn" routerLink="./../enzyme">
-                <clr-icon shape="plus"></clr-icon>
-                New Experiment
-            </button>
-            <button class="btn" (click)="importVisible=true">
-                <clr-icon shape="folder-open"></clr-icon>
-                Import EnzymeML
-            </button>
-            <button class="btn" (click)="downloadVisible=true">
-                <clr-icon shape="download-cloud"></clr-icon>
-                Download from Zenodo
-            </button>
-        </div>
-    </div>
-</div>
-
-<div class="clr-row">
-    <div class="clr-col-6">
-        <div class="card">
-            <div class="card-header">
-                BioCatHub
-            </div>
-            <div class="card-block">
-                <div class="card-text">
-                    We are a non profit project developed by the Research center Jülich and the Univerity of Stuttgart. 
-                    The goal of this Webbased application is to enhance the reproducibility of experiments in biocatalysis.
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-sm btn-link" routerLink="./../enzyme">New Experiment</button>
-            </div>
-        </div>
-    </div>
-    <div class="clr-col-6">
-        <div class="card">
-            <div class="card-header">
-                EnzymeML
-            </div>
-            <div class="card-block">
-                <div class="card-text">
-                    Beschreibung EnzymeML ...
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-sm btn-link">Link to Enzyme ML</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="clr-row">
-    <div class="clr-col-6">
-        <div class="card">
-            <div class="card-header">
-                Zenodo
-            </div>
-            <div class="card-block">
-                <div class="card-text">
-                    Beschreibung Zenodo ...
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-sm btn-link">Link to Zenodo</button>
-            </div>
-        </div>
-    </div>
-    <div class="clr-col-6">
-        <div class="card">
-            <div class="card-header">
-                BRENDA
-            </div>
-            <div class="card-block">
-                <div class="card-text">
-                    Beschreibung Brenda ... 
-                </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-sm btn-link">Link to BRENDA</button>
-            </div>
-        </div>
+    <div class="clr-col-12 button-group-col">
+        <button class="btn btn-primary btn-icon big-button" routerLink="./../enzyme">
+            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon>New Experiment
+        </button>
+        <button class="btn btn-primary btn-icon big-button" (click)="importVisible=true">
+            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>Import EnzymeML
+        </button>
+        <button class="btn btn-primary btn-icon big-button" (click)="downloadVisible=true">
+            <clr-icon class="button-icon" shape="download-cloud" size="24"></clr-icon>Download from Zenodo
+        </button>
     </div>
 </div>
 

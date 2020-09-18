@@ -1,4 +1,4 @@
-import { Enzyme, Reagent, Measurement, Replicate, Vessel } from './biocatalysis';
+import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction } from './biocatalysis';
 
 export class Experiment {
     id: number;
@@ -30,41 +30,22 @@ export class Experiment {
         return this.enzymes;
     }
 
-    public getEnzyme(id: number): Enzyme {
-        for(let enzyme of this.enzymes) {
-            if(id == enzyme.id) {
-                return enzyme;
-            }
-        }
-    }
-
     public addEnzyme(newEnzyme: Enzyme): void {
         this.enzymes.push(newEnzyme);
     }
 
-    public deleteEnzyme(id: number) {
-        const index: number = this.enzymes.indexOf(this.getEnzyme(id));
+    public deleteEnzyme(enzyme: Enzyme) {
+        const index: number = this.enzymes.indexOf(enzyme);
         if (index !== -1) {
             this.enzymes.splice(index, 1);
         }
     }
 
-    public updateEnzyme(newEnzyme: Enzyme): void {
-        var enzyme = this.getEnzyme(newEnzyme.id);
-        enzyme.name = newEnzyme.name;
-        enzyme.sequence = newEnzyme.sequence;
-        enzyme.concentration = newEnzyme.concentration;
-        enzyme.unit = newEnzyme.unit;
-    }
-
-    public getNextEnzymeId(): number {
-        var max: number = 1;
-        for(let enzyme of this.enzymes) {
-            if(enzyme.id > max) {
-                max = enzyme.id;
-            }
+    public validateEnzymes(): boolean {
+        if(this.enzymes.length > 0){
+            return true;
         }
-        return max+1;
+        return false;
     }
 
     /* -------------------- Reagents -------------------- */
@@ -73,40 +54,80 @@ export class Experiment {
         return this.reagents;
     }
     
-    public getReagent(id: number): Reagent {
-        for(let reagent of this.reagents) {
-        if(id == reagent.id) {
-            return reagent;
-        }
-        }
+    public addReagent(reagent: Reagent): void {
+        this.reagents.push(reagent);
     }
     
-    public addReagent(newReagent: Reagent): void {
-        this.reagents.push(newReagent);
-    }
-    
-    public deleteReagent(id: number) {
-        const index: number = this.reagents.indexOf(this.getReagent(id));
+    public deleteReagent(reagent: Reagent): void {
+        const index: number = this.reagents.indexOf(reagent);
         if (index !== -1) {
             this.reagents.splice(index, 1);
         }
     }
     
-    public updateReagent(newReagent: Reagent): void {
-        var reagent = this.getReagent(newReagent.id);
-        reagent.name = newReagent.name;
-        reagent.concentration = newReagent.concentration;
-        reagent.unit = newReagent.unit;
-    }
-    
-    public getNextReagentId(): number {
-        var max: number = 1;
-        for(let reagent of this.reagents) {
-            if(reagent.id > max) {
-                max = reagent.id;
+    public deleteReagentById(id: string): void {
+        for (let reagent of this.reagents) {
+            if(reagent.ligandId && reagent.ligandId == id) {
+                this.deleteReagent(reagent);
+                break;
             }
         }
-        return max+1;
+    }
+
+    public deleteReagentsOfReaction(reaction: Reaction): void {
+        reaction.educts.forEach(educt => {
+          let id = educt.structureId;
+          let exsist = this.reagentExistInOtherReaction(id, reaction.value);
+          if(!exsist) {
+            this.deleteReagentById(id);
+          }
+        });
+        reaction.products.forEach(product => {
+          let id = product.structureId;
+          let exsist = this.reagentExistInOtherReaction(id, reaction.value);
+          if(!exsist) {
+            this.deleteReagentById(id);
+          }
+        });
+      }
+
+    public hasReagent(id: string): boolean {
+        for (let reagent of this.reagents) {
+            if(reagent.ligandId && reagent.ligandId == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public validateReagents(): boolean {
+        if(this.reagents.length > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public reagentExistInOtherReaction(reagentId: string, currentReaction: string): boolean {
+        let exsist = false;
+        this.enzymes.forEach(enzyme => {
+            enzyme.reactions.forEach(reaction => {
+                if(reaction.value != currentReaction) {
+                    reaction.educts.forEach(educt => {
+                        let id = educt.structureId;
+                        if(id && id == reagentId) {
+                        exsist = true;
+                        }
+                    });
+                    reaction.products.forEach(product => {
+                        let id = product.structureId;
+                        if(id && id == reagentId) {
+                        exsist = true;
+                        }
+                    });
+                }
+            });
+        });
+        return exsist;
     }
 
     /* -------------------- Replicas -------------------- */
@@ -117,6 +138,13 @@ export class Experiment {
 
     public setMeasurement(measurement: Measurement): void {
         this.measurement = measurement;
+    }
+
+    public validateMeasurement(): boolean {
+        if(this.measurement.replicates.length > 0){
+            return true;
+        }
+        return false;
     }
 
 }

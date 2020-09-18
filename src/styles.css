@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
-.headline {
-    color: black;
-    font-size: 1.5rem;
+.content-row {
+    margin-bottom: 1rem;
 }
 
 .button-group-col {
@@ -10,32 +8,42 @@
     text-align: center;
     margin-top: 1rem;
 }
-
-.btn {
-    border-radius: 0;
+.big-button {
+    width: 12rem;
+    height: 2.2rem;
+    text-transform: none;
+}
+.button-icon {
+    margin-right: .5rem;
 }
 
-.card {
-    box-shadow: 0 0 0 0;
-    border-radius: 0;
-}
-
-.headline-col {
-    margin-top: 1rem;
-}
-.table-headline {
-    color: black;
-    font-size: 1.2rem;
-}
-
-.table {
-    border-radius: 0;
-}
-
+.btn,
+.table,
+.card,
+.datagrid,
 .modal-dialog .modal-content {
     border-radius: 0;
 }
 
-.attribute {
-    font-weight: bold;
- }
+.card,
+.datagrid {
+    box-shadow: 0 0 0 0;
+}
+
+.headline {
+    color: black;
+    font-size: 1.2rem;
+}
+.headline-col {
+    margin-top: 1rem;
+}
+
+.datagrid {
+    margin-top: 0;
+}
+.datagrid-table .datagrid-placeholder .datagrid-placeholder-image {
+    height: 0;
+    width: 0;
+    margin-bottom: 0;
+    background-image: none;
+}

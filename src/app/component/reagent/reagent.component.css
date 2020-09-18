@@ -1,24 +1,106 @@
 .clr-form-control {
    align-items: unset;
 }
-.clr-input{
+.clr-input,
+.dropdown,
+.clr-textarea {
    width: 100%;
 }
-.dropdown{
+.dropdown-menu {
+   max-width: none;
    width: 100%;
 }
-.clr-select{
-    width: 100%;
+
+.reagent-table {
+   margin-bottom: 2rem;
 }
-.reagents-count {
-   font-size: 0.8rem;
+.table {
+   margin-top: 0;
+   margin-bottom: 0;
 }
 .table td {
    vertical-align: middle;
 }
-.button-column {
-  text-align: right;
-}
+.button-column,
 .clear-button {
   text-align: right;
+}
+
+.table-placeholder-container {
+   flex: 1 1 auto;
+   display: felx;
+   justify-content: center;
+   border-style: solid;
+   border-color: #cccccc;
+   border-width: 0.05rem;
+   border-top: none;
+   background-color: white;
+}
+
+.table-placeholder{
+   width: 100%;
+   text-align: center;
+   padding: .6rem;
+   font-size: 0.8rem;
+   color: #b3b3b3;
+}
+
+.card {
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+}
+.add-button {
+   margin-top: 1rem;
+}
+
+/* Searchbar Container */
+
+.searchbar-container {
+   width: 100%;
+   align-items: center;
+   justify-content: center;
+   display: flex;
+   margin-bottom: 2rem;
+ }
+ 
+ .searchbar-container .brenda-search-wrapper {
+     width: 100%;
+     position: relative;
+     flex: 0 0 auto;
+     text-align: left;
+ }
+ 
+ .searchbar-container .searchbar-label {
+   position: relative;
+   display: block;
+   width: 100%;
+   margin: 1rem auto;
+ } 
+ 
+ .searchbar-container .searchbar-label clr-icon[shape="search"] {
+   position: absolute;
+   left: .6rem;
+   top: .6rem;
+   color: #0072a3;
+ }
+
+ .searchbar-container .searchbar-label input.searchbar-input {
+   width: 100%;
+   padding: 1.2rem 2.4rem;
+   height: 2.4rem;
+ }
+
+ .searchbar-container .searchbar-label button.close {
+   display: block;
+   position: absolute;
+   right: .6rem;
+   top: .6rem;
+}
+
+button.close {
+   padding: 0;
+   cursor: pointer;
+   background: transparent;
+   border: 0;
+   -webkit-appearance: none;
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Enzyme, EnzymeSearch } from '../../model/biocatalysis';
+import { Component, OnInit } from '@angular/core';
+import { Enzyme, Reagent } from '../../model/biocatalysis';
+import { EnzymeSearch, Reaction } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -10,14 +10,18 @@ import { DataService } from '../../service/data.service';
 })
 export class EnzymeComponent implements OnInit {
 
-  // Enzyme Card
-  public newEnzyme: Enzyme;
+  // Enzyme Dialog
+  public dialogVisible: boolean;
+  public dialogEnzyme: Enzyme;
 
   // Buttons ein-/ausblenden
   public buttonAddVisible: boolean;
   public buttonsEditVisible: boolean;
 
   // Filterung
+  public loadingEnzymes: boolean;
+  public searchInput: string;
+  public closeButton: boolean;
   public enzymeList: EnzymeSearch[];
   public dropdown: boolean;
 
@@ -25,6 +29,7 @@ export class EnzymeComponent implements OnInit {
     this.resetNewEnzyme();
     this.showAddButtons();
     this.enzymeList = new Array<EnzymeSearch>();
+    this.dialogVisible = false;
   }
 
   ngOnInit(): void {}
@@ -37,48 +42,58 @@ export class EnzymeComponent implements OnInit {
   // Buttons in der Enzyme Card
   public addEnzymeToList(): void {
     if(this.validate()){
-      this.dataService.getExperiment().addEnzyme(this.newEnzyme);
+      this.dataService.getExperiment().addEnzyme(this.dialogEnzyme);
       this.resetNewEnzyme();
+      this.hideEnzymeDialog();
     }
-  }
-  public resetEnzyme(): void {
-    this.resetNewEnzyme();
   }
   public saveEnzyme(): void {
     if(this.validate()){
-      this.dataService.getExperiment().updateEnzyme(this.newEnzyme);
       this.resetNewEnzyme();
       this.showAddButtons();
+      this.hideEnzymeDialog();
     }
   }
   public cancelEdit(): void {
     this.resetNewEnzyme();
     this.showAddButtons();
+    this.hideEnzymeDialog();
+  }
+
+  public deleteReaction(reaction: Reaction): void {
+    this.dataService.getExperiment().deleteReagentsOfReaction(reaction);
+    const index = this.dialogEnzyme.reactions.indexOf(reaction);
+    if (index !== -1) {
+      this.dialogEnzyme.reactions.splice(index, 1);
+    }
   }
 
   // Icon-Buttons in der Enzyme Tabelle
   public editEnzyme(enzyme: Enzyme) {
-    this.copyEnzymeToDialog(enzyme);
+    this.dialogEnzyme = enzyme;
     this.showEditButtons();
+    this.showEnzymeDialog();
   }
   public copyEnzyme(enzyme: Enzyme) {
     this.copyEnzymeToDialog(enzyme);
-    this.newEnzyme.id = this.dataService.getExperiment().getNextEnzymeId();
     this.showAddButtons();
+    this.showEnzymeDialog();
   }
   public deleteEnzyme(enzyme: Enzyme) {
-    this.dataService.getExperiment().deleteEnzyme(enzyme.id);
+    enzyme.reactions.forEach(reaction => {
+      this.dataService.getExperiment().deleteReagentsOfReaction(reaction);
+    });
+    this.dataService.getExperiment().deleteEnzyme(enzyme);
   }
 
   // Setzt die Werte in der Enzyme Card zurück
   resetNewEnzyme(): void {
-    this.newEnzyme = new Enzyme();
-    this.newEnzyme.id = this.dataService.getExperiment().getNextEnzymeId();
+    this.dialogEnzyme = new Enzyme();
   }
 
   // Kopiert ein Enzym in die Enzyme Card
   copyEnzymeToDialog(enzyme: Enzyme): void {
-    this.newEnzyme = new Enzyme(enzyme);
+    this.dialogEnzyme = new Enzyme(enzyme);
   }
 
   // TODO: Validierung der Input Felder
@@ -86,30 +101,95 @@ export class EnzymeComponent implements OnInit {
     return true;
   }
 
-  // Ein- und Ausblenden der Buttons in der Enzyme Card
-  showAddButtons(): void {
+  // Ein- und Ausblenden des Enzyme Dialog
+  public showAddButtons(): void {
     this.buttonAddVisible = true;
     this.buttonsEditVisible = false;
   }
-  showEditButtons(): void {
+  public showEditButtons(): void {
     this.buttonAddVisible = false;
     this.buttonsEditVisible = true;
+  }
+  public showEnzymeDialog(): void {
+    this.dialogVisible = true;
+  }
+  public hideEnzymeDialog(): void {
+    this.dialogVisible = false;
   }
 
 
   // Methoden für die Enzyme Suche
   public filterSearchInput(searchValue: string): void {
-    this.newEnzyme.name = searchValue;
-    if(searchValue.length > 2) {
-      this.enzymeList = this.dataService.getEnzymeSearchList(searchValue);
+    if(searchValue.trim().length == 0){
+      this.resetSearch();
+    } else {
+      this.closeButton = true;
+      this.dropdown = true;
+      this.loadingEnzymes = true;
+      // Read Enzymes from DataService
+      this.dataService.getEnzymeSearchList(searchValue).subscribe(
+        data => {
+          this.enzymeList = data;
+          this.loadingEnzymes = false;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
-    this.dropdown = this.enzymeList.length > 0;
   }
 
-  public selectEnzyme(selected: EnzymeSearch): void {
-    this.newEnzyme.ecNumber = selected.ecNumber;
-    this.newEnzyme.name = selected.enzymeName;
-    this.newEnzyme.brendaLink = selected.brendaLink;
+  public selectSearchEnzyme(selected: EnzymeSearch): void {
+    this.resetSearch();
+    this.dialogEnzyme.ecNumber = selected.ecNumber;
+    this.dialogEnzyme.brendaLink = selected.brendaLink;
+    this.dataService.getEnzymeSpecification(selected.ecNumber).subscribe(
+      specification => {
+        this.dialogEnzyme.name = specification.enzymeName;
+        this.dialogEnzyme.reactions = specification.reactions;
+        this.addReagentsToExperiment(specification.reactions)
+        this.addEnzymeToList();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  addReagentsToExperiment(reactions: Array<Reaction>): void {
+    reactions.forEach(reaction => {
+      reaction.educts.forEach(educt => {
+        let exsist = this.dataService.getExperiment().hasReagent(educt.structureId);
+        if(!exsist) {
+          let reagent = new Reagent();
+          reagent.ligandId = educt.structureId;
+          reagent.name = educt.name;
+          reagent.role = 'Substrate';
+          reagent.imageUrl = educt.imageUrl;
+          reagent.brendaLink = educt.imageUrl;
+          this.dataService.getExperiment().getReagents().push(reagent);
+        }
+      });
+      reaction.products.forEach(product => {
+        let exsist = this.dataService.getExperiment().hasReagent(product.structureId);
+        if(!exsist) {
+          let reagent = new Reagent();
+          reagent.ligandId = product.structureId;
+          reagent.name = product.name;
+          reagent.role = 'Product';
+          reagent.imageUrl = product.imageUrl;
+          reagent.brendaLink = product.imageUrl;
+          this.dataService.getExperiment().getReagents().push(reagent);
+        }
+      });
+    });
+  }
+
+  public resetSearch(): void {
+    this.searchInput = "";
+    this.closeButton = false;
+    this.loadingEnzymes = false;
+    this.dropdown = false;
   }
 
 }

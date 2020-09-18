@@ -12,16 +12,20 @@ import { Experiment } from 'src/app/model/experiment';
 export class DashboardComponent implements OnInit {
 
   public experiment: Experiment;
+  public measurementPlot: any;
 
   constructor(public dataService: DataService) {
     this.experiment = dataService.getExperiment();
+    if(this.experiment.getMeasurement().replicates.length > 0){
+      this.loadMeasurementImage();
+    }
   }
 
   ngOnInit(): void {
 
   }
 
-  public upload(): void {
+  public uploadToZenodo(): void {
     this.dataService.updateExperiment().subscribe(
       data => {
         // TODO: Zenodo ID anzeigen (Link generieren?)
@@ -32,7 +36,7 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  public export(): void {
+  public exportEnzymeML(): void {
     this.dataService.createEnzymeML().subscribe(
       blob => {
         this.download(blob);
@@ -43,8 +47,12 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  public createPDF(): void {
+  public createPdf(): void {
     // TODO
+  }
+
+  public shareExperiment(): void {
+    
   }
 
   public showError(error: any): void {
@@ -59,5 +67,26 @@ export class DashboardComponent implements OnInit {
     a.click();
     URL.revokeObjectURL(objectUrl);
   }
+
+  public loadMeasurementImage(): void {
+    this.dataService.plotMeasurement().subscribe(
+      blob => {
+        this.measurementPlot = this.createImageFromBlob(blob);
+      },
+      error => {
+        this.showError(error);
+      }
+    );
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.measurementPlot = reader.result;
+    }, false);
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+ }
 
 }

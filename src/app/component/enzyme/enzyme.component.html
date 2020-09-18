@@ -1,114 +1,161 @@
-<span class="headline">Enzyme Specification</span>
-<div class="clr-row">
+<!-- Enzyme Suche -->
+<div class="searchbar-container" *ngIf="!dialogVisible">
+    <div class="brenda-search-wrapper">
+        <label class="searchbar-label">
+            <clr-dropdown>
+                <clr-icon shape="search" size="24"></clr-icon>
+                <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
+                    <clr-icon shape="close" size="24"></clr-icon>
+                </button>
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for Enzymes ..." />
+                <ng-template [(clrIfOpen)]="dropdown">
+                    <clr-dropdown-menu>
+                        <div clrDropdownItem (click)="selectSearchEnzyme(enzyme)" *ngFor="let enzyme of enzymeList">{{enzyme.enzymeName}}</div>
+                    </clr-dropdown-menu>
+                </ng-template>
+            </clr-dropdown>
+        </label>
+    </div>
+</div>
+
+<!-- Enzyme Dialog -->
+<div class="clr-row" *ngIf="dialogVisible">
     <div class="clr-col-12">
         <div class="card">
             <div class="card-block">
                 <div class="card-text">
-                    <form clrForm clrLayout="vertical">
-                        <div class="clr-row">
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Enzyme ID</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.id" [disabled]="true" name="id"/>
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-dropdown>
-                                    <clr-input-container>
-                                        <label>Enzyme name</label>
-                                        <input clrInput type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="newEnzyme.name" name="name"/>
-                                    </clr-input-container>
-                                    <ng-template [(clrIfOpen)]="dropdown">
-                                        <clr-dropdown-menu>
-                                            <div clrDropdownItem (click)="selectEnzyme(enzyme)" *ngFor="let enzyme of searchResult">{{enzyme.name}}</div>
-                                        </clr-dropdown-menu>
-                                    </ng-template>
-                                </clr-dropdown>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Amino acid sequence</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.sequence" name="sequence" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-input-container>
-                                    <label>Concentration value</label>
-                                    <input clrInput type="text" [(ngModel)]="newEnzyme.concentration" name="concentration" />
-                                </clr-input-container>
-                            </div>
-                            <div class="clr-col-3">
-                                <clr-select-container>
-                                    <label>Unit</label>
-                                    <select clrSelect [(ngModel)]="newEnzyme.unit" name="unit">
-                                      <option value="mmol/L">mmol/L</option>
-                                      <option value="mmoL/L">mmoL/L</option>
-                                      <option value="mg/mL">mg/mL</option>
-                                      <option value="mL">mL</option>
-                                    </select>
-                                </clr-select-container>
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>Enzyme name</label>
+                            <input clrInput type="text" [(ngModel)]="dialogEnzyme.name" name="name" />
+                        </clr-input-container>
+                        <clr-textarea-container>
+                            <label>Amino acid sequence</label>
+                            <textarea clrTextarea [(ngModel)]="dialogEnzyme.sequence" name="sequence"></textarea>
+                        </clr-textarea-container>
+                        <clr-input-container>
+                            <label>Concentraition</label>
+                            <input clrInput type="text" [(ngModel)]="dialogEnzyme.concentration" name="concentration" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>Unit</label>
+                            <select clrSelect [(ngModel)]="dialogEnzyme.unit" name="unit">
+                                <option value="mmol/L">mmol/L</option>
+                                <option value="mmoL/L">mmoL/L</option>
+                                <option value="mg/mL">mg/mL</option>
+                                <option value="mL">mL</option>
+                            </select>
+                        </clr-select-container>
+                        <div class="clr-form-control clr-row">
+                            <label for="reaction" class="clr-control-label clr-col-12 clr-col-md-2">Reaction</label>
+                            <div class="clr-input-wrapper clr-col-md-10 clr-col-12" id="reaction">
+                                <span class="label" *ngFor="let reaction of dialogEnzyme.reactions">
+                                    {{reaction.value}}
+                                    <button class="btn btn-icon btn-link btn-sm" (click)="deleteReaction(reaction)">
+                                        <clr-icon shape="times"></clr-icon>
+                                    </button>
+                                </span>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="add-button" *ngIf="buttonAddVisible">
-                    <div class="clr-row">
-                        <div class="clr-col-11">
-                            <button class="btn btn-primary" (click)="addEnzymeToList()">Add Enzyme</button>
-                        </div>
-                        <div class="clr-col-1 clear-button">
-                            <button type="button" class="btn btn-icon" (click)="resetEnzyme()" aria-label="trash">
-                                <clr-icon shape="trash"></clr-icon>
-                            </button>
-                        </div>
+                    </form><br>
+                    <div class="add-button" *ngIf="buttonAddVisible">
+                        <button class="btn btn-primary" (click)="addEnzymeToList()">Save</button>
+                        <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
                     </div>
-                </div>
-                <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                    <button class="btn btn-success" (click)="saveEnzyme()">Save</button>
-                    <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
+                    <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                        <button class="btn btn-primary" (click)="saveEnzyme()">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="clr-col-12 headline-col">
-        <span class="table-headline">Enzymes <span class="enzyme-count">({{getEnzymes().length}})</span></span>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-6">
+        <span class="headline">Enzymes</span>
     </div>
+    <div class="clr-col-6 button-cell" *ngIf="!dialogVisible">
+        <button class="btn btn-link btn-sm" (click)="showEnzymeDialog()">
+            <clr-icon shape="plus"></clr-icon> New Enzyme
+        </button>
+    </div>
+</div>
+
+<!-- Enzyme Tabelle -->
+<div class="clr-row content-row">
     <div class="clr-col-12">
         <div class="enzyme-table">
-            <table class="table table-compact">
-                <thead>
-                    <tr>
-                        <th class="left">ID</th>
-                        <th class="left">Enzyme name</th>
-                        <th class="left">Amino acid sequence</th>
-                        <th class="left">Concentraition</th>
-                        <th class="left">Unit</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let enzyme of getEnzymes()">
-                        <td class="left">{{enzyme.id}}</td>
-                        <td class="left">{{enzyme.name}}</td>
-                        <td class="left">{{enzyme.sequence}}</td>
-                        <td class="left">{{enzyme.concentration}}</td>
-                        <td class="left">{{enzyme.unit}}</td>
-                        <td class="button-column">
-                            <div class="btn-group btn-icon btn-link">
-                                <button class="btn" (click)="editEnzyme(enzyme)">
-                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                </button>
-                                <button class="btn" (click)="copyEnzyme(enzyme)">
-                                    <clr-icon shape="copy"></clr-icon>
-                                </button>
-                                <button class="btn" (click)="deleteEnzyme(enzyme)">
-                                    <clr-icon shape="trash" class="is-error"></clr-icon>
-                                </button>
+            <clr-datagrid>
+                <clr-dg-column>Enzyme name</clr-dg-column>
+                <clr-dg-column>Concentraition</clr-dg-column>
+                <clr-dg-column>Unit</clr-dg-column>
+                <clr-dg-column></clr-dg-column>
+
+                <clr-dg-row *clrDgItems="let enzyme of getEnzymes()">
+                    <clr-dg-cell>{{enzyme.name}}</clr-dg-cell>
+                    <clr-dg-cell>{{enzyme.concentration}}</clr-dg-cell>
+                    <clr-dg-cell>{{enzyme.unit}}</clr-dg-cell>
+                    <clr-dg-cell class="button-cell">
+                        <div class="btn-group btn-icon btn-link btn-sm">
+                            <button class="btn" (click)="editEnzyme(enzyme)">
+                                <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                            </button>
+                            <button class="btn" (click)="copyEnzyme(enzyme)">
+                                <clr-icon shape="copy"></clr-icon>
+                            </button>
+                            <button class="btn" (click)="deleteEnzyme(enzyme)">
+                                <clr-icon shape="trash" class="is-error"></clr-icon>
+                            </button>
+                        </div>
+                    </clr-dg-cell>
+
+                    <!-- Enzyme Details -->
+                    <clr-dg-row-detail *clrIfExpanded>
+                        <div class="enzyme-details">
+                            <div class="clr-row sequence-row" *ngIf="enzyme.sequence!=undefined">
+                                <div class="clr-col-12">
+                                    <span class="enzyme-attribute">Amino acid sequence:</span><br>{{enzyme.sequence}}
+                                </div>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div class="clr-row reactions-row" *ngIf="enzyme.reactions.length > 0">
+                                <div class="clr-col-12">
+                                    <span class="enzyme-attribute">Reaction:</span><br>
+                                    <table class="table table-compact table-noborder">
+                                        <tbody>
+                                            <div class="reaction" *ngFor="let reaction of enzyme.reactions">
+                                                <tr>
+                                                    <ng-container *ngFor="let educt of reaction.educts; last as isLast">
+                                                        <td>{{educt.name}}</td>
+                                                        <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                                    </ng-container>
+                                                    <td class="reaction-operation">=</td>
+                                                    <ng-container *ngFor="let product of reaction.products; last as isLast">
+                                                        <td>{{product.name}}</td>
+                                                        <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                                    </ng-container>
+                                                </tr>
+                                                <tr>
+                                                    <ng-container *ngFor="let educt of reaction.educts; last as isLast">
+                                                        <td><img src={{educt.imageUrl}}></td>
+                                                        <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                                    </ng-container>
+                                                    <td class="reaction-operation">=</td>
+                                                    <ng-container *ngFor="let product of reaction.products; last as isLast">
+                                                        <td><img src={{product.imageUrl}}></td>
+                                                        <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                                    </ng-container>
+                                                </tr>
+                                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </clr-dg-row-detail>
+                </clr-dg-row>
+                <clr-dg-placeholder>No enzymes specified!</clr-dg-placeholder>
+            </clr-datagrid>
         </div>
     </div>
 </div>

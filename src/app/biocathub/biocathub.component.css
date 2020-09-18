@@ -1,3 +1,15 @@
-.content-area {
-    margin-bottom : 1rem;
+ .biocathub-navigation {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex: 0 0 auto;
  }
+
+ .navigation-link {
+     color: #666666;
+ }
+
+.nav-right {
+    text-align: right;
+}
