@@ -10,20 +10,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class StartpageComponent implements OnInit {
 
-  public file: File;
+  public files: File[];
   public zenodoId: string;
 
   public importVisible: boolean;
   public downloadVisible: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, public dataService: DataService) { 
+  constructor(private router: Router, private route: ActivatedRoute, public dataService: DataService) {
+    this.files = new Array<File>();
   }
 
   ngOnInit(): void {
   }
 
   public import(): void {
-    
+    if(this.files.length > 0){
+      // TODO: Omex Datei an Beackend senden -> Experiment laden
+      this.files = new Array<File>();
+      this.importVisible = false;
+    }
   }
 
   public download(): void {
@@ -43,8 +48,12 @@ export class StartpageComponent implements OnInit {
     this.router.navigate(['./../dashboard'], { relativeTo: this.route });
   }
 
-  public incomingFile(event: any): void {
-    this.file = event.target.files[0];
+  public onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+	}
+
+	public onRemove(event: any) {
+		this.files.splice(this.files.indexOf(event), 1);
   }
 
   public showError(error: any): void {

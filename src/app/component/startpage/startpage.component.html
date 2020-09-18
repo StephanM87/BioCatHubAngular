@@ -15,7 +15,14 @@
 <clr-modal [(clrModalOpen)]="importVisible">
     <h3 class="modal-title">Import EnzymeML</h3>
     <div class="modal-body">
-        <input class="file-upload" type="file" style="display: inline-block;" (change)="incomingFile($event)" accept=".omex">
+        <div class="file-upload">
+            <ngx-dropzone accept=".omex" (change)="onSelect($event)">
+                <ngx-dropzone-label>Upload EnzymeML!</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                    <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="import()">Import</button>
