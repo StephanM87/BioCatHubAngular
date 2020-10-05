@@ -1,37 +1,58 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="content-container">
+        <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+            <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
+                BioCatHub
+            </a>
+            <div class="nav-divider"></div>
+            <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
+                Enzyme specification
+            </a>
+            <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
+                Reagent Specification
+            </a>
+            <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="ruler-pencil"></clr-icon>
+                Measurement Data
+            </a>
+            <div class="nav-divider"></div>
+            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="bar-chart"></clr-icon>
+                Overview
+            </a>
+        </clr-vertical-nav>
         <div class="content-area">
             <div class="clr-row" >
-                <div class="clr-col-2">
-
-                </div>
+                <div class="clr-col-2"></div>
                 <div class="clr-col-10">
                     <clr-timeline *ngIf="!start">
                         <clr-timeline-step [clrState]="enzymeState">
-                          <clr-timeline-step-title>
-                              <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">Enzyme Specification</a>
-                          </clr-timeline-step-title>
+                            <clr-timeline-step-title>
+                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">Enzyme Specification</a>
+                            </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="reagentState">
-                          <clr-timeline-step-title>
-                              <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">Reagent Specification</a>
-                          </clr-timeline-step-title>
+                            <clr-timeline-step-title>
+                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">Reagent Specification</a>
+                            </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="measurementState">
-                          <clr-timeline-step-title>
-                              <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">Measurement Data</a>
-                          </clr-timeline-step-title>
+                            <clr-timeline-step-title>
+                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">Measurement Data</a>
+                            </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="dashboardState">
-                          <clr-timeline-step-title>
-                              <a id="dashboard" class="navigation-link" routerLink="./dashboard" routerLinkActive="active">Submit</a>
-                          </clr-timeline-step-title>
+                            <clr-timeline-step-title>
+                                <a id="dashboard" class="navigation-link" routerLink="./dashboard" routerLinkActive="active">Submit</a>
+                            </clr-timeline-step-title>
                         </clr-timeline-step>
                     </clr-timeline>
                 </div>
             </div>
             <router-outlet></router-outlet>
-        </div>
     </div>
 </div>

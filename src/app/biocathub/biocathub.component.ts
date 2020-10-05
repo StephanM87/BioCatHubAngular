@@ -16,6 +16,7 @@ export class BiocathubComponent implements OnInit {
   PROCESSING = 'processing';
 
   public start: boolean = true;
+  public collapsed: boolean = false;
 
   public enzymeState: string;
   public reagentState: string;
