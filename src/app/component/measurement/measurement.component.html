@@ -29,76 +29,75 @@
             <div class="card-block" >
                 <div class="card-text">
                     <div class="clr-row" >
-                        <div class="clr-col-2" >
+                        <div class="clr-col-3" >
                             <clr-radio-container>
-                                <label>Style</label>
+                                <label>style</label>
                                 <clr-radio-wrapper>
                                   <input type="radio" clrRadio value="point" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
-                                  <label>Point Chart</label>
+                                  <label>point chart</label>
                                 </clr-radio-wrapper>
                                 <clr-radio-wrapper>
                                   <input type="radio" clrRadio value="line" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
-                                  <label>Line Chart</label>
+                                  <label>line chart</label>
                                 </clr-radio-wrapper>
                                 <clr-radio-wrapper>
                                   <input type="radio" clrRadio value="box" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
-                                  <label>Box Plot</label>
+                                  <label>box plot</label>
                                 </clr-radio-wrapper>
                             </clr-radio-container>
                             <clr-toggle-container>
-                                <label>Replicates</label>
+                                <label>replicates</label>
                                 <clr-toggle-wrapper>
                                     <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate1" (change)="updateImage()" />
-                                    <label>Replica 1</label>
+                                    <label>replica 1</label>
                                 </clr-toggle-wrapper>
                                 <clr-toggle-wrapper>
                                     <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate2" (change)="updateImage()" />
-                                    <label>Replica 2</label>
+                                    <label>replica 2</label>
                                 </clr-toggle-wrapper>
                                 <clr-toggle-wrapper>
                                     <input type="checkbox" clrToggle [(ngModel)]="getMeasurement().plot.replicate3" (change)="updateImage()" />
-                                    <label>Replica 3</label>
+                                    <label>replica 3</label>
                                 </clr-toggle-wrapper>
                             </clr-toggle-container>
                             <clr-range-container [clrRangeHasProgress]="true">
-                                <label>Size</label>
+                                <label>size</label>
                                 <input type="range" clrRange [clrRangeHasProgress]="true" [(ngModel)]="getMeasurement().plot.size" name="size" />
                             </clr-range-container>
                         </div>
-                        <div class="clr-col-10" >
+                        <div class="clr-col-9" >
                             <img [src]="measurementPlot">
+                        </div>
+                    </div>
+                    <div class="clr-row measurement-data" >
+                        <div class="clr-col-12">
+                            <clr-accordion>
+                                <clr-accordion-panel>
+                                  <clr-accordion-title>data ({{getMeasurement().file.name}})</clr-accordion-title>
+                                  <clr-accordion-content *clrIfExpanded>
+                                    <table class="table table-noborder table-compact">
+                                        <thead>
+                                            <tr>
+                                                <th class="left">x</th>
+                                                <th class="left">replica 1</th>
+                                                <th class="left">replica 2</th>
+                                                <th class="left">replica 3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let element of getMeasurement().replicates">
+                                                <td class="left">{{element.x_value}}</td>
+                                                <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                  </clr-accordion-content>
+                                </clr-accordion-panel>
+                            </clr-accordion>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="clr-row measurement-data" *ngIf="measurementUploaded" >
-    <div class="clr-col-12">
-        <clr-accordion>
-            <clr-accordion-panel>
-              <clr-accordion-title>Measurement Data ({{getMeasurement().file.name}})</clr-accordion-title>
-              <clr-accordion-content *clrIfExpanded>
-                <table class="table table-noborder table-compact">
-                    <thead>
-                        <tr>
-                            <th class="left">x</th>
-                            <th class="left">Replica 1</th>
-                            <th class="left">Replica 2</th>
-                            <th class="left">Replica 3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let element of getMeasurement().replicates">
-                            <td class="left">{{element.x_value}}</td>
-                            <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-              </clr-accordion-content>
-            </clr-accordion-panel>
-        </clr-accordion>
     </div>
 </div>

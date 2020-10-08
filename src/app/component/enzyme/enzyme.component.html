@@ -7,7 +7,7 @@
                 <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
                     <clr-icon shape="close" size="24"></clr-icon>
                 </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for Enzymes ..." />
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for enzymes ..." />
                 <ng-template [(clrIfOpen)]="dropdown">
                     <clr-dropdown-menu>
                         <div clrDropdownItem (click)="selectSearchEnzyme(enzyme)" *ngFor="let enzyme of enzymeList">{{enzyme.enzymeName}}</div>
@@ -26,19 +26,19 @@
                 <div class="card-text">
                     <form clrForm>
                         <clr-input-container>
-                            <label>Enzyme name</label>
+                            <label>name</label>
                             <input clrInput type="text" [(ngModel)]="dialogEnzyme.name" name="name" />
                         </clr-input-container>
                         <clr-textarea-container>
-                            <label>Amino acid sequence</label>
+                            <label>amino acid sequence</label>
                             <textarea clrTextarea [(ngModel)]="dialogEnzyme.sequence" name="sequence"></textarea>
                         </clr-textarea-container>
                         <clr-input-container>
-                            <label>Concentraition</label>
+                            <label>concentraition</label>
                             <input clrInput type="text" [(ngModel)]="dialogEnzyme.concentration" name="concentration" />
                         </clr-input-container>
                         <clr-select-container>
-                            <label>Unit</label>
+                            <label>unit</label>
                             <select clrSelect [(ngModel)]="dialogEnzyme.unit" name="unit">
                                 <option value="mmol/L">mmol/L</option>
                                 <option value="mmoL/L">mmoL/L</option>
@@ -47,7 +47,7 @@
                             </select>
                         </clr-select-container>
                         <div class="clr-form-control clr-row">
-                            <label for="reaction" class="clr-control-label clr-col-12 clr-col-md-2">Reaction</label>
+                            <label for="reaction" class="clr-control-label clr-col-12 clr-col-md-2">reaction</label>
                             <div class="clr-input-wrapper clr-col-md-10 clr-col-12" id="reaction">
                                 <span class="label" *ngFor="let reaction of dialogEnzyme.reactions">
                                     {{reaction.value}}
@@ -87,9 +87,9 @@
     <div class="clr-col-12">
         <div class="enzyme-table">
             <clr-datagrid>
-                <clr-dg-column>Enzyme name</clr-dg-column>
-                <clr-dg-column>Concentraition</clr-dg-column>
-                <clr-dg-column>Unit</clr-dg-column>
+                <clr-dg-column>name</clr-dg-column>
+                <clr-dg-column>concentraition</clr-dg-column>
+                <clr-dg-column>unit</clr-dg-column>
                 <clr-dg-column></clr-dg-column>
 
                 <clr-dg-row *clrDgItems="let enzyme of getEnzymes()">
@@ -115,12 +115,12 @@
                         <div class="enzyme-details">
                             <div class="clr-row sequence-row" *ngIf="enzyme.sequence!=undefined">
                                 <div class="clr-col-12">
-                                    <span class="enzyme-attribute">Amino acid sequence:</span><br>{{enzyme.sequence}}
+                                    <span class="enzyme-attribute">amino acid sequence:</span><br>{{enzyme.sequence}}
                                 </div>
                             </div>
                             <div class="clr-row reactions-row" *ngIf="enzyme.reactions.length > 0">
                                 <div class="clr-col-12">
-                                    <span class="enzyme-attribute">Reaction:</span><br>
+                                    <span class="enzyme-attribute">reaction:</span><br>
                                     <table class="table table-compact table-noborder">
                                         <tbody>
                                             <div class="reaction" *ngFor="let reaction of enzyme.reactions">

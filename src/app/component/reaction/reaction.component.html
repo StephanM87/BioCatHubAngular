@@ -1,6 +1,6 @@
 <div class="clr-row">
     <div class="clr-col-12">
-        <span class="headline">Reaction Conditions</span>
+        <span class="headline">Reaction conditions</span>
     </div>
 </div>
 <div class="clr-row">
@@ -10,15 +10,15 @@
                 <div class="card-text">
                     <form clrForm>
                         <clr-input-container>
-                            <label>Reaction name</label>
+                            <label>name</label>
                             <input clrInput type="text" [(ngModel)]="getReaction().name" name="name"/>
                         </clr-input-container>
                         <clr-input-container>
-                            <label>Temperature</label>
+                            <label>temperature</label>
                             <input clrInput type="text" [(ngModel)]="getReaction().temp" name="temp" />
                         </clr-input-container>
                         <clr-select-container>
-                            <label>Unit</label>
+                            <label>unit</label>
                             <select clrSelect [(ngModel)]="getReaction().unit" name="unit">
                               <option value="°C">°C</option>
                             </select>
@@ -46,15 +46,15 @@
                 <div class="card-text">
                     <form clrForm>
                         <clr-input-container>
-                            <label>Vessel name</label>
+                            <label>name</label>
                             <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
                         </clr-input-container>
                         <clr-input-container>
-                            <label>Size</label>
+                            <label>size</label>
                             <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
                         </clr-input-container>
                         <clr-select-container>
-                            <label>Unit</label>
+                            <label>unit</label>
                             <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
                               <option value="mmol/L">mmol/L</option>
                               <option value="mmoL/L">mmoL/L</option>

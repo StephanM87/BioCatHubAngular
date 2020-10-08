@@ -6,7 +6,7 @@
                 <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
                     <clr-icon shape="close" size="24"></clr-icon>
                 </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for Reagents ..." />
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for reagents ..." />
                 <ng-template [(clrIfOpen)]="dropdown">
                     <clr-dropdown-menu>
                         <div clrDropdownItem (click)="selectSearchReagent(reagent)" *ngFor="let reagent of reagentList">{{reagent.ligandName}}</div>
@@ -24,19 +24,19 @@
                 <div class="card-text">
                     <form clrForm>
                         <clr-input-container>
-                            <label>Reagent name</label>
+                            <label>name</label>
                             <input clrInput type="text" [(ngModel)]="dialogReagent.name" name="name"/>
                         </clr-input-container>
                         <clr-input-container>
-                            <label>Molecular formula</label>
+                            <label>molecular formula</label>
                             <input clrInput type="text" [(ngModel)]="dialogReagent.formula" name="formula"/>
                         </clr-input-container>
                         <clr-input-container>
-                            <label>Concentraition</label>
+                            <label>concentraition</label>
                             <input clrInput type="text" [(ngModel)]="dialogReagent.concentration" name="concentration" />
                         </clr-input-container>
                         <clr-select-container>
-                            <label>Unit</label>
+                            <label>unit</label>
                             <select clrSelect [(ngModel)]="dialogReagent.unit" name="unit">
                                 <option value="mmol/L">mmol/L</option>
                                 <option value="mmoL/L">mmoL/L</option>
@@ -45,7 +45,7 @@
                             </select>
                         </clr-select-container>
                         <clr-select-container>
-                            <label>Reaction role</label>
+                            <label>reaction role</label>
                             <select clrSelect [(ngModel)]="dialogReagent.role" name="role">
                                 <option value="Substrate">Substrate</option>
                                 <option value="Product">Product</option>
@@ -84,11 +84,11 @@
             <table class="table table-compact">
                 <thead>
                     <tr>
-                        <th class="left">Reagent name</th>
-                        <th class="left">Molecular formula</th>
-                        <th class="left">Concentraition</th>
-                        <th class="left">Unit</th>
-                        <th class="left">Reaction role</th>
+                        <th class="left">name</th>
+                        <th class="left">molecular formula</th>
+                        <th class="left">concentraition</th>
+                        <th class="left">unit</th>
+                        <th class="left">reaction role</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -117,7 +117,7 @@
             </table>
             <div class="table-placeholder-container" *ngIf="getReagents().length == 0">
                 <div class="table-placeholder">
-                    No Reagents specified!
+                    No reagents specified!
                 </div>
             </div>
         </div>
