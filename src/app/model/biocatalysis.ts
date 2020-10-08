@@ -6,6 +6,8 @@ export class Enzyme {
     sequence: string;
     concentration: number;
     unit: string;
+    formulation: string;
+    determination: string;
     reactions: Array<Reaction>;
     brendaLink: string;
 
@@ -15,6 +17,8 @@ export class Enzyme {
         this.sequence = enzyme && enzyme.sequence || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
+        this.formulation = enzyme && enzyme.formulation || undefined;
+        this.determination = enzyme && enzyme.determination || undefined;
         this.reactions = enzyme && enzyme.reactions || new Array<Reaction>();
         this.brendaLink = enzyme && enzyme.brendaLink || undefined;
     }
@@ -70,11 +74,15 @@ export class Vessel {
     name: string;
     size: number;
     unit: string;
+    scale: string;
+    material: string;
 
     constructor(vessel?: Vessel) {
         this.name = vessel && vessel.name || undefined;
         this.size = vessel && vessel.size || undefined;
         this.unit = vessel && vessel.unit || undefined;
+        this.scale = vessel && vessel.scale || undefined;
+        this.material = vessel && vessel.material || undefined;
     }
 }
 

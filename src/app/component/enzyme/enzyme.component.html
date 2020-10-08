@@ -46,6 +46,14 @@
                                 <option value="mL">mL</option>
                             </select>
                         </clr-select-container>
+                        <clr-input-container>
+                            <label>formulation</label>
+                            <input clrInput type="text" [(ngModel)]="dialogEnzyme.formulation" name="formulation" />
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>determination assay</label>
+                            <input clrInput type="text" [(ngModel)]="dialogEnzyme.determination" name="determination" />
+                        </clr-input-container>
                         <div class="clr-form-control clr-row">
                             <label for="reaction" class="clr-control-label clr-col-12 clr-col-md-2">reaction</label>
                             <div class="clr-input-wrapper clr-col-md-10 clr-col-12" id="reaction">
@@ -113,9 +121,19 @@
                     <!-- Enzyme Details -->
                     <clr-dg-row-detail *clrIfExpanded>
                         <div class="enzyme-details">
-                            <div class="clr-row sequence-row" *ngIf="enzyme.sequence!=undefined">
+                            <div class="clr-row">
                                 <div class="clr-col-12">
                                     <span class="enzyme-attribute">amino acid sequence:</span><br>{{enzyme.sequence}}
+                                </div>
+                            </div>
+                            <div class="clr-row">
+                                <div class="clr-col-12">
+                                    <span class="enzyme-attribute">formulation:</span><br>{{enzyme.formulation}}
+                                </div>
+                            </div>
+                            <div class="clr-row">
+                                <div class="clr-col-6">
+                                    <span class="enzyme-attribute">determination assay:</span><br>{{enzyme.determination}}
                                 </div>
                             </div>
                             <div class="clr-row reactions-row" *ngIf="enzyme.reactions.length > 0">
