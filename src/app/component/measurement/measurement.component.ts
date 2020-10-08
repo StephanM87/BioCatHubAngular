@@ -120,4 +120,8 @@ export class MeasurementComponent implements OnInit {
     this.loadMeasurementImage();
   }
 
+  public templateFile(): void {
+    
+  }
+
 }
