@@ -4,24 +4,28 @@
         <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" *ngIf="!start">
             <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
-                BioCatHub
+                Home
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
-                Enzyme specification
+                Enzyme Specification
             </a>
             <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
                 Reagent Specification
             </a>
+            <a clrVerticalNavLink routerLink="./reaction" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="thermometer"></clr-icon>
+                Reaction Conditions
+            </a>
             <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="ruler-pencil"></clr-icon>
+                <clr-icon clrVerticalNavIcon shape="line-chart"></clr-icon>
                 Measurement Data
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="bar-chart"></clr-icon>
+                <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
                 Overview
             </a>
         </clr-vertical-nav>
@@ -40,19 +44,36 @@
                                 <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">Reagent Specification</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
+                        <clr-timeline-step [clrState]="reactionState">
+                            <clr-timeline-step-title>
+                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">Reaction Conditions</a>
+                            </clr-timeline-step-title>
+                        </clr-timeline-step>
                         <clr-timeline-step [clrState]="measurementState">
                             <clr-timeline-step-title>
                                 <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">Measurement Data</a>
-                            </clr-timeline-step-title>
-                        </clr-timeline-step>
-                        <clr-timeline-step [clrState]="dashboardState">
-                            <clr-timeline-step-title>
-                                <a id="dashboard" class="navigation-link" routerLink="./dashboard" routerLinkActive="active">Submit</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                     </clr-timeline>
                 </div>
             </div>
             <router-outlet></router-outlet>
+            <div class="footer-nav" *ngIf="!start">
+                <div class="clr-row" >
+                    <div class="clr-col-6 nav-previous">
+                        <button class="btn btn-link" [routerLink]="previousRouterLink" *ngIf="previous">
+                            <clr-icon shape="caret left"></clr-icon>
+                            {{previousPage}}
+                        </button>
+                    </div>
+                    <div class="clr-col-6 nav-next">
+                        <button class="btn btn-link" [routerLink]="nextRouterLink" *ngIf="next">
+                            {{nextPage}}
+                            <clr-icon shape="caret right"></clr-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

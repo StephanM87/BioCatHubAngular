@@ -18,6 +18,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { HttpClientModule } from '@angular/common/http';
+import { ReactionComponent } from './component/reaction/reaction.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     EnzymeComponent,
     MeasurementComponent,
     ReagentComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReactionComponent
   ],
   imports: [
     BrowserModule,

@@ -78,6 +78,20 @@ export class Vessel {
     }
 }
 
+export class ReactionCondition {
+    name: string;
+    temp: number;
+    unit: string;
+    ph: number;
+
+    constructor(reactionCondition?: ReactionCondition) {
+        this.name = reactionCondition && reactionCondition.name || undefined;
+        this.temp = reactionCondition && reactionCondition.temp || undefined;
+        this.unit = reactionCondition && reactionCondition.unit || undefined;
+        this.ph = reactionCondition && reactionCondition.ph || undefined;
+    }
+}
+
 export class Plot {
     style: string;
     size: number;

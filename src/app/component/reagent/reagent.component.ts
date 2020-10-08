@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Reagent, Vessel } from '../../model/biocatalysis';
+import { Reagent } from '../../model/biocatalysis';
 import { ReagentSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
@@ -26,17 +26,11 @@ export class ReagentComponent implements OnInit {
   public reagentList: ReagentSearch[];
   public dropdown: boolean;
 
-  // Vessel
-  public vesselVisible: boolean;
-  public vesselDialogVisible: boolean;
-
   constructor(public dataService: DataService) {
     this.resetNewReagent();
     this.showAddButtons();
     this.reagentList = new Array<ReagentSearch>();
     this.dialogVisible = false;
-    this.vesselDialogVisible = false;
-    this.isVesselVisible();
   }
 
   ngOnInit(): void {}
@@ -155,33 +149,6 @@ export class ReagentComponent implements OnInit {
     this.closeButton = false;
     this.loadingReagents = false;
     this.dropdown = false;
-  }
-
-  // Vessel
-  public getVessel(): Vessel {
-    return this.dataService.getExperiment().getVessel();
-  }
-
-  public showVesselDialog(): void {
-    this.vesselDialogVisible = true;
-  }    
-
-  public saveVessel(): void {
-    this.vesselDialogVisible = false;
-    this.isVesselVisible();
-  }
-
-  public isVesselVisible(): void {
-    if(this.getVessel().name != undefined || this.getVessel().size  != undefined || this.getVessel().unit != undefined){
-      this.vesselVisible = true;
-    } else {
-      this.vesselVisible = false;
-    }
-  }
-
-  public deleteVessel(): void {
-    this.dataService.getExperiment().vessel = new Vessel();
-    this.isVesselVisible();
   }
 
 }

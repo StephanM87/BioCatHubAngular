@@ -1,8 +1,9 @@
-import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction } from './biocatalysis';
+import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction, ReactionCondition } from './biocatalysis';
 
 export class Experiment {
     id: number;
     vessel: Vessel;
+    reaction: ReactionCondition;
     enzymes: Array<Enzyme>;
     reagents: Array<Reagent>;
     measurement: Measurement;
@@ -10,6 +11,7 @@ export class Experiment {
     constructor() {
         this.id = undefined;
         this.vessel = new Vessel();
+        this.reaction = new ReactionCondition();
         this.enzymes = new Array<Enzyme>();
         this.reagents = new Array<Reagent>();
         this.measurement = new Measurement();
@@ -21,6 +23,10 @@ export class Experiment {
 
     public getVessel(): Vessel {
         return this.vessel;
+    }
+
+    public getReaction(): ReactionCondition {
+        return this.reaction;
     }
 
 
@@ -102,6 +108,13 @@ export class Experiment {
 
     public validateReagents(): boolean {
         if(this.reagents.length > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public validateReaction(): boolean {
+        if(this.vessel != undefined){
             return true;
         }
         return false;

@@ -1,0 +1,70 @@
+<div class="clr-row">
+    <div class="clr-col-12">
+        <span class="headline">Reaction Conditions</span>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-text">
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>Reaction name</label>
+                            <input clrInput type="text" [(ngModel)]="getReaction().name" name="name"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>Temperature</label>
+                            <input clrInput type="text" [(ngModel)]="getReaction().temp" name="temp" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>Unit</label>
+                            <select clrSelect [(ngModel)]="getReaction().unit" name="unit">
+                              <option value="°C">°C</option>
+                            </select>
+                        </clr-select-container>
+                        <clr-input-container>
+                            <label>ph value</label>
+                            <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph" />
+                        </clr-input-container>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-12">
+        <span class="headline">Vessel</span>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-text">
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>Vessel name</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>Size</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>Unit</label>
+                            <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
+                              <option value="mmol/L">mmol/L</option>
+                              <option value="mmoL/L">mmoL/L</option>
+                              <option value="mg/mL">mg/mL</option>
+                              <option value="mL">mL</option>
+                            </select>
+                        </clr-select-container>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

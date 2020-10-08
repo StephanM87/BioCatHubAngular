@@ -1,0 +1,17 @@
+.clr-form-control {
+    align-items: unset;
+ }
+ .clr-input,
+ .dropdown,
+ .clr-textarea {
+    width: 100%;
+ }
+ .dropdown-menu {
+    max-width: none;
+    width: 100%;
+ }
+
+ .card {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+ }

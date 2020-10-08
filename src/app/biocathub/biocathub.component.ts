@@ -20,21 +20,30 @@ export class BiocathubComponent implements OnInit {
 
   public enzymeState: string;
   public reagentState: string;
+  public reactionState: string;
   public measurementState: string;
-  public dashboardState: string;
 
   public enzymeStarted: boolean;
   public reagentStarted: boolean;
+  public reactionStarted: boolean;
   public measurementStarted: boolean;
+
+  public previous: boolean;
+  public next: boolean;
+  public previousPage: string;
+  public nextPage: string;
+  public previousRouterLink: string;
+  public nextRouterLink: string;
 
   constructor(private router: Router, private dataService: DataService) {    
     this.setEnzymeState(this.NOT_STARTED);
     this.setReagentState(this.NOT_STARTED);
+    this.setReactionState(this.NOT_STARTED);
     this.setMeasurementState(this.NOT_STARTED);
-    this.setDashboardState(this.NOT_STARTED);
 
     this.enzymeStarted = false;
     this.reagentStarted = false;
+    this.reactionStarted = false;
     this.measurementStarted = false;
 
     this.router.events.subscribe(val => {
@@ -50,9 +59,9 @@ export class BiocathubComponent implements OnInit {
     this.start = (url == '/start');
     if(!this.start){
       this.updateStarted(url);
-      this.updateDashboardState(this.NOT_STARTED);
       this.updateEnzymeState();
       this.updateReagentState();
+      this.updateReactionState();
       this.updateMeasurementState();
       this.setCurrentState(url);
     }
@@ -63,20 +72,47 @@ export class BiocathubComponent implements OnInit {
       this.enzymeStarted = true;
     } else if (url == '/reagent') {
       this.reagentStarted = true;
+    } else if (url == '/reaction') {
+      this.reactionStarted = true;
     } else if (url == '/measurement') {
       this.measurementStarted = true;
     }
   }
 
   setCurrentState(url: string): void {
+    this.previous = false;
+    this.next = false;
+    this.nextRouterLink = '';
+    this.previousRouterLink = '';
     if (url == '/enzyme') {
       this.setEnzymeState(this.CURRENT)
+      this.next = true;
+      this.nextPage = 'Reagents';
+      this.nextRouterLink = './reagent'
     } else if (url == '/reagent') {
       this.setReagentState(this.CURRENT)
+      this.previous = true;
+      this.previousPage ='Enzymes';
+      this.previousRouterLink = './enzyme'
+      this.next = true;
+      this.nextPage = 'Reaction';
+      this.nextRouterLink = './reaction'
+    } else if (url == '/reaction') {
+      this.setReactionState(this.CURRENT)
+      this.previous = true;
+      this.previousPage ='Reagents';
+      this.previousRouterLink = './reagent'
+      this.next = true;
+      this.nextPage = 'Measurement';
+      this.nextRouterLink = './measurement'
     } else if (url == '/measurement') {
       this.setMeasurementState(this.CURRENT)
-    } else if (url == '/dashboard') {
-      this.setDashboardState(this.CURRENT)
+      this.previous = true;
+      this.previousPage ='Reaction';
+      this.previousRouterLink = './reaction'
+      this.next = true;
+      this.nextPage = 'Overview';
+      this.nextRouterLink = './dashboard'
     }
   }
 
@@ -100,6 +136,16 @@ export class BiocathubComponent implements OnInit {
     }
   }
 
+  updateReactionState(){
+    if(!this.reactionStarted) {
+      this.setReactionState(this.NOT_STARTED);
+    } else if(this.dataService.getExperiment().validateReaction()){
+      this.setReactionState(this.SUCCESS);
+    } else {
+      this.setReactionState(this.ERROR);
+    }
+  }
+
   updateMeasurementState(){
     if(!this.measurementStarted) {
       this.setMeasurementState(this.NOT_STARTED);
@@ -110,10 +156,6 @@ export class BiocathubComponent implements OnInit {
     }
   }
 
-  updateDashboardState(state: string): void {
-    this.setDashboardState(this.NOT_STARTED);
-  }
-
   public setEnzymeState(state: string): void {
     this.enzymeState = state;
   }
@@ -122,12 +164,20 @@ export class BiocathubComponent implements OnInit {
     this.reagentState = state;
   }
 
+  public setReactionState(state: string): void {
+    this.reactionState = state;
+  }
+
   public setMeasurementState(state: string): void {
     this.measurementState = state;
   }
 
-  public setDashboardState(state: string): void {
-    this.dashboardState = state;
+  public navigateBack() {
+    
+  }
+
+  public navigateNext() {
+    
   }
 
 }

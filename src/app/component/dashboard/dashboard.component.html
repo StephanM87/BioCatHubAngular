@@ -97,7 +97,7 @@
                             <div class="clr-row">
                                 <div class="clr-col-11">Vessel</div>
                                 <div class="clr-col-1 button-col">
-                                    <button class="btn btn-icon btn-link" routerLink="./../reagent">
+                                    <button class="btn btn-icon btn-link" routerLink="./../reaction">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
                                 </div>
@@ -117,6 +117,44 @@
                                         <td class="left">{{experiment.vessel.name}}</td>
                                         <td class="left">{{experiment.vessel.size}}</td>
                                         <td class="left">{{experiment.vessel.unit}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr-row">
+            <div class="clr-col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="card-title">
+                            <div class="clr-row">
+                                <div class="clr-col-11">Reaction</div>
+                                <div class="clr-col-1 button-col">
+                                    <button class="btn btn-icon btn-link" routerLink="./../reaction">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-text">
+                            <table class="table table-noborder table-compact">
+                                <thead>
+                                    <tr>
+                                        <th class="left">Reaction name</th>
+                                        <th class="left">Temperature</th>
+                                        <th class="left">Unit</th>
+                                        <th class="left">ph value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="left">{{experiment.reaction.name}}</td>
+                                        <td class="left">{{experiment.reaction.temp}}</td>
+                                        <td class="left">{{experiment.reaction.unit}}</td>
+                                        <td class="left">{{experiment.reaction.ph}}</td>
                                     </tr>
                                 </tbody>
                             </table>
