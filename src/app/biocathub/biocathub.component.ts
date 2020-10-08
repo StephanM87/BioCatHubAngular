@@ -64,6 +64,7 @@ export class BiocathubComponent implements OnInit {
       this.updateReactionState();
       this.updateMeasurementState();
       this.setCurrentState(url);
+      this.updateNavigationButtons(url);
     }
   }
 
@@ -80,39 +81,47 @@ export class BiocathubComponent implements OnInit {
   }
 
   setCurrentState(url: string): void {
+    if (url == '/enzyme') {
+      this.setEnzymeState(this.CURRENT);
+    } else if (url == '/reagent') {
+      this.setReagentState(this.CURRENT);
+    } else if (url == '/reaction') {
+      this.setReactionState(this.CURRENT);
+    } else if (url == '/measurement') {
+      this.setMeasurementState(this.CURRENT);
+    }
+  }
+
+  updateNavigationButtons(url: string): void{
     this.previous = false;
     this.next = false;
     this.nextRouterLink = '';
     this.previousRouterLink = '';
     if (url == '/enzyme') {
-      this.setEnzymeState(this.CURRENT)
       this.next = true;
       this.nextPage = 'Reagents';
-      this.nextRouterLink = './reagent'
+      this.nextRouterLink = './reagent';
     } else if (url == '/reagent') {
-      this.setReagentState(this.CURRENT)
       this.previous = true;
       this.previousPage ='Enzymes';
-      this.previousRouterLink = './enzyme'
+      this.previousRouterLink = './enzyme';
       this.next = true;
       this.nextPage = 'Reaction';
-      this.nextRouterLink = './reaction'
+      this.nextRouterLink = './reaction';
     } else if (url == '/reaction') {
-      this.setReactionState(this.CURRENT)
       this.previous = true;
       this.previousPage ='Reagents';
-      this.previousRouterLink = './reagent'
+      this.previousRouterLink = './reagent';
       this.next = true;
       this.nextPage = 'Measurement';
-      this.nextRouterLink = './measurement'
+      this.nextRouterLink = './measurement';
     } else if (url == '/measurement') {
-      this.setMeasurementState(this.CURRENT)
       this.previous = true;
       this.previousPage ='Reaction';
-      this.previousRouterLink = './reaction'
+      this.previousRouterLink = './reaction';
       this.next = true;
       this.nextPage = 'Overview';
-      this.nextRouterLink = './dashboard'
+      this.nextRouterLink = './dashboard';
     }
   }
 
@@ -170,14 +179,6 @@ export class BiocathubComponent implements OnInit {
 
   public setMeasurementState(state: string): void {
     this.measurementState = state;
-  }
-
-  public navigateBack() {
-    
-  }
-
-  public navigateNext() {
-    
   }
 
 }
