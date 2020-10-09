@@ -7,7 +7,7 @@
                 <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
                     <clr-icon shape="close" size="24"></clr-icon>
                 </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for enzymes ..." />
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="search for enzymes ..." />
                 <ng-template [(clrIfOpen)]="dropdown">
                     <clr-dropdown-menu>
                         <div clrDropdownItem (click)="selectSearchEnzyme(enzyme)" *ngFor="let enzyme of enzymeList">{{enzyme.enzymeName}}</div>
@@ -65,13 +65,15 @@
                                 </span>
                             </div>
                         </div>
-                    </form><br>
-                    <div class="add-button" *ngIf="buttonAddVisible">
-                        <button class="btn btn-primary" (click)="addEnzymeToList()">Save</button>
-                        <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
-                    </div>
-                    <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                        <button class="btn btn-primary" (click)="saveEnzyme()">Save</button>
+                    </form>
+                    <div class="card-buttons">
+                        <div class="add-button" *ngIf="buttonAddVisible">
+                            <button class="btn btn-primary" (click)="addEnzymeToList()">save</button>
+                            <button class="btn btn-warning" (click)="cancelEdit()">cancel</button>
+                        </div>
+                        <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                            <button class="btn btn-primary" (click)="saveEnzyme()">save</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,13 +87,13 @@
     </div>
     <div class="clr-col-6 button-cell" *ngIf="!dialogVisible">
         <button class="btn btn-link btn-sm" (click)="showEnzymeDialog()">
-            <clr-icon shape="plus"></clr-icon> New Enzyme
+            <clr-icon shape="plus"></clr-icon> new enzyme
         </button>
     </div>
 </div>
 
 <!-- Enzyme Tabelle -->
-<div class="clr-row content-row">
+<div class="clr-row">
     <div class="clr-col-12">
         <div class="enzyme-table">
             <clr-datagrid>
@@ -172,7 +174,7 @@
                         </div>
                     </clr-dg-row-detail>
                 </clr-dg-row>
-                <clr-dg-placeholder>No enzymes specified!</clr-dg-placeholder>
+                <clr-dg-placeholder>no enzymes specified!</clr-dg-placeholder>
             </clr-datagrid>
         </div>
     </div>

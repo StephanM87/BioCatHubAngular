@@ -99,28 +99,28 @@ export class BiocathubComponent implements OnInit {
     this.previousRouterLink = '';
     if (url == '/enzyme') {
       this.next = true;
-      this.nextPage = 'Reagents';
+      this.nextPage = 'reagents';
       this.nextRouterLink = './reagent';
     } else if (url == '/reagent') {
       this.previous = true;
-      this.previousPage ='Enzymes';
+      this.previousPage ='enzymes';
       this.previousRouterLink = './enzyme';
       this.next = true;
-      this.nextPage = 'Reaction';
+      this.nextPage = 'reaction';
       this.nextRouterLink = './reaction';
     } else if (url == '/reaction') {
       this.previous = true;
-      this.previousPage ='Reagents';
+      this.previousPage ='reagents';
       this.previousRouterLink = './reagent';
       this.next = true;
-      this.nextPage = 'Measurement';
+      this.nextPage = 'measurement';
       this.nextRouterLink = './measurement';
     } else if (url == '/measurement') {
       this.previous = true;
-      this.previousPage ='Reaction';
+      this.previousPage ='reaction';
       this.previousRouterLink = './reaction';
       this.next = true;
-      this.nextPage = 'Overview';
+      this.nextPage = 'overview';
       this.nextRouterLink = './dashboard';
     }
   }

@@ -4,7 +4,7 @@
     </div>
     <div class="clr-col-6 button-column">
         <button class="btn btn-link btn-sm" (click)="templateFile()">
-            <clr-icon shape="file"></clr-icon> Template File
+            <clr-icon shape="file"></clr-icon> download template file
         </button>
     </div>
 </div>
@@ -13,13 +13,13 @@
     <div class="clr-col-12">
         <div class="file-upload">
             <ngx-dropzone accept=".xlsx" (change)="onSelect($event)">
-                <ngx-dropzone-label>Upload measurement file!</ngx-dropzone-label>
+                <ngx-dropzone-label>upload measurement file!</ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
                     <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
             </ngx-dropzone>
         </div>
-        <button class="btn btn-primary" (click)="uploadFile()" *ngIf="files.length > 0">Upload</button>
+        <button class="btn btn-primary" (click)="uploadFile()" *ngIf="files.length > 0">upload</button>
     </div>
 </div>
 

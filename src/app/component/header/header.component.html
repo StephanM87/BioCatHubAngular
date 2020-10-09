@@ -13,7 +13,7 @@
 </header>
 
 <clr-modal [(clrModalOpen)]="userDataVisible">
-    <h3 class="modal-title">Personal Information</h3>
+    <h3 class="modal-title">personal information</h3>
     <div class="modal-body">
         <form clrForm>
             <clr-input-container>
@@ -33,12 +33,12 @@
                 <input class="clr-col-12 clr-col-md-9" clrInput type="text" [(ngModel)]="user.institution" name="institution" />
             </clr-input-container>
             <clr-input-container>
-                <label class="clr-col-12 clr-col-md-3">ORCID</label>
+                <label class="clr-col-12 clr-col-md-3">orcid</label>
                 <input class="clr-col-12 clr-col-md-9" clrInput type="text" [(ngModel)]="user.orcid" name="orcid" />
             </clr-input-container>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="saveUserData()">Ok</button>
+        <button type="button" class="btn btn-primary" (click)="saveUserData()">ok</button>
     </div>
 </clr-modal>

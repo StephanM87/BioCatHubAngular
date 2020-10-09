@@ -22,7 +22,7 @@ export class User {
             name += (" " + this.lastName);
         }
         if(name.length == 0) {
-            name = "Login"
+            name = "login"
         }
         return name;
     }

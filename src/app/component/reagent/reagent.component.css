@@ -11,9 +11,6 @@
    width: 100%;
 }
 
-.reagent-table {
-   margin-bottom: 2rem;
-}
 .table {
    margin-top: 0;
    margin-bottom: 0;
@@ -43,14 +40,6 @@
    padding: .6rem;
    font-size: 0.8rem;
    color: #b3b3b3;
-}
-
-.card {
-   margin-top: 1rem;
-   margin-bottom: 1rem;
-}
-.add-button {
-   margin-top: 1rem;
 }
 
 /* Searchbar Container */

@@ -1,23 +1,23 @@
 <div class="clr-row">
     <div class="clr-col-12 button-group-col">
         <button class="btn btn-primary btn-icon big-button" routerLink="./../enzyme">
-            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon>New Experiment
+            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon>new experiment
         </button>
         <button class="btn btn-primary btn-icon big-button" (click)="importVisible=true">
-            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>Import EnzymeML
+            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>import EnzymeML
         </button>
         <button class="btn btn-primary btn-icon big-button" (click)="downloadVisible=true">
-            <clr-icon class="button-icon" shape="download-cloud" size="24"></clr-icon>Download from Zenodo
+            <clr-icon class="button-icon" shape="download-cloud" size="24"></clr-icon>download from Zenodo
         </button>
     </div>
 </div>
 
 <clr-modal [(clrModalOpen)]="importVisible">
-    <h3 class="modal-title">Import EnzymeML</h3>
+    <h3 class="modal-title">import EnzymeML</h3>
     <div class="modal-body">
         <div class="file-upload">
             <ngx-dropzone accept=".omex" (change)="onSelect($event)">
-                <ngx-dropzone-label>Upload EnzymeML!</ngx-dropzone-label>
+                <ngx-dropzone-label>upload EnzymeML file!</ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
                     <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
@@ -25,21 +25,21 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="import()">Import</button>
+        <button type="button" class="btn btn-primary" (click)="import()">import</button>
     </div>
 </clr-modal>
 
 <clr-modal [(clrModalOpen)]="downloadVisible">
-    <h3 class="modal-title">Download Experiment from Zenodo</h3>
+    <h3 class="modal-title">download experiment from Zenodo</h3>
     <div class="modal-body">
         <form clrForm>
             <clr-input-container>
-                <label class="clr-col-12 clr-col-md-3">Zenodo Id:</label>
+                <label class="clr-col-12 clr-col-md-3">zenodo id:</label>
                 <input class="clr-col-12 clr-col-md-9" clrInput type="text" name="downloadId"/>
             </clr-input-container>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="download()">Download</button>
+        <button type="button" class="btn btn-primary" (click)="download()">download</button>
     </div>
 </clr-modal>

@@ -164,7 +164,7 @@ export class EnzymeComponent implements OnInit {
           let reagent = new Reagent();
           reagent.ligandId = educt.structureId;
           reagent.name = educt.name;
-          reagent.role = 'Substrate';
+          reagent.role = 'substrate';
           reagent.imageUrl = educt.imageUrl;
           reagent.brendaLink = educt.imageUrl;
           this.dataService.getExperiment().getReagents().push(reagent);
@@ -176,7 +176,7 @@ export class EnzymeComponent implements OnInit {
           let reagent = new Reagent();
           reagent.ligandId = product.structureId;
           reagent.name = product.name;
-          reagent.role = 'Product';
+          reagent.role = 'product';
           reagent.imageUrl = product.imageUrl;
           reagent.brendaLink = product.imageUrl;
           this.dataService.getExperiment().getReagents().push(reagent);

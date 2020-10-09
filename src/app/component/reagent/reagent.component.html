@@ -6,7 +6,7 @@
                 <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
                     <clr-icon shape="close" size="24"></clr-icon>
                 </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="Search for reagents ..." />
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="search for reagents ..." />
                 <ng-template [(clrIfOpen)]="dropdown">
                     <clr-dropdown-menu>
                         <div clrDropdownItem (click)="selectSearchReagent(reagent)" *ngFor="let reagent of reagentList">{{reagent.ligandName}}</div>
@@ -47,19 +47,21 @@
                         <clr-select-container>
                             <label>reaction role</label>
                             <select clrSelect [(ngModel)]="dialogReagent.role" name="role">
-                                <option value="Substrate">Substrate</option>
-                                <option value="Product">Product</option>
-                                <option value="Additive">Additive</option>
-                                <option value="Cofactor">Cofactor</option>
+                                <option value="substrate">substrate</option>
+                                <option value="product">product</option>
+                                <option value="additive">additive</option>
+                                <option value="cofactor">cofactor</option>
                             </select>
                         </clr-select-container>
-                    </form><br>
-                    <div class="add-button" *ngIf="buttonAddVisible">
-                        <button class="btn btn-primary" (click)="addReagentToList()">Save</button>
-                        <button class="btn btn-warning" (click)="cancelEdit()">Cancel</button>
-                    </div>
-                    <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                        <button class="btn btn-primary" (click)="saveReagent()">Save</button>
+                    </form>
+                    <div class="card-buttons">
+                        <div class="add-button" *ngIf="buttonAddVisible">
+                            <button class="btn btn-primary" (click)="addReagentToList()">save</button>
+                            <button class="btn btn-warning" (click)="cancelEdit()">cancel</button>
+                        </div>
+                        <div class="edit-buttons" *ngIf="buttonsEditVisible">
+                            <button class="btn btn-primary" (click)="saveReagent()">save</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,7 +75,7 @@
     </div>
     <div class="clr-col-6 button-column" *ngIf="!dialogVisible">
         <button class="btn btn-link btn-sm" (click)="showDialog()">
-            <clr-icon shape="plus"></clr-icon> New Reagent
+            <clr-icon shape="plus"></clr-icon> new reagent
         </button>
     </div>
 </div>
@@ -117,7 +119,7 @@
             </table>
             <div class="table-placeholder-container" *ngIf="getReagents().length == 0">
                 <div class="table-placeholder">
-                    No reagents specified!
+                    no reagents specified!
                 </div>
             </div>
         </div>

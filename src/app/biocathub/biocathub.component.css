@@ -10,6 +10,10 @@
      color: #666666;
  }
 
+ .footer-nav {
+     margin-bottom: 1rem;
+ }
+
 .nav-next {
     text-align: right;
 }
