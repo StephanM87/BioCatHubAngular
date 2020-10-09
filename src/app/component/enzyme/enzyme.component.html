@@ -34,7 +34,7 @@
                             <textarea clrTextarea [(ngModel)]="dialogEnzyme.sequence" name="sequence"></textarea>
                         </clr-textarea-container>
                         <clr-input-container>
-                            <label>concentraition</label>
+                            <label>concentration</label>
                             <input clrInput type="text" [(ngModel)]="dialogEnzyme.concentration" name="concentration" />
                         </clr-input-container>
                         <clr-select-container>
@@ -81,7 +81,7 @@
 
 <div class="clr-row">
     <div class="clr-col-6">
-        <span class="headline">Enzymes</span>
+        <span class="headline">enzymes</span>
     </div>
     <div class="clr-col-6 button-cell" *ngIf="!dialogVisible">
         <button class="btn btn-link btn-sm" (click)="showEnzymeDialog()">
@@ -96,7 +96,7 @@
         <div class="enzyme-table">
             <clr-datagrid>
                 <clr-dg-column>name</clr-dg-column>
-                <clr-dg-column>concentraition</clr-dg-column>
+                <clr-dg-column>concentration</clr-dg-column>
                 <clr-dg-column>unit</clr-dg-column>
                 <clr-dg-column></clr-dg-column>
 

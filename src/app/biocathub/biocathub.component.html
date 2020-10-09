@@ -4,29 +4,29 @@
         <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" *ngIf="!start">
             <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
-                Home
+                home
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
-                Enzyme specification
+                enzyme specification
             </a>
             <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
-                Reagent specification
+                reagent specification
             </a>
             <a clrVerticalNavLink routerLink="./reaction" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="thermometer"></clr-icon>
-                Reaction conditions
+                reaction conditions
             </a>
             <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="line-chart"></clr-icon>
-                Measurement data
+                measurement data
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
-                Overview
+                overview
             </a>
         </clr-vertical-nav>
         <div class="content-area">
@@ -36,22 +36,22 @@
                     <clr-timeline *ngIf="!start">
                         <clr-timeline-step [clrState]="enzymeState">
                             <clr-timeline-step-title>
-                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">Enzyme specification</a>
+                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">enzyme specification</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="reagentState">
                             <clr-timeline-step-title>
-                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">Reagent specification</a>
+                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">reagent specification</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="reactionState">
                             <clr-timeline-step-title>
-                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">Reaction conditions</a>
+                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">reaction conditions</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="measurementState">
                             <clr-timeline-step-title>
-                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">Measurement data</a>
+                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">measurement data</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                     </clr-timeline>
