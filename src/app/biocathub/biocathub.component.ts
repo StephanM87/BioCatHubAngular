@@ -15,8 +15,9 @@ export class BiocathubComponent implements OnInit {
   ERROR = 'error';
   PROCESSING = 'processing';
 
-  public start: boolean = true;
-  public collapsed: boolean = false;
+  public navigationVisible: boolean;
+  public timelineVisible: boolean;
+  public collapsed: boolean;
 
   public enzymeState: string;
   public reagentState: string;
@@ -48,6 +49,7 @@ export class BiocathubComponent implements OnInit {
 
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd){
+        console.log(val.url);
         this.updateNavigation(val.url);
      }
     });
@@ -56,8 +58,9 @@ export class BiocathubComponent implements OnInit {
   ngOnInit(): void { }
 
   public updateNavigation(url: string){
-    this.start = (url == '/start');
-    if(!this.start){
+    this.navigationVisible = !(url == '/' || url == '/start');
+    this.timelineVisible = !(url == '/' || url == '/start' || url == '/dashboard');
+    if(this.navigationVisible){
       this.updateStarted(url);
       this.updateEnzymeState();
       this.updateReagentState();
