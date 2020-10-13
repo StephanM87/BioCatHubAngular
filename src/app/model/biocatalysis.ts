@@ -123,8 +123,8 @@ export class Measurement {
     y_unit: string;
     y_name: string;
     replicates: Array<Replicate>;
+    notes: string;
     plot: Plot;
-    file: File;
 
     constructor(measurement?: Measurement) {
         this.reagent = measurement && measurement.reagent || undefined;
@@ -133,8 +133,8 @@ export class Measurement {
         this.y_unit = measurement && measurement.y_unit || undefined;
         this.y_name = measurement && measurement.y_name || undefined;
         this.replicates = measurement && measurement.replicates || new Array<Replicate>();
+        this.notes = measurement && measurement.notes || undefined;
         this.plot = measurement && measurement.plot || new Plot();
-        this.file = measurement && measurement.file || undefined;
     }
 }
 

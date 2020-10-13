@@ -7,6 +7,7 @@ export class Experiment {
     enzymes: Array<Enzyme>;
     reagents: Array<Reagent>;
     measurement: Measurement;
+    description: string;
 
     constructor() {
         this.id = undefined;
@@ -15,10 +16,15 @@ export class Experiment {
         this.enzymes = new Array<Enzyme>();
         this.reagents = new Array<Reagent>();
         this.measurement = new Measurement();
+        this.description = '';
     }
 
     public getId(): number {
         return this.id;
+    }
+
+    public getDescription(): string {
+        return this.description;
     }
 
     public getVessel(): Vessel {
