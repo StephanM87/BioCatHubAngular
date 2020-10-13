@@ -1,17 +1,27 @@
 <div class="clr-row">
-    <div class="clr-col-12 button-group-col">
-        <button class="btn btn-primary btn-icon big-button" (click)="uploadToZenodo()">
-            <clr-icon class="button-icon" shape="upload-cloud" size="24"></clr-icon>upload to Zenodo
+    <div class="clr-col-4">
+        <span class="headline">experiment</span>
+    </div>
+    <div class="clr-col-8 button-col">
+        <button class="btn btn-link btn-sm" (click)="exportEnzymeML()">
+            <clr-icon shape="file-zip" size="24"></clr-icon> EnzymeML
         </button>
-        <button class="btn btn-primary btn-icon big-button" (click)="exportEnzymeML()">
-            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>export EnzymeML
+        <button class="btn btn-link btn-sm" (click)="createPdf()">
+            <clr-icon shape="file" size="24"></clr-icon> PDF
         </button>
-        <button class="btn btn-primary btn-icon big-button" (click)="createPdf()">
-            <clr-icon class="button-icon" shape="file" size="24"></clr-icon>create PDF
+        <!-- <button class="btn btn-link btn-sm" (click)="shareExperiment()">
+            <clr-icon shape="link" size="24"></clr-icon> share
+        </button> -->
+        <button class="btn btn-link btn-sm" (click)="uploadToZenodo()">
+            <clr-icon shape="upload-cloud" size="24"></clr-icon> zenodo
         </button>
-        <button class="btn btn-primary btn-icon big-button" (click)="shareExperiment()">
-            <clr-icon class="button-icon" shape="link" size="24"></clr-icon>share experiment
-        </button>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <clr-textarea-container>
+            <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description ..."></textarea>
+        </clr-textarea-container>
     </div>
 </div>
 
@@ -182,6 +192,7 @@
                     <img [src]="measurementPlot">
                 </div>
                 <div class="card-text">
+                    {{experiment.measurement.notes}}
                     <clr-accordion>
                         <clr-accordion-panel>
                           <clr-accordion-title>data</clr-accordion-title>

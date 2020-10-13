@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
   public experiment: Experiment;
   public measurementPlot: any;
 
+  public description: string;
+
   constructor(public dataService: DataService) {
     this.experiment = dataService.getExperiment();
     if(this.experiment.getMeasurement().replicates.length > 0){
