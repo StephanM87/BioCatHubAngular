@@ -1,0 +1,23 @@
+.new-button {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    margin: 0 0 .2rem 0;
+}
+
+.file-upload {
+    margin: 0;
+}
+
+.clr-form-control {
+    align-items: unset;
+ }
+ .clr-input {
+    width: 100%;
+ }
+
+ .search-container {
+    height: 100%;
+    border: 2px solid #0072a3;
+    padding: .5rem;
+ }

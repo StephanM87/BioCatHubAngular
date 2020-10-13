@@ -1,45 +1,26 @@
 <div class="clr-row">
-    <div class="clr-col-12 button-group-col">
-        <button class="btn btn-primary btn-icon big-button" routerLink="./../enzyme">
-            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon>new experiment
-        </button>
-        <button class="btn btn-primary btn-icon big-button" (click)="importVisible=true">
-            <clr-icon class="button-icon" shape="file-zip" size="24"></clr-icon>import EnzymeML
-        </button>
-        <button class="btn btn-primary btn-icon big-button" (click)="downloadVisible=true">
-            <clr-icon class="button-icon" shape="download-cloud" size="24"></clr-icon>download from Zenodo
+    <div class="clr-col-4">
+        <button class="btn btn-primary btn-icon new-button" routerLink="./../enzyme">
+            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon> new experiment
         </button>
     </div>
-</div>
-
-<clr-modal [(clrModalOpen)]="importVisible">
-    <h3 class="modal-title">import EnzymeML</h3>
-    <div class="modal-body">
+    <div class="clr-col-4">
         <div class="file-upload">
             <ngx-dropzone accept=".omex" (change)="onSelect($event)">
-                <ngx-dropzone-label>upload EnzymeML file!</ngx-dropzone-label>
+                <ngx-dropzone-label>import experiment</ngx-dropzone-label>
                 <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
                     <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
             </ngx-dropzone>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="import()">import</button>
-    </div>
-</clr-modal>
-
-<clr-modal [(clrModalOpen)]="downloadVisible">
-    <h3 class="modal-title">download experiment from Zenodo</h3>
-    <div class="modal-body">
-        <form clrForm>
+    <div class="clr-col-4">
+        <div class="search-container">
+            <clr-icon shape="search" size="24"></clr-icon> search experiment
             <clr-input-container>
-                <label class="clr-col-12 clr-col-md-3">zenodo id:</label>
-                <input class="clr-col-12 clr-col-md-9" clrInput type="text" name="downloadId"/>
+                <input clrInput type="text"  [(ngModel)]="zenodoId" name="downloadId" placeholder="zenodo id" />
             </clr-input-container>
-        </form>
+            <br><button class="btn btn-primary" >search</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="download()">download</button>
-    </div>
-</clr-modal>
+</div>

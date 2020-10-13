@@ -13,9 +13,6 @@ export class StartpageComponent implements OnInit {
   public files: File[];
   public zenodoId: string;
 
-  public importVisible: boolean;
-  public downloadVisible: boolean;
-
   constructor(private router: Router, private route: ActivatedRoute, public dataService: DataService) {
     this.files = new Array<File>();
   }
@@ -27,12 +24,10 @@ export class StartpageComponent implements OnInit {
     if(this.files.length > 0){
       // TODO: Omex Datei an Beackend senden -> Experiment laden
       this.files = new Array<File>();
-      this.importVisible = false;
     }
   }
 
   public download(): void {
-    this.downloadVisible = false;
     this.dataService.getExperimentFromZenodo(this.zenodoId).subscribe(
       experiment => {
         this.showDashboard(experiment);
