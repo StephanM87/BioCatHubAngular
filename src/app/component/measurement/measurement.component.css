@@ -1,25 +1,36 @@
 .clr-form-control {
     align-items: unset;
- }
- .clr-input{
-    width: 100%;
- }
- .dropdown{
-    width: 100%;
- }
- .clr-select{
-     width: 100%;
- }
- .clr-accordion {
-    margin-top: 2rem;
- }
+}
 
- .button-column {
+.clr-input,
+.clr-select,
+.clr-textarea {
+   width: 100%;
+}
+
+::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
+   display: flex;
+   width: 100%;
+} 
+
+::ng-deep clr-select-container select {
+   width: 100%;
+}
+
+.clr-accordion {
+   margin-top: 1rem;
+}
+
+.button-column {
   text-align: right;
+}
+.plot-column {
+   text-align: center;
 }
 
 .card {
    margin-top: 0.2rem;
+   margin-bottom: 0;
 }
 
 .btn-group {
