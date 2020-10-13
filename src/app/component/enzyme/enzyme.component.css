@@ -11,6 +11,15 @@
    width: 100%;
 }
 
+::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
+   display: flex;
+   width: 100%;
+} 
+
+::ng-deep clr-select-container select {
+   width: 100%;
+}
+
 .enzyme-details {
    width: 100%;
 }
@@ -104,13 +113,4 @@ button.close {
    background: transparent;
    border: 0;
    -webkit-appearance: none;
-}
-
-::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
-   display: flex;
-   width: 100%;
-} 
-
-::ng-deep clr-select-container select {
-   width: 100%;
 }
