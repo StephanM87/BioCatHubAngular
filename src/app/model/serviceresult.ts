@@ -45,5 +45,6 @@ export interface ReagentSpecification {
 
 export interface Upload {
     id: string;
+    bucket: string;
     zenodoLink: string;
 }
