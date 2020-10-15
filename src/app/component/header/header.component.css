@@ -1,19 +1,9 @@
-.btn.btn-link {
-    color: white;
-    font-style: italic;
-}
-
-header .branding .title {
+.header .branding .title {
     font-weight: bold;
 }
 header .branding .title .dark {
     color: #79afcc;
 }
-
-.clr-input{
-    width: 100%;
- }
-
 .biocathub-logo {
     background-image: url(../../../assets/svg/biocathub.svg);
  }
