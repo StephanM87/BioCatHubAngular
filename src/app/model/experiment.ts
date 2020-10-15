@@ -1,26 +1,52 @@
-import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction, ReactionCondition } from './biocatalysis';
+import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction, ReactionCondition, User } from './biocatalysis';
 
-export class Experiment {
-    id: number;
+export interface IExperiment {
+    id: string;
+    zenodoLink: string;
+    date: string;
+    title: string;
     vessel: Vessel;
     reaction: ReactionCondition;
     enzymes: Array<Enzyme>;
     reagents: Array<Reagent>;
     measurement: Measurement;
     description: string;
+    user: User;
+}
 
-    constructor() {
-        this.id = undefined;
-        this.vessel = new Vessel();
-        this.reaction = new ReactionCondition();
-        this.enzymes = new Array<Enzyme>();
-        this.reagents = new Array<Reagent>();
-        this.measurement = new Measurement();
-        this.description = '';
+export class Experiment implements IExperiment {
+    id: string;
+    zenodoLink: string;
+    date: string;
+    title: string;
+    vessel: Vessel;
+    reaction: ReactionCondition;
+    enzymes: Array<Enzyme>;
+    reagents: Array<Reagent>;
+    measurement: Measurement;
+    description: string;
+    user: User;
+
+    constructor(experiment? : IExperiment) {
+        this.id = experiment && experiment.id || undefined;
+        this.zenodoLink = experiment && experiment.zenodoLink || undefined;
+        this.date = experiment && experiment.date || undefined;
+        this.title = experiment && experiment.title || undefined;
+        this.vessel = experiment && experiment.vessel || new Vessel();
+        this.reaction = experiment && experiment.reaction || new ReactionCondition();
+        this.enzymes = experiment && experiment.enzymes || new Array<Enzyme>();
+        this.reagents = experiment && experiment.reagents || new Array<Reagent>();
+        this.measurement = experiment && experiment.measurement || new Measurement();
+        this.description = experiment && experiment.description || undefined;
+        this.user = experiment && experiment.user || new User();
     }
 
-    public getId(): number {
+    public getId(): string {
         return this.id;
+    }
+
+    public getTitle(): string {
+        return this.title;
     }
 
     public getDescription(): string {
@@ -33,6 +59,10 @@ export class Experiment {
 
     public getReaction(): ReactionCondition {
         return this.reaction;
+    }
+
+    public getUser(): User {
+        return this.user;
     }
 
 

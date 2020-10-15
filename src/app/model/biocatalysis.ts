@@ -147,3 +147,17 @@ export class Replicate {
         this.y_values = replicate && replicate.y_values || new Array<number>();
     }
 }
+
+export class User {
+    firstName: string;
+    lastName: string;
+    email: string;
+    institution: string;
+
+    constructor(user?: User) {
+        this.firstName = user && user.firstName || undefined;
+        this.lastName = user && user.lastName || undefined;
+        this.email = user && user.email || undefined;
+        this.institution = user && user.institution || undefined;
+    }
+}

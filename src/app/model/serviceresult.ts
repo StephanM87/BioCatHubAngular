@@ -10,6 +10,15 @@ export interface ReagentSearch {
     brendaLink: string;
 }
 
+export interface Deposition {
+    id: string;
+    title: string;
+    date: string;
+    name: string;
+    affiliation: string;
+    link: string;
+}
+
 export interface Ligand {
     name: string;
     structureId: string;
@@ -32,4 +41,9 @@ export interface ReagentSpecification {
     ligandId: string;
     reagentName: string;
     formula: string;
+}
+
+export interface Upload {
+    id: string;
+    zenodoLink: string;
 }
