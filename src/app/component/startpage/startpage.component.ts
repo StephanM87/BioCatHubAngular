@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
+import { Deposition } from '../../model/serviceresult';
 import { Experiment} from '../../model/experiment';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -11,10 +12,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StartpageComponent implements OnInit {
 
   public files: File[];
-  public zenodoId: string;
+  public experiments: Deposition[];
+  public selectedExperiment: Deposition;
 
   constructor(private router: Router, private route: ActivatedRoute, public dataService: DataService) {
     this.files = new Array<File>();
+    this.dataService.getExperimentListFromZenodo().subscribe(
+      experiments => {
+        this.experiments = experiments;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -27,9 +37,13 @@ export class StartpageComponent implements OnInit {
     }
   }
 
-  public download(): void {
-    this.dataService.getExperimentFromZenodo(this.zenodoId).subscribe(
-      experiment => {
+  public showExperiment(): void {
+    this.dataService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
+      json => {
+        let experiment = new Experiment(json);
+        experiment.id = this.selectedExperiment.id;
+        experiment.zenodoLink = this.selectedExperiment.link;
+        experiment.date = this.selectedExperiment.date;
         this.showDashboard(experiment);
       },
       error => {

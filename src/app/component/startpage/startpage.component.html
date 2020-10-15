@@ -1,26 +1,92 @@
-<div class="clr-row">
-    <div class="clr-col-4">
-        <button class="btn btn-primary btn-icon new-button" routerLink="./../enzyme">
-            <clr-icon class="button-icon" shape="plus" size="24"></clr-icon> new experiment
-        </button>
+<div class="clr-row headline">
+    <div class="clr-col-8">
+        <p><span class="title">BioCatHub</span></p>
+        <p><span class="description">web application to create, collect and share experimental data in biocatalysis</span></p>
+        <p><button class="btn btn-primary" routerLink="./../enzyme">
+            start new experiment
+        </button></p>
     </div>
     <div class="clr-col-4">
         <div class="file-upload">
-            <ngx-dropzone accept=".omex" (change)="onSelect($event)">
-                <ngx-dropzone-label>import experiment</ngx-dropzone-label>
-                <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
-                    <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
-                </ngx-dropzone-preview>
-            </ngx-dropzone>
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <ngx-dropzone accept=".omex" (change)="onSelect($event)">
+                        <ngx-dropzone-label>import experiment</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                            <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div class="clr-row" *ngIf="files.length > 0">
+                <div class="clr-col-12">
+                    <button class="btn btn-primary" (click)="import()">import experiment</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="clr-col-4">
-        <div class="search-container">
-            <clr-icon shape="search" size="24"></clr-icon> search experiment
-            <clr-input-container>
-                <input clrInput type="text"  [(ngModel)]="zenodoId" name="downloadId" placeholder="zenodo id" />
-            </clr-input-container>
-            <br><button class="btn btn-primary" >search</button>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-12">
+        <span class="headline">published experiments</span>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <div class="experiment-table">
+            <clr-datagrid [(clrDgSingleSelected)]="selectedExperiment">
+                <clr-dg-column [clrDgField]="'id'">id</clr-dg-column>
+                <clr-dg-column [clrDgField]="'title'">title</clr-dg-column>
+                <clr-dg-column [clrDgField]="'name'">creator</clr-dg-column>
+                <clr-dg-column [clrDgField]="'affiliation'">institution</clr-dg-column>
+                <clr-dg-column [clrDgField]="'date'">creation date</clr-dg-column>
+
+                <clr-dg-row *clrDgItems="let experiment of experiments" [clrDgItem]="experiment">
+                    <clr-dg-cell>
+                        <a href="{{experiment.link}}" target="_blank">{{experiment.id}}</a>
+                    </clr-dg-cell>
+                    <clr-dg-cell>{{experiment.title}}</clr-dg-cell>
+                    <clr-dg-cell>{{experiment.name}}</clr-dg-cell>
+                    <clr-dg-cell>{{experiment.affiliation}}</clr-dg-cell>
+                    <clr-dg-cell>{{experiment.date}}</clr-dg-cell>
+                </clr-dg-row>
+
+                <clr-dg-placeholder>no experiments published</clr-dg-placeholder>
+
+                <clr-dg-footer>
+                    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">experiments per page</clr-dg-page-size>
+                        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} experiments
+                    </clr-dg-pagination>
+                </clr-dg-footer>
+            </clr-datagrid>
+            <button class="btn btn-primary" (click)="showExperiment()" *ngIf="selectedExperiment">
+                show experiment
+            </button>
+        </div>
+    </div>
+</div>
+<div class="impressum">
+    <div class="clr-row">
+        <div class="clr-col-12 center-col">
+            <span class="headline">technologies and information systems</span>
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-4">
+            Zenodo
+        </div>
+        <div class="clr-col-4">
+            Brenda
+        </div>
+        <div class="clr-col-4">
+            EnzymeML
+        </div>
+    </div>
+    <div class="clr-row">
+        <div class="clr-col-12">
+            developed by FZ Jülich ...
         </div>
     </div>
 </div>

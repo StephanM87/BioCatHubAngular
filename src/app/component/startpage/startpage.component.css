@@ -1,23 +1,27 @@
-.new-button {
-    max-width: none;
-    width: 100%;
-    height: 100%;
-    margin: 0 0 .2rem 0;
+.headline {
+    margin-bottom: 2rem;
+}
+.title {
+    font-size: 3rem;
+    color: black;
+}
+.description {
+    font-size: 1.2rem;
 }
 
 .file-upload {
-    margin: 0;
+    margin-top: 1rem;
 }
 
-.clr-form-control {
-    align-items: unset;
- }
- .clr-input {
-    width: 100%;
- }
+.experiment-table {
+    margin-top: .2rem;
+    margin-bottom: 2rem;
+}
 
- .search-container {
-    height: 100%;
-    border: 2px solid #0072a3;
-    padding: .5rem;
- }
+.impressum {
+    margin-bottom: 1rem;
+}
+
+.center-col {
+    text-align: center;
+}
