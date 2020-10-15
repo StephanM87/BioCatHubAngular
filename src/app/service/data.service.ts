@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Enzyme, Reagent, Replicate, Vessel, Reaction } from '../model/biocatalysis';
-import { EnzymeSearch, ReagentSearch, EnzymeSpecification, ReagentSpecification } from '../model/serviceresult';
-import { Experiment} from '../model/experiment';
-import { User } from '../model/user';
+import { Enzyme, Reagent } from '../model/biocatalysis';
+import { EnzymeSearch, ReagentSearch, EnzymeSpecification, ReagentSpecification, Deposition, Upload } from '../model/serviceresult';
+import { Experiment, IExperiment} from '../model/experiment';
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -18,14 +17,12 @@ export class DataService {
   private serverUrl = 'http://127.0.0.1:5000/api';
 
   experiment: Experiment;
-  user: User;
   files: File[];
 
   constructor(private client: HttpClient) { 
     this.experiment = new Experiment();
     this.experiment.enzymes = new Array<Enzyme>();
     this.experiment.reagents = new Array<Reagent>();
-    this.user = new User();
   }
 
   public getExperiment(): Experiment {
@@ -34,10 +31,6 @@ export class DataService {
 
   public setExperiment(experiment: Experiment): void {
     this.experiment = experiment;
-  }
-
-  public getUser(): User {
-    return this.user;
   }
 
   public getFiles(): File[] {
@@ -70,12 +63,17 @@ export class DataService {
     return this.client.post(this.serverUrl + '/enzymeml', this.experiment, {headers: httpOptions.headers, responseType: 'blob'});
   }
 
-  getExperimentFromZenodo(id: string): Observable<Experiment> {
-    return this.client.get<Experiment>(this.serverUrl + '/experiment/' + id);
+  getExperimentFromZenodo(id: string): Observable<IExperiment> {
+    const options = id ? { params: new HttpParams().set('id', id) } : {};
+    return this.client.get<IExperiment>(this.serverUrl + '/experiment', options);
   }
 
-  updateExperiment(): Observable<Experiment> {
-    return this.client.post<Experiment>(this.serverUrl + '/experiment', httpOptions);
+  getExperimentListFromZenodo(): Observable<Array<Deposition>> {
+    return this.client.get<Deposition[]>(this.serverUrl + '/experiment/list');
+  }
+
+  uploadExperiment(): Observable<Upload> {
+    return this.client.post<Upload>(this.serverUrl + '/experiment', this.experiment, httpOptions);
   }
 
   plotMeasurement(): Observable<Blob> {
