@@ -1,14 +1,27 @@
-.clr-accordion {
-    margin-top: 1rem;
- }
-
- .clr-form-control {
+.clr-form-control {
     align-items: unset;
-}
+ }
+ .clr-input,
  .clr-textarea {
     width: 100%;
  }
 
+.clr-accordion {
+    margin-top: 1rem;
+ }
+
  .button-col {
      text-align: right;
+ }
+
+ .alert {
+     margin-bottom: 1rem;
+ }
+
+ .metadata {
+     margin-top: 2rem;
+ }
+
+ .table.table-vertical th {
+    background-color: transparent;
  }

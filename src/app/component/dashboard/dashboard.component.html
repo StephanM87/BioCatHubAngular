@@ -1,30 +1,68 @@
-<div class="clr-row">
-    <div class="clr-col-4">
-        <span class="headline">experiment</span>
+<div class="alert alert-success" role="alert" *ngIf="showAlert">
+    <div class="alert-items">
+        <div class="alert-item static">
+            <div class="alert-icon-wrapper">
+                <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+            </div>
+            <span class="alert-text">your experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{experiment.id}}</b></span>
+        </div>
     </div>
-    <div class="clr-col-8 button-col">
+    <button type="button" class="close" aria-label="Close">
+        <clr-icon aria-hidden="true" shape="close" (click)="showAlert=false"></clr-icon>
+    </button>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-6">
+        <span class="headline">experiment</span>
+        <span class="id" *ngIf="experiment.id"> (#<a href="{{experiment.zenodoLink}}" target="_blank">{{experiment.id}}</a>)</span>
+    </div>
+    <div class="clr-col-6 button-col">
         <button class="btn btn-link btn-sm" (click)="exportEnzymeML()">
             <clr-icon shape="file-zip" size="24"></clr-icon> EnzymeML
         </button>
         <button class="btn btn-link btn-sm" (click)="createPdf()">
             <clr-icon shape="file" size="24"></clr-icon> PDF
         </button>
-        <!-- <button class="btn btn-link btn-sm" (click)="shareExperiment()">
-            <clr-icon shape="link" size="24"></clr-icon> share
-        </button> -->
         <button class="btn btn-link btn-sm" (click)="uploadToZenodo()">
             <clr-icon shape="upload-cloud" size="24"></clr-icon> zenodo
         </button>
     </div>
 </div>
 <div class="clr-row">
-    <div class="clr-col-12">
-        <clr-textarea-container>
-            <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description ..."></textarea>
-        </clr-textarea-container>
+    <div class="clr-col-8">
+        <div class="metadata">
+            <clr-input-container>
+                <input clrInput class="title-input" type="text" [(ngModel)]="experiment.title" name="title" placeholder="title"/>
+            </clr-input-container>
+            <clr-textarea-container>
+                <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description, notes, etc."></textarea>
+            </clr-textarea-container>
+        </div>
+    </div>
+    <div class="clr-col-4">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">
+                    <div class="clr-row">
+                        <div class="clr-col-12">experimentalist</div>
+                    </div>
+                </div>
+                <div class="card-text">
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" name="lastName" placeholder="last name" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" name="firstName" placeholder="first name" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" name="institution" placeholder="institution"/>
+                    </clr-input-container>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="clr-row">
     <div class="clr-col-6">
         <div class="clr-row">
@@ -33,8 +71,8 @@
                     <div class="card-block">
                         <div class="card-title">
                             <div class="clr-row">
-                                <div class="clr-col-11">enzymes</div>
-                                <div class="clr-col-1 button-col">
+                                <div class="clr-col-9">enzymes</div>
+                                <div class="clr-col-3 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../enzyme">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -69,8 +107,8 @@
                     <div class="card-block">
                         <div class="card-title">
                             <div class="clr-row">
-                                <div class="clr-col-11">reagents</div>
-                                <div class="clr-col-1 button-col">
+                                <div class="clr-col-9">reagents</div>
+                                <div class="clr-col-3 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../reagent">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -82,15 +120,19 @@
                                 <thead>
                                     <tr>
                                         <th class="left">name</th>
+                                        <th class="left">formula</th>
                                         <th class="left">concentration</th>
                                         <th class="left">unit</th>
+                                        <th class="left">role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let reagent of experiment.reagents">
                                         <td class="left">{{reagent.name}}</td>
+                                        <td class="left">{{reagent.formula}}</td>
                                         <td class="left">{{reagent.concentration}}</td>
                                         <td class="left">{{reagent.unit}}</td>
+                                        <td class="left">{{reagent.role}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -100,13 +142,13 @@
             </div>
         </div>
         <div class="clr-row">
-            <div class="clr-col-12">
+            <div class="clr-col-6">
                 <div class="card">
                     <div class="card-block">
                         <div class="card-title">
                             <div class="clr-row">
-                                <div class="clr-col-11">vessel</div>
-                                <div class="clr-col-1 button-col">
+                                <div class="clr-col-9">reaction</div>
+                                <div class="clr-col-3 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../reaction">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -114,19 +156,19 @@
                             </div>
                         </div>
                         <div class="card-text">
-                            <table class="table table-noborder table-compact">
-                                <thead>
-                                    <tr>
-                                        <th class="left">name</th>
-                                        <th class="left">size</th>
-                                        <th class="left">unit</th>
-                                    </tr>
-                                </thead>
+                            <table class="table table-noborder table-compact table-vertical">
                                 <tbody>
                                     <tr>
-                                        <td class="left">{{experiment.vessel.name}}</td>
-                                        <td class="left">{{experiment.vessel.size}}</td>
-                                        <td class="left">{{experiment.vessel.unit}}</td>
+                                        <th>name</th>
+                                        <td>{{experiment.reaction.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>temperature</th>
+                                        <td>{{experiment.reaction.temp}} {{experiment.reaction.unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ph value</th>
+                                        <td>{{experiment.reaction.ph}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -134,15 +176,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="clr-row">
-            <div class="clr-col-12">
+            <div class="clr-col-6">
                 <div class="card">
                     <div class="card-block">
                         <div class="card-title">
                             <div class="clr-row">
-                                <div class="clr-col-11">reaction</div>
-                                <div class="clr-col-1 button-col">
+                                <div class="clr-col-9">vessel</div>
+                                <div class="clr-col-3 button-col">
                                     <button class="btn btn-icon btn-link" routerLink="./../reaction">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
@@ -150,21 +190,23 @@
                             </div>
                         </div>
                         <div class="card-text">
-                            <table class="table table-noborder table-compact">
-                                <thead>
-                                    <tr>
-                                        <th class="left">name</th>
-                                        <th class="left">temperature</th>
-                                        <th class="left">unit</th>
-                                        <th class="left">ph value</th>
-                                    </tr>
-                                </thead>
+                            <table class="table table-noborder table-compact table-vertical">
                                 <tbody>
                                     <tr>
-                                        <td class="left">{{experiment.reaction.name}}</td>
-                                        <td class="left">{{experiment.reaction.temp}}</td>
-                                        <td class="left">{{experiment.reaction.unit}}</td>
-                                        <td class="left">{{experiment.reaction.ph}}</td>
+                                        <th>name</th>
+                                        <td>{{experiment.vessel.name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>size</th>
+                                        <td>{{experiment.vessel.size}} {{experiment.vessel.unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>scale</th>
+                                        <td>{{experiment.vessel.scale}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>material</th>
+                                        <td>{{experiment.vessel.material}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -180,8 +222,8 @@
             <div class="card-block">
                 <div class="card-title">
                     <div class="clr-row">
-                        <div class="clr-col-11">measurement</div>
-                        <div class="clr-col-1 button-col">
+                        <div class="clr-col-9">measurement</div>
+                        <div class="clr-col-3 button-col">
                             <button class="btn btn-icon btn-link" routerLink="./../measurement">
                                 <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                             </button>

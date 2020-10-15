@@ -16,11 +16,15 @@ export class DashboardComponent implements OnInit {
 
   public description: string;
 
+  public showAlert = true;
+  public zenodoLink: string;
+
   constructor(public dataService: DataService) {
     this.experiment = dataService.getExperiment();
     if(this.experiment.getMeasurement().replicates.length > 0){
       this.loadMeasurementImage();
     }
+    this.showAlert = false;
   }
 
   ngOnInit(): void {
@@ -28,9 +32,11 @@ export class DashboardComponent implements OnInit {
   }
 
   public uploadToZenodo(): void {
-    this.dataService.updateExperiment().subscribe(
-      data => {
-        // TODO: Zenodo ID anzeigen (Link generieren?)
+    this.dataService.uploadExperiment().subscribe(
+      upload => {
+        this.experiment.id = upload.id;
+        this.zenodoLink = upload.zenodoLink;
+        this.showAlert = true;
       },
       error => {
         this.showError(error);
