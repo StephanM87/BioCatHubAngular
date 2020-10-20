@@ -1,7 +1,4 @@
-.header .branding .title {
-    font-weight: bold;
-}
-header .branding .title .dark {
+.dark {
     color: #79afcc;
 }
 .biocathub-logo {

@@ -17,3 +17,20 @@
 .nav-next {
     text-align: right;
 }
+
+.nav-dashboard {
+    text-align: center;
+}
+
+.nav-overview:hover {
+    background-color: #00567a;
+    color: white;
+}
+.nav-new:hover {
+    background-color: green;
+    color: white;
+}
+.nav-cancel:hover {
+    background-color: red;
+    color: white;
+}

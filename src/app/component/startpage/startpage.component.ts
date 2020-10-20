@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class StartpageComponent implements OnInit {
 
+  public loading: boolean;
   public files: File[];
   public experiments: Deposition[];
   public selectedExperiment: Deposition;
@@ -37,17 +38,28 @@ export class StartpageComponent implements OnInit {
     }
   }
 
+  public newExperiment(): void {
+    this.dataService.setExperiment(new Experiment());
+    this.dataService.setId(undefined);
+    this.dataService.setZenodoLink(undefined);
+    this.dataService.setCreationDate(new Date());
+    this.router.navigate(['./../dashboard'], { relativeTo: this.route });
+  }
+
   public showExperiment(): void {
+    this.loading = true;
     this.dataService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
       json => {
         let experiment = new Experiment(json);
-        experiment.id = this.selectedExperiment.id;
-        experiment.zenodoLink = this.selectedExperiment.link;
-        experiment.date = this.selectedExperiment.date;
+        this.dataService.setId(this.selectedExperiment.id);
+        this.dataService.setZenodoLink(this.selectedExperiment.link);
+        this.dataService.setCreationDate(new Date(this.selectedExperiment.date));
         this.showDashboard(experiment);
+        this.loading = false;
       },
       error => {
         this.showError(error);
+        this.loading = false;
       }
     );
   }

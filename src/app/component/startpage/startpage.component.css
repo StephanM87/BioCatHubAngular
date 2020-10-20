@@ -18,10 +18,19 @@
     margin-bottom: 2rem;
 }
 
-.impressum {
-    margin-bottom: 1rem;
-}
 
+.impressum-headline {
+    color: black;
+    font-size: 1rem;
+}
 .center-col {
     text-align: center;
+    margin-bottom: 1rem;
+}
+.impressum-icon {
+    margin-right: .2rem;
+    color: #00567a;
+}
+.impressum-text {
+    color: black;
 }

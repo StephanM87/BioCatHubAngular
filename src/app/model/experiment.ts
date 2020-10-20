@@ -1,9 +1,6 @@
 import { Enzyme, Reagent, Measurement, Replicate, Vessel, Reaction, ReactionCondition, User } from './biocatalysis';
 
 export interface IExperiment {
-    id: string;
-    zenodoLink: string;
-    date: string;
     title: string;
     vessel: Vessel;
     reaction: ReactionCondition;
@@ -15,9 +12,6 @@ export interface IExperiment {
 }
 
 export class Experiment implements IExperiment {
-    id: string;
-    zenodoLink: string;
-    date: string;
     title: string;
     vessel: Vessel;
     reaction: ReactionCondition;
@@ -28,9 +22,6 @@ export class Experiment implements IExperiment {
     user: User;
 
     constructor(experiment? : IExperiment) {
-        this.id = experiment && experiment.id || undefined;
-        this.zenodoLink = experiment && experiment.zenodoLink || undefined;
-        this.date = experiment && experiment.date || undefined;
         this.title = experiment && experiment.title || undefined;
         this.vessel = experiment && experiment.vessel || new Vessel();
         this.reaction = experiment && experiment.reaction || new ReactionCondition();
@@ -39,10 +30,6 @@ export class Experiment implements IExperiment {
         this.measurement = experiment && experiment.measurement || new Measurement();
         this.description = experiment && experiment.description || undefined;
         this.user = experiment && experiment.user || new User();
-    }
-
-    public getId(): string {
-        return this.id;
     }
 
     public getTitle(): string {
@@ -55,6 +42,13 @@ export class Experiment implements IExperiment {
 
     public getVessel(): Vessel {
         return this.vessel;
+    }
+
+    public validateVessel(): boolean {
+        if(this.vessel != undefined){
+            return true;
+        }
+        return false;
     }
 
     public getReaction(): ReactionCondition {
@@ -150,7 +144,7 @@ export class Experiment implements IExperiment {
     }
 
     public validateReaction(): boolean {
-        if(this.vessel != undefined){
+        if(this.reaction != undefined){
             return true;
         }
         return false;

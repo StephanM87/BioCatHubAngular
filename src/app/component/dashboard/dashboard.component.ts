@@ -12,15 +12,21 @@ import { Experiment } from 'src/app/model/experiment';
 export class DashboardComponent implements OnInit {
 
   public experiment: Experiment;
+  public id: string;
+  public zenodoLink: string;
+  public creationDate: Date;
   public measurementPlot: any;
 
   public description: string;
 
   public showAlert = true;
-  public zenodoLink: string;
+  public loading: boolean;
 
   constructor(public dataService: DataService) {
     this.experiment = dataService.getExperiment();
+    this.id = dataService.getId();
+    this.zenodoLink = dataService.getZenodoLink();
+    this.creationDate = dataService.getCreationDate();
     if(this.experiment.getMeasurement().replicates.length > 0){
       this.loadMeasurementImage();
     }
@@ -32,25 +38,31 @@ export class DashboardComponent implements OnInit {
   }
 
   public uploadToZenodo(): void {
+    this.loading = true;
     this.dataService.uploadExperiment().subscribe(
       upload => {
-        this.experiment.id = upload.id;
+        this.id = upload.id;
         this.zenodoLink = upload.zenodoLink;
         this.showAlert = true;
+        this.loading = false;
       },
       error => {
         this.showError(error);
+        this.loading = false;
       }
     )
   }
 
   public exportEnzymeML(): void {
+    this.loading = true;
     this.dataService.createEnzymeML().subscribe(
       blob => {
         this.download(blob, 'experiment.omex');
+        this.loading = false;
       },
       error => {
         this.showError(error);
+        this.loading = false;
       }
     );
   }

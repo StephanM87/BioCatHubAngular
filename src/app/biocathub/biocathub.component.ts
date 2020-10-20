@@ -19,11 +19,19 @@ export class BiocathubComponent implements OnInit {
   public timelineVisible: boolean;
   public collapsed: boolean;
 
+  public vesselLabel = "vessels & volumes";
+  public enzymeLabel = "biocatalyst";
+  public reagentLabel = "reactants";
+  public reactionLabel = "reaction conditions";
+  public measurementLabel = "experimental data";
+
+  public vesselState: string;
   public enzymeState: string;
   public reagentState: string;
   public reactionState: string;
   public measurementState: string;
 
+  public vesselStarted: boolean;
   public enzymeStarted: boolean;
   public reagentStarted: boolean;
   public reactionStarted: boolean;
@@ -49,7 +57,6 @@ export class BiocathubComponent implements OnInit {
 
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd){
-        console.log(val.url);
         this.updateNavigation(val.url);
      }
     });
@@ -62,6 +69,7 @@ export class BiocathubComponent implements OnInit {
     this.timelineVisible = !(url == '/' || url == '/start' || url == '/dashboard');
     if(this.navigationVisible){
       this.updateStarted(url);
+      this.updateVesselState();
       this.updateEnzymeState();
       this.updateReagentState();
       this.updateReactionState();
@@ -72,7 +80,9 @@ export class BiocathubComponent implements OnInit {
   }
 
   updateStarted(url: string): void {
-    if (url == '/enzyme') {
+    if (url == '/vessel') {
+      this.vesselStarted = true;
+    } else if (url == '/enzyme') {
       this.enzymeStarted = true;
     } else if (url == '/reagent') {
       this.reagentStarted = true;
@@ -84,7 +94,9 @@ export class BiocathubComponent implements OnInit {
   }
 
   setCurrentState(url: string): void {
-    if (url == '/enzyme') {
+    if (url == '/vessel') {
+      this.setVesselState(this.CURRENT);
+    } else if (url == '/enzyme') {
       this.setEnzymeState(this.CURRENT);
     } else if (url == '/reagent') {
       this.setReagentState(this.CURRENT);
@@ -100,31 +112,45 @@ export class BiocathubComponent implements OnInit {
     this.next = false;
     this.nextRouterLink = '';
     this.previousRouterLink = '';
-    if (url == '/enzyme') {
+    if (url == '/vessel') {
       this.next = true;
-      this.nextPage = 'reagents';
+      this.nextPage = this.enzymeLabel;
+      this.nextRouterLink = './enzyme';
+    } else if (url == '/enzyme') {
+      this.previous = true;
+      this.previousPage = this.vesselLabel;
+      this.previousRouterLink = './vessel';
+      this.next = true;
+      this.nextPage = this.reagentLabel;
       this.nextRouterLink = './reagent';
     } else if (url == '/reagent') {
       this.previous = true;
-      this.previousPage ='enzymes';
+      this.previousPage = this.enzymeLabel;
       this.previousRouterLink = './enzyme';
       this.next = true;
-      this.nextPage = 'reaction';
+      this.nextPage = this.reactionLabel;
       this.nextRouterLink = './reaction';
     } else if (url == '/reaction') {
       this.previous = true;
-      this.previousPage ='reagents';
+      this.previousPage = this.reagentLabel;
       this.previousRouterLink = './reagent';
       this.next = true;
-      this.nextPage = 'measurement';
+      this.nextPage = this.measurementLabel;
       this.nextRouterLink = './measurement';
     } else if (url == '/measurement') {
       this.previous = true;
-      this.previousPage ='reaction';
+      this.previousPage = this.reactionLabel;
       this.previousRouterLink = './reaction';
-      this.next = true;
-      this.nextPage = 'overview';
-      this.nextRouterLink = './dashboard';
+    }
+  }
+
+  updateVesselState(){
+    if(!this.vesselStarted) {
+      this.setVesselState(this.NOT_STARTED);
+    } else if(this.dataService.getExperiment().validateVessel()){
+      this.setVesselState(this.SUCCESS);
+    } else {
+      this.setVesselState(this.ERROR);
     }
   }
 
@@ -166,6 +192,10 @@ export class BiocathubComponent implements OnInit {
     } else {
       this.setMeasurementState(this.ERROR);
     }
+  }
+
+  public setVesselState(state: string): void {
+    this.vesselState = state;
   }
 
   public setEnzymeState(state: string): void {

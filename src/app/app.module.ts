@@ -19,6 +19,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReactionComponent } from './component/reaction/reaction.component';
+import { VesselComponent } from './component/vessel/vessel.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReactionComponent } from './component/reaction/reaction.component';
     MeasurementComponent,
     ReagentComponent,
     DashboardComponent,
-    ReactionComponent
+    ReactionComponent,
+    VesselComponent
   ],
   imports: [
     BrowserModule,

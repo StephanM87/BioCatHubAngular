@@ -71,18 +71,14 @@ export class Reagent {
 }
 
 export class Vessel {
-    name: string;
-    size: number;
+    type: string;
+    volume: number;
     unit: string;
-    scale: string;
-    material: string;
 
     constructor(vessel?: Vessel) {
-        this.name = vessel && vessel.name || undefined;
-        this.size = vessel && vessel.size || undefined;
+        this.type = vessel && vessel.type || undefined;
+        this.volume = vessel && vessel.volume || undefined;
         this.unit = vessel && vessel.unit || undefined;
-        this.scale = vessel && vessel.scale || undefined;
-        this.material = vessel && vessel.material || undefined;
     }
 }
 

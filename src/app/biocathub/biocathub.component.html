@@ -1,57 +1,73 @@
 <div class="main-container">
     <app-header></app-header>
     <div class="content-container">
-        <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" *ngIf="navigationVisible">
-            <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
+        <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" class="nav-trigger--bottom" *ngIf="navigationVisible">
+            <!-- <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
                 home
+            </a> -->
+            <a clrVerticalNavLink class="nav-overview" routerLink="./dashboard" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
+                overview
             </a>
             <div class="nav-divider"></div>
+            <a clrVerticalNavLink routerLink="./vessel" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="volume"></clr-icon>
+                {{vesselLabel}}
+            </a>
             <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
-                enzyme specification
+                {{enzymeLabel}}
             </a>
             <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
-                reagent specification
+                {{reagentLabel}}
             </a>
             <a clrVerticalNavLink routerLink="./reaction" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="thermometer"></clr-icon>
-                reaction conditions
+                {{reactionLabel}}
             </a>
             <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="line-chart"></clr-icon>
-                measurement data
+                {{measurementLabel}}
             </a>
             <div class="nav-divider"></div>
-            <a clrVerticalNavLink routerLink="./dashboard" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
-                overview
+            <a clrVerticalNavLink class="nav-new" routerLink="./start" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="plus"></clr-icon>
+                new experiment
+            </a>
+            <a clrVerticalNavLink class="nav-cancel" routerLink="./start" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon shape="trash"></clr-icon>
+                cancel experiment
             </a>
         </clr-vertical-nav>
         <div class="content-area">
             <div class="clr-row" >
-                <div class="clr-col-2"></div>
-                <div class="clr-col-10">
+                <div class="clr-col-12">
                     <clr-timeline *ngIf="timelineVisible">
+                        <clr-timeline-step [clrState]="vesselState">
+                            <clr-timeline-step-title>
+                                <a id="vessel" class="navigation-link" routerLink="./vessel" routerLinkActive="active">{{vesselLabel}}</a>
+                            </clr-timeline-step-title>
+                        </clr-timeline-step>
                         <clr-timeline-step [clrState]="enzymeState">
                             <clr-timeline-step-title>
-                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">enzyme specification</a>
+                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">{{enzymeLabel}}</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="reagentState">
                             <clr-timeline-step-title>
-                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">reagent specification</a>
+                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">{{reagentLabel}}</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="reactionState">
                             <clr-timeline-step-title>
-                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">reaction conditions</a>
+                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">{{reactionLabel}}</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                         <clr-timeline-step [clrState]="measurementState">
                             <clr-timeline-step-title>
-                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">measurement data</a>
+                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">{{measurementLabel}}</a>
                             </clr-timeline-step-title>
                         </clr-timeline-step>
                     </clr-timeline>
@@ -60,13 +76,18 @@
             <router-outlet></router-outlet>
             <div class="footer-nav" *ngIf="timelineVisible">
                 <div class="clr-row" >
-                    <div class="clr-col-6 nav-previous">
+                    <div class="clr-col-4 nav-previous">
                         <button class="btn btn-link" [routerLink]="previousRouterLink" *ngIf="previous">
                             <clr-icon shape="caret left"></clr-icon>
                             {{previousPage}}
                         </button>
                     </div>
-                    <div class="clr-col-6 nav-next">
+                    <div class="clr-col-4 nav-dashboard">
+                        <button class="btn btn-link" routerLink="./dashboard">
+                            overview
+                        </button>
+                    </div>
+                    <div class="clr-col-4 nav-next">
                         <button class="btn btn-link" [routerLink]="nextRouterLink" *ngIf="next">
                             {{nextPage}}
                             <clr-icon shape="caret right"></clr-icon>

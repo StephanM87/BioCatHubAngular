@@ -17,10 +17,14 @@ export class DataService {
   private serverUrl = 'http://127.0.0.1:5000/api';
 
   experiment: Experiment;
+  id: string;
+  zenodoLink: string;
+  date: Date;
   files: File[];
 
   constructor(private client: HttpClient) { 
     this.experiment = new Experiment();
+    this.date = new Date();
     this.experiment.enzymes = new Array<Enzyme>();
     this.experiment.reagents = new Array<Reagent>();
   }
@@ -31,6 +35,30 @@ export class DataService {
 
   public setExperiment(experiment: Experiment): void {
     this.experiment = experiment;
+  }
+
+  public getCreationDate(): Date {
+    return this.date;
+  }
+
+  public setCreationDate(date: Date): void {
+    this.date = date;
+  }
+
+  public getZenodoLink(): string {
+    return this.zenodoLink;
+  }
+
+  public setZenodoLink(zenodoLink: string): void {
+    this.zenodoLink = zenodoLink;
+  }
+
+  public getId(): string {
+    return this.id;
+  }
+
+  public setId(id: string): void {
+    this.id = id;
   }
 
   public getFiles(): File[] {

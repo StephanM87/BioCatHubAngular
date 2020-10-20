@@ -2,9 +2,24 @@
     <div class="clr-col-8">
         <p><span class="title">BioCatHub</span></p>
         <p><span class="description">web application to create, collect and share experimental data in biocatalysis</span></p>
-        <p><button class="btn btn-primary" routerLink="./../enzyme">
-            start new experiment
-        </button></p>
+        <p>
+            <button class="btn btn-primary" (click)="newExperiment()" routerLink="./../dashboard">
+                start new experiment
+            </button>
+            <!-- <clr-dropdown>
+                <button class="btn btn-primary" clrDropdownTrigger>
+                    start template experiment
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu *clrIfOpen>
+                    <label class="dropdown-header">select template</label>
+                    <div clrDropdownItem>template 1</div>
+                    <div clrDropdownItem>template 2</div>
+                    <div clrDropdownItem>template 3</div>
+                    <div clrDropdownItem>template 4</div>
+                </clr-dropdown-menu>
+            </clr-dropdown> -->
+        </p>
     </div>
     <div class="clr-col-4">
         <div class="file-upload">
@@ -37,10 +52,10 @@
         <div class="experiment-table">
             <clr-datagrid [(clrDgSingleSelected)]="selectedExperiment">
                 <clr-dg-column [clrDgField]="'id'">id</clr-dg-column>
-                <clr-dg-column [clrDgField]="'title'">title</clr-dg-column>
-                <clr-dg-column [clrDgField]="'name'">creator</clr-dg-column>
+                <clr-dg-column [clrDgField]="'title'">experiment</clr-dg-column>
+                <clr-dg-column [clrDgField]="'name'">experimentalist</clr-dg-column>
                 <clr-dg-column [clrDgField]="'affiliation'">institution</clr-dg-column>
-                <clr-dg-column [clrDgField]="'date'">creation date</clr-dg-column>
+                <clr-dg-column [clrDgField]="'date'">publication date</clr-dg-column>
 
                 <clr-dg-row *clrDgItems="let experiment of experiments" [clrDgItem]="experiment">
                     <clr-dg-cell>
@@ -67,26 +82,46 @@
         </div>
     </div>
 </div>
-<!-- <div class="impressum">
-    <div class="clr-row">
+<div class="impressum">
+    <div class="clr-row" >
         <div class="clr-col-12 center-col">
-            <span class="headline">technologies and information systems</span>
+            <span class="impressum-headline">technologies and information systems</span>
         </div>
     </div>
     <div class="clr-row">
-        <div class="clr-col-4">
-            Zenodo
+        <div class="clr-col-4 center-col">
+            <clr-icon class="impressum-icon" size="24" shape="cloud"></clr-icon>
+            <a href="https://zenodo.org/" target="_blank"><span class="impressum-text">zenodo</span></a>
+            <p>
+                BioCatHub supports uploading experimental data to a zenodo repsitory to make the experiments easily accesible and citeable.
+            </p>
         </div>
-        <div class="clr-col-4">
-            Brenda
+        <div class="clr-col-4 center-col">
+            <clr-icon class="impressum-icon" size="24" shape="flask"></clr-icon>
+            <a href="https://www.brenda-enzymes.org/" target="_blank"><span class="impressum-text">BRENDA</span></a>
+            <p>
+                BioCatHub uses BRENDA REST API to specify enzymes and display information. The information system comprises molecular and biochemical information on enzymes that have been classified by the IUBMB.
+            </p>
         </div>
-        <div class="clr-col-4">
-            EnzymeML
+        <div class="clr-col-4 center-col">
+            <clr-icon class="impressum-icon" size="24" shape="code"></clr-icon>
+            <a href="https://github.com/EnzymeML" target="_blank"><span class="impressum-text">EnzymeML</span></a>
+            <p>
+                BioCatHub supports reading and writing EnzymeML files. The XML based exchange format for experimental data in biocatalysis is developed at the university of Stuttgart.
+            </p>
         </div>
     </div>
     <div class="clr-row">
         <div class="clr-col-12">
-            developed by FZ Jülich ...
+            developed at <a href="https://www.fz-juelich.de/ibg/ibg-1/DE/Home/home_node.html" target="_blank">Forschungszentrum Jülich</a>
         </div>
     </div>
-</div> -->
+</div>
+
+<div class="overlay" *ngIf="loading">
+    <div class="overlay-wrapper">
+        <div class="overlay-spinner">
+            <span class="spinner spinner-inverse spinner-lg"></span>
+        </div>
+    </div>
+</div>

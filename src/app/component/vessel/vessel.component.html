@@ -1,0 +1,33 @@
+<div class="clr-row">
+    <div class="clr-col-12">
+        <span class="headline">vessel</span>
+    </div>
+</div>
+<div class="clr-row">
+    <div class="clr-col-12">
+        <div class="card vessel-card">
+            <div class="card-block">
+                <div class="card-text">
+                    <form clrForm>
+                        <clr-input-container>
+                            <label>type</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().type" name="type"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>volume</label>
+                            <input clrInput type="text" [(ngModel)]="getVessel().volume" name="volume" />
+                        </clr-input-container>
+                        <clr-select-container>
+                            <label>unit</label>
+                            <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
+                              <option value="L">L</option>
+                              <option value="mL">mL</option>
+                              <option value="µL">µL</option>
+                            </select>
+                        </clr-select-container>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

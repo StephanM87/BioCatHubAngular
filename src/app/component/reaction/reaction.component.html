@@ -5,7 +5,7 @@
 </div>
 <div class="clr-row">
     <div class="clr-col-12">
-        <div class="card">
+        <div class="card reaction-card">
             <div class="card-block">
                 <div class="card-text">
                     <form clrForm>
@@ -26,49 +26,6 @@
                         <clr-input-container>
                             <label>ph value</label>
                             <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph" />
-                        </clr-input-container>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="clr-row">
-    <div class="clr-col-12">
-        <span class="headline">vessel</span>
-    </div>
-</div>
-<div class="clr-row">
-    <div class="clr-col-12">
-        <div class="card vessel-card">
-            <div class="card-block">
-                <div class="card-text">
-                    <form clrForm>
-                        <clr-input-container>
-                            <label>name</label>
-                            <input clrInput type="text" [(ngModel)]="getVessel().name" name="name"/>
-                        </clr-input-container>
-                        <clr-input-container>
-                            <label>size</label>
-                            <input clrInput type="text" [(ngModel)]="getVessel().size" name="size" />
-                        </clr-input-container>
-                        <clr-select-container>
-                            <label>unit</label>
-                            <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
-                              <option value="mmol/L">mmol/L</option>
-                              <option value="mmoL/L">mmoL/L</option>
-                              <option value="mg/mL">mg/mL</option>
-                              <option value="mL">mL</option>
-                            </select>
-                        </clr-select-container>
-                        <clr-input-container>
-                            <label>scale</label>
-                            <input clrInput type="text" [(ngModel)]="getVessel().scale" name="scale" />
-                        </clr-input-container>
-                        <clr-input-container>
-                            <label>material</label>
-                            <input clrInput type="text" [(ngModel)]="getVessel().material" name="material" />
                         </clr-input-container>
                     </form>
                 </div>

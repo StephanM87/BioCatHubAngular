@@ -18,10 +18,23 @@
      margin-bottom: 1rem;
  }
 
+ .card-container {
+     height: 100%;
+     padding: 1rem 0;
+ }
+
+ .card {
+     height: 100%;
+ }
+
  .metadata {
      margin-top: 2rem;
  }
 
  .table.table-vertical th {
     background-color: transparent;
+ }
+
+ .dashboard-icon {
+     color: #00567a;
  }

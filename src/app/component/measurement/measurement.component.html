@@ -44,10 +44,6 @@
                                     <input type="radio" clrRadio value="line" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
                                     <label>line chart</label>
                                 </clr-radio-wrapper>
-                                <clr-radio-wrapper>
-                                    <input type="radio" clrRadio value="box" [(ngModel)]="getMeasurement().plot.style" (change)="updateImage()" />
-                                    <label>box plot</label>
-                                </clr-radio-wrapper>
                             </clr-radio-container>
                             <clr-toggle-container>
                                 <label>replicates</label>
@@ -77,37 +73,28 @@
 
                     <div class="clr-row" >
                         <div class="clr-col-4">
-                            <clr-select-container>
+                            <clr-input-container>
                                 <label>reagent</label>
-                                <select clrSelect [(ngModel)]="getMeasurement().reagent" name="reagent">
-                                  <option *ngFor="let reagent of getReagents()">{{reagent.name}}</option>
-                                </select>
-                            </clr-select-container>
+                                <input clrInput type="text" [(ngModel)]="getMeasurement().reagent" (change)="updateImage()" name="reagent"/>
+                            </clr-input-container>
                         </div>
                         <div class="clr-col-4">
                             <clr-input-container>
                                 <label>x value</label>
-                                <input clrInput type="text" [(ngModel)]="getMeasurement().x_name" name="x_name"/>
+                                <input clrInput type="text" [(ngModel)]="getMeasurement().x_name" (change)="updateImage()" name="x_name"/>
                             </clr-input-container>
-                            <clr-select-container>
-                                <select clrSelect [(ngModel)]="getMeasurement().x_unit" name="x_unit">
-                                  <option value="s">s</option>
-                                </select>
-                            </clr-select-container>
+                            <clr-input-container>
+                                <input clrInput type="text" [(ngModel)]="getMeasurement().x_unit" (change)="updateImage()" name="x_unit"/>
+                            </clr-input-container>
                         </div>
                         <div class="clr-col-4">
                             <clr-input-container>
                                 <label>y value</label>
-                                <input clrInput type="text" [(ngModel)]="getMeasurement().y_name" name="y_name"/>
+                                <input clrInput type="text" [(ngModel)]="getMeasurement().y_name" (change)="updateImage()" name="y_name"/>
                             </clr-input-container>
-                            <clr-select-container>
-                                <select clrSelect [(ngModel)]="getMeasurement().y_unit" name="y_unit">
-                                    <option value="mmol/L">mmol/L</option>
-                                    <option value="mmoL/L">mmoL/L</option>
-                                    <option value="mg/mL">mg/mL</option>
-                                    <option value="mL">mL</option>
-                                </select>
-                            </clr-select-container>
+                            <clr-input-container>
+                                <input clrInput type="text" [(ngModel)]="getMeasurement().y_unit" (change)="updateImage()" name="y_unit"/>
+                            </clr-input-container>
                         </div>
                     </div>
 
