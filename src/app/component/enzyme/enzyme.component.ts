@@ -19,7 +19,7 @@ export class EnzymeComponent implements OnInit {
   public buttonsEditVisible: boolean;
 
   // Filterung
-  public loadingEnzymes: boolean;
+  public loading: boolean;
   public searchInput: string;
   public closeButton: boolean;
   public enzymeList: EnzymeSearch[];
@@ -30,6 +30,7 @@ export class EnzymeComponent implements OnInit {
     this.showAddButtons();
     this.enzymeList = new Array<EnzymeSearch>();
     this.dialogVisible = false;
+    this.loading = false;
   }
 
   ngOnInit(): void {}
@@ -125,12 +126,10 @@ export class EnzymeComponent implements OnInit {
     } else {
       this.closeButton = true;
       this.dropdown = true;
-      this.loadingEnzymes = true;
       // Read Enzymes from DataService
       this.dataService.getEnzymeSearchList(searchValue).subscribe(
         data => {
           this.enzymeList = data;
-          this.loadingEnzymes = false;
         },
         error => {
           console.log(error);
@@ -140,6 +139,7 @@ export class EnzymeComponent implements OnInit {
   }
 
   public selectSearchEnzyme(selected: EnzymeSearch): void {
+    this.loading = true;
     this.resetSearch();
     this.dialogEnzyme.ecNumber = selected.ecNumber;
     this.dialogEnzyme.brendaLink = selected.brendaLink;
@@ -149,9 +149,11 @@ export class EnzymeComponent implements OnInit {
         this.dialogEnzyme.reactions = specification.reactions;
         this.addReagentsToExperiment(specification.reactions)
         this.addEnzymeToList();
+        this.loading = false;
       },
       error => {
         console.log(error);
+        this.loading = false;
       }
     );
   }
@@ -188,7 +190,6 @@ export class EnzymeComponent implements OnInit {
   public resetSearch(): void {
     this.searchInput = "";
     this.closeButton = false;
-    this.loadingEnzymes = false;
     this.dropdown = false;
   }
 
