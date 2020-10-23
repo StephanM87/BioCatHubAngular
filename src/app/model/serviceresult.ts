@@ -1,3 +1,4 @@
+// BRENDA
 export interface EnzymeSearch {
     ecNumber: string;
     enzymeName: string;
@@ -8,15 +9,6 @@ export interface ReagentSearch {
     ligandId: string;
     ligandName: string;
     brendaLink: string;
-}
-
-export interface Deposition {
-    id: string;
-    title: string;
-    date: string;
-    name: string;
-    affiliation: string;
-    link: string;
 }
 
 export interface Ligand {
@@ -41,6 +33,31 @@ export interface ReagentSpecification {
     ligandId: string;
     reagentName: string;
     formula: string;
+}
+
+// Sabio-RK
+
+export interface ReactionSearch {
+    id: string;
+    value: string;
+}
+
+export interface ReactionSpecification {
+    id: string;
+    name: string;
+    role: string;
+    schema: string;
+    smiles: string;
+}
+
+// zenodo
+export interface Deposition {
+    id: string;
+    title: string;
+    date: string;
+    name: string;
+    affiliation: string;
+    link: string;
 }
 
 export interface Upload {

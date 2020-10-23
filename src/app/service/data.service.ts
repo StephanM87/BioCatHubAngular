@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Enzyme, Reagent } from '../model/biocatalysis';
-import { EnzymeSearch, ReagentSearch, EnzymeSpecification, ReagentSpecification, Deposition, Upload } from '../model/serviceresult';
+import { EnzymeSearch, ReagentSearch, EnzymeSpecification, ReagentSpecification, Deposition, Upload, ReactionSearch, ReactionSpecification } from '../model/serviceresult';
 import { Experiment, IExperiment} from '../model/experiment';
 import { Observable } from 'rxjs';
 
@@ -85,6 +85,16 @@ export class DataService {
   getReagentSpecification(id: string): Observable<ReagentSpecification> {
     const options = id ? { params: new HttpParams().set('reagent', id) } : {};
     return this.client.get<ReagentSpecification>(this.serverUrl + '/enzyme', options);
+  }
+
+  getReactionSearchList(ecNumber: string) : Observable<Array<ReactionSearch>> {
+    const options = ecNumber ? { params: new HttpParams().set('ecNumber', ecNumber) } : {};
+    return this.client.get<ReactionSearch[]>(this.serverUrl + '/enzyme/reactions', options);
+  }
+
+  getReactionSpecification(reactionId: string) : Observable<Array<ReactionSpecification>> {
+    const options = reactionId ? { params: new HttpParams().set('reactionId', reactionId) } : {};
+    return this.client.get<ReactionSpecification[]>(this.serverUrl + '/enzyme/reaction', options);
   }
 
   createEnzymeML(): Observable<Blob> {
