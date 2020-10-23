@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Enzyme, Reagent } from '../../model/biocatalysis';
-import { EnzymeSearch, Reaction } from '../../model/serviceresult';
+import { EnzymeSearch, Reaction, ReactionSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -25,12 +25,18 @@ export class EnzymeComponent implements OnInit {
   public enzymeList: EnzymeSearch[];
   public dropdown: boolean;
 
+  // reactions
+  public selectedReaction: ReactionSearch;
+  public reactionSpecification: ReactionSearch;
+  public reactionList: ReactionSearch[];
+
   constructor(public dataService: DataService) {
     this.resetNewEnzyme();
     this.showAddButtons();
     this.enzymeList = new Array<EnzymeSearch>();
     this.dialogVisible = false;
     this.loading = false;
+    this.reactionList = [{id: '123', value:'reaction 1'}, {id: '124', value:'reaction 2'}, {id: '125', value:'reaction 3'}];
   }
 
   ngOnInit(): void {}
@@ -156,6 +162,18 @@ export class EnzymeComponent implements OnInit {
         this.loading = false;
       }
     );
+    // Reaction List ermitteln
+    // this.loading = true;
+    // this.dataService.getReactionSearchList(selected.ecNumber).subscribe(
+    //   result => {
+    //     this.reactionList = result;
+    //     this.loading = false;
+    //   },
+    //   error => {
+    //     console.log(error);
+    //     this.loading = false;
+    //   }
+    // );
   }
 
   addReagentsToExperiment(reactions: Array<Reaction>): void {
