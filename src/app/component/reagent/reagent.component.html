@@ -73,7 +73,7 @@
     <div class="clr-col-6">
         <span class="headline">reactants</span>
     </div>
-    <div class="clr-col-6 button-column" *ngIf="!dialogVisible">
+    <div class="clr-col-6 right-column" *ngIf="!dialogVisible">
         <button class="btn btn-link btn-sm" (click)="showDialog()">
             <clr-icon shape="plus"></clr-icon> new reagent
         </button>
@@ -101,7 +101,7 @@
                         <td class="left">{{reagent.concentration}}</td>
                         <td class="left">{{reagent.unit}}</td>
                         <td class="left">{{reagent.role}}</td>
-                        <td class="button-column">
+                        <td class="right-column">
                             <div class="btn-group btn-icon btn-link">
                                 <button class="btn" (click)="editReagent(reagent)">
                                     <clr-icon shape="pencil" class="is-highlight"></clr-icon>

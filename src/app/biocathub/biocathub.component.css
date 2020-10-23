@@ -14,14 +14,6 @@
      margin-bottom: 1rem;
  }
 
-.nav-next {
-    text-align: right;
-}
-
-.nav-dashboard {
-    text-align: center;
-}
-
 .nav-overview:hover {
     background-color: #00567a;
     color: white;

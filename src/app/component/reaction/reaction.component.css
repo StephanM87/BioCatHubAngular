@@ -1,9 +1,4 @@
-.clr-form-control {
-    align-items: unset;
- }
- .clr-input,
- .dropdown,
- .clr-textarea {
+ .dropdown {
     width: 100%;
  }
  .dropdown-menu {

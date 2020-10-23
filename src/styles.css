@@ -1,17 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-.button-group-col {
+.clr-form-control {
+    align-items: unset;
+    margin-top: .8rem;
+    margin-bottom: .8rem;
+}
+.clr-input-wrapper {
+     max-width: none;
+     width: 100%;
+}
+.clr-input,
+.clr-select {
     width: 100%;
+}
+
+.center-column {
     text-align: center;
-    margin-top: 1rem;
 }
-.big-button {
-    width: 12rem;
-    height: 2.2rem;
-    text-transform: none;
+.right-column {
+    text-align: right;
 }
-.button-icon {
-    margin-right: .5rem;
-}
+
 .btn {
     text-transform: none;
 }
@@ -33,10 +41,8 @@
     color: black;
     font-size: 1.2rem;
 }
-.headline-col {
-    margin-top: 1rem;
-}
 
+/* Data Grid */
 .datagrid {
     margin-top: 0;
 }
@@ -47,6 +53,7 @@
     background-image: none;
 }
 
+/* Card */
 .card {
     margin-bottom: 1rem;
 }
@@ -63,11 +70,8 @@
 .card-buttons {
     margin-bottom: 1rem;
 }
-.clr-form-control {
-    margin-top: .8rem;
-    margin-bottom: .8rem;
-}
 
+/* Overlay */
 .overlay {
     position: fixed;
     top: 0;
@@ -75,17 +79,15 @@
     bottom: 0;
     right: 0;
     background: rgba(0,0,0,.7);
- }
-
- .overlay-wrapper {
+}
+.overlay-wrapper {
     width: 100%;
     height: 100%;
     position: relative;
-  }
-
-  .overlay-spinner {
+}
+.overlay-spinner {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-  }
+}

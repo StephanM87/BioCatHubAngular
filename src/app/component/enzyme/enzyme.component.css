@@ -1,9 +1,4 @@
-.clr-form-control {
-   align-items: unset;
-}
-.clr-input,
-.dropdown,
-.clr-textarea{
+.dropdown {
    width: 100%;
 }
 .dropdown-menu {
@@ -22,11 +17,6 @@
 
 .enzyme-details {
    width: 100%;
-}
-
-.button-cell,
-.clear-button {
-   text-align: right;
 }
 
 .card {
@@ -61,6 +51,10 @@
 }
 .btn.btn-link {
    margin: 0 0 0 0.4rem;
+}
+
+.right-column {
+   text-align: right;
 }
 
 /* Searchbar Container */

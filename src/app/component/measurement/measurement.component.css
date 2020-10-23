@@ -1,13 +1,3 @@
-.clr-form-control {
-    align-items: unset;
-}
-
-.clr-input,
-.clr-select,
-.clr-textarea {
-   width: 100%;
-}
-
 ::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
    display: flex;
    width: 100%;
@@ -17,15 +7,12 @@
    width: 100%;
 }
 
-.clr-accordion {
-   margin-top: 1rem;
+.clr-textarea {
+   width: 100%;
 }
 
-.button-column {
-  text-align: right;
-}
-.plot-column {
-   text-align: center;
+.clr-accordion {
+   margin-top: 1rem;
 }
 
 .card {

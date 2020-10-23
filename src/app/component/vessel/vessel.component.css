@@ -1,17 +1,4 @@
-.clr-form-control {
-    align-items: unset;
- }
- .clr-input,
- .dropdown,
- .clr-textarea {
-    width: 100%;
- }
- .dropdown-menu {
-    max-width: none;
-    width: 100%;
- }
-
- ::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
+::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
    display: flex;
    width: 100%;
 } 
@@ -20,10 +7,10 @@
    width: 100%;
 }
 
- .card {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
- }
- .vessel-card {
+.card {
+   margin-top: 0.5rem;
+   margin-bottom: 1rem;
+}
+.vessel-card {
    margin-bottom: 0;
- }
+}

@@ -1,18 +1,10 @@
-.clr-form-control {
-    align-items: unset;
- }
- .clr-input,
- .clr-textarea {
+.clr-textarea {
     width: 100%;
- }
+}
 
 .clr-accordion {
     margin-top: 1rem;
     margin-bottom: 0;
- }
-
- .button-col {
-     text-align: right;
  }
 
  .alert {

@@ -2,7 +2,7 @@
     <div class="clr-col-6">
         <span class="headline">measurement</span>
     </div>
-    <div class="clr-col-6 button-column">
+    <div class="clr-col-6 right-column">
         <button class="btn btn-link btn-sm" (click)="templateFile()" *ngIf="!measurementUploaded">
             <clr-icon shape="download"></clr-icon> download template file
         </button>
@@ -61,10 +61,10 @@
                                 </clr-toggle-wrapper>
                             </clr-toggle-container>
                         </div>
-                        <div class="clr-col-9 plot-column">
+                        <div class="clr-col-9 center-column">
                             <img [src]="measurementPlot">
                         </div>
-                        <div class="clr-col-1 button-column">
+                        <div class="clr-col-1 right-column">
                             <button class="btn btn-icon btn-link" (click)="deleteMeasurement()">
                                 <clr-icon shape="trash" class="is-error"></clr-icon>
                             </button>

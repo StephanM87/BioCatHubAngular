@@ -1,9 +1,4 @@
-.clr-form-control {
-   align-items: unset;
-}
-.clr-input,
-.dropdown,
-.clr-textarea {
+.dropdown {
    width: 100%;
 }
 .dropdown-menu {
@@ -27,10 +22,6 @@
 .table td {
    vertical-align: middle;
 }
-.button-column,
-.clear-button {
-  text-align: right;
-}
 
 .table-placeholder-container {
    flex: 1 1 auto;
@@ -49,6 +40,10 @@
    padding: .6rem;
    font-size: 0.8rem;
    color: #b3b3b3;
+}
+
+.right-column {
+   text-align: right;
 }
 
 /* Searchbar Container */
