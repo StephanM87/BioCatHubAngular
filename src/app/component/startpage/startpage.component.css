@@ -22,6 +22,10 @@
     margin-right: 1rem;
 }
 
+.get-started {
+    margin-bottom: 2rem;
+}
+
 
 .impressum-headline {
     color: black;
@@ -33,7 +37,6 @@
 }
 .impressum-icon {
     margin-right: .2rem;
-    color: #00567a;
 }
 .impressum-text {
     color: black;

@@ -50,7 +50,7 @@
     <div class="clr-col-12">
         <div class="experiment-table">
             <clr-datagrid [(clrDgSingleSelected)]="selectedExperiment">
-                <clr-dg-column [clrDgField]="'id'">id</clr-dg-column>
+                <clr-dg-column [clrDgField]="'id'">zenodo id</clr-dg-column>
                 <clr-dg-column [clrDgField]="'title'">experiment</clr-dg-column>
                 <clr-dg-column [clrDgField]="'name'">experimentalist</clr-dg-column>
                 <clr-dg-column [clrDgField]="'affiliation'">institution</clr-dg-column>
@@ -81,6 +81,41 @@
         </div>
     </div>
 </div>
+
+<div class="get-started">
+    <div class="clr-row" >
+        <div class="clr-col-12 center-col">
+            <span class="impressum-headline">standardisation of experimental data in a few steps</span>
+        </div>
+    </div>
+    <div class="clr-row" >
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="volume" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">1. vessels & volumes</span>
+        </div>
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="helix" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">2. biocatalyst</span>
+        </div>
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="flask" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">3. reactants</span>
+        </div>
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="thermometer" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">4. reaction conditions</span>
+        </div>
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="line-chart" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">5. experimental data</span>
+        </div>
+        <div class="clr-col-2 center-col">
+            <clr-icon shape="upload-cloud" class="is-highlight" size="36"></clr-icon><br>
+            <span class="impressum-text">6. publish experiment</span>
+        </div>
+    </div>
+</div>
+
 <div class="impressum">
     <div class="clr-row" >
         <div class="clr-col-12 center-col">
@@ -89,21 +124,21 @@
     </div>
     <div class="clr-row">
         <div class="clr-col-4 center-col">
-            <clr-icon class="impressum-icon" size="24" shape="cloud"></clr-icon>
-            <a href="https://zenodo.org/" target="_blank"><span class="impressum-text">zenodo</span></a>
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="cloud"></clr-icon>
+            <a href="https://zenodo.org/" target="_blank"><span class="impressum-text">zenodo</span></a><br>
             <p>
                 BioCatHub supports uploading experimental data to a zenodo repsitory to make the experiments easily accesible and citeable.
             </p>
         </div>
         <div class="clr-col-4 center-col">
-            <clr-icon class="impressum-icon" size="24" shape="flask"></clr-icon>
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="flask"></clr-icon>
             <a href="https://www.brenda-enzymes.org/" target="_blank"><span class="impressum-text">BRENDA</span></a>
             <p>
                 BioCatHub uses BRENDA REST API to specify enzymes and display information. The information system comprises molecular and biochemical information on enzymes that have been classified by the IUBMB.
             </p>
         </div>
         <div class="clr-col-4 center-col">
-            <clr-icon class="impressum-icon" size="24" shape="code"></clr-icon>
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="code"></clr-icon>
             <a href="https://github.com/EnzymeML" target="_blank"><span class="impressum-text">EnzymeML</span></a>
             <p>
                 BioCatHub supports reading and writing EnzymeML files. The XML based exchange format for experimental data in biocatalysis is developed at the university of Stuttgart.
