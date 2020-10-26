@@ -112,14 +112,14 @@ export class Experiment implements IExperiment {
 
     public deleteReagentsOfReaction(reaction: Reaction): void {
         reaction.educts.forEach(educt => {
-          let id = educt.structureId;
+          let id = educt.id;
           let exsist = this.reagentExistInOtherReaction(id, reaction.value);
           if(!exsist) {
             this.deleteReagentById(id);
           }
         });
         reaction.products.forEach(product => {
-          let id = product.structureId;
+          let id = product.id;
           let exsist = this.reagentExistInOtherReaction(id, reaction.value);
           if(!exsist) {
             this.deleteReagentById(id);
@@ -156,13 +156,13 @@ export class Experiment implements IExperiment {
             enzyme.reactions.forEach(reaction => {
                 if(reaction.value != currentReaction) {
                     reaction.educts.forEach(educt => {
-                        let id = educt.structureId;
+                        let id = educt.id;
                         if(id && id == reagentId) {
                         exsist = true;
                         }
                     });
                     reaction.products.forEach(product => {
-                        let id = product.structureId;
+                        let id = product.id;
                         if(id && id == reagentId) {
                         exsist = true;
                         }

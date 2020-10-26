@@ -1,5 +1,3 @@
-import { PathLocationStrategy } from '@angular/common';
-
 export class Enzyme {
     ecNumber: string;
     name: string;
@@ -37,13 +35,19 @@ export class Reaction {
 }
 
 export class Ligand {
+    id: string;
     name: string;
-    structureId: string;
+    role: string;
+    schema: string;
+    smiles: string;
     imageUrl: string;
 
     constructor(ligand?: Ligand) {
+        this.id = ligand && ligand.id || undefined;
         this.name = ligand && ligand.name || undefined;
-        this.structureId = ligand && ligand.structureId || undefined;
+        this.role = ligand && ligand.role || undefined;
+        this.schema = ligand && ligand.schema || undefined;
+        this.smiles = ligand && ligand.smiles || undefined;
         this.imageUrl = ligand && ligand.imageUrl || undefined;
     }
 }
@@ -52,6 +56,7 @@ export class Reagent {
     ligandId: string;
     name: string;
     formula: string;
+    smiles: string;
     concentration: number;
     unit: string;
     role: string;
@@ -62,6 +67,7 @@ export class Reagent {
         this.ligandId = reagent && reagent.ligandId || undefined;
         this.name = reagent && reagent.name || undefined;
         this.formula = reagent && reagent.formula || undefined;
+        this.smiles = reagent && reagent.smiles || undefined;
         this.concentration = reagent && reagent.concentration || undefined;
         this.unit = reagent && reagent.unit || undefined;
         this.role = reagent && reagent.role || undefined;
