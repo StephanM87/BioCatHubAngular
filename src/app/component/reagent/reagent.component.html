@@ -1,22 +1,3 @@
-<div class="searchbar-container" *ngIf="!dialogVisible">
-    <div class="brenda-search-wrapper">
-        <label class="searchbar-label">
-            <clr-dropdown>
-                <clr-icon shape="search" size="24"></clr-icon>
-                <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
-                    <clr-icon shape="close" size="24"></clr-icon>
-                </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="search for reactants ..." />
-                <ng-template [(clrIfOpen)]="dropdown">
-                    <clr-dropdown-menu>
-                        <div clrDropdownItem (click)="selectSearchReagent(reagent)" *ngFor="let reagent of reagentList">{{reagent.ligandName}}</div>
-                    </clr-dropdown-menu>
-                </ng-template>
-            </clr-dropdown>
-        </label>
-    </div>
-</div>
-
 <div class="clr-row" *ngIf="dialogVisible">
     <div class="clr-col-12">
         <div class="card">
@@ -26,10 +7,6 @@
                         <clr-input-container>
                             <label>name</label>
                             <input clrInput type="text" [(ngModel)]="dialogReagent.name" name="name"/>
-                        </clr-input-container>
-                        <clr-input-container>
-                            <label>molecular formula</label>
-                            <input clrInput type="text" [(ngModel)]="dialogReagent.formula" name="formula"/>
                         </clr-input-container>
                         <clr-input-container>
                             <label>concentration</label>
@@ -53,6 +30,14 @@
                                 <option value="cofactor">cofactor</option>
                             </select>
                         </clr-select-container>
+                        <clr-input-container>
+                            <label>molecular formula</label>
+                            <input clrInput type="text" [(ngModel)]="dialogReagent.formula" name="formula"/>
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label>SMILES</label>
+                            <input clrInput type="text" [(ngModel)]="dialogReagent.smiles" name="smiles"/>
+                        </clr-input-container>
                     </form>
                     <div class="card-buttons">
                         <div class="add-button" *ngIf="buttonAddVisible">
@@ -87,20 +72,22 @@
                 <thead>
                     <tr>
                         <th class="left">name</th>
-                        <th class="left">molecular formula</th>
                         <th class="left">concentration</th>
-                        <th class="left">unit</th>
                         <th class="left">reaction role</th>
+                        <th class="left">formula</th>
+                        <th class="left">SMILES</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let reagent of getReagents()">
                         <td class="left">{{reagent.name}}</td>
-                        <td class="left">{{reagent.formula}}</td>
-                        <td class="left">{{reagent.concentration}}</td>
-                        <td class="left">{{reagent.unit}}</td>
+                        <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
                         <td class="left">{{reagent.role}}</td>
+                        <td class="left">
+                            <div [innerHTML]="getFormula(reagent.formula)"></div>
+                        </td>
+                        <td class="left">{{reagent.smiles}}</td>
                         <td class="right-column">
                             <div class="btn-group btn-icon btn-link">
                                 <button class="btn" (click)="editReagent(reagent)">
@@ -119,7 +106,7 @@
             </table>
             <div class="table-placeholder-container" *ngIf="getReagents().length == 0">
                 <div class="table-placeholder">
-                    no reactants specified!
+                    no reactants specified
                 </div>
             </div>
         </div>

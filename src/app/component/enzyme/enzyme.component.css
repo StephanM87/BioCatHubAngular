@@ -1,4 +1,5 @@
-.dropdown {
+.dropdown,
+.clr-textarea {
    width: 100%;
 }
 .dropdown-menu {
@@ -15,12 +16,27 @@
    width: 100%;
 }
 
+::ng-deep clr-combobox-container .clr-control-container .clr-combobox-wrapper {
+   display: flex;
+   width: 100%;
+} 
+
+::ng-deep clr-combobox-container clr-options {
+   width: 100%;
+}
+
+.label-col {
+   padding-right: .9rem;
+   padding-left: .9rem;
+}
+
 .enzyme-details {
    width: 100%;
 }
 
 .card {
-   margin-bottom: 1rem;
+   margin-top: 0.5rem;
+   margin-bottom: 0;
 }
 
 .enzyme-table {

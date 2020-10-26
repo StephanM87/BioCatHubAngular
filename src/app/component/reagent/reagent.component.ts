@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Reagent } from '../../model/biocatalysis';
-import { ReagentSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -19,21 +18,30 @@ export class ReagentComponent implements OnInit {
   public buttonAddVisible: boolean;
   public buttonsEditVisible: boolean;
 
-  // Filterung
-  public loadingReagents: boolean;
-  public searchInput: string;
-  public closeButton: boolean;
-  public reagentList: ReagentSearch[];
-  public dropdown: boolean;
+  private numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   constructor(public dataService: DataService) {
     this.resetNewReagent();
     this.showAddButtons();
-    this.reagentList = new Array<ReagentSearch>();
     this.dialogVisible = false;
   }
 
   ngOnInit(): void {}
+
+  public getFormula(formula: string): string {
+    let result = '';
+    if(formula != undefined) {
+      let cahracters = formula.split('');
+      cahracters.forEach(char => {
+        if (this.numbers.indexOf(char) > -1 ){
+          result += '<sub>' + char + '</sub>'; 
+        } else {
+          result += char; 
+        }
+      });
+    }
+    return result;
+  }
 
   // Zentraler Zugriff auf die Reagents über den Data-Service
   public getReagents(): Reagent[] {
@@ -105,50 +113,6 @@ export class ReagentComponent implements OnInit {
   }
   public hideDialog(): void {
     this.dialogVisible = false;
-  }
-
-  // Methoden für die Enzyme Suche
-  public filterSearchInput(searchValue: string): void {
-    if(searchValue.trim().length == 0){
-      this.resetSearch();
-    } else {
-      this.closeButton = true;
-      this.dropdown = true;
-      this.loadingReagents = true;
-      // Read Reagents from DataService
-      this.dataService.getReagentSearchList(searchValue).subscribe(
-        data => {
-          this.reagentList = data;
-          this.loadingReagents = false;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
-
-  public selectSearchReagent(selected: ReagentSearch): void {
-    this.resetSearch();
-    this.dialogReagent.ligandId = selected.ligandId;
-    this.dialogReagent.brendaLink = selected.brendaLink;
-    this.dataService.getReagentSpecification(selected.ligandId).subscribe(
-      specification => {
-        this.dialogReagent.name = specification.reagentName;
-        this.dialogReagent.formula = specification.formula;
-        this.addReagentToList();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  public resetSearch(): void {
-    this.searchInput = "";
-    this.closeButton = false;
-    this.loadingReagents = false;
-    this.dropdown = false;
   }
 
 }
