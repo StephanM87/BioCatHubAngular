@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { Deposition } from '../../model/serviceresult';
 import { Experiment} from '../../model/experiment';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-startpage',
@@ -16,14 +16,17 @@ export class StartpageComponent implements OnInit {
   public experiments: Deposition[];
   public selectedExperiment: Deposition;
 
-  constructor(private router: Router, private route: ActivatedRoute, public dataService: DataService) {
+  constructor(private router: Router, public dataService: DataService) {
     this.files = new Array<File>();
+    this.loading = true;
     this.dataService.getExperimentListFromZenodo().subscribe(
       experiments => {
         this.experiments = experiments;
+        this.loading = false;
       },
       error => {
         console.log(error);
+        this.loading = false;
       }
     );
   }
@@ -43,7 +46,7 @@ export class StartpageComponent implements OnInit {
     this.dataService.setId(undefined);
     this.dataService.setZenodoLink(undefined);
     this.dataService.setCreationDate(new Date());
-    this.router.navigate(['./../dashboard'], { relativeTo: this.route });
+    this.router.navigate(['./vessel']);
   }
 
   public showExperiment(): void {
@@ -66,7 +69,7 @@ export class StartpageComponent implements OnInit {
 
   public showDashboard(experiment: Experiment): void {
     this.dataService.setExperiment(experiment);
-    this.router.navigate(['./../dashboard'], { relativeTo: this.route });
+    this.router.navigate(['./dashboard']);
   }
 
   public onSelect(event: any) {

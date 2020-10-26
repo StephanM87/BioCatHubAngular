@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   public showAlert = true;
   public loading: boolean;
 
+  private numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
   constructor(public dataService: DataService) {
     this.experiment = dataService.getExperiment();
     this.id = dataService.getId();
@@ -35,6 +37,21 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  public getFormula(formula: string): string {
+    let result = '';
+    if(formula != undefined) {
+      let cahracters = formula.split('');
+      cahracters.forEach(char => {
+        if (this.numbers.indexOf(char) > -1 ){
+          result += '<sub>' + char + '</sub>'; 
+        } else {
+          result += char; 
+        }
+      });
+    }
+    return result;
   }
 
   public uploadToZenodo(): void {
@@ -69,10 +86,6 @@ export class DashboardComponent implements OnInit {
 
   public createPdf(): void {
     // TODO
-  }
-
-  public shareExperiment(): void {
-    
   }
 
   public showError(error: any): void {

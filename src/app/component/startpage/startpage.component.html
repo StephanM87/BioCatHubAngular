@@ -3,7 +3,7 @@
         <p><span class="title">BioCatHub</span></p>
         <p><span class="description">web application to create, collect and share experimental data in biocatalysis</span></p>
         <p>
-            <button class="btn btn-primary" (click)="newExperiment()" routerLink="./../dashboard">
+            <button class="btn btn-primary" (click)="newExperiment()">
                 start new experiment
             </button>
             <clr-dropdown class="template">
@@ -119,29 +119,36 @@
 <div class="impressum">
     <div class="clr-row" >
         <div class="clr-col-12 center-col">
-            <span class="impressum-headline">technologies and information systems</span>
+            <span class="impressum-headline">external technologies and information systems</span>
         </div>
     </div>
     <div class="clr-row">
-        <div class="clr-col-4 center-col">
+        <div class="clr-col-3 center-col">
             <clr-icon class="is-highlight impressum-icon" size="24" shape="cloud"></clr-icon>
             <a href="https://zenodo.org/" target="_blank"><span class="impressum-text">zenodo</span></a><br>
             <p>
                 BioCatHub supports uploading experimental data to a zenodo repsitory to make the experiments easily accesible and citeable.
             </p>
         </div>
-        <div class="clr-col-4 center-col">
-            <clr-icon class="is-highlight impressum-icon" size="24" shape="flask"></clr-icon>
+        <div class="clr-col-3 center-col">
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="code"></clr-icon>
+            <a href="https://github.com/EnzymeML" target="_blank"><span class="impressum-text">EnzymeML</span></a>
+            <p>
+                BioCatHub supports reading and writing EnzymeML files. The XML based exchange format for experimental data in biocatalysis is developed at the university of Stuttgart.
+            </p>
+        </div>
+        <div class="clr-col-3 center-col">
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="storage"></clr-icon>
             <a href="https://www.brenda-enzymes.org/" target="_blank"><span class="impressum-text">BRENDA</span></a>
             <p>
                 BioCatHub uses BRENDA REST API to specify enzymes and display information. The information system comprises molecular and biochemical information on enzymes that have been classified by the IUBMB.
             </p>
         </div>
-        <div class="clr-col-4 center-col">
-            <clr-icon class="is-highlight impressum-icon" size="24" shape="code"></clr-icon>
-            <a href="https://github.com/EnzymeML" target="_blank"><span class="impressum-text">EnzymeML</span></a>
+        <div class="clr-col-3 center-col">
+            <clr-icon class="is-highlight impressum-icon" size="24" shape="storage"></clr-icon>
+            <a href="http://sabio.h-its.org" target="_blank"><span class="impressum-text">SABIO-RK</span></a>
             <p>
-                BioCatHub supports reading and writing EnzymeML files. The XML based exchange format for experimental data in biocatalysis is developed at the university of Stuttgart.
+                SABIO-RK is a curated database containing structured information about biochemical reactions and their corresponding kinetics. It describes participants and modifiers of the reactions.
             </p>
         </div>
     </div>

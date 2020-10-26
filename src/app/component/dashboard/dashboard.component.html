@@ -195,14 +195,12 @@
                                         <tr>
                                             <th class="left">name</th>
                                             <th class="left">concentration</th>
-                                            <th class="left">unit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let enzyme of experiment.enzymes">
                                             <td class="left">{{enzyme.name}}</td>
-                                            <td class="left">{{enzyme.concentration}}</td>
-                                            <td class="left">{{enzyme.unit}}</td>
+                                            <td class="left">{{enzyme.concentration}} {{enzyme.unit}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -236,16 +234,16 @@
                                             <th class="left">name</th>
                                             <th class="left">formula</th>
                                             <th class="left">concentration</th>
-                                            <th class="left">unit</th>
                                             <th class="left">role</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let reagent of experiment.reagents">
                                             <td class="left">{{reagent.name}}</td>
-                                            <td class="left">{{reagent.formula}}</td>
-                                            <td class="left">{{reagent.concentration}}</td>
-                                            <td class="left">{{reagent.unit}}</td>
+                                            <td class="left">
+                                                <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                            </td>
+                                            <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
                                             <td class="left">{{reagent.role}}</td>
                                         </tr>
                                     </tbody>
