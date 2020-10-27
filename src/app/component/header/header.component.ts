@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { DataService } from '../../service/data.service';
 
 @Component({
   selector: 'app-header',

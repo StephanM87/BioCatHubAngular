@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Enzyme, Reagent, Vessel, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { Experiment } from 'src/app/model/experiment';
+import { FileService } from 'src/app/service/file.service';
+import { ZenodoService } from 'src/app/service/zenodo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   private numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, public fileService: FileService, public zenodoService: ZenodoService) {
     this.experiment = dataService.getExperiment();
     this.id = dataService.getId();
     this.zenodoLink = dataService.getZenodoLink();
@@ -56,7 +57,7 @@ export class DashboardComponent implements OnInit {
 
   public uploadToZenodo(): void {
     this.loading = true;
-    this.dataService.uploadExperiment().subscribe(
+    this.zenodoService.uploadExperiment(this.experiment).subscribe(
       upload => {
         this.id = upload.id;
         this.zenodoLink = upload.zenodoLink;
@@ -72,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
   public exportEnzymeML(): void {
     this.loading = true;
-    this.dataService.createEnzymeML().subscribe(
+    this.fileService.createEnzymeML(this.experiment).subscribe(
       blob => {
         this.download(blob, 'experiment.omex');
         this.loading = false;
@@ -102,7 +103,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public loadMeasurementImage(): void {
-    this.dataService.plotMeasurement().subscribe(
+    this.fileService.plotMeasurement(this.experiment.measurement).subscribe(
       blob => {
         this.measurementPlot = this.createImageFromBlob(blob);
       },

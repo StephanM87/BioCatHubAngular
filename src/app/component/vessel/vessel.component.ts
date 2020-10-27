@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vessel, ReactionCondition } from '../../model/biocatalysis';
+import { Vessel } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({

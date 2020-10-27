@@ -3,6 +3,7 @@ import { DataService } from 'src/app/service/data.service';
 import { Deposition } from '../../model/serviceresult';
 import { Experiment} from '../../model/experiment';
 import { Router } from '@angular/router';
+import { ZenodoService } from 'src/app/service/zenodo.service';
 
 @Component({
   selector: 'app-startpage',
@@ -16,10 +17,10 @@ export class StartpageComponent implements OnInit {
   public experiments: Deposition[];
   public selectedExperiment: Deposition;
 
-  constructor(private router: Router, public dataService: DataService) {
+  constructor(private router: Router, public dataService: DataService, public zenodoService: ZenodoService) {
     this.files = new Array<File>();
     this.loading = true;
-    this.dataService.getExperimentListFromZenodo().subscribe(
+    this.zenodoService.getExperimentListFromZenodo().subscribe(
       experiments => {
         this.experiments = experiments;
         this.loading = false;
@@ -51,7 +52,7 @@ export class StartpageComponent implements OnInit {
 
   public showExperiment(): void {
     this.loading = true;
-    this.dataService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
+    this.zenodoService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
       json => {
         let experiment = new Experiment(json);
         this.dataService.setId(this.selectedExperiment.id);

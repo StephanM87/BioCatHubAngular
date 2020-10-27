@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Measurement, Replicate, Reagent } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
+import { FileService } from 'src/app/service/file.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -14,7 +15,7 @@ export class MeasurementComponent implements OnInit {
   public measurementUploaded: boolean;
   public measurementPlot: any;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, public fileService: FileService) {
     this.files = new Array<File>();
     this.measurementUploaded = this.getMeasurement().replicates.length > 0;
     if(this.measurementUploaded) {
@@ -96,7 +97,7 @@ export class MeasurementComponent implements OnInit {
   }
 
   public loadMeasurementImage(): void {
-    this.dataService.plotMeasurement().subscribe(
+    this.fileService.plotMeasurement(this.getMeasurement()).subscribe(
       blob => {
         this.measurementPlot = this.createImageFromBlob(blob);
       },
