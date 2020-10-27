@@ -1,4 +1,4 @@
-import { Reaction, Ligand } from './biocatalysis';
+import { Reaction, Reactant } from './biocatalysis';
 
 // BRENDA
 export interface EnzymeSearch {
@@ -19,12 +19,6 @@ export interface ReactionSearch {
     id: string;
     value: string;
 }
-
-export interface ReactionSpecification {
-    educts: Array<Ligand>;
-    products: Array<Ligand>;
-}
-
 
 // zenodo
 export interface Deposition {

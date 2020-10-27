@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Enzyme, Reagent } from '../model/biocatalysis';
+import { Enzyme } from '../model/biocatalysis';
 import { Experiment } from '../model/experiment';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,6 @@ export class DataService {
     this.date = new Date();
     this.experiment = new Experiment();
     this.experiment.enzymes = new Array<Enzyme>();
-    this.experiment.reagents = new Array<Reagent>();
   }
 
   public getExperiment(): Experiment {

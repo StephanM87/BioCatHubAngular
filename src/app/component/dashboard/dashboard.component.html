@@ -152,17 +152,17 @@
                             <div class="card-text">
                                 <table class="table table-noborder table-compact table-vertical">
                                     <tbody>
-                                        <tr *ngIf="experiment.reaction.name" >
+                                        <tr *ngIf="experiment.condition.name" >
                                             <th>name</th>
-                                            <td>{{experiment.reaction.name}}</td>
+                                            <td>{{experiment.condition.name}}</td>
                                         </tr>
-                                        <tr *ngIf="experiment.reaction.temp || experiment.reaction.unit" >
+                                        <tr *ngIf="experiment.condition.temp || experiment.condition.unit" >
                                             <th>temperature</th>
-                                            <td>{{experiment.reaction.temp}} {{experiment.reaction.unit}}</td>
+                                            <td>{{experiment.condition.temp}} {{experiment.condition.unit}}</td>
                                         </tr>
-                                        <tr *ngIf="experiment.reaction.ph">
+                                        <tr *ngIf="experiment.condition.ph">
                                             <th>ph value</th>
-                                            <td>{{experiment.reaction.ph}}</td>
+                                            <td>{{experiment.condition.ph}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -228,7 +228,7 @@
                                 </div>
                             </div>
                             <div class="card-text">
-                                <table class="table table-noborder table-compact" *ngIf="experiment.reagents.length > 0">
+                                <table class="table table-noborder table-compact" *ngIf="getReactantCount() > 0">
                                     <thead>
                                         <tr>
                                             <th class="left">name</th>
@@ -238,14 +238,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let reagent of experiment.reagents">
-                                            <td class="left">{{reagent.name}}</td>
-                                            <td class="left">
-                                                <div [innerHTML]="getFormula(reagent.formula)"></div>
-                                            </td>
-                                            <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                                            <td class="left">{{reagent.role}}</td>
-                                        </tr>
+                                        <ng-container *ngFor="let enzyme of experiment.enzymes">
+                                            <tr *ngFor="let reagent of enzyme.reaction.educts">
+                                                <td class="left">{{reagent.name}}</td>
+                                                <td class="left">
+                                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                                </td>
+                                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                                <td class="left">{{reagent.role}}</td>
+                                            </tr>
+                                            <tr *ngFor="let reagent of enzyme.reaction.products">
+                                                <td class="left">{{reagent.name}}</td>
+                                                <td class="left">
+                                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                                </td>
+                                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                                <td class="left">{{reagent.role}}</td>
+                                            </tr>
+                                        </ng-container>
                                     </tbody>
                                 </table>
                             </div>

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EnzymeSearch, EnzymeSpecification, ReactionSearch, ReactionSpecification } from '../model/serviceresult';
+import { EnzymeSearch, EnzymeSpecification, ReactionSearch } from '../model/serviceresult';
 import { environment } from './../../environments/environment';
+import { Reaction } from '../model/biocatalysis';
 
 @Injectable({ providedIn: 'root' })
 export class EnzymeService {
@@ -28,9 +29,9 @@ export class EnzymeService {
     return this.client.get<ReactionSearch[]>(environment.backendUrl + '/reaction/list', options);
   }
 
-  getReactionSpecification(reactionId: string) : Observable<ReactionSpecification> {
+  getReactionSpecification(reactionId: string) : Observable<Reaction> {
     const options = reactionId ? { params: new HttpParams().set('reactionId', reactionId) } : {};
-    return this.client.get<ReactionSpecification>(environment.backendUrl + '/reaction', options);
+    return this.client.get<Reaction>(environment.backendUrl + '/reaction', options);
   }
 
 }

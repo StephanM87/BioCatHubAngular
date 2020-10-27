@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EnzymeService } from 'src/app/service/enzyme.service';
-import { Enzyme, Reagent, Reaction, Ligand } from '../../model/biocatalysis';
+import { Enzyme, Reaction, Reactant } from '../../model/biocatalysis';
 import { EnzymeSearch, ReactionSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
@@ -42,12 +42,10 @@ export class EnzymeComponent implements OnInit {
 
   // Buttons in der Enzyme Card
   public deleteReaction(enzyme: Enzyme): void {
-    this.dataService.getExperiment().deleteReagentsOfReaction(enzyme.reaction);
     enzyme.reaction = new Reaction();
   }
 
   public deleteEnzyme(enzyme: Enzyme) {
-    this.dataService.getExperiment().deleteReagentsOfReaction(enzyme.reaction);
     this.dataService.getExperiment().deleteEnzyme(enzyme);
   }
 
@@ -69,6 +67,12 @@ export class EnzymeComponent implements OnInit {
     }
   }
 
+  public resetSearch(): void {
+    this.searchInput = "";
+    this.closeButton = false;
+    this.dropdown = false;
+  }
+
   public selectSearchEnzyme(selected: EnzymeSearch): void {
     this.loading = true;
     this.resetSearch();
@@ -78,8 +82,7 @@ export class EnzymeComponent implements OnInit {
     this.enzymeService.getEnzymeSpecification(selected.ecNumber).subscribe(
       specification => {
         enzyme.name = specification.enzymeName;
-        enzyme.reaction = specification.reaction;
-        this.addReagentsToExperiment(enzyme.reaction)
+        enzyme.reaction = specification.reaction ? specification.reaction : new Reaction();
         this.getEnzymes().push(enzyme);
         this.loading = false;
       },
@@ -109,13 +112,8 @@ export class EnzymeComponent implements OnInit {
   public addReaction(): void {
     this.loading = true;
     this.enzymeService.getReactionSpecification(this.selectedReaction.id).subscribe(
-      specification => {
-        let reaction = new Reaction();
-        reaction.value = this.selectedReaction.value;
-        reaction.educts = specification.educts;
-        reaction.products = specification.products;
+      reaction => {
         this.modalEnzyme.reaction = reaction;
-        this.addReagentsToExperiment(reaction);
         this.reactionModal = false;
         this.loading = false;
       },
@@ -127,61 +125,22 @@ export class EnzymeComponent implements OnInit {
     );
   }
 
-  addReagentsToExperiment(reaction: Reaction): void {
-    reaction.educts.forEach(educt => {
-      let exsist = this.dataService.getExperiment().hasReagent(educt.id);
-      if(!exsist) {
-        let reagent = new Reagent();
-        reagent.ligandId = educt.id;
-        reagent.name = educt.name;
-        reagent.formula = educt.schema;
-        reagent.smiles = educt.smiles;
-        reagent.role = 'substrate';
-        reagent.imageUrl = educt.imageUrl;
-        reagent.brendaLink = educt.imageUrl;
-        this.dataService.getExperiment().getReagents().push(reagent);
-      }
-    });
-    reaction.products.forEach(product => {
-      let exsist = this.dataService.getExperiment().hasReagent(product.id);
-      if(!exsist) {
-        let reagent = new Reagent();
-        reagent.ligandId = product.id;
-        reagent.name = product.name;
-        reagent.formula = product.schema;
-        reagent.smiles = product.smiles;
-        reagent.role = 'product';
-        reagent.imageUrl = product.imageUrl;
-        reagent.brendaLink = product.imageUrl;
-        this.dataService.getExperiment().getReagents().push(reagent);
-      }
-    });
-  }
-
+  // Reaktions Editor
   public addSubstrate(enzyme: Enzyme): void {
-    enzyme.reaction.educts.push(new Ligand());
+    enzyme.reaction.educts.push(new Reactant());
   }
-
   public deleteSubstrate(enzyme: Enzyme): void {
     if(enzyme.reaction.educts.length > 0){
       enzyme.reaction.educts.pop();
     }
   }
-
   public addProduct(enzyme: Enzyme): void {
-    enzyme.reaction.products.push(new Ligand());
+    enzyme.reaction.products.push(new Reactant());
   }
-
   public deleteProduct(enzyme: Enzyme): void {
     if(enzyme.reaction.products.length > 0){
       enzyme.reaction.products.pop();
     }
-  }
-
-  public resetSearch(): void {
-    this.searchInput = "";
-    this.closeButton = false;
-    this.dropdown = false;
   }
 
 }

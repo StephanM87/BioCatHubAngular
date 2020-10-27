@@ -40,6 +40,15 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  public getReactantCount(): number {
+    let count = 0;
+    this.experiment.enzymes.forEach(enzyme => {
+      count += enzyme.reaction.educts.length;
+      count += enzyme.reaction.products.length;
+    });
+    return count;
+  }
+
   public getFormula(formula: string): string {
     let result = '';
     if(formula != undefined) {

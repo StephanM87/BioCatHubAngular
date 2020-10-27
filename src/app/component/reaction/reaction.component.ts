@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactionCondition } from '../../model/biocatalysis';
+import { Condition } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ReactionComponent implements OnInit {
   }
 
   // Reaction
-  public getReaction(): ReactionCondition {
+  public getReaction(): Condition {
     return this.dataService.getExperiment().getReaction();
   }
 

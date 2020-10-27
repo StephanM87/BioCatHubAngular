@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Measurement, Replicate, Reagent } from 'src/app/model/biocatalysis';
+import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { FileService } from 'src/app/service/file.service';
 import * as XLSX from 'xlsx';
@@ -28,10 +28,6 @@ export class MeasurementComponent implements OnInit {
 
   public getMeasurement(): Measurement {
     return this.dataService.getExperiment().getMeasurement();
-  }
-
-  public getReagents(): Reagent[] {
-    return this.dataService.getExperiment().getReagents();
   }
 
 	public onSelect(event: any) {

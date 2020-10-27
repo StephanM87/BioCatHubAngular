@@ -2,8 +2,8 @@ export class Enzyme {
     ecNumber: string;
     name: string;
     sequence: string;
-    concentration: number;
     unit: string;
+    concentration: number;
     formulation: string;
     determination: string;
     reaction: Reaction;
@@ -13,8 +13,8 @@ export class Enzyme {
         this.ecNumber = enzyme && enzyme.ecNumber || undefined;
         this.name = enzyme && enzyme.name || undefined;
         this.sequence = enzyme && enzyme.sequence || undefined;
-        this.concentration = enzyme && enzyme.concentration || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
+        this.concentration = enzyme && enzyme.concentration || undefined;
         this.formulation = enzyme && enzyme.formulation || undefined;
         this.determination = enzyme && enzyme.determination || undefined;
         this.reaction = enzyme && enzyme.reaction || new Reaction();
@@ -23,56 +23,36 @@ export class Enzyme {
 }
 
 export class Reaction {
-    value: string;
-    educts: Array<Ligand>;
-    products: Array<Ligand>;
+    educts: Array<Reactant>;
+    products: Array<Reactant>;
 
     constructor(reaction?: Reaction) {
-        this.value = reaction && reaction.value || undefined;
-        this.educts = reaction && reaction.educts || new Array<Ligand>();
-        this.products = reaction && reaction.products || new Array<Ligand>();
+        this.educts = reaction && reaction.educts || new Array<Reactant>();
+        this.products = reaction && reaction.products || new Array<Reactant>();
     }
 }
 
-export class Ligand {
+export class Reactant {
     id: string;
     name: string;
     role: string;
-    schema: string;
-    smiles: string;
-    imageUrl: string;
-
-    constructor(ligand?: Ligand) {
-        this.id = ligand && ligand.id || undefined;
-        this.name = ligand && ligand.name || undefined;
-        this.role = ligand && ligand.role || undefined;
-        this.schema = ligand && ligand.schema || undefined;
-        this.smiles = ligand && ligand.smiles || undefined;
-        this.imageUrl = ligand && ligand.imageUrl || undefined;
-    }
-}
-
-export class Reagent {
-    ligandId: string;
-    name: string;
+    unit: string;
+    concentration: number;
     formula: string;
     smiles: string;
-    concentration: number;
-    unit: string;
-    role: string;
     imageUrl: string;
     brendaLink: string;
 
-    constructor(reagent?: Reagent) {
-        this.ligandId = reagent && reagent.ligandId || undefined;
-        this.name = reagent && reagent.name || undefined;
-        this.formula = reagent && reagent.formula || undefined;
-        this.smiles = reagent && reagent.smiles || undefined;
-        this.concentration = reagent && reagent.concentration || undefined;
-        this.unit = reagent && reagent.unit || undefined;
-        this.role = reagent && reagent.role || undefined;
-        this.imageUrl = reagent && reagent.imageUrl || undefined;
-        this.brendaLink = reagent && reagent.brendaLink || undefined;
+    constructor(reactant?: Reactant) {
+        this.id = reactant && reactant.id || undefined;
+        this.name = reactant && reactant.name || undefined;
+        this.role = reactant && reactant.role || undefined;
+        this.unit = reactant && reactant.unit || undefined;
+        this.concentration = reactant && reactant.concentration || undefined;
+        this.formula = reactant && reactant.formula || undefined;
+        this.smiles = reactant && reactant.smiles || undefined;
+        this.imageUrl = reactant && reactant.imageUrl || undefined;
+        this.brendaLink = reactant && reactant.brendaLink || undefined;
     }
 }
 
@@ -88,17 +68,17 @@ export class Vessel {
     }
 }
 
-export class ReactionCondition {
+export class Condition {
     name: string;
     temp: number;
     unit: string;
     ph: number;
 
-    constructor(reactionCondition?: ReactionCondition) {
-        this.name = reactionCondition && reactionCondition.name || undefined;
-        this.temp = reactionCondition && reactionCondition.temp || undefined;
-        this.unit = reactionCondition && reactionCondition.unit || undefined;
-        this.ph = reactionCondition && reactionCondition.ph || undefined;
+    constructor(condition?: Condition) {
+        this.name = condition && condition.name || undefined;
+        this.temp = condition && condition.temp || undefined;
+        this.unit = condition && condition.unit || undefined;
+        this.ph = condition && condition.ph || undefined;
     }
 }
 

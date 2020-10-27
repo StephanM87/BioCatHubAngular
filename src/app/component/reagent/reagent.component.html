@@ -39,15 +39,7 @@
                             <input clrInput type="text" [(ngModel)]="dialogReagent.smiles" name="smiles"/>
                         </clr-input-container>
                     </form>
-                    <div class="card-buttons">
-                        <div class="add-button" *ngIf="buttonAddVisible">
-                            <button class="btn btn-primary" (click)="addReagentToList()">save</button>
-                            <button class="btn btn-warning" (click)="cancelEdit()">cancel</button>
-                        </div>
-                        <div class="edit-buttons" *ngIf="buttonsEditVisible">
-                            <button class="btn btn-primary" (click)="saveReagent()">save</button>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary" (click)="hideDialog()">save</button>
                 </div>
             </div>
         </div>
@@ -55,13 +47,8 @@
 </div>
 
 <div class="clr-row">
-    <div class="clr-col-6">
+    <div class="clr-col-12">
         <span class="headline">reactants</span>
-    </div>
-    <div class="clr-col-6 right-column" *ngIf="!dialogVisible">
-        <button class="btn btn-link btn-sm" (click)="showDialog()">
-            <clr-icon shape="plus"></clr-icon> new reagent
-        </button>
     </div>
 </div>
 
@@ -80,31 +67,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let reagent of getReagents()">
-                        <td class="left">{{reagent.name}}</td>
-                        <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                        <td class="left">{{reagent.role}}</td>
-                        <td class="left">
-                            <div [innerHTML]="getFormula(reagent.formula)"></div>
-                        </td>
-                        <td class="left">{{reagent.smiles}}</td>
-                        <td class="right-column">
-                            <div class="btn-group btn-icon btn-link">
-                                <button class="btn" (click)="editReagent(reagent)">
-                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                </button>
-                                <button class="btn" (click)="copyReagent(reagent)">
-                                    <clr-icon shape="copy"></clr-icon>
-                                </button>
-                                <button class="btn" (click)="deleteReagent(reagent)">
-                                    <clr-icon shape="trash" class="is-error"></clr-icon>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    <ng-container *ngFor="let enzyme of getEnzymes()">
+                        <tr *ngFor="let educt of enzyme.reaction.educts">
+                            <td class="left">{{educt.name}}</td>
+                            <td class="left">{{educt.concentration}} {{educt.unit}}</td>
+                            <td class="left">{{educt.role}}</td>
+                            <td class="left">
+                                <div [innerHTML]="getFormula(educt.formula)"></div>
+                            </td>
+                            <td class="left">{{educt.smiles}}</td>
+                            <td class="right-column">
+                                <div class="btn-group btn-icon btn-link">
+                                    <button class="btn" (click)="editReagent(educt)">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let product of enzyme.reaction.products">
+                            <td class="left">{{product.name}}</td>
+                            <td class="left">{{product.concentration}} {{product.unit}}</td>
+                            <td class="left">{{product.role}}</td>
+                            <td class="left">
+                                <div [innerHTML]="getFormula(product.formula)"></div>
+                            </td>
+                            <td class="left">{{product.smiles}}</td>
+                            <td class="right-column">
+                                <div class="btn-group btn-icon btn-link">
+                                    <button class="btn" (click)="editReagent(product)">
+                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
             </table>
-            <div class="table-placeholder-container" *ngIf="getReagents().length == 0">
+            <div class="table-placeholder-container" *ngIf="getReactantCount() == 0">
                 <div class="table-placeholder">
                     no reactants specified
                 </div>
