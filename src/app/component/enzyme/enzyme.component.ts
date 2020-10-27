@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Enzyme, Reagent, Reaction } from '../../model/biocatalysis';
+import { EnzymeService } from 'src/app/service/enzyme.service';
+import { Enzyme, Reagent, Reaction, Ligand } from '../../model/biocatalysis';
 import { EnzymeSearch, ReactionSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 
@@ -23,7 +24,7 @@ export class EnzymeComponent implements OnInit {
   public reactionList: ReactionSearch[];
   public modalEnzyme: Enzyme;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, public enzymeService: EnzymeService) {
     this.enzymeList = new Array<EnzymeSearch>();
     this.loading = false;
   }
@@ -40,18 +41,13 @@ export class EnzymeComponent implements OnInit {
   }
 
   // Buttons in der Enzyme Card
-  public deleteReaction(enzyme: Enzyme, reaction: Reaction): void {
-    this.dataService.getExperiment().deleteReagentsOfReaction(reaction);
-    const index = enzyme.reactions.indexOf(reaction);
-    if (index !== -1) {
-      enzyme.reactions.splice(index, 1);
-    }
+  public deleteReaction(enzyme: Enzyme): void {
+    this.dataService.getExperiment().deleteReagentsOfReaction(enzyme.reaction);
+    enzyme.reaction = new Reaction();
   }
 
   public deleteEnzyme(enzyme: Enzyme) {
-    enzyme.reactions.forEach(reaction => {
-      this.dataService.getExperiment().deleteReagentsOfReaction(reaction);
-    });
+    this.dataService.getExperiment().deleteReagentsOfReaction(enzyme.reaction);
     this.dataService.getExperiment().deleteEnzyme(enzyme);
   }
 
@@ -62,7 +58,7 @@ export class EnzymeComponent implements OnInit {
     } else {
       this.closeButton = true;
       this.dropdown = true;
-      this.dataService.getEnzymeSearchList(searchValue).subscribe(
+      this.enzymeService.getEnzymeSearchList(searchValue).subscribe(
         data => {
           this.enzymeList = data;
         },
@@ -79,11 +75,11 @@ export class EnzymeComponent implements OnInit {
     let enzyme = new Enzyme();
     enzyme.ecNumber = selected.ecNumber;
     enzyme.brendaLink = selected.brendaLink;
-    this.dataService.getEnzymeSpecification(selected.ecNumber).subscribe(
+    this.enzymeService.getEnzymeSpecification(selected.ecNumber).subscribe(
       specification => {
         enzyme.name = specification.enzymeName;
-        enzyme.reactions = specification.reactions;
-        this.addReagentsToExperiment(specification.reactions)
+        enzyme.reaction = specification.reaction;
+        this.addReagentsToExperiment(enzyme.reaction)
         this.getEnzymes().push(enzyme);
         this.loading = false;
       },
@@ -97,7 +93,7 @@ export class EnzymeComponent implements OnInit {
   public reactionSelection(enzyme: Enzyme): void {
     this.loading = true;
     this.modalEnzyme = enzyme;
-    this.dataService.getReactionSearchList(enzyme.ecNumber).subscribe(
+    this.enzymeService.getReactionSearchList(enzyme.ecNumber).subscribe(
       result => {
         this.reactionList = result;
         this.loading = false;
@@ -112,14 +108,14 @@ export class EnzymeComponent implements OnInit {
 
   public addReaction(): void {
     this.loading = true;
-    this.dataService.getReactionSpecification(this.selectedReaction.id).subscribe(
+    this.enzymeService.getReactionSpecification(this.selectedReaction.id).subscribe(
       specification => {
         let reaction = new Reaction();
         reaction.value = this.selectedReaction.value;
         reaction.educts = specification.educts;
         reaction.products = specification.products;
-        this.modalEnzyme.reactions.push(reaction);
-        this.addReagentsToExperiment([reaction]);
+        this.modalEnzyme.reaction = reaction;
+        this.addReagentsToExperiment(reaction);
         this.reactionModal = false;
         this.loading = false;
       },
@@ -131,37 +127,55 @@ export class EnzymeComponent implements OnInit {
     );
   }
 
-  addReagentsToExperiment(reactions: Array<Reaction>): void {
-    reactions.forEach(reaction => {
-      reaction.educts.forEach(educt => {
-        let exsist = this.dataService.getExperiment().hasReagent(educt.id);
-        if(!exsist) {
-          let reagent = new Reagent();
-          reagent.ligandId = educt.id;
-          reagent.name = educt.name;
-          reagent.formula = educt.schema;
-          reagent.smiles = educt.smiles;
-          reagent.role = 'substrate';
-          reagent.imageUrl = educt.imageUrl;
-          reagent.brendaLink = educt.imageUrl;
-          this.dataService.getExperiment().getReagents().push(reagent);
-        }
-      });
-      reaction.products.forEach(product => {
-        let exsist = this.dataService.getExperiment().hasReagent(product.id);
-        if(!exsist) {
-          let reagent = new Reagent();
-          reagent.ligandId = product.id;
-          reagent.name = product.name;
-          reagent.formula = product.schema;
-          reagent.smiles = product.smiles;
-          reagent.role = 'product';
-          reagent.imageUrl = product.imageUrl;
-          reagent.brendaLink = product.imageUrl;
-          this.dataService.getExperiment().getReagents().push(reagent);
-        }
-      });
+  addReagentsToExperiment(reaction: Reaction): void {
+    reaction.educts.forEach(educt => {
+      let exsist = this.dataService.getExperiment().hasReagent(educt.id);
+      if(!exsist) {
+        let reagent = new Reagent();
+        reagent.ligandId = educt.id;
+        reagent.name = educt.name;
+        reagent.formula = educt.schema;
+        reagent.smiles = educt.smiles;
+        reagent.role = 'substrate';
+        reagent.imageUrl = educt.imageUrl;
+        reagent.brendaLink = educt.imageUrl;
+        this.dataService.getExperiment().getReagents().push(reagent);
+      }
     });
+    reaction.products.forEach(product => {
+      let exsist = this.dataService.getExperiment().hasReagent(product.id);
+      if(!exsist) {
+        let reagent = new Reagent();
+        reagent.ligandId = product.id;
+        reagent.name = product.name;
+        reagent.formula = product.schema;
+        reagent.smiles = product.smiles;
+        reagent.role = 'product';
+        reagent.imageUrl = product.imageUrl;
+        reagent.brendaLink = product.imageUrl;
+        this.dataService.getExperiment().getReagents().push(reagent);
+      }
+    });
+  }
+
+  public addSubstrate(enzyme: Enzyme): void {
+    enzyme.reaction.educts.push(new Ligand());
+  }
+
+  public deleteSubstrate(enzyme: Enzyme): void {
+    if(enzyme.reaction.educts.length > 0){
+      enzyme.reaction.educts.pop();
+    }
+  }
+
+  public addProduct(enzyme: Enzyme): void {
+    enzyme.reaction.products.push(new Ligand());
+  }
+
+  public deleteProduct(enzyme: Enzyme): void {
+    if(enzyme.reaction.products.length > 0){
+      enzyme.reaction.products.pop();
+    }
   }
 
   public resetSearch(): void {

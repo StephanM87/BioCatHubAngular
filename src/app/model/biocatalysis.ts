@@ -6,7 +6,7 @@ export class Enzyme {
     unit: string;
     formulation: string;
     determination: string;
-    reactions: Array<Reaction>;
+    reaction: Reaction;
     brendaLink: string;
 
     constructor(enzyme?: Enzyme) {
@@ -17,7 +17,7 @@ export class Enzyme {
         this.unit = enzyme && enzyme.unit || undefined;
         this.formulation = enzyme && enzyme.formulation || undefined;
         this.determination = enzyme && enzyme.determination || undefined;
-        this.reactions = enzyme && enzyme.reactions || new Array<Reaction>();
+        this.reaction = enzyme && enzyme.reaction || new Reaction();
         this.brendaLink = enzyme && enzyme.brendaLink || undefined;
     }
 }

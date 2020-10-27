@@ -6,21 +6,25 @@ export interface EnzymeSearch {
     enzymeName: string;
     brendaLink: string;
 }
+
 export interface EnzymeSpecification {
     ecNumber: string;
     enzymeName: string;
-    reactions: Array<Reaction>;
+    reaction: Reaction;
 }
+
 
 // Sabio-RK
 export interface ReactionSearch {
     id: string;
     value: string;
 }
+
 export interface ReactionSpecification {
     educts: Array<Ligand>;
     products: Array<Ligand>;
 }
+
 
 // zenodo
 export interface Deposition {
@@ -31,6 +35,7 @@ export interface Deposition {
     affiliation: string;
     link: string;
 }
+
 export interface Upload {
     id: string;
     bucket: string;

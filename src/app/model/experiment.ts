@@ -153,22 +153,20 @@ export class Experiment implements IExperiment {
     public reagentExistInOtherReaction(reagentId: string, currentReaction: string): boolean {
         let exsist = false;
         this.enzymes.forEach(enzyme => {
-            enzyme.reactions.forEach(reaction => {
-                if(reaction.value != currentReaction) {
-                    reaction.educts.forEach(educt => {
-                        let id = educt.id;
-                        if(id && id == reagentId) {
-                        exsist = true;
-                        }
-                    });
-                    reaction.products.forEach(product => {
-                        let id = product.id;
-                        if(id && id == reagentId) {
-                        exsist = true;
-                        }
-                    });
-                }
-            });
+            if(enzyme.reaction.value != currentReaction) {
+                enzyme.reaction.educts.forEach(educt => {
+                    let id = educt.id;
+                    if(id && id == reagentId) {
+                    exsist = true;
+                    }
+                });
+                enzyme.reaction.products.forEach(product => {
+                    let id = product.id;
+                    if(id && id == reagentId) {
+                    exsist = true;
+                    }
+                });
+            }
         });
         return exsist;
     }
