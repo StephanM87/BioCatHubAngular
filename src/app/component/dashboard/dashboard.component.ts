@@ -18,12 +18,8 @@ export class DashboardComponent implements OnInit {
   public creationDate: Date;
   public measurementPlot: any;
 
-  public description: string;
-
   public showAlert = true;
   public loading: boolean;
-
-  private numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   constructor(public dataService: DataService, public fileService: FileService, public zenodoService: ZenodoService) {
     this.experiment = dataService.getExperiment();
@@ -36,32 +32,14 @@ export class DashboardComponent implements OnInit {
     this.showAlert = false;
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   public getReactantCount(): number {
-    let count = 0;
-    this.experiment.enzymes.forEach(enzyme => {
-      count += enzyme.reaction.educts.length;
-      count += enzyme.reaction.products.length;
-    });
-    return count;
+    return this.dataService.getReactantCount();
   }
 
   public getFormula(formula: string): string {
-    let result = '';
-    if(formula != undefined) {
-      let cahracters = formula.split('');
-      cahracters.forEach(char => {
-        if (this.numbers.indexOf(char) > -1 ){
-          result += '<sub>' + char + '</sub>'; 
-        } else {
-          result += char; 
-        }
-      });
-    }
-    return result;
+    return this.dataService.getFormulaHtml(formula);
   }
 
   public uploadToZenodo(): void {

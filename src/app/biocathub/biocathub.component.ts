@@ -2,6 +2,36 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { DataService } from '../service/data.service';
 
+export interface NavigationElement {
+  label: string,
+  icon: string,
+  started: boolean,
+  state: string,
+  error: string,
+  router: string,
+  previous: string,
+  next: string,
+  previousLink: string,
+  nextLink: string
+}
+
+const NOT_STARTED = 'not-started';
+const CURRENT = 'current';
+const SUCCESS = 'success';
+const ERROR = 'error';
+
+const VESSEL = "vessels & volumes";
+const ENZYME = "biocatalyst";
+const REAGENT = "reactants";
+const REACTION = "reaction conditions";
+const MEASUREMENT = "experimental data";
+
+const VESSEL_LINK = "./vessel";
+const ENZYME_LINK = "./enzyme";
+const REAGENT_LINK = "./reagent";
+const REACTION_LINK = "./reaction";
+const MEASUREMENT_LINK = "./measurement";
+
 @Component({
   selector: 'app-biocathub',
   templateUrl: './biocathub.component.html',
@@ -9,209 +39,146 @@ import { DataService } from '../service/data.service';
 })
 export class BiocathubComponent implements OnInit {
 
-  NOT_STARTED = 'not-started';
-  CURRENT = 'current';
-  SUCCESS = 'success';
-  ERROR = 'error';
-  PROCESSING = 'processing';
+  public vesselNavigation: NavigationElement;
+  public enzymeNavigation: NavigationElement;
+  public reagentNavigation: NavigationElement;
+  public reactionNavigation: NavigationElement;
+  public measurementNavigation: NavigationElement;
+
+  public navigation: NavigationElement[];
 
   public navigationVisible: boolean;
   public timelineVisible: boolean;
   public collapsed: boolean;
 
-  public vesselLabel = "vessels & volumes";
-  public enzymeLabel = "biocatalyst";
-  public reagentLabel = "reactants";
-  public reactionLabel = "reaction conditions";
-  public measurementLabel = "experimental data";
+  public previous: string;
+  public next: string;
+  public previousLink: string;
+  public nextLink: string;
 
-  public vesselState: string;
-  public enzymeState: string;
-  public reagentState: string;
-  public reactionState: string;
-  public measurementState: string;
-
-  public vesselStarted: boolean;
-  public enzymeStarted: boolean;
-  public reagentStarted: boolean;
-  public reactionStarted: boolean;
-  public measurementStarted: boolean;
-
-  public previous: boolean;
-  public next: boolean;
-  public previousPage: string;
-  public nextPage: string;
-  public previousRouterLink: string;
-  public nextRouterLink: string;
-
-  constructor(private router: Router, private dataService: DataService) {    
-    this.setEnzymeState(this.NOT_STARTED);
-    this.setReagentState(this.NOT_STARTED);
-    this.setReactionState(this.NOT_STARTED);
-    this.setMeasurementState(this.NOT_STARTED);
-
-    this.enzymeStarted = false;
-    this.reagentStarted = false;
-    this.reactionStarted = false;
-    this.measurementStarted = false;
+  constructor(private router: Router, private dataService: DataService) {
+    this.vesselNavigation = {
+      label: VESSEL, icon: 'volume', started: false, state: NOT_STARTED, error: undefined, router: VESSEL_LINK,
+      previous: undefined, next: ENZYME, previousLink: undefined, nextLink: ENZYME_LINK};
+    this.enzymeNavigation = {
+      label: ENZYME, icon: 'helix', started: false, state: NOT_STARTED, error: undefined, router: ENZYME_LINK,
+      previous: VESSEL, next: REAGENT, previousLink: VESSEL_LINK, nextLink: REAGENT_LINK};
+    this.reagentNavigation = {
+      label: REAGENT, icon: 'flask', started: false, state: NOT_STARTED, error: undefined, router: REAGENT_LINK,
+      previous: ENZYME, next: REACTION, previousLink: ENZYME_LINK, nextLink: REACTION_LINK};
+    this.reactionNavigation = {
+      label: REACTION, icon: 'thermometer', started: false, state: NOT_STARTED, error: undefined, router: REACTION_LINK,
+      previous: REAGENT, next: MEASUREMENT, previousLink: REAGENT_LINK, nextLink: MEASUREMENT_LINK};
+    this.measurementNavigation = {
+      label: MEASUREMENT, icon: 'line-chart', started: false, state: NOT_STARTED, error: undefined, router: MEASUREMENT_LINK,
+      previous: REACTION, next: undefined, previousLink: REACTION_LINK, nextLink: undefined};
+      
+    this.navigation = [this.vesselNavigation, this.enzymeNavigation, this.reagentNavigation, this.reactionNavigation, this.measurementNavigation];
 
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd){
-        this.updateNavigation(val.url);
+        let url = val.url;
+        this.validate(url);
+        this.updateNavigation(url);
+        this.setCurrentState(url);
      }
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
+
+  public resetNavigation(): void {
+    this.navigation.forEach(nav => {
+      nav.started = false;
+      nav.state = NOT_STARTED;
+      nav.error = undefined;
+    });
+  }
 
   public updateNavigation(url: string){
-    this.navigationVisible = !(url == '/' || url == '/start');
-    this.timelineVisible = !(url == '/' || url == '/start' || url == '/dashboard');
-    if(this.navigationVisible){
+    let start = (url == '/' || url == '/start');
+    this.navigationVisible = !start;
+    this.timelineVisible = !(start || url == '/dashboard');
+    if(start) {
+      this.resetNavigation();
+    } else {
       this.updateStarted(url);
-      this.updateVesselState();
-      this.updateEnzymeState();
-      this.updateReagentState();
-      this.updateReactionState();
-      this.updateMeasurementState();
-      this.setCurrentState(url);
       this.updateNavigationButtons(url);
     }
+    
+  }
+
+  public validate(url: string): void {
+    this.dataService.validateExperiment();
+    this.updateState(this.vesselNavigation, this.dataService.vesselValidation);
+    this.updateState(this.enzymeNavigation, this.dataService.enzymeValidation);
+    this.updateState(this.reagentNavigation, this.dataService.reactantValidation);
+    this.updateState(this.reactionNavigation, this.dataService.conditionValidation);
+    this.updateState(this.measurementNavigation, this.dataService.measurementValidation);
+  }
+
+  getErrorMessage(validation: string[]) : string {
+    return validation.length > 0 ? validation.join(', ') + ' has not been defined' : undefined;
   }
 
   updateStarted(url: string): void {
     if (url == '/vessel') {
-      this.vesselStarted = true;
+      this.vesselNavigation.started = true;
     } else if (url == '/enzyme') {
-      this.enzymeStarted = true;
+      this.enzymeNavigation.started = true;
     } else if (url == '/reagent') {
-      this.reagentStarted = true;
+      this.reagentNavigation.started = true;
     } else if (url == '/reaction') {
-      this.reactionStarted = true;
+      this.reactionNavigation.started = true;
     } else if (url == '/measurement') {
-      this.measurementStarted = true;
+      this.measurementNavigation.started = true;
     }
   }
 
   setCurrentState(url: string): void {
     if (url == '/vessel') {
-      this.setVesselState(this.CURRENT);
+      this.vesselNavigation.state = CURRENT;
     } else if (url == '/enzyme') {
-      this.setEnzymeState(this.CURRENT);
+      this.enzymeNavigation.state = CURRENT;
     } else if (url == '/reagent') {
-      this.setReagentState(this.CURRENT);
+      this.reagentNavigation.state = CURRENT;
     } else if (url == '/reaction') {
-      this.setReactionState(this.CURRENT);
+      this.reactionNavigation.state = CURRENT;
     } else if (url == '/measurement') {
-      this.setMeasurementState(this.CURRENT);
+      this.measurementNavigation.state = CURRENT;
     }
   }
 
   updateNavigationButtons(url: string): void{
-    this.previous = false;
-    this.next = false;
-    this.nextRouterLink = '';
-    this.previousRouterLink = '';
     if (url == '/vessel') {
-      this.next = true;
-      this.nextPage = this.enzymeLabel;
-      this.nextRouterLink = './enzyme';
+      this.setNavigationButtons(this.vesselNavigation);
     } else if (url == '/enzyme') {
-      this.previous = true;
-      this.previousPage = this.vesselLabel;
-      this.previousRouterLink = './vessel';
-      this.next = true;
-      this.nextPage = this.reagentLabel;
-      this.nextRouterLink = './reagent';
+      this.setNavigationButtons(this.enzymeNavigation);
     } else if (url == '/reagent') {
-      this.previous = true;
-      this.previousPage = this.enzymeLabel;
-      this.previousRouterLink = './enzyme';
-      this.next = true;
-      this.nextPage = this.reactionLabel;
-      this.nextRouterLink = './reaction';
+      this.setNavigationButtons(this.reagentNavigation);
     } else if (url == '/reaction') {
-      this.previous = true;
-      this.previousPage = this.reagentLabel;
-      this.previousRouterLink = './reagent';
-      this.next = true;
-      this.nextPage = this.measurementLabel;
-      this.nextRouterLink = './measurement';
+      this.setNavigationButtons(this.reactionNavigation);
     } else if (url == '/measurement') {
-      this.previous = true;
-      this.previousPage = this.reactionLabel;
-      this.previousRouterLink = './reaction';
+      this.setNavigationButtons(this.measurementNavigation);
     }
   }
 
-  updateVesselState(){
-    if(!this.vesselStarted) {
-      this.setVesselState(this.NOT_STARTED);
-    } else if(this.dataService.getExperiment().validateVessel()){
-      this.setVesselState(this.SUCCESS);
+  setNavigationButtons(nav: NavigationElement) {
+    this.previous = nav.previous;
+    this.previousLink = nav.previousLink;
+    this.next = nav.next;
+    this.nextLink = nav.nextLink;
+  }
+
+  updateState(nav: NavigationElement, errors: string[]): void {
+    if(!nav.started) {
+      nav.state = NOT_STARTED;
     } else {
-      this.setVesselState(this.ERROR);
+      nav.error = this.getErrorMessage(errors);
+      nav.state = nav.error ? ERROR : SUCCESS;
     }
-  }
-
-  updateEnzymeState(){
-    if(!this.enzymeStarted) {
-      this.setEnzymeState(this.NOT_STARTED);
-    } else if(this.dataService.getExperiment().validateEnzymes()){
-      this.setEnzymeState(this.SUCCESS);
-    } else {
-      this.setEnzymeState(this.ERROR);
-    }
-  }
-
-  updateReagentState(){
-    if(!this.reagentStarted) {
-      this.setReagentState(this.NOT_STARTED);
-    } else if(this.dataService.getExperiment().validateReagents()){
-      this.setReagentState(this.SUCCESS);
-    } else {
-      this.setReagentState(this.ERROR);
-    }
-  }
-
-  updateReactionState(){
-    if(!this.reactionStarted) {
-      this.setReactionState(this.NOT_STARTED);
-    } else if(this.dataService.getExperiment().validateReaction()){
-      this.setReactionState(this.SUCCESS);
-    } else {
-      this.setReactionState(this.ERROR);
-    }
-  }
-
-  updateMeasurementState(){
-    if(!this.measurementStarted) {
-      this.setMeasurementState(this.NOT_STARTED);
-    } else if(this.dataService.getExperiment().validateMeasurement()){
-      this.setMeasurementState(this.SUCCESS);
-    } else {
-      this.setMeasurementState(this.ERROR);
-    }
-  }
-
-  public setVesselState(state: string): void {
-    this.vesselState = state;
-  }
-
-  public setEnzymeState(state: string): void {
-    this.enzymeState = state;
-  }
-
-  public setReagentState(state: string): void {
-    this.reagentState = state;
-  }
-
-  public setReactionState(state: string): void {
-    this.reactionState = state;
-  }
-
-  public setMeasurementState(state: string): void {
-    this.measurementState = state;
   }
 
 }

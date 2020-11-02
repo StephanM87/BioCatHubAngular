@@ -2,34 +2,14 @@
     <app-header></app-header>
     <div class="content-container">
         <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" class="nav-trigger--bottom" *ngIf="navigationVisible">
-            <!-- <a clrVerticalNavLink routerLink="./start" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
-                home
-            </a> -->
             <a clrVerticalNavLink class="nav-overview" routerLink="./dashboard" routerLinkActive="active">
                 <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
                 overview
             </a>
             <div class="nav-divider"></div>
-            <a clrVerticalNavLink routerLink="./vessel" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="volume"></clr-icon>
-                {{vesselLabel}}
-            </a>
-            <a clrVerticalNavLink routerLink="./enzyme" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="helix"></clr-icon>
-                {{enzymeLabel}}
-            </a>
-            <a clrVerticalNavLink routerLink="./reagent" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="flask"></clr-icon>
-                {{reagentLabel}}
-            </a>
-            <a clrVerticalNavLink routerLink="./reaction" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="thermometer"></clr-icon>
-                {{reactionLabel}}
-            </a>
-            <a clrVerticalNavLink routerLink="./measurement" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="line-chart"></clr-icon>
-                {{measurementLabel}}
+            <a clrVerticalNavLink *ngFor="let nav of navigation" [routerLink]="nav.router" routerLinkActive="active">
+                <clr-icon clrVerticalNavIcon [attr.shape]="nav.icon"></clr-icon>
+                {{nav.label}}
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink class="nav-new" routerLink="./start" routerLinkActive="active">
@@ -45,30 +25,11 @@
             <div class="clr-row" >
                 <div class="clr-col-12">
                     <clr-timeline *ngIf="timelineVisible">
-                        <clr-timeline-step [clrState]="vesselState">
+                        <clr-timeline-step *ngFor="let nav of navigation" [clrState]="nav.state">
                             <clr-timeline-step-title>
-                                <a id="vessel" class="navigation-link" routerLink="./vessel" routerLinkActive="active">{{vesselLabel}}</a>
+                                <a class="navigation-link" [routerLink]="nav.router" routerLinkActive="active">{{nav.label}}</a>
                             </clr-timeline-step-title>
-                        </clr-timeline-step>
-                        <clr-timeline-step [clrState]="enzymeState">
-                            <clr-timeline-step-title>
-                                <a id="enzyme" class="navigation-link" routerLink="./enzyme" routerLinkActive="active">{{enzymeLabel}}</a>
-                            </clr-timeline-step-title>
-                        </clr-timeline-step>
-                        <clr-timeline-step [clrState]="reagentState">
-                            <clr-timeline-step-title>
-                                <a id="reagent" class="navigation-link" routerLink="./reagent" routerLinkActive="active">{{reagentLabel}}</a>
-                            </clr-timeline-step-title>
-                        </clr-timeline-step>
-                        <clr-timeline-step [clrState]="reactionState">
-                            <clr-timeline-step-title>
-                                <a id="reaction" class="navigation-link" routerLink="./reaction" routerLinkActive="active">{{reactionLabel}}</a>
-                            </clr-timeline-step-title>
-                        </clr-timeline-step>
-                        <clr-timeline-step [clrState]="measurementState">
-                            <clr-timeline-step-title>
-                                <a id="measurement" class="navigation-link" routerLink="./measurement" routerLinkActive="active">{{measurementLabel}}</a>
-                            </clr-timeline-step-title>
+                            <clr-timeline-step-description *ngIf="nav.error">{{nav.error}}</clr-timeline-step-description>
                         </clr-timeline-step>
                     </clr-timeline>
                 </div>
@@ -77,9 +38,9 @@
             <div class="footer-nav" *ngIf="timelineVisible">
                 <div class="clr-row" >
                     <div class="clr-col-4 nav-previous">
-                        <button class="btn btn-link" [routerLink]="previousRouterLink" *ngIf="previous">
+                        <button class="btn btn-link" [routerLink]="previousLink" *ngIf="previous">
                             <clr-icon shape="caret left"></clr-icon>
-                            {{previousPage}}
+                            {{previous}}
                         </button>
                     </div>
                     <div class="clr-col-4 center-column">
@@ -88,8 +49,8 @@
                         </button>
                     </div>
                     <div class="clr-col-4 right-column">
-                        <button class="btn btn-link" [routerLink]="nextRouterLink" *ngIf="next">
-                            {{nextPage}}
+                        <button class="btn btn-link" [routerLink]="nextLink" *ngIf="next">
+                            {{next}}
                             <clr-icon shape="caret right"></clr-icon>
                         </button>
                     </div>

@@ -1,16 +1,10 @@
-<div class="alert alert-success" role="alert" *ngIf="showAlert">
-    <div class="alert-items">
-        <div class="alert-item static">
-            <div class="alert-icon-wrapper">
-                <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
-            </div>
-            <span class="alert-text">the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b></span>
-        </div>
-    </div>
-    <button type="button" class="close" aria-label="Close">
-        <clr-icon aria-hidden="true" shape="close" (click)="showAlert=false"></clr-icon>
-    </button>
-</div>
+<clr-alert [clrAlertType]="'success'" *ngIf="showAlert">
+    <clr-alert-item>
+        <span class="alert-text">
+            the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b>
+        </span>
+    </clr-alert-item>
+</clr-alert>
 
 <div class="clr-row">
     <div class="clr-col-6">

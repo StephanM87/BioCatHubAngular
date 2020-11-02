@@ -81,6 +81,9 @@
                                     <button class="btn" (click)="editReagent(educt)">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
                                     </button>
+                                    <button class="btn" (click)="deleteEduct(enzyme, educt)">
+                                        <clr-icon shape="trash" class="is-error"></clr-icon>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -96,6 +99,9 @@
                                 <div class="btn-group btn-icon btn-link">
                                     <button class="btn" (click)="editReagent(product)">
                                         <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                    </button>
+                                    <button class="btn" (click)="deleteProduct(enzyme, product)">
+                                        <clr-icon shape="trash" class="is-error"></clr-icon>
                                     </button>
                                 </div>
                             </td>

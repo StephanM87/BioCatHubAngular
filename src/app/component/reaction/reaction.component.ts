@@ -13,12 +13,10 @@ export class ReactionComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
-
-  // Reaction
+  ngOnInit(): void { }
+  
   public getReaction(): Condition {
-    return this.dataService.getExperiment().getReaction();
+    return this.dataService.getExperiment().getReactionConditions();
   }
 
 }

@@ -13,8 +13,7 @@ export class VesselComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // Vessel
+  
   public getVessel(): Vessel {
     return this.dataService.getExperiment().getVessel();
   }

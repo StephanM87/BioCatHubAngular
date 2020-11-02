@@ -12,8 +12,6 @@ export class ReagentComponent implements OnInit {
   public dialogVisible: boolean;
   public dialogReagent: Reactant;
 
-  private numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
   constructor(public dataService: DataService) {
     this.dialogVisible = false;
   }
@@ -21,47 +19,33 @@ export class ReagentComponent implements OnInit {
   ngOnInit(): void {}
 
   public getFormula(formula: string): string {
-    let result = '';
-    if(formula != undefined) {
-      let cahracters = formula.split('');
-      cahracters.forEach(char => {
-        if (this.numbers.indexOf(char) > -1 ){
-          result += '<sub>' + char + '</sub>'; 
-        } else {
-          result += char; 
-        }
-      });
-    }
-    return result;
+    return this.dataService.getFormulaHtml(formula);
   }
-
-  // Zentraler Zugriff auf die Reagents über den Data-Service
+  
   public getEnzymes(): Enzyme[] {
     return this.dataService.getExperiment().getEnzymes();
   }
 
   public getReactantCount(): number {
-    let count = 0;
-    this.getEnzymes().forEach(enzyme => {
-      count += enzyme.reaction.educts.length;
-      count += enzyme.reaction.products.length;
-    });
-    return count;
+    return this.dataService.getReactantCount();
   }
-
-  // Dialog ein- und ausblenden  
+  
   public editReagent(reagent: Reactant) {
     this.dialogReagent = reagent;
     this.dialogVisible = true;
   }
 
+  public deleteEduct(enzyme: Enzyme, educt: Reactant) {
+    this.dataService.deleteReactant(enzyme.reaction.educts, educt);
+  }
+
+  public deleteProduct(enzyme: Enzyme, product: Reactant) {
+    this.dataService.deleteReactant(enzyme.reaction.products, product);
+  }
+
   public hideDialog(): void {
     this.dialogReagent = undefined;
     this.dialogVisible = false;
-  }
-
-  public validate(): boolean {
-    return true;
   }
 
 }

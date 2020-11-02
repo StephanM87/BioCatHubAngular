@@ -37,28 +37,6 @@ export class Experiment implements IExperiment {
         return this.description;
     }
 
-    public getVessel(): Vessel {
-        return this.vessel;
-    }
-
-    public validateVessel(): boolean {
-        if(this.vessel != undefined){
-            return true;
-        }
-        return false;
-    }
-
-    public getReaction(): Condition {
-        return this.condition;
-    }
-
-    public getUser(): User {
-        return this.user;
-    }
-
-
-    /* -------------------- Enzymes -------------------- */
-
     public getEnzymes(): Array<Enzyme> {
         return this.enzymes;
     }
@@ -74,27 +52,13 @@ export class Experiment implements IExperiment {
         }
     }
 
-    public validateEnzymes(): boolean {
-        if(this.enzymes.length > 0){
-            return true;
-        }
-        return false;
+    public getVessel(): Vessel {
+        return this.vessel;
     }
 
-    public validateReagents(): boolean {
-        return true;
+    public getReactionConditions(): Condition {
+        return this.condition;
     }
-
-    /* -------------------- Reaction Conditions -------------------- */
-
-    public validateReaction(): boolean {
-        if(this.condition != undefined){
-            return true;
-        }
-        return false;
-    }
-
-    /* -------------------- Measurement -------------------- */
 
     public getMeasurement(): Measurement {
         return this.measurement;
@@ -104,11 +68,8 @@ export class Experiment implements IExperiment {
         this.measurement = measurement;
     }
 
-    public validateMeasurement(): boolean {
-        if(this.measurement.replicates.length > 0){
-            return true;
-        }
-        return false;
+    public getUser(): User {
+        return this.user;
     }
 
 }
