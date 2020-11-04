@@ -3,6 +3,7 @@ import { DataService } from 'src/app/service/data.service';
 import { Experiment } from 'src/app/model/experiment';
 import { FileService } from 'src/app/service/file.service';
 import { ZenodoService } from 'src/app/service/zenodo.service';
+import { Reaction } from 'src/app/model/biocatalysis';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,8 +35,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public getReactantCount(): number {
-    return this.dataService.getReactantCount();
+  public getReactantCount(reaction: Reaction): number {
+    return (reaction.educts.length + reaction.products.length);
   }
 
   public getFormula(formula: string): string {

@@ -33,12 +33,7 @@ export class EnzymeComponent implements OnInit {
   public newEnzyme(): void {
     this.getEnzymes().push(new Enzyme());
   }
-
-  // Buttons in der Enzyme Card
-  public deleteReaction(enzyme: Enzyme): void {
-    enzyme.reaction = new Reaction();
-  }
-
+  
   public deleteEnzyme(enzyme: Enzyme) {
     this.dataService.getExperiment().deleteEnzyme(enzyme);
   }
@@ -84,7 +79,8 @@ export class EnzymeComponent implements OnInit {
         console.log(error);
         this.loading = false;
       }
-    );
+      );
+    this.enzymeService.addEnzymeReactions(selected.ecNumber);
   }
 
   // Attribute

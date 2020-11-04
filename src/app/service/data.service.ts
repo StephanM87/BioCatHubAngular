@@ -233,15 +233,6 @@ export class DataService {
     }
   }
 
-  public getReactantCount(): number {
-    let count = 0;
-    this.getExperiment().getEnzymes().forEach(enzyme => {
-      count += enzyme.reaction.educts.length;
-      count += enzyme.reaction.products.length;
-    });
-    return count;
-  }
-
   public getFormulaHtml(formula: string): string {
     let result = '';
     if(formula != undefined) {

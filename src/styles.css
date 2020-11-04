@@ -111,15 +111,9 @@
  }
 
  .attribute-button {
-    border: 0;
-    padding: 0 0 0 .6rem;
-    background: transparent;
+    margin: 0 0 0 .6rem !important;
  }
 
  .attribute-button:hover {
     background-color: transparent;
- }
-
- .card-block .btn  {
-    margin: 0;
  }

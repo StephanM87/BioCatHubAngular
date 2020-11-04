@@ -195,8 +195,8 @@
                                     <span class="dashboard-headline">reactants</span>
                                 </button>
                             </div>
-                            <div class="card-text">
-                                <table class="table table-noborder table-compact" *ngIf="getReactantCount() > 0">
+                            <div class="card-text" *ngFor="let enzyme of experiment.enzymes">
+                                <table class="table table-noborder table-compact" *ngIf="getReactantCount(enzyme.reaction) > 0">
                                     <thead>
                                         <tr>
                                             <th class="left">name</th>
@@ -206,24 +206,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ng-container *ngFor="let enzyme of experiment.enzymes">
-                                            <tr *ngFor="let reagent of enzyme.reaction.educts">
-                                                <td class="left">{{reagent.name}}</td>
-                                                <td class="left">
-                                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
-                                                </td>
-                                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                                                <td class="left">{{reagent.role}}</td>
-                                            </tr>
-                                            <tr *ngFor="let reagent of enzyme.reaction.products">
-                                                <td class="left">{{reagent.name}}</td>
-                                                <td class="left">
-                                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
-                                                </td>
-                                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                                                <td class="left">{{reagent.role}}</td>
-                                            </tr>
-                                        </ng-container>
+                                        <tr *ngFor="let reagent of enzyme.reaction.educts">
+                                            <td class="left">{{reagent.name}}</td>
+                                            <td class="left">
+                                                <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                            </td>
+                                            <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                            <td class="left">{{reagent.role}}</td>
+                                        </tr>
+                                        <tr *ngFor="let reagent of enzyme.reaction.products">
+                                            <td class="left">{{reagent.name}}</td>
+                                            <td class="left">
+                                                <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                            </td>
+                                            <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                            <td class="left">{{reagent.role}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

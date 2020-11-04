@@ -52,13 +52,15 @@
                                             <input class="clr-input" type="text" [(ngModel)]="enzyme.name" name="name" />
                                         </div>
                                     </div>
-                                    <div class="clr-control-container clr-col-md-5 clr-col-12">
-                                        <div class="clr-select-wrapper">
-                                              <select class="clr-select" [(ngModel)]="enzyme.type" name="type">
-                                                <option value="wild type enzyme">wild type enzyme</option>
-                                                <option value="enzyme variant">enzyme variant</option>
-                                            </select>
-                                        </div>
+                                    <div class="clr-control-container clr-control-inline clr-col-md-5 clr-col-12">
+                                        <clr-radio-wrapper>
+                                            <input type="radio" clrRadio name="type" required value="wild type enzyme" [(ngModel)]="enzyme.type" />
+                                            <label>wildtype</label>
+                                          </clr-radio-wrapper>
+                                        <clr-radio-wrapper>
+                                            <input type="radio" clrRadio name="type" required value="variant" [(ngModel)]="enzyme.type" />
+                                            <label>variant</label>
+                                        </clr-radio-wrapper>
                                     </div>
                                 </div>
                                 <clr-input-container>
@@ -104,7 +106,7 @@
                                     <div class="clr-control-container clr-col-md-10 clr-col-12">
                                         <div class="clr-input-wrapper">
                                             <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
-                                            <button type="button" class="btn btn-icon attribute-button" aria-label="trash" (click)="deleteAttribute(enzyme, other)">
+                                            <button type="button" class="btn btn-link attribute-button" aria-label="trash" (click)="deleteAttribute(enzyme, other)">
                                                 <clr-icon shape="trash" class="is-error"></clr-icon>
                                             </button>
                                         </div>
