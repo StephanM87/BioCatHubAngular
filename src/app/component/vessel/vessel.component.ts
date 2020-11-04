@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Vessel } from '../../model/biocatalysis';
+import { Attribute, Vessel } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -16,6 +16,18 @@ export class VesselComponent implements OnInit {
   
   public getVessel(): Vessel {
     return this.dataService.getExperiment().getVessel();
+  }
+
+  // Attribute
+  public addAttribute(): void {
+    this.getVessel().others.push(new Attribute());
+  }
+
+  public deleteAttribute(other: Attribute): void {
+    let index = this.getVessel().others.indexOf(other);
+    if (index !== -1) {
+      this.getVessel().others.splice(index, 1);
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="clr-row">
     <div class="clr-col-12">
-        <span class="headline">vessel</span>
+        <span class="headline">vessels & volumes</span>
     </div>
 </div>
 <div class="clr-row">
@@ -13,19 +13,42 @@
                             <label>type</label>
                             <input clrInput type="text" [(ngModel)]="getVessel().type" name="type"/>
                         </clr-input-container>
-                        <clr-input-container>
-                            <label>volume</label>
-                            <input clrInput type="text" [(ngModel)]="getVessel().volume" name="volume" />
-                        </clr-input-container>
-                        <clr-select-container>
-                            <label>unit</label>
-                            <select clrSelect [(ngModel)]="getVessel().unit" name="unit">
-                              <option value="L">L</option>
-                              <option value="mL">mL</option>
-                              <option value="µL">µL</option>
-                            </select>
-                        </clr-select-container>
+                        <div class="clr-form-control clr-row">
+                            <div class="clr-control-label clr-col-12 clr-col-md-2">volume</div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" name="volume" />
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-select-wrapper">
+                                    <select class="clr-select" [(ngModel)]="getVessel().unit" name="unit">
+                                        <option value="L">L</option>
+                                        <option value="mL">mL</option>
+                                        <option value="µL">µL</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clr-form-control clr-row" *ngFor="let other of getVessel().others">
+                            <div class="clr-control-container clr-col-12 clr-col-md-2">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input attribut-label" type="text" placeholder="other attribute" [(ngModel)]="other.key" [ngModelOptions]="{standalone: true}"/>
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-10 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
+                                    <button class="btn btn-icon attribute-button" (click)="deleteAttribute(other)">
+                                        <clr-icon shape="trash" class="is-error"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
+                    <button class="btn btn-link btn-sm" (click)="addAttribute()">
+                        <clr-icon shape="plus"></clr-icon> add attribute
+                    </button>
                 </div>
             </div>
         </div>

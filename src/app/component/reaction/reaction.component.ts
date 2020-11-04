@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Condition } from '../../model/biocatalysis';
+import { Attribute, Condition } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
 @Component({
@@ -17,6 +17,18 @@ export class ReactionComponent implements OnInit {
   
   public getReaction(): Condition {
     return this.dataService.getExperiment().getReactionConditions();
+  }
+
+  // Attribute
+  public addAttribute(): void {
+    this.getReaction().others.push(new Attribute());
+  }
+
+  public deleteAttribute(other: Attribute): void {
+    let index = this.getReaction().others.indexOf(other);
+    if (index !== -1) {
+      this.getReaction().others.splice(index, 1);
+    }
   }
 
 }

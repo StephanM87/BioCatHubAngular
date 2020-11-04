@@ -1,6 +1,6 @@
 <div class="clr-row">
     <div class="clr-col-12">
-        <span class="headline">reaction</span>
+        <span class="headline">reaction conditions</span>
     </div>
 </div>
 <div class="clr-row">
@@ -9,25 +9,48 @@
             <div class="card-block">
                 <div class="card-text">
                     <form clrForm>
-                        <clr-input-container>
-                            <label>name</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().name" name="name"/>
-                        </clr-input-container>
-                        <clr-input-container>
-                            <label>temperature</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().temp" name="temp" />
-                        </clr-input-container>
-                        <clr-select-container>
-                            <label>unit</label>
-                            <select clrSelect [(ngModel)]="getReaction().unit" name="unit">
-                              <option value="°C">°C</option>
-                            </select>
-                        </clr-select-container>
+                        <div class="clr-form-control clr-row">
+                            <div class="clr-control-label clr-col-12 clr-col-md-2">temperature</div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" name="temp" />
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-select-wrapper">
+                                    <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
+                                        <option value="°C">°C</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <clr-input-container>
                             <label>ph value</label>
                             <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph" />
                         </clr-input-container>
+                        <clr-input-container>
+                            <label>buffer</label>
+                            <input clrInput type="text" [(ngModel)]="getReaction().buffer" name="buffer" />
+                        </clr-input-container>
+                        <div class="clr-form-control clr-row" *ngFor="let other of getReaction().others">
+                            <div class="clr-control-container clr-col-12 clr-col-md-2">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input attribut-label" type="text" placeholder="other attribute" [(ngModel)]="other.key" [ngModelOptions]="{standalone: true}"/>
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-10 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
+                                    <button class="btn btn-icon attribute-button" (click)="deleteAttribute(other)">
+                                        <clr-icon shape="trash" class="is-error"></clr-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
+                    <button class="btn btn-link btn-sm" (click)="addAttribute()">
+                        <clr-icon shape="plus"></clr-icon> add attribute
+                    </button>
                 </div>
             </div>
         </div>
