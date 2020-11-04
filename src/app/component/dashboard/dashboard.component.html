@@ -1,14 +1,16 @@
-<clr-alert [clrAlertType]="'success'" *ngIf="showAlert">
-    <clr-alert-item>
-        <span class="alert-text">
-            the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b>
-        </span>
-    </clr-alert-item>
-</clr-alert>
+<div class="zenodo-alert">
+    <clr-alert [clrAlertType]="'success'" *ngIf="showAlert">
+        <clr-alert-item>
+            <span class="alert-text">
+                the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b>
+            </span>
+        </clr-alert-item>
+    </clr-alert>
+</div>
 
 <div class="clr-row">
     <div class="clr-col-6">
-        <span class="headline">overview</span>
+        <span class="headline">experiment</span>
         <span class="id" *ngIf="id"> (#<a href="{{zenodoLink}}" target="_blank">{{id}}</a>)</span>
     </div>
     <div class="clr-col-6 right-column">
@@ -31,7 +33,7 @@
                     <div class="card-title">
                         <div class="clr-row">
                             <div class="clr-col-12">
-                                <clr-icon class="dashboard-icon" size="24" shape="info-standard"></clr-icon> experiment information
+                                <clr-icon class="dashboard-icon" size="24" shape="info-standard"></clr-icon>experiment information
                             </div>
                         </div>
                     </div>
@@ -67,7 +69,7 @@
                     <div class="card-title">
                         <div class="clr-row">
                             <div class="clr-col-12">
-                                <clr-icon class="dashboard-icon" size="24" shape="user"></clr-icon> experimentalist
+                                <clr-icon class="dashboard-icon" size="24" shape="user"></clr-icon>experimentalist
                             </div>
                         </div>
                     </div>
@@ -98,16 +100,10 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title">
-                                <div class="clr-row">
-                                    <div class="clr-col-9">
-                                        <clr-icon class="dashboard-icon" size="24" shape="volume"></clr-icon> vessels & volumes
-                                    </div>
-                                    <div class="clr-col-3 right-column">
-                                        <button class="btn btn-icon btn-link" routerLink="./../vessel">
-                                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-icon btn-link" routerLink="./../vessel">
+                                    <clr-icon class="dashboard-icon" size="24" shape="volume"></clr-icon>
+                                    <span class="dashboard-headline">vessels & volumes</span>
+                                </button>
                             </div>
                             <div class="card-text">
                                 <table class="table table-noborder table-compact table-vertical">
@@ -132,24 +128,14 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title">
-                                <div class="clr-row">
-                                    <div class="clr-col-9">
-                                        <clr-icon class="dashboard-icon" size="24" shape="thermometer"></clr-icon> reaction conditions
-                                    </div>
-                                    <div class="clr-col-3 right-column">
-                                        <button class="btn btn-icon btn-link" routerLink="./../reaction">
-                                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-icon btn-link" routerLink="./../reaction">
+                                    <clr-icon class="dashboard-icon" size="24" shape="thermometer"></clr-icon>
+                                    <span class="dashboard-headline">reaction conditions</span>
+                                </button>
                             </div>
                             <div class="card-text">
                                 <table class="table table-noborder table-compact table-vertical">
                                     <tbody>
-                                        <tr *ngIf="experiment.condition.name" >
-                                            <th>name</th>
-                                            <td>{{experiment.condition.name}}</td>
-                                        </tr>
                                         <tr *ngIf="experiment.condition.temp || experiment.condition.unit" >
                                             <th>temperature</th>
                                             <td>{{experiment.condition.temp}} {{experiment.condition.unit}}</td>
@@ -172,16 +158,10 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title">
-                                <div class="clr-row">
-                                    <div class="clr-col-9">
-                                        <clr-icon class="dashboard-icon" size="24" shape="helix"></clr-icon> biocatalyst
-                                    </div>
-                                    <div class="clr-col-3 right-column">
-                                        <button class="btn btn-icon btn-link" routerLink="./../enzyme">
-                                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-icon btn-link" routerLink="./../enzyme">
+                                    <clr-icon class="dashboard-icon" size="24" shape="helix"></clr-icon>
+                                    <span class="dashboard-headline">biocatalyst</span>
+                                </button>
                             </div>
                             <div class="card-text" >
                                 <table class="table table-noborder table-compact" *ngIf="experiment.enzymes.length > 0">
@@ -210,16 +190,10 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="card-title">
-                                <div class="clr-row">
-                                    <div class="clr-col-9">
-                                        <clr-icon class="dashboard-icon" size="24" shape="flask"></clr-icon> reactants
-                                    </div>
-                                    <div class="clr-col-3 right-column">
-                                        <button class="btn btn-icon btn-link" routerLink="./../reagent">
-                                            <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="btn btn-icon btn-link" routerLink="./../reagent">
+                                    <clr-icon class="dashboard-icon" size="24" shape="flask"></clr-icon>
+                                    <span class="dashboard-headline">reactants</span>
+                                </button>
                             </div>
                             <div class="card-text">
                                 <table class="table table-noborder table-compact" *ngIf="getReactantCount() > 0">
@@ -264,16 +238,10 @@
             <div class="card">
                 <div class="card-block">
                     <div class="card-title">
-                        <div class="clr-row">
-                            <div class="clr-col-9">
-                                <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon> experimental data
-                            </div>
-                            <div class="clr-col-3 right-column">
-                                <button class="btn btn-icon btn-link" routerLink="./../measurement">
-                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                </button>
-                            </div>
-                        </div>
+                        <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                            <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon>
+                            <span class="dashboard-headline">experimental data</span>
+                        </button>
                     </div>
                     <div class="card-img">
                         <img [src]="measurementPlot">

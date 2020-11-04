@@ -1,22 +1,39 @@
+export class Attribute {
+    key: string;
+    value: string;
+
+    constructor(attribute?: Attribute) {
+        this.key = attribute && attribute.key || undefined;
+        this.value = attribute && attribute.value || undefined;
+    }
+}
+
+
 export class Enzyme {
     ecNumber: string;
     name: string;
+    type: string;
+    organism: string;
     sequence: string;
     unit: string;
     concentration: number;
     formulation: string;
     determination: string;
+    others: Array<Attribute>;
     reaction: Reaction;
     brendaLink: string;
 
     constructor(enzyme?: Enzyme) {
         this.ecNumber = enzyme && enzyme.ecNumber || undefined;
         this.name = enzyme && enzyme.name || undefined;
+        this.type = enzyme && enzyme.type || undefined;
+        this.organism = enzyme && enzyme.organism || undefined;
         this.sequence = enzyme && enzyme.sequence || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
         this.formulation = enzyme && enzyme.formulation || undefined;
         this.determination = enzyme && enzyme.determination || undefined;
+        this.others = enzyme && enzyme.others || new Array<Attribute>();
         this.reaction = enzyme && enzyme.reaction || new Reaction();
         this.brendaLink = enzyme && enzyme.brendaLink || undefined;
     }
@@ -40,6 +57,7 @@ export class Reactant {
     concentration: number;
     formula: string;
     smiles: string;
+    others: Array<Attribute>;
     imageUrl: string;
     brendaLink: string;
 
@@ -51,6 +69,7 @@ export class Reactant {
         this.concentration = reactant && reactant.concentration || undefined;
         this.formula = reactant && reactant.formula || undefined;
         this.smiles = reactant && reactant.smiles || undefined;
+        this.others = reactant && reactant.others || new Array<Attribute>();
         this.imageUrl = reactant && reactant.imageUrl || undefined;
         this.brendaLink = reactant && reactant.brendaLink || undefined;
     }
@@ -60,25 +79,29 @@ export class Vessel {
     type: string;
     volume: number;
     unit: string;
+    others: Array<Attribute>;
 
     constructor(vessel?: Vessel) {
         this.type = vessel && vessel.type || undefined;
         this.volume = vessel && vessel.volume || undefined;
         this.unit = vessel && vessel.unit || undefined;
+        this.others = vessel && vessel.others || new Array<Attribute>();
     }
 }
 
 export class Condition {
-    name: string;
     temp: number;
     unit: string;
     ph: number;
+    buffer: string;
+    others: Array<Attribute>;
 
     constructor(condition?: Condition) {
-        this.name = condition && condition.name || undefined;
         this.temp = condition && condition.temp || undefined;
         this.unit = condition && condition.unit || undefined;
         this.ph = condition && condition.ph || undefined;
+        this.buffer = condition && condition.buffer || undefined;
+        this.others = condition && condition.others || new Array<Attribute>();
     }
 }
 

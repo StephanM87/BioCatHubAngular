@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Enzyme, Reactant, Reaction } from '../model/biocatalysis';
 import { Experiment } from '../model/experiment';
 
+const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
 @Injectable({ providedIn: 'root' })
 export class DataService {
 
@@ -16,8 +18,6 @@ export class DataService {
   reactantValidation: string[];
   conditionValidation: string[];
   measurementValidation: string[];
-
-  private NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   constructor() { 
     this.date = new Date();
@@ -96,9 +96,6 @@ export class DataService {
         if(this.validateString(enzyme.determination)) {
           this.enzymeValidation.push('determination');
         }
-        if(this.validateString(enzyme.formulation)) {
-          this.enzymeValidation.push('formulation');
-        }
         if(this.validateReaction(enzyme.reaction)) {
           this.enzymeValidation.push('reaction');
         }
@@ -121,30 +118,38 @@ export class DataService {
     this.reactantValidation = new Array<string>();
     this.getExperiment().getEnzymes().forEach(enzyme => {
       let reaction = enzyme.reaction;
-      reaction.educts.forEach(educt => {
-        this.validateReactant(educt);
-      });
-      reaction.products.forEach(product => {
-        this.validateReactant(product);
-      });
+      if(this.validateList(reaction.educts)){
+        this.reactantValidation.push('substrates');
+      } else {
+        reaction.educts.forEach(educt => {
+          this.validateReactant(educt);
+        });
+      }
+      if(this.validateList(reaction.products)){
+        this.reactantValidation.push('products');
+      } else {
+        reaction.products.forEach(product => {
+          this.validateReactant(product);
+        });
+      }
     });
   }
 
   public validateReactant(reactant: Reactant): void {
     if(reactant != undefined){
-      if(this.validateString(reactant.name)) {
+      if(this.validateString(reactant.name) && !this.reactantValidation.includes('volume')) {
         this.reactantValidation.push('volume');
       }
-      if(this.validateNumber(reactant.concentration)) {
+      if(this.validateNumber(reactant.concentration) && !this.reactantValidation.includes('concentration')) {
         this.reactantValidation.push('concentration');
       }
-      if(this.validateString(reactant.unit)) {
+      if(this.validateString(reactant.unit) && !this.reactantValidation.includes('unit')) {
         this.reactantValidation.push('unit');
       }
-      if(this.validateString(reactant.role)) {
+      if(this.validateString(reactant.role) && !this.reactantValidation.includes('role')) {
         this.reactantValidation.push('role');
       }
-      if(this.validateString(reactant.formula)) {
+      if(this.validateString(reactant.formula) && !this.reactantValidation.includes('formula')) {
         this.reactantValidation.push('formula');
       }
     }
@@ -170,9 +175,6 @@ export class DataService {
     this.conditionValidation = new Array<string>();
     let condition = this.getExperiment().getReactionConditions();
     if(condition != undefined) {
-      if(this.validateString(condition.name)) {
-        this.conditionValidation.push('name');
-      }
       if(this.validateNumber(condition.temp)) {
         this.conditionValidation.push('temp');
       }
@@ -245,7 +247,7 @@ export class DataService {
     if(formula != undefined) {
       let cahracters = formula.split('');
       cahracters.forEach(char => {
-        if (this.NUMBERS.indexOf(char) > -1 ){
+        if (NUMBERS.includes(char)){
           result += '<sub>' + char + '</sub>'; 
         } else {
           result += char; 
