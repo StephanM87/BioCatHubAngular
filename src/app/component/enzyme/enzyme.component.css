@@ -7,15 +7,6 @@
    width: 100%;
 }
 
-::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
-   display: flex;
-   width: 100%;
-} 
-
-::ng-deep clr-select-container select {
-   width: 100%;
-}
-
 ::ng-deep clr-combobox-container .clr-control-container .clr-combobox-wrapper {
    display: flex;
    width: 100%;
@@ -56,11 +47,6 @@
 .datagrid-row:hover {
    background-color: transparent;
 }
-.reaction-operation,
-.enzyme-attribute {
-   font-weight: bold;
-   font-size: 0.8rem;
-}
 
 .delete-btn{
    color: red;
@@ -68,28 +54,6 @@
 }
 .delete-btn:hover {
    color: #991700;
-}
-
-.card-block .btn.btn-link {
-   margin: 0 0 0 0;
-   width: 2rem;
-}
-.reaction-btn:hover {
-   background-color: #e3f5fc;
-}
-.reactant-editor {
-   display: inline-block;
-   border-width: 0.05rem;
-   border-style: solid;
-   border-color: #0072a3;
-   width: fit-content;
-   margin: .3rem .6rem .3rem 0;
-   font-size: .6rem;
-   font-weight: 500;
-   color: black;
-}
-.reaction-input {
-   min-width: 8rem;
 }
 
 .right-column {
@@ -103,8 +67,17 @@
    align-items: center;
    justify-content: center;
    display: flex;
-   margin-bottom: 2rem;
+   margin-bottom: 1rem;
+   padding: 0 1rem;
+   border-width: 0.05rem;
+   border-style: solid;
+   border-color: #dedede;
+   background-color: white;
  }
+
+ .searchbar-container:hover {
+    border-color: #0072a3;
+  }
  
  .searchbar-container .brenda-search-wrapper {
      width: 100%;

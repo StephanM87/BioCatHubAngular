@@ -4,9 +4,11 @@
     margin-top: .8rem;
     margin-bottom: .8rem;
 }
-.clr-input-wrapper {
-     max-width: none;
-     width: 100%;
+.clr-input-wrapper,
+.clr-select-wrapper {
+    display: flex;
+    max-width: none;
+    width: 100%;
 }
 .clr-input,
 .clr-select {
@@ -93,3 +95,31 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+.attribut-label {
+    color: #454545;
+    font-size: .65rem;
+    font-weight: 600;
+    line-height: .9rem;
+    padding: 0;
+    border: 0;
+ }
+ 
+ .attribut-label:hover {
+    border-bottom: .05rem solid;
+    border-bottom-color: #b3b3b3;
+ }
+
+ .attribute-button {
+    border: 0;
+    padding: 0 0 0 .6rem;
+    background: transparent;
+ }
+
+ .attribute-button:hover {
+    background-color: transparent;
+ }
+
+ .card-block .btn  {
+    margin: 0;
+ }

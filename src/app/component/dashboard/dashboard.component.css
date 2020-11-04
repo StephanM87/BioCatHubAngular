@@ -7,8 +7,8 @@
     margin-bottom: 0;
  }
 
- .alert {
-     margin-bottom: 1rem;
+ .zenodo-alert {
+    margin-bottom: 1rem;
  }
 
  .card-container {
@@ -17,6 +17,7 @@
  }
 
  .card {
+     margin-top: 0;
      height: 100%;
  }
 
@@ -30,4 +31,11 @@
 
  .dashboard-icon {
      color: #00567a;
+     margin-right: .3rem;
+ }
+ .dashboard-headline {
+    color: black;
+    font-weight: 200;
+    font-size: .9rem;
+    letter-spacing: normal;
  }

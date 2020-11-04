@@ -1,6 +1,6 @@
 .dark {
     color: #79afcc;
 }
-.biocathub-logo {
-    background-image: url(../../../assets/svg/biocathub.svg);
- }
+header .branding .title {
+    font-size: 1rem;
+}

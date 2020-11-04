@@ -34,3 +34,30 @@
 .right-column {
    text-align: right;
 }
+
+.reaction-operation,
+.enzyme-attribute {
+   font-weight: bold;
+   font-size: 0.8rem;
+}
+.card-block .btn.btn-link {
+   margin: 0 0 0 0;
+   width: 2rem;
+}
+.reaction-btn:hover {
+   background-color: #e3f5fc;
+}
+.reactant-editor {
+   display: inline-block;
+   border-width: 0.05rem;
+   border-style: solid;
+   border-color: #0072a3;
+   width: fit-content;
+   margin: .3rem .6rem .3rem 0;
+   font-size: .6rem;
+   font-weight: 500;
+   color: black;
+}
+.reaction-input {
+   min-width: 8rem;
+}

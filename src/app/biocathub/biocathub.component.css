@@ -30,3 +30,8 @@
 .clr-timeline-step-description {
     color: #c21d00;
 }
+
+.clr-timeline-step-title {
+    font-weight: 400;
+    font-size: .7rem;
+}
