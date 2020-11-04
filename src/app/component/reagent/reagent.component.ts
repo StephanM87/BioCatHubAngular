@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Enzyme, Reactant } from '../../model/biocatalysis';
+import { Enzyme, Reactant, Reaction } from '../../model/biocatalysis';
 import { ReactionSearch } from '../../model/serviceresult';
 import { DataService } from '../../service/data.service';
 import { EnzymeService } from '../../service/enzyme.service';
@@ -16,12 +16,6 @@ export class ReagentComponent implements OnInit {
 
   public loading: boolean;
 
-  // reactions
-  public reactionModal: boolean;
-  public selectedReaction: ReactionSearch;
-  public reactionList: ReactionSearch[];
-  public modalEnzyme: Enzyme;
-
   constructor(public dataService: DataService, public enzymeService: EnzymeService) {
     this.dialogVisible = false;
     this.loading = false;
@@ -37,61 +31,49 @@ export class ReagentComponent implements OnInit {
     return this.dataService.getExperiment().getEnzymes();
   }
 
-  public getReactantCount(): number {
-    return this.dataService.getReactantCount();
+  public getReactantCount(reaction: Reaction): number {
+    return (reaction.educts.length + reaction.products.length);
   }
   
+  // Reactant Tabelle
   public editReagent(reagent: Reactant) {
     this.dialogReagent = reagent;
     this.dialogVisible = true;
   }
-
-  public deleteEduct(enzyme: Enzyme, educt: Reactant) {
-    this.dataService.deleteReactant(enzyme.reaction.educts, educt);
-  }
-
-  public deleteProduct(enzyme: Enzyme, product: Reactant) {
-    this.dataService.deleteReactant(enzyme.reaction.products, product);
-  }
-
   public hideDialog(): void {
     this.dialogReagent = undefined;
     this.dialogVisible = false;
   }
-
-  public reactionSelection(enzyme: Enzyme): void {
-    this.loading = true;
-    this.modalEnzyme = enzyme;
-    this.enzymeService.getReactionSearchList(enzyme.ecNumber).subscribe(
-      result => {
-        this.reactionList = result;
-        this.loading = false;
-        this.reactionModal = true;
-      },
-      error => {
-        console.log(error);
-        this.loading = false;
-      }
-    );
+  public deleteEduct(enzyme: Enzyme, educt: Reactant) {
+    this.dataService.deleteReactant(enzyme.reaction.educts, educt);
+  }
+  public deleteProduct(enzyme: Enzyme, product: Reactant) {
+    this.dataService.deleteReactant(enzyme.reaction.products, product);
   }
 
-  public addReaction(): void {
+  // Reaktions Search
+  public getEnzymeReactions(ecNumber: string): ReactionSearch[] {
+    return this.enzymeService.getReactionSearchList(ecNumber);
+  }
+  public selectReaction(enzyme: Enzyme, selected: ReactionSearch): void {
     this.loading = true;
-    this.enzymeService.getReactionSpecification(this.selectedReaction.id).subscribe(
+    this.enzymeService.getReactionSpecification(selected.id).subscribe(
       reaction => {
-        this.modalEnzyme.reaction = reaction;
-        this.reactionModal = false;
+        enzyme.reaction = reaction;
+        enzyme.reaction.value = selected.value;
         this.loading = false;
       },
       error => {
         console.log(error);
-        this.reactionModal = false;
         this.loading = false;
       }
     );
   }
 
   // Reaktions Editor
+  public deleteReaction(enzyme: Enzyme): void {
+    enzyme.reaction = new Reaction();
+  }
   public addReactionSubstrate(enzyme: Enzyme): void {
     enzyme.reaction.educts.push(new Reactant());
   }

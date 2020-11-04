@@ -40,10 +40,12 @@ export class Enzyme {
 }
 
 export class Reaction {
+    value: string;
     educts: Array<Reactant>;
     products: Array<Reactant>;
 
     constructor(reaction?: Reaction) {
+        this.value = reaction && reaction.value || undefined;
         this.educts = reaction && reaction.educts || new Array<Reactant>();
         this.products = reaction && reaction.products || new Array<Reactant>();
     }

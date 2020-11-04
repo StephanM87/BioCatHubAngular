@@ -7,8 +7,12 @@ import { Reaction } from '../model/biocatalysis';
 
 @Injectable({ providedIn: 'root' })
 export class EnzymeService {
+  
+  private reactions: Map<string, ReactionSearch[]>;;
 
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient) {
+    this.reactions = new Map<string, ReactionSearch[]>();
+  }
 
   // Enzymes
   getEnzymeSearchList(enzymeName: string): Observable<Array<EnzymeSearch>> {
@@ -24,9 +28,19 @@ export class EnzymeService {
 
 
   // Reactions
-  getReactionSearchList(ecNumber: string) : Observable<Array<ReactionSearch>> {
-    const options = ecNumber ? { params: new HttpParams().set('ecNumber', ecNumber) } : {};
-    return this.client.get<ReactionSearch[]>(environment.backendUrl + '/reaction/list', options);
+  addEnzymeReactions(ecNumber: string) : void {
+    if(!this.reactions.has(ecNumber)){
+      const options = ecNumber ? { params: new HttpParams().set('ecNumber', ecNumber) } : {};
+      this.client.get<ReactionSearch[]>(environment.backendUrl + '/reaction/list', options).subscribe(
+        list => {
+          this.reactions.set(ecNumber, list);
+        }
+      );
+    }
+  }
+
+  getReactionSearchList(ecNumber: string) : ReactionSearch[] {
+    return this.reactions.get(ecNumber);
   }
 
   getReactionSpecification(reactionId: string) : Observable<Reaction> {

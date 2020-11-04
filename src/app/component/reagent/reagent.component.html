@@ -8,19 +8,25 @@
                             <label>name</label>
                             <input clrInput type="text" [(ngModel)]="dialogReagent.name" name="name"/>
                         </clr-input-container>
-                        <clr-input-container>
-                            <label>concentration</label>
-                            <input clrInput type="text" [(ngModel)]="dialogReagent.concentration" name="concentration" />
-                        </clr-input-container>
-                        <clr-select-container>
-                            <label>unit</label>
-                            <select clrSelect [(ngModel)]="dialogReagent.unit" name="unit">
-                                <option value="mmol/L">mmol/L</option>
-                                <option value="mmoL/L">mmoL/L</option>
-                                <option value="mg/mL">mg/mL</option>
-                                <option value="mL">mL</option>
-                            </select>
-                        </clr-select-container>
+
+                        <div class="clr-form-control clr-row">
+                            <div class="clr-control-label clr-col-12 clr-col-md-2">concentration</div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="dialogReagent.concentration" name="concentration" />
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-select-wrapper">
+                                    <select class="clr-select" [(ngModel)]="dialogReagent.unit" name="unit">
+                                        <option value="mmol/L">mmol/L</option>
+                                        <option value="mmoL/L">mmoL/L</option>
+                                        <option value="mg/mL">mg/mL</option>
+                                        <option value="mL">mL</option>
+                                      </select>
+                                </div>
+                            </div>
+                        </div>
                         <clr-select-container>
                             <label>reaction role</label>
                             <select clrSelect [(ngModel)]="dialogReagent.role" name="role">
@@ -46,7 +52,7 @@
     </div>
 </div>
 
-<div class="clr-row">
+<div class="clr-row" *ngIf="getEnzymes().length == 0">
     <div class="clr-col-12">
         <span class="headline">reactants</span>
     </div>
@@ -54,33 +60,52 @@
 
 <div class="reaction-container" *ngFor="let enzyme of getEnzymes()">
 
-    <div class="clr-row reactions-row">
+    <div class="clr-row">
         <div class="clr-col-12">
-            <button class="btn btn-outline btn-icon" (click)="reactionSelection(enzyme)" *ngIf="enzyme.ecNumber">
-                <clr-icon shape="search"></clr-icon> search reaction
-            </button>
-            <div class="reactant-editor">
-                <button class="btn btn-link reaction-btn" (click)="deleteReactionSubstrate(enzyme)">
-                    <clr-icon shape="minus"></clr-icon>
-                </button>
-                substrates
-                <button class="btn btn-link reaction-btn" (click)="addReactionSubstrate(enzyme)">
-                    <clr-icon shape="plus"></clr-icon>
-                </button>
-            </div>
-            <div class="reactant-editor">
-                <button class="btn btn-link reaction-btn" (click)="deleteReactionProduct(enzyme)">
-                    <clr-icon shape="minus"></clr-icon>
-                </button>
-                products
-                <button class="btn btn-link reaction-btn" (click)="addReactionProduct(enzyme)">
-                    <clr-icon shape="plus"></clr-icon>
-                </button>
-            </div>
-            <button class="btn btn-warning-outline btn-icon" (click)="deleteReaction(enzyme)">
-                <clr-icon shape="trash"></clr-icon> delete reaction
-            </button>
-            <table class="table table-compact table-noborder" *ngIf="(enzyme.reaction.educts.length + enzyme.reaction.products.length) > 0">
+            <span class="headline">reactants of {{enzyme.name}} reaction</span>
+        </div>
+    </div>
+
+    <clr-tabs>
+        <clr-tab>
+            <button clrTabLink [disabled]="!enzyme.ecNumber">search reaction</button>
+            <clr-tab-content *clrIfActive>
+                <clr-select-container>
+                    <label>select reaction</label>
+                    <select clrSelect [(ngModel)]="enzyme.reaction.value" name="selectedReaction">
+                        <option *ngFor="let reaction of getEnzymeReactions(enzyme.ecNumber)" [ngValue]="reaction.value" (click)="selectReaction(enzyme, reaction)">{{reaction.value}}</option>
+                    </select>
+                </clr-select-container>
+            </clr-tab-content>
+        </clr-tab>
+        <clr-tab>
+            <button clrTabLink>manual reaction</button>
+            <clr-tab-content *clrIfActive="!enzyme.ecNumber">
+                <div class="reactant-editor">
+                    <button class="btn btn-link reaction-btn" (click)="deleteReactionSubstrate(enzyme)">
+                        <clr-icon shape="minus"></clr-icon>
+                    </button>
+                    substrates
+                    <button class="btn btn-link reaction-btn" (click)="addReactionSubstrate(enzyme)">
+                        <clr-icon shape="plus"></clr-icon>
+                    </button>
+                </div>
+                <div class="reactant-editor">
+                    <button class="btn btn-link reaction-btn" (click)="deleteReactionProduct(enzyme)">
+                        <clr-icon shape="minus"></clr-icon>
+                    </button>
+                    products
+                    <button class="btn btn-link reaction-btn" (click)="addReactionProduct(enzyme)">
+                        <clr-icon shape="plus"></clr-icon>
+                    </button>
+                </div>
+            </clr-tab-content>
+        </clr-tab>
+    </clr-tabs>
+
+    <div class="clr-row reaction-row">
+        <div class="clr-col-12">
+            <table class="table table-compact table-noborder" *ngIf="getReactantCount(enzyme.reaction) > 0">
                 <tbody>
                     <div class="reaction">
                         <tr>
@@ -113,83 +138,66 @@
     
     <div class="clr-row">
         <div class="clr-col-12">
-            <div class="reagent-table">
-                <table class="table table-compact">
-                    <thead>
-                        <tr>
-                            <th class="left">name</th>
-                            <th class="left">concentration</th>
-                            <th class="left">reaction role</th>
-                            <th class="left">formula</th>
-                            <th class="left">SMILES</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let educt of enzyme.reaction.educts">
-                            <td class="left">{{educt.name}}</td>
-                            <td class="left">{{educt.concentration}} {{educt.unit}}</td>
-                            <td class="left">{{educt.role}}</td>
-                            <td class="left">
-                                <div [innerHTML]="getFormula(educt.formula)"></div>
-                            </td>
-                            <td class="left">{{educt.smiles}}</td>
-                            <td class="right-column">
-                                <div class="btn-group btn-icon btn-link">
-                                    <button class="btn" (click)="editReagent(educt)">
-                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                    </button>
-                                    <button class="btn" (click)="deleteEduct(enzyme, educt)">
-                                        <clr-icon shape="trash" class="is-error"></clr-icon>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let product of enzyme.reaction.products">
-                            <td class="left">{{product.name}}</td>
-                            <td class="left">{{product.concentration}} {{product.unit}}</td>
-                            <td class="left">{{product.role}}</td>
-                            <td class="left">
-                                <div [innerHTML]="getFormula(product.formula)"></div>
-                            </td>
-                            <td class="left">{{product.smiles}}</td>
-                            <td class="right-column">
-                                <div class="btn-group btn-icon btn-link">
-                                    <button class="btn" (click)="editReagent(product)">
-                                        <clr-icon shape="pencil" class="is-highlight"></clr-icon>
-                                    </button>
-                                    <button class="btn" (click)="deleteProduct(enzyme, product)">
-                                        <clr-icon shape="trash" class="is-error"></clr-icon>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="table-placeholder-container" *ngIf="getReactantCount() == 0">
-                    <div class="table-placeholder">
-                        no reactants specified
-                    </div>
+            <table class="table table-compact">
+                <thead>
+                    <tr>
+                        <th class="left">name</th>
+                        <th class="left">concentration</th>
+                        <th class="left">reaction role</th>
+                        <th class="left">formula</th>
+                        <th class="left">SMILES</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let educt of enzyme.reaction.educts">
+                        <td class="left">{{educt.name}}</td>
+                        <td class="left">{{educt.concentration}} {{educt.unit}}</td>
+                        <td class="left">{{educt.role}}</td>
+                        <td class="left">
+                            <div [innerHTML]="getFormula(educt.formula)"></div>
+                        </td>
+                        <td class="left">{{educt.smiles}}</td>
+                        <td class="right-column">
+                            <div class="btn-group btn-icon btn-link">
+                                <button class="btn" (click)="editReagent(educt)">
+                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                </button>
+                                <button class="btn" (click)="deleteEduct(enzyme, educt)">
+                                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let product of enzyme.reaction.products">
+                        <td class="left">{{product.name}}</td>
+                        <td class="left">{{product.concentration}} {{product.unit}}</td>
+                        <td class="left">{{product.role}}</td>
+                        <td class="left">
+                            <div [innerHTML]="getFormula(product.formula)"></div>
+                        </td>
+                        <td class="left">{{product.smiles}}</td>
+                        <td class="right-column">
+                            <div class="btn-group btn-icon btn-link">
+                                <button class="btn" (click)="editReagent(product)">
+                                    <clr-icon shape="pencil" class="is-highlight"></clr-icon>
+                                </button>
+                                <button class="btn" (click)="deleteProduct(enzyme, product)">
+                                    <clr-icon shape="trash" class="is-error"></clr-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-placeholder-container" *ngIf="getReactantCount(enzyme.reaction) == 0">
+                <div class="table-placeholder">
+                    no reactants specified
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<clr-modal [(clrModalOpen)]="reactionModal" [clrModalSize]="'lg'">
-    <h3 class="modal-title">select reaction</h3>
-    <div class="modal-body">
-        <clr-select-container>
-            <select clrSelect [(ngModel)]="selectedReaction" name="selectedReaction">
-                <option *ngFor="let element of reactionList" [ngValue]="element">{{element.value}}</option>
-            </select>
-        </clr-select-container>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline" (click)="reactionModal = false">cancel</button>
-        <button type="button" class="btn btn-primary" (click)="addReaction()">select</button>
-    </div>
-</clr-modal>
 
 <div class="overlay" *ngIf="loading">
     <div class="overlay-wrapper">
