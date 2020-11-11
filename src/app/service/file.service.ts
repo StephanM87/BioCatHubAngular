@@ -26,7 +26,9 @@ export class FileService {
     return this.client.post(environment.backendUrl + '/measurement', measurement, {headers: httpOptions.headers, responseType: 'blob'});
   }
 
-  // TODO: Service für Templates (Experimente und Messwerte)
+  templateFile(): Observable<Blob> {
+    return this.client.get(environment.backendUrl + '/document/template', {responseType: 'blob'});
+  }
 
   // TODO: Service für PDF Dateien
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
+import { FileService } from 'src/app/service/file.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -13,7 +14,7 @@ export class MeasurementBaseComponent implements OnInit {
   public files: File[];
   public loading: boolean;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService, public fileService: FileService) {
 
   }
 
@@ -89,7 +90,26 @@ export class MeasurementBaseComponent implements OnInit {
   }
 
   public templateFile(): void {
-    
+    this.loading = true;
+    this.fileService.templateFile().subscribe(
+      blob => {
+        this.download(blob, 'template.xlsx');
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
+  }
+
+  public download(blob: Blob, fileName: string): void {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(blob)
+    a.href = objectUrl;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
   }
 
 }
