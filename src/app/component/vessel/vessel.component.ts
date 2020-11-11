@@ -5,9 +5,12 @@ import { DataService } from '../../service/data.service';
 @Component({
   selector: 'app-vessel',
   templateUrl: './vessel.component.html',
-  styleUrls: ['./vessel.component.css']
+  styleUrls: ['./vessel.component.css', '../../../assets/styles/form-styles.css']
 })
 export class VesselComponent implements OnInit {
+
+  public dropdown: boolean;
+  public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
 
   constructor(public dataService: DataService) { }
 

@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="card-block">
+        <div class="card-title">
+            <button class="btn btn-icon btn-link" routerLink="./../biokatalyst">
+                <clr-icon class="dashboard-icon" size="24" shape="helix"></clr-icon>
+                <span class="dashboard-headline">biocatalyst</span>
+            </button>
+        </div>
+        <div class="card-text" >
+            <div class="enzyme-information" *ngIf="showEnzymeInformation">
+                <table class="table table-noborder table-compact table-vertical" *ngFor="let enzyme of enzymes">
+                    <tbody>
+                        <tr *ngIf="enzyme.name" >
+                            <th>name</th>
+                            <td>{{enzyme.name}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.type" >
+                            <th>type</th>
+                            <td>{{enzyme.type}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.organism" >
+                            <th>organism</th>
+                            <td>{{enzyme.organism}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.sequence" >
+                            <th>amino acid sequence</th>
+                            <td>{{enzyme.sequence}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.concentration || enzyme.unit" >
+                            <th>concentration</th>
+                            <td>{{enzyme.concentration}} {{enzyme.unit}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.formulation" >
+                            <th>formulation</th>
+                            <td>{{enzyme.formulation}}</td>
+                        </tr>
+                        <tr *ngIf="enzyme.determination">
+                            <th>protein concentration method</th>
+                            <td>{{enzyme.determination}}</td>
+                        </tr>
+                        <tr *ngFor="let other of enzyme.others">
+                            <th>{{other.key}}</th>
+                            <td>{{other.value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p *ngIf="!showEnzymeInformation">no biokatalyst</p>
+        </div>
+    </div>
+</div>

@@ -1,56 +1,50 @@
 <div class="main-container">
-    <app-header></app-header>
+    <header class="header-5">
+        <div class="branding">
+            <a href="./../start" class="nav-link">
+                <span class="title"><b>BIO<span class="cat">CAT</span>HUB</b></span>
+            </a>
+        </div>
+    </header>
     <div class="content-container">
         <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed" class="nav-trigger--bottom" *ngIf="navigationVisible">
             <a clrVerticalNavLink class="nav-overview" routerLink="./dashboard" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon>
-                overview
+                <clr-icon clrVerticalNavIcon shape="grid-view"></clr-icon> overview
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink *ngFor="let nav of navigation" [routerLink]="nav.router" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon [attr.shape]="nav.icon"></clr-icon>
-                {{nav.label}}
+                <clr-icon clrVerticalNavIcon [attr.shape]="nav.icon"></clr-icon> {{nav.label}}
             </a>
             <div class="nav-divider"></div>
             <a clrVerticalNavLink class="nav-new" routerLink="./start" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="plus"></clr-icon>
-                new experiment
+                <clr-icon clrVerticalNavIcon shape="plus"></clr-icon> new experiment
             </a>
             <a clrVerticalNavLink class="nav-cancel" routerLink="./start" routerLinkActive="active">
-                <clr-icon clrVerticalNavIcon shape="times"></clr-icon>
-                cancel experiment
+                <clr-icon clrVerticalNavIcon shape="times"></clr-icon> cancel experiment
             </a>
         </clr-vertical-nav>
         <div class="content-area">
-            <div class="clr-row" >
-                <div class="clr-col-12">
-                    <clr-timeline *ngIf="timelineVisible">
-                        <clr-timeline-step *ngFor="let nav of navigation" [clrState]="nav.state">
-                            <clr-timeline-step-title>
-                                <a class="navigation-link" [routerLink]="nav.router" routerLinkActive="active">{{nav.label}}</a>
-                            </clr-timeline-step-title>
-                            <clr-timeline-step-description *ngIf="nav.error">{{nav.error}}</clr-timeline-step-description>
-                        </clr-timeline-step>
-                    </clr-timeline>
-                </div>
-            </div>
+            <clr-timeline *ngIf="timelineVisible">
+                <clr-timeline-step *ngFor="let nav of navigation" [clrState]="nav.state">
+                    <clr-timeline-step-title>
+                        <a class="navigation-link" [routerLink]="nav.router" routerLinkActive="active">{{nav.label}}</a>
+                    </clr-timeline-step-title>
+                    <clr-timeline-step-description *ngIf="nav.error">{{nav.error}}</clr-timeline-step-description>
+                </clr-timeline-step>
+            </clr-timeline>
             <router-outlet></router-outlet>
             <div class="footer-nav" *ngIf="timelineVisible">
                 <div class="clr-row" >
                     <div class="clr-col-4 nav-previous">
                         <button class="btn btn-link" [routerLink]="previousLink" *ngIf="previous">
-                            <clr-icon shape="caret left"></clr-icon>
-                            {{previous}}
+                            <clr-icon shape="caret left"></clr-icon> {{previous}}
                         </button>
                     </div>
                     <div class="clr-col-4 center-column">
-                        <button class="btn btn-link" routerLink="./dashboard">
-                            overview
-                        </button>
+                        <button class="btn btn-link" routerLink="./dashboard">overview</button>
                     </div>
                     <div class="clr-col-4 right-column">
-                        <button class="btn btn-link" [routerLink]="nextLink" *ngIf="next">
-                            {{next}}
+                        <button class="btn btn-link" [routerLink]="nextLink" *ngIf="next"> {{next}}
                             <clr-icon shape="caret right"></clr-icon>
                         </button>
                     </div>

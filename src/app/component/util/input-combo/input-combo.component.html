@@ -1,0 +1,13 @@
+<div class="input-combo-container">
+    <div class="input-combo-wrapper">
+        <span class="input-combo-label">
+            <clr-dropdown>
+                <button class="dropdown-btn" (click)="dropDownOpen = true"><clr-icon shape="caret down"></clr-icon></button>
+                <input class="clr-input combo-input" type="text" (ngModelChange)="filterAttributes($event)" [ngModel]="attribute.key" name="comboInput" placeholder="other attribute" autocomplete="off"/>
+                <clr-dropdown-menu *clrIfOpen="dropDownOpen">
+                    <div clrDropdownItem *ngFor="let value of filteredAttributes" (click)="selectAttribute(value)">{{value}}</div>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </span>
+    </div>
+</div>

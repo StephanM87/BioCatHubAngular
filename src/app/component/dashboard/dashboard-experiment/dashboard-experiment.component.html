@@ -1,0 +1,63 @@
+<div class="clr-row">
+    <div class="clr-col-8">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <clr-icon class="dashboard-icon" size="24" shape="info-standard"></clr-icon>experiment information
+                        </div>
+                    </div>
+                </div>
+                <div class="card-text">
+                    <div class="clr-row">
+                        <div class="clr-col-9">
+                            <clr-input-container>
+                                <input clrInput type="text" [(ngModel)]="experiment.title" name="title" placeholder="title"/>
+                            </clr-input-container>
+                        </div>
+                        <div class="clr-col-3">
+                            <clr-input-container>
+                                <input clrInput type="text" [ngModel]="creationDate | date:'yyyy-MM-dd'" name="date" disabled/>
+                            </clr-input-container>
+                        </div>
+                    </div>
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <clr-textarea-container>
+                                <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description, notes, etc."></textarea>
+                            </clr-textarea-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr-col-4">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-title">
+                    <div class="clr-row">
+                        <div class="clr-col-12">
+                            <clr-icon class="dashboard-icon" size="24" shape="user"></clr-icon>experimentalist
+                        </div>
+                    </div>
+                </div>
+                <div class="card-text">
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" name="lastName" placeholder="last name" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" name="firstName" placeholder="first name" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.email" name="email" placeholder="e-mail"/>
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" name="institution" placeholder="institution"/>
+                    </clr-input-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<clr-alert [clrAlertType]="'success'" *ngIf="showAlert">
+    <clr-alert-item>
+        <span class="alert-text">
+            the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b>
+        </span>
+    </clr-alert-item>
+</clr-alert>
+<div class="clr-row">
+    <div class="clr-col-6">
+        <span class="headline">experiment</span>
+        <span class="id" *ngIf="id"> (#<a href="{{zenodoLink}}" target="_blank">{{id}}</a>)</span>
+    </div>
+    <div class="clr-col-6 right-column">
+        <button class="btn btn-link btn-sm" (click)="exportEnzymeML()">
+            <clr-icon shape="file-zip" size="24"></clr-icon> EnzymeML
+        </button>
+        <button class="btn btn-link btn-sm" (click)="createPdf()">
+            <clr-icon shape="file" size="24"></clr-icon> PDF
+        </button>
+        <button class="btn btn-link btn-sm" (click)="uploadToZenodo()">
+            <clr-icon shape="upload-cloud" size="24"></clr-icon> zenodo
+        </button>
+    </div>
+</div>
+
+<div class="clr-row dashboard-row">
+    <div class="clr-col-12">
+        <dashboard-experiment [experiment]="experiment" [creationDate]="creationDate"></dashboard-experiment>
+    </div>
+</div>
+
+<div class="clr-row">
+    <div class="clr-col-6">
+        <div class="clr-row dashboard-row">
+            <div class="clr-col-6">
+                <div class="dashboard-detail"><dashboard-vessel [vessel]="experiment.vessel"></dashboard-vessel></div>
+            </div>
+            <div class="clr-col-6">
+                <div class="dashboard-detail"><dashboard-reaction [reaction]="experiment.condition"></dashboard-reaction></div>
+            </div>
+        </div>
+        <div class="clr-row dashboard-row">
+            <div class="clr-col-12">
+                <div class="dashboard-detail"><dashboard-biokatalyst [enzymes]="experiment.enzymes"></dashboard-biokatalyst></div>
+            </div>
+        </div>
+        <div class="clr-row dashboard-row">
+            <div class="clr-col-12">
+                <div class="dashboard-detail"><dashboard-reactants [enzymes]="experiment.enzymes"></dashboard-reactants></div>
+            </div>
+        </div>
+    </div>
+    <div class="clr-col-6">
+        <div class="dashboard-detail dashboard-row">
+            <div class="card dashboard-card">
+                <div class="card-block">
+                    <div class="card-title dashboard-title">
+                        <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                            <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon>
+                            <span class="dashboard-headline">experimental data</span>
+                        </button>
+                    </div>
+                    <div class="measurement-information" *ngFor="let measurement of experiment.measurements">
+                        <dashboard-measurement class="dashboard-detail" [measurement]="measurement"></dashboard-measurement>
+                    </div>
+                    <p *ngIf="experiment.measurements.length == 0">no experimental data</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<overlay-spinner *ngIf="loading"></overlay-spinner>

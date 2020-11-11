@@ -26,31 +26,29 @@
                         </div>
                         <clr-input-container>
                             <label>ph value</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph" />
+                            <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph"/>
                         </clr-input-container>
                         <clr-input-container>
                             <label>buffer</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().buffer" name="buffer" />
+                            <input clrInput type="text" [(ngModel)]="getReaction().buffer" name="buffer"/>
                         </clr-input-container>
                         <div class="clr-form-control clr-row" *ngFor="let other of getReaction().others">
-                            <div class="clr-control-container clr-col-12 clr-col-md-2">
-                                <div class="clr-input-wrapper">
-                                    <input class="clr-input attribut-label" type="text" placeholder="other attribute" [(ngModel)]="other.key" [ngModelOptions]="{standalone: true}"/>
-                                </div>
+                            <div class="clr-control-label clr-col-12 clr-col-md-2">
+                                <input-combo [attributes]="attributes" [attribute]="other"></input-combo>
                             </div>
                             <div class="clr-control-container clr-col-md-10 clr-col-12">
                                 <div class="clr-input-wrapper">
                                     <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
-                                    <button class="btn btn-link attribute-button" (click)="deleteAttribute(other)">
+                                    <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                                         <clr-icon shape="trash" class="is-error"></clr-icon>
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-link btn-add-attribute" (click)="addAttribute()">
+                            <clr-icon shape="plus"></clr-icon> add attribute
+                        </button>
                     </form>
-                    <button class="btn btn-link btn-sm" (click)="addAttribute()">
-                        <clr-icon shape="plus"></clr-icon> add attribute
-                    </button>
                 </div>
             </div>
         </div>

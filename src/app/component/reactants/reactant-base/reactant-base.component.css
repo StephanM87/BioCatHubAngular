@@ -1,0 +1,10 @@
+.reaction-editor,
+.reactant-detail {
+   width: 100%;
+}
+.datagrid-host {
+   margin-top: 1rem;
+}
+.datagrid-row-detail {
+   background-color: white;
+}

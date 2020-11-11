@@ -1,0 +1,9 @@
+.experiment-table {
+    margin-top: .2rem;
+    margin-bottom: 2rem;
+}
+.clr-select-wrapper {
+    display: inline-block;
+    max-width: unset;
+    width: unset;
+}

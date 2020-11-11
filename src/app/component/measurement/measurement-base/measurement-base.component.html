@@ -1,0 +1,11 @@
+<span class="headline">experimental data</span>
+<ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)">
+    <ngx-dropzone-label>upload measurement</ngx-dropzone-label>
+    <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+        <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+</ngx-dropzone>
+<button class="btn btn-link btn-new" (click)="newMeasurement()"><clr-icon shape="plus"></clr-icon> new measurement</button>
+<button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download template file</button>
+<measurement-detail *ngFor="let measurement of getMeasurements()" [measurement]="measurement"></measurement-detail>
+<overlay-spinner *ngIf="loading"></overlay-spinner>

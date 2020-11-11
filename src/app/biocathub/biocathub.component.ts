@@ -27,8 +27,8 @@ const REACTION = "reaction conditions";
 const MEASUREMENT = "experimental data";
 
 const VESSEL_LINK = "./vessel";
-const ENZYME_LINK = "./enzyme";
-const REAGENT_LINK = "./reagent";
+const ENZYME_LINK = "./biokatalyst";
+const REAGENT_LINK = "./reactants";
 const REACTION_LINK = "./reaction";
 const MEASUREMENT_LINK = "./measurement";
 
@@ -126,9 +126,9 @@ export class BiocathubComponent implements OnInit {
   updateStarted(url: string): void {
     if (url == '/vessel') {
       this.vesselNavigation.started = true;
-    } else if (url == '/enzyme') {
+    } else if (url == '/biokatalyst') {
       this.enzymeNavigation.started = true;
-    } else if (url == '/reagent') {
+    } else if (url == '/reactants') {
       this.reagentNavigation.started = true;
     } else if (url == '/reaction') {
       this.reactionNavigation.started = true;
@@ -140,9 +140,9 @@ export class BiocathubComponent implements OnInit {
   setCurrentState(url: string): void {
     if (url == '/vessel') {
       this.vesselNavigation.state = CURRENT;
-    } else if (url == '/enzyme') {
+    } else if (url == '/biokatalyst') {
       this.enzymeNavigation.state = CURRENT;
-    } else if (url == '/reagent') {
+    } else if (url == '/reactants') {
       this.reagentNavigation.state = CURRENT;
     } else if (url == '/reaction') {
       this.reactionNavigation.state = CURRENT;
@@ -154,9 +154,9 @@ export class BiocathubComponent implements OnInit {
   updateNavigationButtons(url: string): void{
     if (url == '/vessel') {
       this.setNavigationButtons(this.vesselNavigation);
-    } else if (url == '/enzyme') {
+    } else if (url == '/biokatalyst') {
       this.setNavigationButtons(this.enzymeNavigation);
-    } else if (url == '/reagent') {
+    } else if (url == '/reactants') {
       this.setNavigationButtons(this.reagentNavigation);
     } else if (url == '/reaction') {
       this.setNavigationButtons(this.reactionNavigation);

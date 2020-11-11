@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-block">
+        <div class="card-title">
+            <button class="btn btn-icon btn-link" routerLink="./../vessel">
+                <clr-icon class="dashboard-icon" size="24" shape="volume"></clr-icon>
+                <span class="dashboard-headline">vessels & volumes</span>
+            </button>
+        </div>
+        <div class="card-text">
+            <table class="table table-noborder table-compact table-vertical" *ngIf="showVesselInformation">
+                <tbody>
+                    <tr *ngIf="vessel.type">
+                        <th>name</th>
+                        <td>{{vessel.type}}</td>
+                    </tr>
+                    <tr *ngIf="vessel.volume || vessel.unit">
+                        <th>size</th>
+                        <td>{{vessel.volume}} {{vessel.unit}}</td>
+                    </tr>
+                    <tr *ngFor="let other of vessel.others">
+                        <th>{{other.key}}</th>
+                        <td>{{other.value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p *ngIf="!showVesselInformation">no vessel information</p>
+        </div>
+    </div>
+</div>

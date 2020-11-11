@@ -1,0 +1,65 @@
+.dropdown {
+   width: 100%;
+}
+.dropdown-menu {
+   max-width: none;
+   width: 100%;
+}
+
+.searchbar-container {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 0 1rem;
+    border-width: 0.05rem;
+    border-style: solid;
+    border-color: #dedede;
+    background-color: white;
+  }
+ 
+  .searchbar-container:hover {
+     border-color: #0072a3;
+   }
+  
+  .searchbar-container .searchbar-wrapper {
+      width: 100%;
+      position: relative;
+      flex: 0 0 auto;
+      text-align: left;
+  }
+  
+  .searchbar-container .searchbar-label {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 1rem auto;
+  } 
+  
+  .searchbar-container .searchbar-label clr-icon[shape="search"] {
+    position: absolute;
+    left: .6rem;
+    top: .6rem;
+    color: #0072a3;
+  }
+ 
+  .searchbar-container .searchbar-label input.searchbar-input {
+    width: 100%;
+    padding: 1.2rem 2.4rem;
+    height: 2.4rem;
+  }
+ 
+  .searchbar-container .searchbar-label button.close {
+    display: block;
+    position: absolute;
+    right: .6rem;
+    top: .6rem;
+ }
+ 
+ button.close {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+ }

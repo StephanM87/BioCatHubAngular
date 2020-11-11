@@ -1,24 +1,9 @@
- .dropdown {
-    width: 100%;
- }
- .dropdown-menu {
-    max-width: none;
-    width: 100%;
- }
-
- ::ng-deep clr-select-container .clr-control-container .clr-select-wrapper {
-   display: flex;
-   width: 100%;
-} 
-
-::ng-deep clr-select-container select {
-   width: 100%;
-}
-
- .card {
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
- }
  .reaction-card {
    margin-bottom: 0;
  }
+
+ .select-button {
+   margin: 0 !important;
+   padding: 0 .5rem;
+   color: #b3b3b3;
+}

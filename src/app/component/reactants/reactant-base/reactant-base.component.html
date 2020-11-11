@@ -1,0 +1,43 @@
+<div class="clr-row" *ngIf="getEnzymes().length == 0">
+    <div class="clr-col-12">
+        <span class="headline">reactants</span>
+        <clr-alert [clrAlertClosable]="false">
+            <clr-alert-item>
+                <span class="alert-text">
+                    add biocatalyst to edit reactants
+                </span>
+            </clr-alert-item>
+        </clr-alert>
+    </div>
+</div>
+
+<div class="reaction-container" *ngFor="let enzyme of getEnzymes(); last as isLast">
+    <span class="headline">reactants of {{enzyme.name}}</span>
+    <reaction-editor class="reaction-editor" [enzyme]="enzyme"></reaction-editor>
+    <clr-datagrid>
+        <clr-dg-column>name</clr-dg-column>
+        <clr-dg-column>concentration</clr-dg-column>
+        <clr-dg-column>reaction role</clr-dg-column>
+        <clr-dg-column>formula</clr-dg-column>
+        <clr-dg-row *ngFor="let educt of enzyme.reaction.educts">
+            <clr-dg-cell>{{educt.name}}</clr-dg-cell>
+            <clr-dg-cell>{{educt.concentration}} {{educt.unit}}</clr-dg-cell>
+            <clr-dg-cell>{{educt.role}}</clr-dg-cell>
+            <clr-dg-cell><div [innerHTML]="getFormula(educt.formula)"></div></clr-dg-cell>
+            <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
+                <reactant-detail class="reactant-detail" [reactant]="educt"></reactant-detail>
+            </clr-dg-row-detail>
+        </clr-dg-row>
+        <clr-dg-row *ngFor="let product of enzyme.reaction.products">
+            <clr-dg-cell>{{product.name}}</clr-dg-cell>
+            <clr-dg-cell>{{product.concentration}}  {{product.unit}}</clr-dg-cell>
+            <clr-dg-cell>{{product.role}}</clr-dg-cell>
+            <clr-dg-cell><div [innerHTML]="getFormula(product.formula)"></div></clr-dg-cell>
+            <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
+                <reactant-detail class="reactant-detail" [reactant]="product"></reactant-detail>
+            </clr-dg-row-detail>
+        </clr-dg-row>
+        <clr-dg-placeholder>no reactants</clr-dg-placeholder>
+    </clr-datagrid>
+    <br *ngIf="!isLast">
+</div>

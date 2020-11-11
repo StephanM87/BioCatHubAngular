@@ -1,0 +1,19 @@
+<span class="headline">biocatalyst</span>
+<enzyme-search></enzyme-search>
+<button class="btn btn-link btn-new" (click)="newEnzyme()"><clr-icon shape="plus"></clr-icon> new biocatalyst</button>
+<clr-datagrid>
+    <clr-dg-column>name</clr-dg-column>
+    <clr-dg-column>type</clr-dg-column>
+    <clr-dg-column>organism</clr-dg-column>
+    <clr-dg-column>concentration</clr-dg-column>
+    <clr-dg-row [clrDgSelectable]="true" *clrDgItems="let enzyme of getEnzymes()" [clrDgItem]="enzyme">
+        <clr-dg-cell>{{enzyme.name}}</clr-dg-cell>
+        <clr-dg-cell>{{enzyme.type}}</clr-dg-cell>
+        <clr-dg-cell>{{enzyme.organism}}</clr-dg-cell>
+        <clr-dg-cell>{{enzyme.concentration}} {{enzyme.unit}}</clr-dg-cell>
+        <clr-dg-row-detail *clrIfExpanded="true" [clrDgReplace]="true">
+            <enzyme-detail class="enzyme-detail" [enzyme]="enzyme"></enzyme-detail>
+        </clr-dg-row-detail>
+    </clr-dg-row>
+    <clr-dg-placeholder>no biokatalysts</clr-dg-placeholder>
+</clr-datagrid>

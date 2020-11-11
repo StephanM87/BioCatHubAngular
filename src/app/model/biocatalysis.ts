@@ -15,8 +15,8 @@ export class Enzyme {
     type: string;
     organism: string;
     sequence: string;
-    unit: string;
     concentration: number;
+    unit: string;
     formulation: string;
     determination: string;
     others: Array<Attribute>;
@@ -29,8 +29,8 @@ export class Enzyme {
         this.type = enzyme && enzyme.type || undefined;
         this.organism = enzyme && enzyme.organism || undefined;
         this.sequence = enzyme && enzyme.sequence || undefined;
-        this.unit = enzyme && enzyme.unit || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
+        this.unit = enzyme && enzyme.unit || undefined;
         this.formulation = enzyme && enzyme.formulation || undefined;
         this.determination = enzyme && enzyme.determination || undefined;
         this.others = enzyme && enzyme.others || new Array<Attribute>();
@@ -55,8 +55,10 @@ export class Reactant {
     id: string;
     name: string;
     role: string;
-    unit: string;
     concentration: number;
+    unit: string;
+    purity: string;
+    supplier: string;
     formula: string;
     smiles: string;
     others: Array<Attribute>;
@@ -67,8 +69,10 @@ export class Reactant {
         this.id = reactant && reactant.id || undefined;
         this.name = reactant && reactant.name || undefined;
         this.role = reactant && reactant.role || undefined;
-        this.unit = reactant && reactant.unit || undefined;
         this.concentration = reactant && reactant.concentration || undefined;
+        this.unit = reactant && reactant.unit || undefined;
+        this.purity = reactant && reactant.purity || undefined;
+        this.supplier = reactant && reactant.supplier || undefined;
         this.formula = reactant && reactant.formula || undefined;
         this.smiles = reactant && reactant.smiles || undefined;
         this.others = reactant && reactant.others || new Array<Attribute>();

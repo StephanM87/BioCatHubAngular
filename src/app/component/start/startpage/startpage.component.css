@@ -1,0 +1,13 @@
+.headline {
+    margin-bottom: 2rem;
+}
+.title {
+    font-size: 3rem;
+    color: black;
+}
+.description {
+    font-size: 1.2rem;
+}
+.file-upload {
+    margin-top: 1rem;
+}

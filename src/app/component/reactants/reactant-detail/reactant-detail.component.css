@@ -1,0 +1,14 @@
+.reactant-detail {
+    width: 100%;
+}
+
+.clr-textarea {
+    width: 100%;
+    background-color: transparent;
+}
+
+.select-button {
+    margin: 0 !important;
+    padding: 0 .5rem;
+    color: #b3b3b3;
+}

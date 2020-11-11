@@ -11,7 +11,6 @@ export class DataService {
   id: string;
   zenodoLink: string;
   date: Date;
-  files: File[];
 
   vesselValidation: string[];
   enzymeValidation: string[];
@@ -57,10 +56,6 @@ export class DataService {
 
   public setId(id: string): void {
     this.id = id;
-  }
-
-  public getFiles(): File[] {
-    return this.files;
   }
 
   // Validation
@@ -189,27 +184,26 @@ export class DataService {
 
   public validateMeasurement(): void {
     this.measurementValidation = new Array<string>();
-    let measurement = this.getExperiment().getMeasurement();
-    if(measurement != undefined) {
-      if(this.validateString(measurement.reagent)) {
+    this.getExperiment().getMeasurements().forEach(measurement => {
+      if(this.validateString(measurement.reagent) && !this.measurementValidation.includes('reagent')) {
         this.measurementValidation.push('reagent');
       }
-      if(this.validateString(measurement.x_name)) {
+      if(this.validateString(measurement.x_name) && !this.measurementValidation.includes('x_name')) {
         this.measurementValidation.push('x_name');
       }
-      if(this.validateString(measurement.x_unit)) {
+      if(this.validateString(measurement.x_unit) && !this.measurementValidation.includes('x_unit')) {
         this.measurementValidation.push('x_unit');
       }
-      if(this.validateString(measurement.y_name)) {
+      if(this.validateString(measurement.y_name) && !this.measurementValidation.includes('y_name')) {
         this.measurementValidation.push('y_name');
       }
-      if(this.validateString(measurement.y_unit)) {
+      if(this.validateString(measurement.y_unit) && !this.measurementValidation.includes('y_unit')) {
         this.measurementValidation.push('y_unit');
       }
-      if(this.validateList(measurement.replicates)) {
+      if(this.validateList(measurement.replicates) && !this.measurementValidation.includes('replicates')) {
         this.measurementValidation.push('replicates');
       }
-    }
+    });
   }
 
   private validateString(value: string): boolean {

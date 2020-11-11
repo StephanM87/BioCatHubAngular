@@ -1,0 +1,29 @@
+<div class="clr-row headline">
+    <div class="clr-col-8">
+        <p><span class="title">BioCatHub</span></p>
+        <p><span class="description">web application to create, collect and share experimental data in biocatalysis</span></p>
+        <p><button class="btn btn-primary" (click)="newExperiment()">start new experiment</button></p>
+    </div>
+    <div class="clr-col-4">
+        <div class="file-upload">
+            <div class="clr-row">
+                <div class="clr-col-12">
+                    <ngx-dropzone accept=".omex" (change)="onSelect($event)">
+                        <ngx-dropzone-label>import experiment</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                            <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </div>
+            </div>
+            <div class="clr-row" *ngIf="files.length > 0">
+                <div class="clr-col-12">
+                    <button class="btn btn-primary" (click)="import()">import experiment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<experiment-table></experiment-table>
+<startpage-description></startpage-description>
+<external-technologies></external-technologies>

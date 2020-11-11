@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-block">
+        <div class="card-title">
+            <button class="btn btn-icon btn-link" routerLink="./../reaction">
+                <clr-icon class="dashboard-icon" size="24" shape="thermometer"></clr-icon>
+                <span class="dashboard-headline">reaction conditions</span>
+            </button>
+        </div>
+        <div class="card-text">
+            <table class="table table-noborder table-compact table-vertical" *ngIf="showReactionInformation">
+                <tbody>
+                    <tr *ngIf="reaction.temp || reaction.unit" >
+                        <th>temperature</th>
+                        <td>{{reaction.temp}} {{reaction.unit}}</td>
+                    </tr>
+                    <tr *ngIf="reaction.ph">
+                        <th>ph value</th>
+                        <td>{{reaction.ph}}</td>
+                    </tr>
+                    <tr *ngFor="let other of reaction.others">
+                        <th>{{other.key}}</th>
+                        <td>{{other.value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p *ngIf="!showReactionInformation">no reaction conditions</p>
+        </div>
+    </div>
+</div>

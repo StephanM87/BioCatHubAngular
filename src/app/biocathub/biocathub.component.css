@@ -1,18 +1,16 @@
- .biocathub-navigation {
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex: 0 0 auto;
- }
+header .branding .title {
+    font-size: 1rem;
+}
+.cat {
+    color: #79afcc;
+}
 
- .navigation-link {
-     color: #666666;
- }
-
- .footer-nav {
-     margin-bottom: 1rem;
- }
+.navigation-link {
+    color: #666666;
+}
+.footer-nav {
+    margin-bottom: 1rem;
+}
 
 .nav-overview:hover {
     background-color: #00567a;
@@ -30,7 +28,6 @@
 .clr-timeline-step-description {
     color: #c21d00;
 }
-
 .clr-timeline-step-title {
     font-weight: 400;
     font-size: .7rem;

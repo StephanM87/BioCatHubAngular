@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="card-block">
+        <div class="card-title">
+            <button class="btn btn-icon btn-link" routerLink="./../reactants">
+                <clr-icon class="dashboard-icon" size="24" shape="flask"></clr-icon>
+                <span class="dashboard-headline">reactants</span>
+            </button>
+        </div>
+        <div class="card-text">
+            <div class="reactants-information" *ngIf="showReactantsInformation">
+                <div class="reactant-container" *ngFor="let enzyme of enzymes" >
+                    <table class="table table-noborder table-compact" *ngIf="getReactantCount(enzyme.reaction) > 0">
+                        <thead>
+                            <tr>
+                                <th class="left">name</th>
+                                <th class="left">role</th>
+                                <th class="left">concentration</th>
+                                <th class="left">purity</th>
+                                <th class="left">supplier</th>
+                                <th class="left">formula</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let reagent of enzyme.reaction.educts">
+                                <td class="left">{{reagent.name}}</td>
+                                <td class="left">{{reagent.role}}</td>
+                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                <td class="left">{{reagent.purity}}</td>
+                                <td class="left">{{reagent.supplier}}</td>
+                                <td class="left">
+                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let reagent of enzyme.reaction.products">
+                                <td class="left">{{reagent.name}}</td>
+                                <td class="left">{{reagent.role}}</td>
+                                <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
+                                <td class="left">{{reagent.purity}}</td>
+                                <td class="left">{{reagent.supplier}}</td>
+                                <td class="left">
+                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p *ngIf="!showReactantsInformation">no reactants</p>
+        </div>
+    </div>
+</div>

@@ -1,20 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-.clr-form-control {
-    align-items: unset;
-    margin-top: .8rem;
-    margin-bottom: .8rem;
-}
-.clr-input-wrapper,
-.clr-select-wrapper {
-    display: flex;
-    max-width: none;
-    width: 100%;
-}
-.clr-input,
-.clr-select {
-    width: 100%;
-}
-
 .center-column {
     text-align: center;
 }
@@ -44,9 +28,8 @@
     font-size: 1.2rem;
 }
 
-/* Data Grid */
 .datagrid {
-    margin-top: 0;
+    margin: 0;
 }
 .datagrid-table .datagrid-placeholder .datagrid-placeholder-image {
     height: 0;
@@ -55,65 +38,34 @@
     background-image: none;
 }
 
-/* Card */
 .card {
-    margin-bottom: 1rem;
+    margin: 0;
+    padding: 0 1rem;
 }
-.card .card-title {
-    margin-top: .5rem;
-    margin-bottom: 0;
+.card .card-block{
+    padding: 0;
 }
 .card .card-text:last-child {
-    margin-bottom: .5rem;
-}
-.card-block {
-    padding: 0 .6rem;
-}
-.card-buttons {
     margin-bottom: 1rem;
 }
 
-/* Overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: #333333;
-    opacity: 0.85;
-    z-index: 1040;
+.btn-add-attribute {
+    margin: 0 !important;
+    padding: 0 !important;
 }
-.overlay-wrapper {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-.overlay-spinner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.attribut-label {
-    color: #454545;
-    font-size: .65rem;
-    font-weight: 600;
-    line-height: .9rem;
-    padding: 0;
-    border: 0;
- }
- 
- .attribut-label:hover {
-    border-bottom: .05rem solid;
-    border-bottom-color: #b3b3b3;
- }
-
- .attribute-button {
+.btn-delete-attribute {
     margin: 0 0 0 .6rem !important;
- }
+    padding: 0 !important;
+    min-width: unset;
+}
 
- .attribute-button:hover {
-    background-color: transparent;
- }
+.dashboard-icon {
+    color: #00567a;
+    margin-right: .3rem;
+}
+.dashboard-headline {
+   color: black;
+   font-weight: 200;
+   font-size: .9rem;
+   letter-spacing: normal;
+}

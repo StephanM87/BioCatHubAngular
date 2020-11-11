@@ -1,0 +1,35 @@
+.clr-form-control {
+    align-items: unset;
+    margin-top: .8rem;
+    margin-bottom: .8rem;
+}
+
+.clr-input-wrapper,
+.clr-select-wrapper {
+    display: flex;
+    max-width: unset;
+    width: 100%;
+}
+
+.clr-input,
+.clr-select {
+    width: 100%;
+}
+
+.clr-textarea {
+    width: 100%;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+::ng-deep clr-select-container .clr-control-container .clr-select-wrapper,
+::ng-deep clr-input-container .clr-control-container .clr-input-wrapper {
+    display: flex;
+    max-width: none;
+    width: 100%;
+ } 
+ 
+ ::ng-deep clr-select-container select,
+ ::ng-deep clr-input-container input {
+    width: 100%;
+ }

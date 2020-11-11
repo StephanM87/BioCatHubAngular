@@ -6,7 +6,7 @@ export interface IExperiment {
     enzymes: Array<Enzyme>;
     vessel: Vessel;
     condition: Condition;
-    measurement: Measurement;
+    measurements: Array<Measurement>;
     user: User;
 }
 
@@ -16,7 +16,7 @@ export class Experiment implements IExperiment {
     enzymes: Array<Enzyme>;
     vessel: Vessel;
     condition: Condition;
-    measurement: Measurement;
+    measurements: Array<Measurement>;
     user: User;
 
     constructor(experiment? : IExperiment) {
@@ -25,7 +25,7 @@ export class Experiment implements IExperiment {
         this.enzymes = experiment && experiment.enzymes || new Array<Enzyme>();
         this.vessel = experiment && experiment.vessel || new Vessel();
         this.condition = experiment && experiment.condition || new Condition();
-        this.measurement = experiment && experiment.measurement || new Measurement();
+        this.measurements = experiment && experiment.measurements || new Array<Measurement>();
         this.user = experiment && experiment.user || new User();
     }
 
@@ -60,12 +60,8 @@ export class Experiment implements IExperiment {
         return this.condition;
     }
 
-    public getMeasurement(): Measurement {
-        return this.measurement;
-    }
-
-    public setMeasurement(measurement: Measurement): void {
-        this.measurement = measurement;
+    public getMeasurements(): Array<Measurement> {
+        return this.measurements;
     }
 
     public getUser(): User {

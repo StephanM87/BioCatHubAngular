@@ -5,9 +5,11 @@ import { DataService } from '../../service/data.service';
 @Component({
   selector: 'app-reaction',
   templateUrl: './reaction.component.html',
-  styleUrls: ['./reaction.component.css']
+  styleUrls: ['./reaction.component.css', '../../../assets/styles/form-styles.css']
 })
 export class ReactionComponent implements OnInit {
+
+  public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
 
   constructor(public dataService: DataService) {
 

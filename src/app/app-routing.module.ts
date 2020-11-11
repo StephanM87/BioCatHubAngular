@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StartpageComponent } from '../app/component/startpage/startpage.component';
-import { EnzymeComponent } from '../app/component/enzyme/enzyme.component';
-import { ReagentComponent } from '../app/component/reagent/reagent.component';
-import { ReactionComponent } from '../app/component/reaction/reaction.component';
-import { VesselComponent } from '../app/component/vessel/vessel.component';
-import { MeasurementComponent } from '../app/component/measurement/measurement.component';
-import { DashboardComponent } from '../app/component/dashboard/dashboard.component';
+import { StartpageComponent } from './component/start/startpage/startpage.component';
+import { VesselComponent } from './component/vessel/vessel.component';
+import { BiokatalystBaseComponent } from './component/biokatalyst/biokatalyst-base/biokatalyst-base.component';
+import { MeasurementBaseComponent } from './component/measurement/measurement-base/measurement-base.component';
+import { ReactantBaseComponent } from './component/reactants/reactant-base/reactant-base.component';
+import { ReactionComponent } from './component/reaction/reaction.component';
+import { DashboardBaseComponent } from './component/dashboard/dashboard-base/dashboard-base.component';
 
 
 const routes: Routes = [
   { path: 'start', component: StartpageComponent },
-  { path: 'enzyme', component: EnzymeComponent },
-  { path: 'reagent', component: ReagentComponent },
-  { path: 'reaction', component: ReactionComponent },
   { path: 'vessel', component: VesselComponent },
-  { path: 'measurement', component: MeasurementComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'biokatalyst', component: BiokatalystBaseComponent },
+  { path: 'reactants', component: ReactantBaseComponent },
+  { path: 'reaction', component: ReactionComponent },
+  { path: 'measurement', component: MeasurementBaseComponent },
+  { path: 'dashboard', component: DashboardBaseComponent },
   { path: '', redirectTo: 'start', pathMatch: 'full' }
 ];
 

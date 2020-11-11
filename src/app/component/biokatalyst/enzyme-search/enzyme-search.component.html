@@ -1,0 +1,19 @@
+<div class="searchbar-container">
+    <div class="searchbar-wrapper">
+        <label class="searchbar-label">
+            <clr-dropdown>
+                <clr-icon shape="search" size="24"></clr-icon>
+                <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
+                    <clr-icon shape="close" size="24"></clr-icon>
+                </button>
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="search biocatalyst ..." />
+                <ng-template [(clrIfOpen)]="dropdown">
+                    <clr-dropdown-menu>
+                        <div clrDropdownItem (click)="selectSearchEnzyme(enzyme)" *ngFor="let enzyme of enzymeList">{{enzyme.enzymeName}}</div>
+                    </clr-dropdown-menu>
+                </ng-template>
+            </clr-dropdown>
+        </label>
+    </div>
+</div>
+<overlay-spinner *ngIf="loading"></overlay-spinner>
