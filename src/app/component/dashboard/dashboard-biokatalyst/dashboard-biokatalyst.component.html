@@ -34,9 +34,9 @@
                             <th>formulation</th>
                             <td>{{enzyme.formulation}}</td>
                         </tr>
-                        <tr *ngIf="enzyme.determination">
+                        <tr *ngIf="enzyme.method">
                             <th>protein concentration method</th>
-                            <td>{{enzyme.determination}}</td>
+                            <td>{{enzyme.method}}</td>
                         </tr>
                         <tr *ngFor="let other of enzyme.others">
                             <th>{{other.key}}</th>

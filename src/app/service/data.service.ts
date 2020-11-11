@@ -88,8 +88,8 @@ export class DataService {
         if(this.validateString(enzyme.formulation)) {
           this.enzymeValidation.push('formulation');
         }
-        if(this.validateString(enzyme.determination)) {
-          this.enzymeValidation.push('determination');
+        if(this.validateString(enzyme.method)) {
+          this.enzymeValidation.push('method');
         }
         if(this.validateReaction(enzyme.reaction)) {
           this.enzymeValidation.push('reaction');

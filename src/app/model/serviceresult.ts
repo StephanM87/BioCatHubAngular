@@ -4,7 +4,6 @@ import { Reaction, Reactant } from './biocatalysis';
 export interface EnzymeSearch {
     ecNumber: string;
     enzymeName: string;
-    brendaLink: string;
 }
 
 export interface EnzymeSpecification {
@@ -32,6 +31,5 @@ export interface Deposition {
 
 export interface Upload {
     id: string;
-    bucket: string;
     zenodoLink: string;
 }

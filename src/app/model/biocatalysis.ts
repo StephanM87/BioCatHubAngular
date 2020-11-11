@@ -18,10 +18,9 @@ export class Enzyme {
     concentration: number;
     unit: string;
     formulation: string;
-    determination: string;
+    method: string;
     others: Array<Attribute>;
     reaction: Reaction;
-    brendaLink: string;
 
     constructor(enzyme?: Enzyme) {
         this.ecNumber = enzyme && enzyme.ecNumber || undefined;
@@ -32,10 +31,9 @@ export class Enzyme {
         this.concentration = enzyme && enzyme.concentration || undefined;
         this.unit = enzyme && enzyme.unit || undefined;
         this.formulation = enzyme && enzyme.formulation || undefined;
-        this.determination = enzyme && enzyme.determination || undefined;
+        this.method = enzyme && enzyme.method || undefined;
         this.others = enzyme && enzyme.others || new Array<Attribute>();
         this.reaction = enzyme && enzyme.reaction || new Reaction();
-        this.brendaLink = enzyme && enzyme.brendaLink || undefined;
     }
 }
 
@@ -61,9 +59,8 @@ export class Reactant {
     supplier: string;
     formula: string;
     smiles: string;
-    others: Array<Attribute>;
     imageUrl: string;
-    brendaLink: string;
+    others: Array<Attribute>;
 
     constructor(reactant?: Reactant) {
         this.id = reactant && reactant.id || undefined;
@@ -75,9 +72,8 @@ export class Reactant {
         this.supplier = reactant && reactant.supplier || undefined;
         this.formula = reactant && reactant.formula || undefined;
         this.smiles = reactant && reactant.smiles || undefined;
-        this.others = reactant && reactant.others || new Array<Attribute>();
         this.imageUrl = reactant && reactant.imageUrl || undefined;
-        this.brendaLink = reactant && reactant.brendaLink || undefined;
+        this.others = reactant && reactant.others || new Array<Attribute>();
     }
 }
 

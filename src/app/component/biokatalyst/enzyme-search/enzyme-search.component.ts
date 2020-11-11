@@ -57,7 +57,6 @@ export class EnzymeSearchComponent implements OnInit {
       specification => {
         let enzyme = new Enzyme();
         enzyme.ecNumber = selected.ecNumber;
-        enzyme.brendaLink = selected.brendaLink;
         enzyme.name = specification.enzymeName;
         enzyme.reaction = specification.reaction ? specification.reaction : new Reaction();
         this.getEnzymes().push(enzyme);
