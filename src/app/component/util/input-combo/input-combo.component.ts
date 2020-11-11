@@ -23,13 +23,11 @@ export class InputComboComponent implements OnInit {
     if(input.trim().length > 0) {
       this.filteredAttributes = this.attributes.filter(name => name.includes(input));
     }
-    this.attribute.key = input;
     this.dropDownOpen = this.filteredAttributes.length > 0;
   }
 
   public showDropDownList(){
-    this.filteredAttributes = this.attributes.slice(0);
-    this.dropDownOpen = true;
+    this.filteredAttributes = this.attributes;
   }
 
   public selectAttribute(value: string) {
