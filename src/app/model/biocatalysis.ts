@@ -135,10 +135,10 @@ export class Measurement {
 
     constructor(measurement?: Measurement) {
         this.reagent = measurement && measurement.reagent || undefined;
-        this.x_unit = measurement && measurement.x_unit || undefined;
-        this.x_name = measurement && measurement.x_name || undefined;
+        this.x_unit = measurement && measurement.x_unit || 's';
+        this.x_name = measurement && measurement.x_name || 'time';
         this.y_unit = measurement && measurement.y_unit || undefined;
-        this.y_name = measurement && measurement.y_name || undefined;
+        this.y_name = measurement && measurement.y_name || 'concentration';
         this.replicates = measurement && measurement.replicates || new Array<Replicate>();
         this.notes = measurement && measurement.notes || undefined;
         this.plot = measurement && measurement.plot || new Plot();

@@ -8,7 +8,7 @@
         <div class="file-upload">
             <div class="clr-row">
                 <div class="clr-col-12">
-                    <ngx-dropzone accept=".omex" (change)="onSelect($event)">
+                    <ngx-dropzone class="file-dropzone" accept=".omex" (change)="onSelect($event)">
                         <ngx-dropzone-label>import experiment</ngx-dropzone-label>
                         <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
                             <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>

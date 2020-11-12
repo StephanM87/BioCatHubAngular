@@ -1,4 +1,4 @@
-<clr-alert [clrAlertType]="'success'" *ngIf="showAlert">
+<clr-alert class="zenodo-alert" [clrAlertType]="'success'" *ngIf="showAlert">
     <clr-alert-item>
         <span class="alert-text">
             the experiment has been successfully uploaded to <a href="{{zenodoLink}}" target="_blank">zenodo</a> with id <b>{{id}}</b>
@@ -12,13 +12,13 @@
     </div>
     <div class="clr-col-6 right-column">
         <button class="btn btn-link btn-sm" (click)="exportEnzymeML()">
-            <clr-icon shape="file-zip" size="24"></clr-icon> EnzymeML
+            <clr-icon shape="file-zip" size="24"></clr-icon> download EnzymeML
         </button>
         <button class="btn btn-link btn-sm" (click)="createPdf()">
-            <clr-icon shape="file" size="24"></clr-icon> PDF
+            <clr-icon shape="file" size="24"></clr-icon> create PDF
         </button>
         <button class="btn btn-link btn-sm" (click)="uploadToZenodo()">
-            <clr-icon shape="upload-cloud" size="24"></clr-icon> zenodo
+            <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
         </button>
     </div>
 </div>
