@@ -6,19 +6,20 @@
     </clr-alert-item>
 </clr-alert>
 <div class="clr-row">
-    <div class="clr-col-4">
-        <span class="headline">experiment</span>
-        <span class="id" *ngIf="id"> (#<a href="{{zenodoLink}}" target="_blank">{{id}}</a>)</span>
+    <div class="clr-col-12">
+        <span class="headline">experiment</span><span class="id" *ngIf="id"> #<a href="{{zenodoLink}}" target="_blank">{{id}}</a></span>
     </div>
-    <div class="clr-col-8 right-column">
-        <button class="btn btn-outline" (click)="exportEnzymeML()">
+</div>
+<div class="clr-row button-row">
+    <div class="clr-col-12">
+        <button class="btn btn-primary" (click)="uploadToZenodo()">
+            <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
+        </button>
+        <button class="btn btn-primary" (click)="exportEnzymeML()">
             <clr-icon shape="file-zip" size="24"></clr-icon> download EnzymeML
         </button>
-        <button class="btn btn-outline" (click)="createPdf()">
+        <button class="btn btn-primary" (click)="createPdf()">
             <clr-icon shape="file" size="24"></clr-icon> create PDF
-        </button>
-        <button class="btn btn-outline" (click)="uploadToZenodo()">
-            <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
         </button>
     </div>
 </div>

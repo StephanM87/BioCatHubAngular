@@ -1,6 +1,9 @@
 .zenodo-alert {
     margin-bottom: 1rem;
 }
+.button-row {
+    margin-top: .5rem;
+}
 .dashboard-row {
     padding: 1rem 0;
 }
