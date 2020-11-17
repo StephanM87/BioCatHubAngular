@@ -109,14 +109,12 @@ export class Condition {
 
 export class Plot {
     style: string;
-    size: number;
     replicate1: boolean;
     replicate2: boolean;
     replicate3: boolean;
 
     constructor(plot?: Plot) {
         this.style = plot && plot.style || 'point';
-        this.size = plot && plot.size || 50;
         this.replicate1 = plot && plot.replicate1 || true;
         this.replicate2 = plot && plot.replicate2 || true;
         this.replicate3 = plot && plot.replicate3 || true;
