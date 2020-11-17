@@ -10,15 +10,10 @@
                 <div class="clr-col-12">
                     <ngx-dropzone class="file-dropzone" accept=".omex" (change)="onSelect($event)">
                         <ngx-dropzone-label>import experiment</ngx-dropzone-label>
-                        <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                        <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
                             <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
                         </ngx-dropzone-preview>
                     </ngx-dropzone>
-                </div>
-            </div>
-            <div class="clr-row" *ngIf="files.length > 0">
-                <div class="clr-col-12">
-                    <button class="btn btn-primary" (click)="import()">import experiment</button>
                 </div>
             </div>
         </div>
@@ -27,3 +22,4 @@
 <experiment-table></experiment-table>
 <startpage-description></startpage-description>
 <external-technologies></external-technologies>
+<overlay-spinner *ngIf="loading"></overlay-spinner>

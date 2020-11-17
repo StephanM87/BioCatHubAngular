@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Experiment } from 'src/app/model/experiment';
-import { Deposition } from 'src/app/model/serviceresult';
 import { DataService } from 'src/app/service/data.service';
-import { ZenodoService } from 'src/app/service/zenodo.service';
+import { ExperimentService } from 'src/app/service/experiment.service';
+
 
 @Component({
   selector: 'app-startpage',
@@ -13,19 +13,14 @@ import { ZenodoService } from 'src/app/service/zenodo.service';
 export class StartpageComponent implements OnInit {
 
   public files: File[];
+  public loading: boolean;
 
-  constructor(private router: Router, public dataService: DataService) {
+  constructor(private router: Router, public dataService: DataService, public experimentService: ExperimentService) {
     this.files = new Array<File>();
   }
 
   ngOnInit(): void {
-  }
 
-  public import(): void {
-    if(this.files.length > 0){
-      // TODO: Omex Datei an Beackend senden -> Experiment laden
-      this.files = new Array<File>();
-    }
   }
 
   public newExperiment(): void {
@@ -38,10 +33,27 @@ export class StartpageComponent implements OnInit {
 
   public onSelect(event: any) {
     this.files.push(...event.addedFiles);
-	}
-
-	public onRemove(event: any) {
-		this.files.splice(this.files.indexOf(event), 1);
+    this.uploadFiles();
+  }
+  
+  public uploadFiles(): void {
+    this.loading = true;
+    if(this.files && this.files.length > 0){
+      let file = this.files[0];
+      this.experimentService.readEnzymeML(file).subscribe(
+        experiment => {
+          this.dataService.setExperiment(new Experiment(experiment));
+          this.dataService.setId(undefined);
+          this.dataService.setZenodoLink(undefined);
+          this.dataService.setCreationDate(new Date());
+          this.router.navigate(['./dashboard']);
+          this.loading = false;
+        }, error => {
+          console.log(error);
+          this.loading = false;
+        });
+      this.files = new Array<File>();
+    }
   }
 
 }
