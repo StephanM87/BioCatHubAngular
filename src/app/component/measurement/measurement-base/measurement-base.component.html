@@ -1,7 +1,7 @@
 <span class="headline">experimental data</span>
 <ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)">
     <ngx-dropzone-label>upload measurement</ngx-dropzone-label>
-    <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+    <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
         <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
     </ngx-dropzone-preview>
 </ngx-dropzone>

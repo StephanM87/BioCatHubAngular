@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ZenodoService } from './zenodo.service';
+import { ExperimentService } from './experiment.service';
 
-describe('ZenodoService', () => {
-  let service: ZenodoService;
+describe('ExperimentService', () => {
+  let service: ExperimentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ZenodoService);
+    service = TestBed.inject(ExperimentService);
   });
 
   it('should be created', () => {

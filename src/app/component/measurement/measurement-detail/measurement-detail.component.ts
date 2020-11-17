@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Measurement } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
-import { FileService } from 'src/app/service/file.service';
+import { ExperimentService } from 'src/app/service/experiment.service';
 
 @Component({
   selector: 'measurement-detail',
@@ -13,7 +13,7 @@ export class MeasurementDetailComponent implements OnInit {
 
   public measurementPlot: any;
 
-  constructor(public dataService: DataService, public fileService: FileService) { }
+  constructor(public dataService: DataService, public experimentService: ExperimentService) { }
 
   ngOnInit(): void {
     if(this.measurement.replicates.length > 0) {
@@ -29,7 +29,7 @@ export class MeasurementDetailComponent implements OnInit {
   }
 
   public loadMeasurementImage(): void {
-    this.fileService.plotMeasurement(this.measurement).subscribe(
+    this.experimentService.plotMeasurement(this.measurement).subscribe(
       blob => {
         this.measurementPlot = this.createImageFromBlob(blob);
       },

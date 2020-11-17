@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Experiment } from 'src/app/model/experiment';
 import { Deposition } from 'src/app/model/serviceresult';
 import { DataService } from 'src/app/service/data.service';
-import { ZenodoService } from 'src/app/service/zenodo.service';
+import { ExperimentService } from 'src/app/service/experiment.service';
 
 @Component({
   selector: 'experiment-table',
@@ -17,11 +17,11 @@ export class ExperimentsComponent implements OnInit {
   public experiments: Deposition[];
   public selectedExperiment: Deposition;
 
-  constructor(private router: Router, public dataService: DataService, public zenodoService: ZenodoService) { }
+  constructor(private router: Router, public dataService: DataService, public experimentService: ExperimentService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.zenodoService.getExperimentListFromZenodo().subscribe(
+    this.experimentService.getExperimentListFromZenodo().subscribe(
       experiments => {
         this.experiments = experiments;
         this.loading = false;
@@ -35,7 +35,7 @@ export class ExperimentsComponent implements OnInit {
 
   public showExperiment(): void {
     this.loading = true;
-    this.zenodoService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
+    this.experimentService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
       json => {
         let experiment = new Experiment(json);
         this.dataService.setId(this.selectedExperiment.id);

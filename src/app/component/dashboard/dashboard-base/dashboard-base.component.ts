@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment';
 import { DataService } from 'src/app/service/data.service';
-import { FileService } from 'src/app/service/file.service';
-import { ZenodoService } from 'src/app/service/zenodo.service';
+import { ExperimentService } from 'src/app/service/experiment.service';
 
 @Component({
   selector: 'app-dashboard-base',
@@ -20,7 +19,7 @@ export class DashboardBaseComponent implements OnInit {
   public showAlert = true;
   public loading: boolean;
 
-  constructor(public dataService: DataService, public fileService: FileService, public zenodoService: ZenodoService) { 
+  constructor(public dataService: DataService, public experimentService: ExperimentService) { 
     this.experiment = dataService.getExperiment();
     this.id = dataService.getId();
     this.zenodoLink = dataService.getZenodoLink();
@@ -34,7 +33,7 @@ export class DashboardBaseComponent implements OnInit {
 
   public uploadToZenodo(): void {
     this.loading = true;
-    this.zenodoService.uploadExperiment(this.experiment).subscribe(
+    this.experimentService.uploadExperimentToZenodo(this.experiment).subscribe(
       upload => {
         this.id = upload.id;
         this.zenodoLink = upload.zenodoLink;
@@ -50,7 +49,7 @@ export class DashboardBaseComponent implements OnInit {
 
   public exportEnzymeML(): void {
     this.loading = true;
-    this.fileService.createEnzymeML(this.experiment).subscribe(
+    this.experimentService.createEnzymeML(this.experiment).subscribe(
       blob => {
         this.download(blob, 'experiment.omex');
         this.loading = false;
