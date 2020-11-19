@@ -70,7 +70,7 @@ export class MeasurementBaseComponent implements OnInit {
       const measurementData = XLSX.utils.sheet_to_json(secondWorkSheet);
       if(measurementData.length == 1){
         let element = measurementData[0];
-        measurement.reagent = element['Gemessene Komponente'];
+        measurement.reagent = element['reactant'];
         measurement.x_name = element['x_name'];
         measurement.x_unit = element['x_unit'];
         measurement.y_name = element['y_name'];
