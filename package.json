@@ -1,5 +1,5 @@
 {
-  "name": "biocathub-angular",
+  "name": "biocathub",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

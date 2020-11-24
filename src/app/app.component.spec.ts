@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'biocathubAngular'`, () => {
+  it(`should have as title 'biocathub'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('biocathubAngular');
+    expect(app.title).toEqual('biocathub');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('biocathubAngular app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('biocathub app is running!');
   });
 });
