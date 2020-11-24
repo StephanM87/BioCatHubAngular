@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Condition } from 'src/app/model/biocatalysis';
+import { Buffer, Condition } from 'src/app/model/biocatalysis';
 
 @Component({
   selector: 'dashboard-reaction',
@@ -14,11 +14,18 @@ export class DashboardReactionComponent implements OnInit {
 
   ngOnInit(): void {
     this.showReactionInformation = (this.reaction.temp > 0 || this.notNull(this.reaction.unit) || 
-      this.reaction.ph > 0 || this.notNull(this.reaction.buffer) || this.reaction.others.length > 0);
+      this.reaction.ph > 0 || this.checkBuffer(this.reaction.buffer) || this.reaction.others.length > 0);
   }
 
   notNull(value: string): boolean {
     return (value != undefined && value.trim().length > 0);
+  }
+
+  checkBuffer(buffer: Buffer): boolean {
+    if(buffer != undefined) {
+      return (this.notNull(buffer.type) || buffer.concentration > 0 || this.notNull(buffer.unit));
+    }
+    return false;
   }
 
 }

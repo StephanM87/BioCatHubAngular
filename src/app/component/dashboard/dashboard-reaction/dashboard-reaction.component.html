@@ -17,6 +17,10 @@
                         <th>ph value</th>
                         <td>{{reaction.ph}}</td>
                     </tr>
+                    <tr *ngIf="checkBuffer(reaction.buffer)">
+                        <th>buffer</th>
+                        <td>{{reaction.buffer.type}}<br>{{reaction.buffer.concentration}} {{reaction.buffer.unit}}</td>
+                    </tr>
                     <tr *ngFor="let other of reaction.others">
                         <th>{{other.key}}</th>
                         <td>{{other.value}}</td>

@@ -91,18 +91,30 @@ export class Vessel {
     }
 }
 
+export class Buffer {
+    type: string;
+    concentration: number;
+    unit: string;
+
+    constructor(buffer?: Buffer) {
+        this.type = buffer && buffer.type || undefined;
+        this.concentration = buffer && buffer.concentration || undefined;
+        this.unit = buffer && buffer.unit || undefined;
+    }
+}
+
 export class Condition {
     temp: number;
     unit: string;
     ph: number;
-    buffer: string;
+    buffer: Buffer;
     others: Array<Attribute>;
 
     constructor(condition?: Condition) {
         this.temp = condition && condition.temp || undefined;
         this.unit = condition && condition.unit || undefined;
         this.ph = condition && condition.ph || undefined;
-        this.buffer = condition && condition.buffer || undefined;
+        this.buffer = condition && condition.buffer || new Buffer();
         this.others = condition && condition.others || new Array<Attribute>();
     }
 }

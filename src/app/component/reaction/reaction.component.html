@@ -30,8 +30,26 @@
                         </clr-input-container>
                         <clr-input-container>
                             <label>buffer</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().buffer" name="buffer"/>
+                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" name="buffer-type"/>
                         </clr-input-container>
+                        <div class="clr-form-control clr-row">
+                            <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-input-wrapper">
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" name="buffer-conc" />
+                                </div>
+                            </div>
+                            <div class="clr-control-container clr-col-md-5 clr-col-12">
+                                <div class="clr-select-wrapper">
+                                    <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
+                                        <option value="mmol/L">mmol/L</option>
+                                        <option value="mmoL/L">mmoL/L</option>
+                                        <option value="mg/mL">mg/mL</option>
+                                        <option value="mL">mL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="clr-form-control clr-row" *ngFor="let other of getReaction().others">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">
                                 <input-combo [attributes]="attributes" [attribute]="other"></input-combo>
