@@ -44,10 +44,8 @@ export class ExperimentService {
   plotMeasurement(measurement: Measurement): Observable<Blob> {
     return this.client.post(environment.backendUrl + '/measurement', measurement, {headers: httpOptions.headers, responseType: 'blob'});
   }
-
-  // Template
   templateFile(): Observable<Blob> {
-    return this.client.get(environment.backendUrl + '/document/template', {responseType: 'blob'});
+    return this.client.get(environment.backendUrl + '/measurement/template', {responseType: 'blob'});
   }
 
   // TODO: Service für PDF Dateien
