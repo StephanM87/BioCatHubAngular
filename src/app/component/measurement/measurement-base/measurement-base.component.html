@@ -5,7 +5,22 @@
         <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
     </ngx-dropzone-preview>
 </ngx-dropzone>
-<button class="btn btn-link btn-new" (click)="newMeasurement()"><clr-icon shape="plus"></clr-icon> new measurement</button>
+<button class="btn btn-link btn-new" (click)="newMeasurement()"><clr-icon shape="plus"></clr-icon> add measurement</button>
 <button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download template file</button>
-<measurement-detail *ngFor="let measurement of getMeasurements()" [measurement]="measurement"></measurement-detail>
+
+<div class="card" *ngIf="getMeasurements().length > 0">
+    <div class="card-block" >
+        <div class="card-text">
+            <clr-tabs>
+                <clr-tab *ngFor="let measurement of getMeasurements(); let i = index" [attr.data-index]="i">
+                    <button clrTabLink>measurement {{i+1}}</button>
+                    <clr-tab-content>
+                        <measurement-detail [measurement]="measurement"></measurement-detail>
+                    </clr-tab-content>
+                </clr-tab>
+            </clr-tabs>
+        </div>
+    </div>
+</div>
+
 <overlay-spinner *ngIf="loading"></overlay-spinner>

@@ -13,6 +13,7 @@ export class Enzyme {
     ecNumber: string;
     name: string;
     type: string;
+    variant: string;
     organism: string;
     sequence: string;
     concentration: number;
@@ -26,6 +27,7 @@ export class Enzyme {
         this.ecNumber = enzyme && enzyme.ecNumber || undefined;
         this.name = enzyme && enzyme.name || undefined;
         this.type = enzyme && enzyme.type || undefined;
+        this.variant = enzyme && enzyme.variant || undefined;
         this.organism = enzyme && enzyme.organism || undefined;
         this.sequence = enzyme && enzyme.sequence || undefined;
         this.concentration = enzyme && enzyme.concentration || undefined;
@@ -119,39 +121,39 @@ export class Condition {
     }
 }
 
-export class Plot {
-    style: string;
-    replicate1: boolean;
-    replicate2: boolean;
-    replicate3: boolean;
+export class ExperimentalData {
+    measurements: Array<Measurement>;
 
-    constructor(plot?: Plot) {
-        this.style = plot && plot.style || 'point';
-        this.replicate1 = plot && plot.replicate1 || true;
-        this.replicate2 = plot && plot.replicate2 || true;
-        this.replicate3 = plot && plot.replicate3 || true;
+    constructor(experimentalData?: ExperimentalData) {
+        this.measurements = experimentalData && experimentalData.measurements || new Array<Measurement>();
     }
 }
 
 export class Measurement {
     reagent: string;
+    component: string;
+    component_conc: number;
+    component_unit: string;
     x_unit: string;
     x_name: string;
     y_unit: string;
     y_name: string;
     replicates: Array<Replicate>;
     notes: string;
-    plot: Plot;
+    plotStyle: string;
 
     constructor(measurement?: Measurement) {
         this.reagent = measurement && measurement.reagent || undefined;
+        this.component = measurement && measurement.component || undefined;
+        this.component_conc = measurement && measurement.component_conc || undefined;
+        this.component_unit = measurement && measurement.component_unit || undefined;
         this.x_unit = measurement && measurement.x_unit || 's';
         this.x_name = measurement && measurement.x_name || 'time';
         this.y_unit = measurement && measurement.y_unit || undefined;
         this.y_name = measurement && measurement.y_name || 'concentration';
         this.replicates = measurement && measurement.replicates || new Array<Replicate>();
         this.notes = measurement && measurement.notes || undefined;
-        this.plot = measurement && measurement.plot || new Plot();
+        this.plotStyle = measurement && measurement.plotStyle || 'point';
     }
 }
 

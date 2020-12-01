@@ -23,7 +23,7 @@ export class MeasurementBaseComponent implements OnInit {
   }
 
   public getMeasurements(): Measurement[] {
-    return this.dataService.getExperiment().getMeasurements();
+    return this.dataService.getExperiment().getExperimentalData().measurements;
   }
 
 	public onSelect(event: any) {
@@ -82,7 +82,11 @@ export class MeasurementBaseComponent implements OnInit {
   }
 
   public newMeasurement(): void {
-    this.getMeasurements().push(new Measurement());
+    let measurement = new Measurement();
+    let replica = new Replicate();
+    replica.y_values = new Array<number>(3);
+    measurement.replicates.push(replica);
+    this.getMeasurements().push(measurement);
   }
 
   public templateFile(): void {

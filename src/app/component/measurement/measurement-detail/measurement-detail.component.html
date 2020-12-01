@@ -1,102 +1,112 @@
-<div class="card" >
-    <div class="card-block" >
-        <div class="card-text">
-            <div class="clr-row" >
-                <div class="clr-col-2">
-                    <clr-radio-container>
-                        <label>style</label>
-                        <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="point" [(ngModel)]="measurement.plot.style" (change)="updateImage()" />
-                            <label>point chart</label>
-                        </clr-radio-wrapper>
-                        <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="line" [(ngModel)]="measurement.plot.style" (change)="updateImage()" />
-                            <label>line chart</label>
-                        </clr-radio-wrapper>
-                    </clr-radio-container>
-                    <clr-toggle-container>
-                        <label>replicates</label>
-                        <clr-toggle-wrapper>
-                            <input type="checkbox" clrToggle [(ngModel)]="measurement.plot.replicate1" (change)="updateImage()" />
-                            <label>replica 1</label>
-                        </clr-toggle-wrapper>
-                        <clr-toggle-wrapper>
-                            <input type="checkbox" clrToggle [(ngModel)]="measurement.plot.replicate2" (change)="updateImage()" />
-                            <label>replica 2</label>
-                        </clr-toggle-wrapper>
-                        <clr-toggle-wrapper>
-                            <input type="checkbox" clrToggle [(ngModel)]="measurement.plot.replicate3" (change)="updateImage()" />
-                            <label>replica 3</label>
-                        </clr-toggle-wrapper>
-                    </clr-toggle-container>
-                </div>
-                <div class="clr-col-10 center-column">
-                    <img [src]="measurementPlot">
-                </div>
+<form clrForm>
+    <clr-input-container>
+        <label>measured reactant</label>
+        <input clrInput type="text" [(ngModel)]="measurement.reagent" (change)="updateImage()" name="reagent"/>
+    </clr-input-container>
+    <clr-input-container>
+        <label>parameter</label>
+        <input clrInput type="text" [(ngModel)]="measurement.component" name="component"/>
+    </clr-input-container>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.component_conc" name="component-conc" />
             </div>
-
-            <form clrForm>
-                <clr-input-container>
-                    <label>reactant</label>
-                    <input clrInput type="text" [(ngModel)]="measurement.reagent" (change)="updateImage()" name="reagent"/>
-                </clr-input-container>
-                <div class="clr-form-control clr-row">
-                    <div class="clr-control-label clr-col-12 clr-col-md-2">x value</div>
-                    <div class="clr-control-container clr-col-md-5 clr-col-12">
-                        <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updateImage()" name="x_name" />
-                        </div>
-                    </div>
-                    <div class="clr-control-container clr-col-md-5 clr-col-12">
-                        <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updateImage()" name="x_unit" />
-                        </div>
-                    </div>
-                </div>
-                <div class="clr-form-control clr-row">
-                    <div class="clr-control-label clr-col-12 clr-col-md-2">y value</div>
-                    <div class="clr-control-container clr-col-md-5 clr-col-12">
-                        <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updateImage()" name="y_name" />
-                        </div>
-                    </div>
-                    <div class="clr-control-container clr-col-md-5 clr-col-12">
-                        <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updateImage()" name="y_unit" />
-                        </div>
-                    </div>
-                </div>
-                <clr-textarea-container>
-                    <label>notes</label>
-                    <textarea clrTextarea [(ngModel)]="measurement.notes" name="notes"></textarea>
-                </clr-textarea-container>
-            </form>
-
-            <clr-accordion>
-                <clr-accordion-panel>
-                  <clr-accordion-title>replicates</clr-accordion-title>
-                  <clr-accordion-content *clrIfExpanded>
-                    <table class="table table-noborder table-compact">
-                        <thead>
-                            <tr>
-                                <th class="left">x</th>
-                                <th class="left">replica 1</th>
-                                <th class="left">replica 2</th>
-                                <th class="left">replica 3</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let element of measurement.replicates">
-                                <td class="left">{{element.x_value}}</td>
-                                <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </clr-accordion-content>
-                </clr-accordion-panel>
-            </clr-accordion>
-
-            <button class="btn btn-warning" (click)="deleteMeasurement()">delete measurement</button>
+        </div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.component_unit" name="component-unit" />
+            </div>
         </div>
     </div>
-</div>
+    <clr-radio-container clrInline>
+        <label>plot</label>
+        <clr-radio-wrapper>
+            <input type="radio" clrRadio name="type" value="point" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <label>point chart</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+            <input type="radio" clrRadio name="type" value="line" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <label>line chart</label>
+        </clr-radio-wrapper>
+    </clr-radio-container>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <img [src]="measurementPlot">
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updateImage()" name="x_name" />
+            </div>
+        </div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updateImage()" name="x_unit" />
+            </div>
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">y axis</div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updateImage()" name="y_name" />
+            </div>
+        </div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updateImage()" name="y_unit" />
+            </div>
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">replicates</div>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <div class="replicates-editor">
+                <button class="btn btn-link editor-btn" (click)="removeReplicate()"><clr-icon shape="minus"></clr-icon></button>
+                replicates: {{getReplicaCount()}}
+                <button class="btn btn-link editor-btn" (click)="addReplicate()"><clr-icon shape="plus"></clr-icon></button>
+            </div>
+            <div class="replicates-editor">
+                <button class="btn btn-link editor-btn" (click)="deleteValues()"><clr-icon shape="minus"></clr-icon></button>
+                measurement values: {{measurement.replicates.length}}
+                <button class="btn btn-link editor-btn" (click)="addValues()"><clr-icon shape="plus"></clr-icon></button>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table table-noborder table-compact replicates-table">
+    <thead>
+        <tr>
+            <th class="left input-col">x</th>
+            <th class="left input-col" *ngFor="let y of measurement.replicates[0].y_values; index as i">
+                replica {{i+1}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let element of measurement.replicates; index as row">
+            <td class="left input-col">
+                <input class="clr-input table-input" type="text" [(ngModel)]="element.x_value" 
+                    (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                    placeholder="paste data from excel ..."/>
+            </td>
+            <td class="left input-col" *ngFor="let y_value of element.y_values; index as col">
+                <input class="clr-input table-input" type="text" [(ngModel)]="element.y_values[col]" 
+                    (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                    placeholder="paste data from excel ..."/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<form clrForm clrLayout="vertical">
+    <clr-textarea-container>
+        <label>notes</label>
+        <textarea clrTextarea [(ngModel)]="measurement.notes" placeholder="notes, description, etc." name="notes"></textarea>
+    </clr-textarea-container>
+</form>
+<button class="btn btn-warning delete-btn" (click)="deleteMeasurement()">delete measurement</button>

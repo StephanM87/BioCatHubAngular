@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Enzyme, Reactant, Reaction } from '../model/biocatalysis';
+import { Enzyme, Measurement, Reactant, Reaction } from '../model/biocatalysis';
 import { Experiment } from '../model/experiment';
 
 const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -184,21 +184,12 @@ export class DataService {
 
   public validateMeasurement(): void {
     this.measurementValidation = new Array<string>();
-    this.getExperiment().getMeasurements().forEach(measurement => {
-      if(this.validateString(measurement.reagent) && !this.measurementValidation.includes('reagent')) {
-        this.measurementValidation.push('reagent');
+    this.getExperiment().getExperimentalData().measurements.forEach(measurement => {
+      if(this.validateString(measurement.reagent) && !this.measurementValidation.includes('reactant')) {
+        this.measurementValidation.push('reactant');
       }
-      if(this.validateString(measurement.x_name) && !this.measurementValidation.includes('x_name')) {
-        this.measurementValidation.push('x_name');
-      }
-      if(this.validateString(measurement.x_unit) && !this.measurementValidation.includes('x_unit')) {
-        this.measurementValidation.push('x_unit');
-      }
-      if(this.validateString(measurement.y_name) && !this.measurementValidation.includes('y_name')) {
-        this.measurementValidation.push('y_name');
-      }
-      if(this.validateString(measurement.y_unit) && !this.measurementValidation.includes('y_unit')) {
-        this.measurementValidation.push('y_unit');
+      if(this.validateString(measurement.component) && !this.measurementValidation.includes('component')) {
+        this.measurementValidation.push('component');
       }
       if(this.validateList(measurement.replicates) && !this.measurementValidation.includes('replicates')) {
         this.measurementValidation.push('replicates');
@@ -219,6 +210,13 @@ export class DataService {
   }
 
   // Methods
+
+  public deleteMeasurement(measurement: Measurement): void {
+    let index = this.experiment.experimentalData.measurements.indexOf(measurement);
+    if (index !== -1) {
+      this.experiment.experimentalData.measurements.splice(index, 1);
+    }
+  }
 
   public deleteReactant(reactants: Reactant[], reactant: Reactant) {
     const index: number = reactants.indexOf(reactant);

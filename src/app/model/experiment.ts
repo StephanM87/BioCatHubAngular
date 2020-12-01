@@ -1,4 +1,4 @@
-import { Enzyme, Measurement, Vessel, Condition, User } from './biocatalysis';
+import { Enzyme, Measurement, Vessel, Condition, User, ExperimentalData } from './biocatalysis';
 
 export interface IExperiment {
     title: string;
@@ -6,7 +6,7 @@ export interface IExperiment {
     enzymes: Array<Enzyme>;
     vessel: Vessel;
     condition: Condition;
-    measurements: Array<Measurement>;
+    experimentalData: ExperimentalData;
     user: User;
 }
 
@@ -16,7 +16,7 @@ export class Experiment implements IExperiment {
     enzymes: Array<Enzyme>;
     vessel: Vessel;
     condition: Condition;
-    measurements: Array<Measurement>;
+    experimentalData: ExperimentalData;
     user: User;
 
     constructor(experiment? : IExperiment) {
@@ -25,7 +25,7 @@ export class Experiment implements IExperiment {
         this.enzymes = experiment && experiment.enzymes || new Array<Enzyme>();
         this.vessel = experiment && experiment.vessel || new Vessel();
         this.condition = experiment && experiment.condition || new Condition();
-        this.measurements = experiment && experiment.measurements || new Array<Measurement>();
+        this.experimentalData = experiment && experiment.experimentalData || new ExperimentalData();
         this.user = experiment && experiment.user || new User();
     }
 
@@ -60,8 +60,8 @@ export class Experiment implements IExperiment {
         return this.condition;
     }
 
-    public getMeasurements(): Array<Measurement> {
-        return this.measurements;
+    public getExperimentalData(): ExperimentalData {
+        return this.experimentalData;
     }
 
     public getUser(): User {
