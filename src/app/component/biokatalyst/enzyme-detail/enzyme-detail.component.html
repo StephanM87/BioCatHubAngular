@@ -9,15 +9,19 @@
             </div>
             <div class="clr-control-container clr-control-inline clr-col-md-5 clr-col-12">
                 <clr-radio-wrapper>
-                    <input type="radio" clrRadio name="type" required value="wildtype" [(ngModel)]="enzyme.type" />
+                    <input type="radio" clrRadio name="type" value="wildtype" [(ngModel)]="enzyme.type" (click)="enzyme.variant=undefined" />
                     <label>wildtype</label>
-                  </clr-radio-wrapper>
+                </clr-radio-wrapper>
                 <clr-radio-wrapper>
-                    <input type="radio" clrRadio name="type" required value="variant" [(ngModel)]="enzyme.type" />
+                    <input type="radio" clrRadio name="type" value="variant" [(ngModel)]="enzyme.type" />
                     <label>variant</label>
                 </clr-radio-wrapper>
             </div>
         </div>
+        <clr-input-container *ngIf="enzyme.type=='variant'">
+            <label> </label>
+            <input clrInput type="text" [(ngModel)]="enzyme.variant" placeholder="variant name" name="variant"/>
+        </clr-input-container>
         <clr-input-container>
             <label>organism</label>
             <input clrInput type="text" [(ngModel)]="enzyme.organism" name="organism"/>
