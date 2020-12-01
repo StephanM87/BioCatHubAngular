@@ -1,31 +1,56 @@
-<div class="card-block">
-    <div class="card-img">
-        <img [src]="measurementPlot">
-    </div>
-    <div class="card-text">
-        {{measurement.notes}}
-        <clr-accordion>
-            <clr-accordion-panel *ngIf="measurement.replicates.length > 0">
-                <clr-accordion-title>data</clr-accordion-title>
-                <clr-accordion-content *clrIfExpanded>
-                <table class="table table-noborder table-compact">
-                    <thead>
-                        <tr>
-                            <th class="left">x</th>
-                            <th class="left">replica 1</th>
-                            <th class="left">replica 2</th>
-                            <th class="left">replica 3</th>
-                        </tr>
-                    </thead>
+<div class="card">
+    <div class="card-block">
+        <div class="card-title">
+            <button class="btn btn-icon btn-link" routerLink="./../measurement">
+                <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon>
+                <span class="dashboard-headline">experimental data</span>
+            </button>
+        </div>
+        <div class="card-block" *ngFor="let measurement of experimentalData.measurements; let i = index" [attr.data-index]="i">
+            <div class="card-text">
+                <table class="table table-noborder table-compact table-vertical">
                     <tbody>
-                        <tr *ngFor="let element of measurement.replicates">
-                            <td class="left">{{element.x_value}}</td>
-                            <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
+                        <tr *ngIf="measurement.reagent" >
+                            <th>measured reactant</th>
+                            <td>{{measurement.reagent}}</td>
+                        </tr>
+                        <tr *ngIf="measurement.component">
+                            <th>measurement parameter</th>
+                            <td>{{measurement.component}}, {{measurement.component_conc}} {{measurement.component_unit}}</td>
                         </tr>
                     </tbody>
                 </table>
-                </clr-accordion-content>
-            </clr-accordion-panel>
-        </clr-accordion>
+            </div>
+            <div class="card-img">
+                <img [src]="measurementPlot[i]">
+            </div>
+            <div class="card-text">
+                {{measurement.notes}}
+                <clr-accordion>
+                    <clr-accordion-panel *ngIf="measurement.replicates.length > 0">
+                        <clr-accordion-title>data</clr-accordion-title>
+                        <clr-accordion-content *clrIfExpanded>
+                        <table class="table table-noborder table-compact">
+                            <thead>
+                                <tr>
+                                    <th class="left">x</th>
+                                    <th class="left">replica 1</th>
+                                    <th class="left">replica 2</th>
+                                    <th class="left">replica 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let element of measurement.replicates">
+                                    <td class="left">{{element.x_value}}</td>
+                                    <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </clr-accordion-content>
+                    </clr-accordion-panel>
+                </clr-accordion>
+            </div>
+        </div>
+        <p *ngIf="experimentalData.measurements.length == 0">no experimental data</p>
     </div>
 </div>

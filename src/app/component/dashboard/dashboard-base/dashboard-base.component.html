@@ -52,20 +52,9 @@
         </div>
     </div>
     <div class="clr-col-6">
-        <div class="dashboard-detail dashboard-row">
-            <div class="card dashboard-card">
-                <div class="card-block">
-                    <div class="card-title dashboard-title">
-                        <button class="btn btn-icon btn-link" routerLink="./../measurement">
-                            <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon>
-                            <span class="dashboard-headline">experimental data</span>
-                        </button>
-                    </div>
-                    <div class="measurement-information" *ngFor="let measurement of experiment.measurements">
-                        <dashboard-measurement class="dashboard-detail" [measurement]="measurement"></dashboard-measurement>
-                    </div>
-                    <p *ngIf="experiment.measurements.length == 0">no experimental data</p>
-                </div>
+        <div class="clr-row dashboard-row dashboard-detail">
+            <div class="clr-col-12">
+                <div class="dashboard-detail"><dashboard-measurement [experimentalData]="experiment.experimentalData"></dashboard-measurement></div>
             </div>
         </div>
     </div>

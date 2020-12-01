@@ -14,7 +14,6 @@ export class DashboardBaseComponent implements OnInit {
   public id: string;
   public zenodoLink: string;
   public creationDate: Date;
-  public measurementPlot: any;
 
   public showAlert = true;
   public loading: boolean;

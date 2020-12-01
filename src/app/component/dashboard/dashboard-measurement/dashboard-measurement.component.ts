@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Measurement } from 'src/app/model/biocatalysis';
+import { ExperimentalData, Measurement } from 'src/app/model/biocatalysis';
 import { ExperimentService } from 'src/app/service/experiment.service';
 
 @Component({
@@ -8,31 +8,34 @@ import { ExperimentService } from 'src/app/service/experiment.service';
   styleUrls: ['./dashboard-measurement.component.css']
 })
 export class DashboardMeasurementComponent implements OnInit {
-  @Input() measurement: Measurement;
+  @Input() experimentalData: ExperimentalData;
 
-  public measurementPlot: any;
+  public measurementPlot: Array<any>;
 
   constructor(public experimentService: ExperimentService) { }
 
   ngOnInit(): void {
+    this.measurementPlot = new Array<any>();
     this.loadMeasurementImage();
   }
 
   public loadMeasurementImage(): void {
-    this.experimentService.plotMeasurement(this.measurement).subscribe(
-      blob => {
-        this.measurementPlot = this.createImageFromBlob(blob);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.experimentalData.measurements.forEach(measurement => {
+      this.experimentService.plotMeasurement(measurement).subscribe(
+        blob => {
+          this.createImageFromBlob(blob);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
   }
 
   createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
-       this.measurementPlot = reader.result;
+       this.measurementPlot.push(reader.result);
     }, false);
     if (image) {
        reader.readAsDataURL(image);
