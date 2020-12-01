@@ -8,10 +8,8 @@
         <clr-dg-column [clrDgField]="'affiliation'">institution</clr-dg-column>
         <clr-dg-column [clrDgField]="'date'">publication date</clr-dg-column>
 
-        <clr-dg-row *clrDgItems="let experiment of experiments" [clrDgItem]="experiment">
-            <clr-dg-cell>
-                <a href="{{experiment.link}}" target="_blank">{{experiment.id}}</a>
-            </clr-dg-cell>
+        <clr-dg-row *clrDgItems="let experiment of experiments" [clrDgItem]="experiment" (click)="selectedExperiment=experiment">
+            <clr-dg-cell>{{experiment.id}}</clr-dg-cell>
             <clr-dg-cell>{{experiment.title}}</clr-dg-cell>
             <clr-dg-cell>{{experiment.name}}</clr-dg-cell>
             <clr-dg-cell>{{experiment.affiliation}}</clr-dg-cell>
@@ -29,6 +27,9 @@
     </clr-datagrid>
     <button class="btn btn-primary" (click)="showExperiment()" *ngIf="selectedExperiment">
         show experiment
+    </button>
+    <button class="btn btn-primary" *ngIf="selectedExperiment">
+        <a class="zenodo-link" href="{{selectedExperiment.link}}" target="_blank">open zenodo repository</a>
     </button>
 </div>
 <overlay-spinner *ngIf="loading"></overlay-spinner>

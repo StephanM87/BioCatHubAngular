@@ -7,3 +7,9 @@
     max-width: unset;
     width: unset;
 }
+.zenodo-link {
+    color: white;
+}
+.zenodo-link:hover {
+    text-decoration: none;
+}
