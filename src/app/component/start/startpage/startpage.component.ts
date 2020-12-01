@@ -14,6 +14,7 @@ export class StartpageComponent implements OnInit {
 
   public files: File[];
   public loading: boolean;
+  public changeText: boolean;
 
   constructor(private router: Router, public dataService: DataService, public experimentService: ExperimentService) {
     this.files = new Array<File>();
