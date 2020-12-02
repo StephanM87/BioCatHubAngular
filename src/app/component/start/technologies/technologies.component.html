@@ -1,10 +1,17 @@
 <div class="impressum">
     <div class="clr-row" >
         <div class="clr-col-12 center-col">
-            <span class="impressum-headline">external technologies and information systems</span>
+            <button class="btn btn-link btn-icon btn-technologies" *ngIf="!show" (click)="show=true">
+                <clr-icon shape="caret" dir="right"></clr-icon>
+                <span class="impressum-headline"> external technologies and information systems</span>
+            </button>
+            <button class="btn btn-link btn-icon btn-technologies" *ngIf="show" (click)="show=false">
+                <clr-icon shape="caret" dir="down"></clr-icon>
+                <span class="impressum-headline"> external technologies and information systems</span>
+            </button>
         </div>
     </div>
-    <div class="clr-row">
+    <div class="clr-row" *ngIf="show">
         <div class="clr-col-3 center-col">
             <clr-icon class="is-highlight impressum-icon" size="24" shape="cloud"></clr-icon>
             <a href="https://zenodo.org/" target="_blank"><span class="impressum-text">zenodo</span></a><br>

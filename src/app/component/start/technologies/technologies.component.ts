@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TechnologiesComponent implements OnInit {
 
+  public show: boolean;
+
   constructor() { }
 
   ngOnInit(): void {

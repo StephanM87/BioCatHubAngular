@@ -1,6 +1,8 @@
 .impressum-headline {
     color: black;
     font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: normal;
 }
 .center-col {
     text-align: center;
@@ -11,4 +13,8 @@
 }
 .impressum-text {
     color: black;
+}
+.btn-technologies {
+    max-width: none;
+    width: fit-content;
 }

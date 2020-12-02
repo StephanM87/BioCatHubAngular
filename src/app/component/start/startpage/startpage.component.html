@@ -11,7 +11,7 @@
                     <ngx-dropzone class="file-dropzone" accept=".omex" (change)="onSelect($event)" (mouseover)="changeText=true" (mouseout)="changeText=false">
                         <ngx-dropzone-label>
                             <span *ngIf="!changeText"><clr-icon shape="import" size="36"></clr-icon><br>import experiment</span>
-                            <span *ngIf="changeText">upload EnzymeML file <i>(.omex)</i> to create a new experiment from a template</span>
+                            <span *ngIf="changeText">upload an EnzymeML file <i>(.omex)</i> to reload the data of an experiment or create a new experiment from the template</span>
                         </ngx-dropzone-label>
                         <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
                             <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
