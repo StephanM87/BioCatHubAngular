@@ -1,22 +1,23 @@
 <span class="headline">vessels & volumes</span>
 <div class="card">
     <div class="card-block">
+        <clr-progress-bar class="progress top" [clrValue]="progress" clrMax="100" [clrSuccess]="progressSuccess"></clr-progress-bar>
         <div class="card-text">
             <form clrForm>
                 <clr-input-container>
                     <label>type</label>
-                    <input clrInput type="text" [(ngModel)]="getVessel().type" name="type"/>
+                    <input clrInput type="text" [(ngModel)]="getVessel().type" (change)="updateProgress()" placeholder="vessel type" name="type"/>
                 </clr-input-container>
                 <div class="clr-form-control clr-row">
                     <div class="clr-control-label clr-col-12 clr-col-md-2">volume</div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" name="volume" />
+                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" (change)="updateProgress()" placeholder="10" name="volume" />
                         </div>
                     </div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-select-wrapper">
-                            <select class="clr-select" [(ngModel)]="getVessel().unit" name="unit">
+                            <select class="clr-select" [(ngModel)]="getVessel().unit" (change)="updateProgress()" name="unit">
                                 <option value="L">L</option>
                                 <option value="mL">mL</option>
                                 <option value="µL">µL</option>

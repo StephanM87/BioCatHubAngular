@@ -150,7 +150,7 @@ export class DataService {
     }
   }
 
-  public validateVessel(): void {
+  public validateVessel(ignoreOthers?: boolean): void {
     this.vesselValidation = new Array<string>();
     let vessel = this.getExperiment().getVessel();
     if(vessel != undefined) {
@@ -163,7 +163,24 @@ export class DataService {
       if(this.validateString(vessel.unit)) {
         this.vesselValidation.push('unit');
       }
+      if(!ignoreOthers){
+        vessel.others.forEach(attribute => {
+          if(this.validateString(attribute.key)) {
+            this.vesselValidation.push('attribute name');
+          }
+          if(this.validateString(attribute.value)) {
+            this.vesselValidation.push('attribute value');
+          }
+        });
+      }
     }
+  }
+
+  public getVesselProgress(): number {
+    let fields = 3;
+    this.validateVessel(true);
+    let errors = this.vesselValidation.length;
+    return this.getProgress(fields, errors);
   }
 
   public validateReactionCondition(): void {
@@ -207,6 +224,11 @@ export class DataService {
 
   private validateList(list: any[]): boolean {
     return (list == undefined || list.length == 0);
+  }
+
+  getProgress(fields: number, errors: number): number {
+    let progress = ((fields - errors) / fields) * 100;
+    return progress;
   }
 
   // Methods
