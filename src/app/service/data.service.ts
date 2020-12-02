@@ -65,7 +65,7 @@ export class DataService {
     this.validateReactants(); 
     this.validateVessel();
     this.validateReactionCondition();
-    this.validateMeasurement();
+    this.validateMeasurements();
   }
 
   public validateEnzymes(): void {
@@ -73,81 +73,133 @@ export class DataService {
     let enzymes = this.getExperiment().getEnzymes();
     if(!this.validateList(enzymes)) {
       enzymes.forEach(enzyme => {
-        if(this.validateString(enzyme.name)) {
-          this.enzymeValidation.push('name');
-        }
-        if(this.validateString(enzyme.sequence)) {
-          this.enzymeValidation.push('sequence');
-        }
-        if(this.validateNumber(enzyme.concentration)) {
-          this.enzymeValidation.push('concentration');
-        }
-        if(this.validateString(enzyme.unit)) {
-          this.enzymeValidation.push('unit');
-        }
-        if(this.validateString(enzyme.formulation)) {
-          this.enzymeValidation.push('formulation');
-        }
-        if(this.validateString(enzyme.method)) {
-          this.enzymeValidation.push('method');
-        }
-        if(this.validateReaction(enzyme.reaction)) {
-          this.enzymeValidation.push('reaction');
-        }
+        this.addToList(this.enzymeValidation, this.validateEnzyme(enzyme));
       });
     } else {
       this.enzymeValidation.push('biokatalyst');
     }
   }
 
-  public validateReaction(reaction: Reaction): boolean {
-    let valid = false;
-    if(reaction != undefined){
-      valid = this.validateList(reaction.educts) ||
-              this.validateList(reaction.products);
+  public validateEnzyme(enzyme: Enzyme): string[] {
+    let enzymeErrors = new Array<string>();
+    if(this.validateString(enzyme.name)) {
+      enzymeErrors.push('name');
     }
-    return valid;
+    if(this.validateString(enzyme.type)) {
+      enzymeErrors.push('type');
+    } else if (enzyme.type == 'variant') {
+      if(this.validateString(enzyme.variant)) {
+        enzymeErrors.push('variant name');
+      }
+    }
+    if(this.validateString(enzyme.organism)) {
+      enzymeErrors.push('organism');
+    }
+    if(this.validateString(enzyme.sequence)) {
+      enzymeErrors.push('sequence');
+    }
+    if(this.validateNumber(enzyme.concentration)) {
+      enzymeErrors.push('concentration');
+    }
+    if(this.validateString(enzyme.unit)) {
+      enzymeErrors.push('unit');
+    }
+    if(this.validateString(enzyme.formulation)) {
+      enzymeErrors.push('formulation');
+    }
+    if(this.validateString(enzyme.method)) {
+      enzymeErrors.push('method');
+    }
+    enzyme.others.forEach(attribute => {
+      if(this.validateString(attribute.key)) {
+        enzymeErrors.push('attribute name');
+      }
+      if(this.validateString(attribute.value)) {
+        enzymeErrors.push('attribute value');
+      }
+    });
+    return enzymeErrors;
+  }
+
+  public getEnzymeProgress(enzyme: Enzyme): number {
+    let fields = 8;
+    fields += (enzyme.type != undefined && enzyme.type == 'variant') ? 1 : 0;
+    fields += (enzyme.others != undefined) ? (enzyme.others.length*2) : 0;
+    let errors = this.validateEnzyme(enzyme).length;
+    return this.getProgress(fields, errors);
   }
 
   public validateReactants(): void {
     this.reactantValidation = new Array<string>();
     this.getExperiment().getEnzymes().forEach(enzyme => {
       let reaction = enzyme.reaction;
-      if(this.validateList(reaction.educts)){
-        this.reactantValidation.push('substrates');
+      if(reaction == undefined) {
+        this.reactantValidation.push('reaction');
       } else {
-        reaction.educts.forEach(educt => {
-          this.validateReactant(educt);
-        });
-      }
-      if(this.validateList(reaction.products)){
-        this.reactantValidation.push('products');
-      } else {
-        reaction.products.forEach(product => {
-          this.validateReactant(product);
-        });
+        if(this.validateList(reaction.educts)){
+          this.reactantValidation.push('substrates');
+        } else {
+          reaction.educts.forEach(educt => {
+            this.addToList(this.reactantValidation, this.validateReactant(educt));
+          });
+        }
+        if(this.validateList(reaction.products)){
+          this.reactantValidation.push('products');
+        } else {
+          reaction.products.forEach(product => {
+            this.addToList(this.reactantValidation, this.validateReactant(product));
+          });
+        }
       }
     });
   }
 
-  public validateReactant(reactant: Reactant): void {
+  public validateReactant(reactant: Reactant): Array<string> {
+    let reactantErrors = new Array<string>();
     if(reactant != undefined){
-      if(this.validateString(reactant.name) && !this.reactantValidation.includes('volume')) {
-        this.reactantValidation.push('volume');
+      if(this.validateString(reactant.name)) {
+        reactantErrors.push('name');
       }
-      if(this.validateNumber(reactant.concentration) && !this.reactantValidation.includes('concentration')) {
-        this.reactantValidation.push('concentration');
+      if(this.validateNumber(reactant.concentration)) {
+        reactantErrors.push('concentration');
       }
-      if(this.validateString(reactant.unit) && !this.reactantValidation.includes('unit')) {
-        this.reactantValidation.push('unit');
+      if(this.validateString(reactant.unit)) {
+        reactantErrors.push('unit');
       }
-      if(this.validateString(reactant.role) && !this.reactantValidation.includes('role')) {
-        this.reactantValidation.push('role');
+      if(this.validateString(reactant.role)) {
+        reactantErrors.push('role');
       }
-      if(this.validateString(reactant.formula) && !this.reactantValidation.includes('formula')) {
-        this.reactantValidation.push('formula');
+      if(this.validateString(reactant.purity)) {
+        reactantErrors.push('purity');
+      }
+      if(this.validateString(reactant.supplier)) {
+        reactantErrors.push('supplier');
+      }
+      if(this.validateString(reactant.formula)) {
+        reactantErrors.push('formula');
+      }
+      if(this.validateString(reactant.smiles)) {
+        reactantErrors.push('smiles');
+      }
+      if(reactant.others != undefined) {
+        reactant.others.forEach(attribute => {
+          if(this.validateString(attribute.key)) {
+            reactantErrors.push('attribute name');
+          }
+          if(this.validateString(attribute.value)) {
+            reactantErrors.push('attribute value');
+          }
+        });
       }
     }
+    return reactantErrors;
+  }
+
+  public getReactantProgress(reactant: Reactant): number {
+    let fields = 8;
+    fields += (reactant.others != undefined) ? (reactant.others.length*2) : 0;
+    let errors = this.validateReactant(reactant).length;
+    return this.getProgress(fields, errors);
   }
 
   public validateVessel(): void {
@@ -177,9 +229,7 @@ export class DataService {
   public getVesselProgress(): number {
     let fields = 3;
     let vessel = this.experiment.vessel;
-    vessel.others.forEach(attribute => {
-      fields += 2;
-    });
+    fields += vessel.others ? vessel.others.length*2 : 0;
     this.validateVessel();
     let errors = this.vesselValidation.length;
     return this.getProgress(fields, errors);
@@ -198,22 +248,87 @@ export class DataService {
       if(this.validateNumber(condition.ph)) {
         this.conditionValidation.push('ph');
       }
+      let buffer = condition.buffer;
+      if(buffer != undefined) {
+        if(this.validateString(buffer.type)) {
+          this.conditionValidation.push('puffer');
+        }
+        if(this.validateNumber(buffer.concentration)) {
+          this.conditionValidation.push('puffer concentration');
+        }
+        if(this.validateString(buffer.unit)) {
+          this.conditionValidation.push('puffer unit');
+        }
+      }
+      condition.others.forEach(attribute => {
+        if(this.validateString(attribute.key)) {
+          this.conditionValidation.push('attribute name');
+        }
+        if(this.validateString(attribute.value)) {
+          this.conditionValidation.push('attribute value');
+        }
+      });
     }
   }
 
-  public validateMeasurement(): void {
+  public getConditionProgress(): number {
+    let fields = 6;
+    let condition = this.experiment.condition;
+    fields += condition.others ? condition.others.length*2 : 0;
+    this.validateReactionCondition();
+    let errors = this.conditionValidation.length;
+    return this.getProgress(fields, errors);
+  }
+
+  public validateMeasurements(): void {
     this.measurementValidation = new Array<string>();
-    this.getExperiment().getExperimentalData().measurements.forEach(measurement => {
-      if(this.validateString(measurement.reagent) && !this.measurementValidation.includes('reactant')) {
-        this.measurementValidation.push('reactant');
-      }
-      if(this.validateString(measurement.component) && !this.measurementValidation.includes('component')) {
-        this.measurementValidation.push('component');
-      }
-      if(this.validateList(measurement.replicates) && !this.measurementValidation.includes('replicates')) {
-        this.measurementValidation.push('replicates');
-      }
-    });
+    if(this.getExperiment().getExperimentalData() != undefined && 
+      this.getExperiment().getExperimentalData().measurements) {
+        this.getExperiment().getExperimentalData().measurements.forEach(measurement => {
+          this.addToList(this.measurementValidation, this.validateMeasurement(measurement));
+        });
+    }
+  }
+
+  public validateMeasurement(measurement: Measurement): Array<string> {
+    let measurementErrors = new Array<string>();
+    if(this.validateString(measurement.reagent)) {
+      measurementErrors.push('reactant');
+    }
+    if(this.validateString(measurement.component)) {
+      measurementErrors.push('parameter');
+    }
+    if(this.validateNumber(measurement.component_conc)) {
+      measurementErrors.push('parameter value');
+    }
+    if(this.validateString(measurement.component_unit)) {
+      measurementErrors.push('parameter unit');
+    }
+    if(this.validateString(measurement.x_name)) {
+      measurementErrors.push('x name');
+    }
+    if(this.validateString(measurement.x_unit)) {
+      measurementErrors.push('x unit');
+    }
+    if(this.validateString(measurement.y_name)) {
+      measurementErrors.push('y name');
+    }
+    if(this.validateString(measurement.y_unit)) {
+      measurementErrors.push('x unit');
+    }
+    if(this.validateString(measurement.notes)) {
+      measurementErrors.push('notes');
+    }
+    if(this.validateList(measurement.replicates)) {
+      measurementErrors.push('replicates');
+    }
+    return measurementErrors;
+  }
+
+  public getMeasurementProgress(measurement: Measurement): number {
+    let fields = 9;
+    let errors = this.validateMeasurement(measurement).length;
+    return this.getProgress(fields, errors);
   }
 
   private validateString(value: string): boolean {
@@ -228,7 +343,15 @@ export class DataService {
     return (list == undefined || list.length == 0);
   }
 
-  getProgress(fields: number, errors: number): number {
+  private addToList(list: string[], errors: string[]): void {
+    errors.forEach(element => {
+      if(!list.includes(element)){
+        list.push(element);
+      }
+    });
+  }
+
+  private getProgress(fields: number, errors: number): number {
     let progress = ((fields - errors) / fields) * 100;
     return progress;
   }

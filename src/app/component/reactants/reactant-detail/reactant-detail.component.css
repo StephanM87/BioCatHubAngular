@@ -12,3 +12,7 @@
     padding: 0 .5rem;
     color: #b3b3b3;
 }
+
+.reactant-progress {
+    height: .1875rem;
+}

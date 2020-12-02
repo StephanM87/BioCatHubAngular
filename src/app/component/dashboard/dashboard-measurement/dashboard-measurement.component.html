@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-block">
+        <clr-progress-bar class="progress top" [clrValue]="progress" clrMax="100" [clrSuccess]="progress=='100'"></clr-progress-bar>
         <div class="card-title">
             <button class="btn btn-icon btn-link" routerLink="./../measurement">
                 <clr-icon class="dashboard-icon" size="24" shape="line-chart"></clr-icon>
@@ -24,31 +25,8 @@
             <div class="card-img">
                 <img [src]="measurementPlot[i]">
             </div>
-            <div class="card-text">
+            <div class="card-text" *ngIf="measurement.notes">
                 {{measurement.notes}}
-                <clr-accordion>
-                    <clr-accordion-panel *ngIf="measurement.replicates.length > 0">
-                        <clr-accordion-title>data</clr-accordion-title>
-                        <clr-accordion-content *clrIfExpanded>
-                        <table class="table table-noborder table-compact">
-                            <thead>
-                                <tr>
-                                    <th class="left">x</th>
-                                    <th class="left">replica 1</th>
-                                    <th class="left">replica 2</th>
-                                    <th class="left">replica 3</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let element of measurement.replicates">
-                                    <td class="left">{{element.x_value}}</td>
-                                    <td class="left" *ngFor="let value of element.y_values">{{value}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </clr-accordion-content>
-                    </clr-accordion-panel>
-                </clr-accordion>
             </div>
         </div>
         <p *ngIf="experimentalData.measurements.length == 0">no experimental data</p>

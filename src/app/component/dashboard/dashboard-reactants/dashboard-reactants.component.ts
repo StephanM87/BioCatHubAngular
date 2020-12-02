@@ -10,8 +10,10 @@ import { DataService } from 'src/app/service/data.service';
 export class DashboardReactantsComponent implements OnInit {
   @Input() enzymes: Enzyme[];
   public showReactantsInformation: boolean;
+  public progress: string;
 
-  constructor(public dataService: DataService) { }
+  constructor(public dataService: DataService) {
+  }
 
   ngOnInit(): void {
     this.showReactantsInformation = false;
@@ -21,6 +23,32 @@ export class DashboardReactantsComponent implements OnInit {
           (enzyme.reaction != undefined && this.getReactantCount(enzyme.reaction) > 0);
       });
     }
+    this.setProgress();
+  }
+
+  setProgress() {
+    let count = 0;
+    let total = 0;
+    if(this.enzymes != undefined){
+      this.enzymes.forEach(enzyme => {
+        if(enzyme.reaction != undefined){
+          if(enzyme.reaction.educts != undefined){
+            enzyme.reaction.educts.forEach(reactant => {
+              count += this.dataService.getReactantProgress(reactant);
+              total += 100;
+            });
+          }
+          if(enzyme.reaction.products != undefined){
+            enzyme.reaction.products.forEach(reactant => {
+              count += this.dataService.getReactantProgress(reactant);
+              total += 100;
+            });
+          }
+        }
+      });
+    }
+    let progressValue = total > 0 ? (count/total)*100 : 0;
+    this.progress = progressValue.toFixed();
   }
   
   public getFormula(formula: string): string {

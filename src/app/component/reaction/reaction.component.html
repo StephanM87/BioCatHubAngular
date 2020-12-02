@@ -7,18 +7,19 @@
     <div class="clr-col-12">
         <div class="card reaction-card">
             <div class="card-block">
+                <clr-progress-bar class="progress top" [clrValue]="progress" clrMax="100" [clrSuccess]="progress=='100'"></clr-progress-bar>
                 <div class="card-text">
                     <form clrForm>
                         <div class="clr-form-control clr-row">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">temperature</div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" name="temp" />
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" (change)="updateProgress()" name="temp" />
                                 </div>
                             </div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-select-wrapper">
-                                    <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
+                                    <select class="clr-select" [(ngModel)]="getReaction().unit" (change)="updateProgress()" name="unit">
                                         <option value="°C">°C</option>
                                     </select>
                                 </div>
@@ -26,22 +27,22 @@
                         </div>
                         <clr-input-container>
                             <label>pH value</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph"/>
+                            <input clrInput type="text" [(ngModel)]="getReaction().ph" (change)="updateProgress()" name="ph"/>
                         </clr-input-container>
                         <clr-input-container>
                             <label>puffer</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" name="buffer-type"/>
+                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" (change)="updateProgress()" name="buffer-type"/>
                         </clr-input-container>
                         <div class="clr-form-control clr-row">
                             <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" name="buffer-conc" />
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" (change)="updateProgress()" name="buffer-conc" />
                                 </div>
                             </div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-select-wrapper">
-                                    <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
+                                    <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" (change)="updateProgress()" name="buffer-unit">
                                         <option value="mmol/L">mmol/L</option>
                                         <option value="mmoL/L">mmoL/L</option>
                                         <option value="mg/mL">mg/mL</option>
@@ -56,7 +57,7 @@
                             </div>
                             <div class="clr-control-container clr-col-md-10 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
+                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" (change)="updateProgress()" />
                                     <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                                         <clr-icon shape="trash" class="is-error"></clr-icon>
                                     </button>

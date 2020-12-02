@@ -1,19 +1,20 @@
 <div class="reactant-detail">
+    <clr-progress-bar class="reactant-progress" [clrValue]="progress" clrMax="100" [clrSuccess]="progress=='100'"></clr-progress-bar>
     <form clrForm>
         <clr-input-container>
             <label>name</label>
-            <input clrInput type="text" [(ngModel)]="reactant.name" name="name"/>
+            <input clrInput type="text" [(ngModel)]="reactant.name" (change)="updateProgress()" name="name"/>
         </clr-input-container>
         <div class="clr-form-control clr-row">
             <div class="clr-control-label clr-col-12 clr-col-md-2">concentration</div>
             <div class="clr-control-container clr-col-md-5 clr-col-12">
                 <div class="clr-input-wrapper">
-                    <input class="clr-input" type="text" [(ngModel)]="reactant.concentration" name="concentration" />
+                    <input class="clr-input" type="text" [(ngModel)]="reactant.concentration" (change)="updateProgress()" name="concentration" />
                 </div>
             </div>
             <div class="clr-control-container clr-col-md-5 clr-col-12">
                 <div class="clr-select-wrapper">
-                    <select class="clr-select" [(ngModel)]="reactant.unit" name="unit">
+                    <select class="clr-select" [(ngModel)]="reactant.unit" (change)="updateProgress()" name="unit">
                         <option value="mmol/L">mmol/L</option>
                         <option value="mmoL/L">mmoL/L</option>
                         <option value="mg/mL">mg/mL</option>
@@ -24,7 +25,7 @@
         </div>
         <clr-select-container>
             <label>reaction role</label>
-            <select clrSelect [(ngModel)]="reactant.role" name="role">
+            <select clrSelect [(ngModel)]="reactant.role" (change)="updateProgress()" name="role">
                 <option value="substrate">substrate</option>
                 <option value="product">product</option>
                 <option value="additive">additive</option>
@@ -33,19 +34,19 @@
         </clr-select-container>
         <clr-input-container>
             <label>purity</label>
-            <input clrInput type="text" [(ngModel)]="reactant.purity" name="purity"/>
+            <input clrInput type="text" [(ngModel)]="reactant.purity" (change)="updateProgress()" name="purity"/>
         </clr-input-container>
         <clr-input-container>
             <label>supplier</label>
-            <input clrInput type="text" [(ngModel)]="reactant.supplier" name="supplier"/>
+            <input clrInput type="text" [(ngModel)]="reactant.supplier" (change)="updateProgress()" name="supplier"/>
         </clr-input-container>
         <clr-input-container>
             <label>formula</label>
-            <input clrInput type="text" [(ngModel)]="reactant.formula" name="formula"/>
+            <input clrInput type="text" [(ngModel)]="reactant.formula" (change)="updateProgress()" name="formula"/>
         </clr-input-container>
         <clr-textarea-container>
             <label>SMILES</label>
-            <textarea clrTextarea [(ngModel)]="reactant.smiles" name="smiles"></textarea>
+            <textarea clrTextarea [(ngModel)]="reactant.smiles" (change)="updateProgress()" name="smiles"></textarea>
         </clr-textarea-container>
         <div class="clr-form-control clr-row" *ngFor="let other of reactant.others">
             <div class="clr-control-label clr-col-12 clr-col-md-2">
@@ -53,7 +54,7 @@
             </div>
             <div class="clr-control-container clr-col-md-10 clr-col-12">
                 <div class="clr-input-wrapper">
-                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
+                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" (change)="updateProgress()"/>
                     <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                         <clr-icon shape="trash" class="is-error"></clr-icon>
                     </button>

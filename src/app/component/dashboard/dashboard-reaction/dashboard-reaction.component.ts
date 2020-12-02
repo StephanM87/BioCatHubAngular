@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Buffer, Condition } from 'src/app/model/biocatalysis';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'dashboard-reaction',
@@ -9,12 +10,14 @@ import { Buffer, Condition } from 'src/app/model/biocatalysis';
 export class DashboardReactionComponent implements OnInit {
   @Input() reaction: Condition;
   public showReactionInformation: boolean;
+  public progress: string;
 
-  constructor() { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
     this.showReactionInformation = (this.reaction.temp > 0 || this.notNull(this.reaction.unit) || 
       this.reaction.ph > 0 || this.checkBuffer(this.reaction.buffer) || this.reaction.others.length > 0);
+    this.progress = this.dataService.getConditionProgress().toFixed();
   }
 
   notNull(value: string): boolean {

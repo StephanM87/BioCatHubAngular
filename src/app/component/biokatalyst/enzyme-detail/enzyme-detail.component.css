@@ -6,3 +6,7 @@
     padding: 0 .5rem;
     color: #b3b3b3;
 }
+
+.enzyme-progress {
+    height: .1875rem;
+}
