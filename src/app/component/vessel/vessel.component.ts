@@ -29,6 +29,7 @@ export class VesselComponent implements OnInit {
   
   public addAttribute(): void {
     this.getVessel().others.push(new Attribute());
+    this.updateProgress();
   }
 
   public deleteAttribute(other: Attribute): void {
@@ -36,6 +37,7 @@ export class VesselComponent implements OnInit {
     if (index !== -1) {
       this.getVessel().others.splice(index, 1);
     }
+    this.updateProgress()
   }
 
   public updateProgress() {

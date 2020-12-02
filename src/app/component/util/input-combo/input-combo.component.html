@@ -3,7 +3,7 @@
         <span class="input-combo-label">
             <clr-dropdown>
                 <button class="dropdown-toggle dropdown-btn" (click)="showDropDownList()" clrDropdownTrigger><clr-icon shape="caret down" size="12"></clr-icon></button>
-                <input class="clr-input combo-input" type="text" (ngModelChange)="filterAttributes($event)" [(ngModel)]="attribute.key" name="comboInput" placeholder="other attribute" autocomplete="off"/>
+                <input class="clr-input combo-input" type="text" (ngModelChange)="filterAttributes($event)" [(ngModel)]="attribute.key" name="comboInput" placeholder="attribute name" autocomplete="off"/>
                 <clr-dropdown-menu *clrIfOpen="dropDownOpen">
                     <div clrDropdownItem *ngFor="let value of filteredAttributes" (click)="selectAttribute(value)">{{value}}</div>
                 </clr-dropdown-menu>

@@ -31,7 +31,8 @@
                     </div>
                     <div class="clr-control-container clr-col-md-10 clr-col-12">
                         <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}"/>
+                            <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" 
+                                (change)="updateProgress()" placeholder="attribute value"/>
                             <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                                 <clr-icon shape="trash" class="is-error"></clr-icon>
                             </button>

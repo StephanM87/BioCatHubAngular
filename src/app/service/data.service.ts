@@ -150,7 +150,7 @@ export class DataService {
     }
   }
 
-  public validateVessel(ignoreOthers?: boolean): void {
+  public validateVessel(): void {
     this.vesselValidation = new Array<string>();
     let vessel = this.getExperiment().getVessel();
     if(vessel != undefined) {
@@ -163,22 +163,24 @@ export class DataService {
       if(this.validateString(vessel.unit)) {
         this.vesselValidation.push('unit');
       }
-      if(!ignoreOthers){
-        vessel.others.forEach(attribute => {
-          if(this.validateString(attribute.key)) {
-            this.vesselValidation.push('attribute name');
-          }
-          if(this.validateString(attribute.value)) {
-            this.vesselValidation.push('attribute value');
-          }
-        });
-      }
+      vessel.others.forEach(attribute => {
+        if(this.validateString(attribute.key)) {
+          this.vesselValidation.push('attribute name');
+        }
+        if(this.validateString(attribute.value)) {
+          this.vesselValidation.push('attribute value');
+        }
+      });
     }
   }
 
   public getVesselProgress(): number {
     let fields = 3;
-    this.validateVessel(true);
+    let vessel = this.experiment.vessel;
+    vessel.others.forEach(attribute => {
+      fields += 2;
+    });
+    this.validateVessel();
     let errors = this.vesselValidation.length;
     return this.getProgress(fields, errors);
   }
