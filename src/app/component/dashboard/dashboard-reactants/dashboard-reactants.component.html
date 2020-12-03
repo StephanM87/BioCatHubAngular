@@ -16,9 +16,6 @@
                                 <th class="left">name</th>
                                 <th class="left">role</th>
                                 <th class="left">concentration</th>
-                                <th class="left">purity</th>
-                                <th class="left">supplier</th>
-                                <th class="left">formula</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,21 +23,11 @@
                                 <td class="left">{{reagent.name}}</td>
                                 <td class="left">{{reagent.role}}</td>
                                 <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                                <td class="left">{{reagent.purity}}</td>
-                                <td class="left">{{reagent.supplier}}</td>
-                                <td class="left">
-                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
-                                </td>
                             </tr>
                             <tr *ngFor="let reagent of enzyme.reaction.products">
                                 <td class="left">{{reagent.name}}</td>
                                 <td class="left">{{reagent.role}}</td>
                                 <td class="left">{{reagent.concentration}} {{reagent.unit}}</td>
-                                <td class="left">{{reagent.purity}}</td>
-                                <td class="left">{{reagent.supplier}}</td>
-                                <td class="left">
-                                    <div [innerHTML]="getFormula(reagent.formula)"></div>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
