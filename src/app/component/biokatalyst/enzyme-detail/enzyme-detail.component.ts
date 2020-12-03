@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Attribute, Enzyme } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
+import { EnzymePlaceholder } from 'src/properties/placeholder';
 
 @Component({
   selector: 'enzyme-detail',
@@ -10,6 +11,7 @@ import { DataService } from 'src/app/service/data.service';
 export class EnzymeDetailComponent implements OnInit {
   @Input() enzyme: Enzyme; 
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
+  public placeholder = EnzymePlaceholder;
 
   constructor(public dataService: DataService) { }
 

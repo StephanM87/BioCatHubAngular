@@ -6,7 +6,7 @@
                 <button class="close" aria-label="close" (click)="resetSearch()" *ngIf="closeButton">
                     <clr-icon shape="close" size="24"></clr-icon>
                 </button>
-                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" placeholder="search biocatalyst ..." />
+                <input class="clr-input searchbar-input" type="text" (ngModelChange)="filterSearchInput($event)" [ngModel]="searchInput" name="searchInput" [placeholder]="placeholder.search" />
                 <ng-template [(clrIfOpen)]="dropdown">
                     <clr-dropdown-menu>
                         <div clrDropdownItem (click)="selectSearchEnzyme(enzyme)" *ngFor="let enzyme of enzymeList">{{enzyme.enzymeName}}</div>

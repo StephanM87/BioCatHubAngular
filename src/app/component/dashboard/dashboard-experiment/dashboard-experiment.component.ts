@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment';
+import { ExperimentPlaceholder } from 'src/properties/placeholder';
 
 @Component({
   selector: 'dashboard-experiment',
@@ -9,6 +10,8 @@ import { Experiment } from 'src/app/model/experiment';
 export class DashboardExperimentComponent implements OnInit {
   @Input() experiment: Experiment;
   @Input() creationDate: Date;
+
+  public placeholder = ExperimentPlaceholder;
 
   constructor() { }
 

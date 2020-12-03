@@ -147,10 +147,10 @@ export class Measurement {
         this.component = measurement && measurement.component || undefined;
         this.component_conc = measurement && measurement.component_conc || undefined;
         this.component_unit = measurement && measurement.component_unit || undefined;
-        this.x_unit = measurement && measurement.x_unit || 's';
-        this.x_name = measurement && measurement.x_name || 'time';
+        this.x_unit = measurement && measurement.x_unit || undefined;
+        this.x_name = measurement && measurement.x_name || undefined;
         this.y_unit = measurement && measurement.y_unit || undefined;
-        this.y_name = measurement && measurement.y_name || 'concentration';
+        this.y_name = measurement && measurement.y_name || undefined;
         this.replicates = measurement && measurement.replicates || new Array<Replicate>();
         this.notes = measurement && measurement.notes || undefined;
         this.plotStyle = measurement && measurement.plotStyle || 'point';

@@ -14,12 +14,13 @@
                             <div class="clr-control-label clr-col-12 clr-col-md-2">temperature</div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" name="temp" />
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" [placeholder]="placeholder.temp" name="temp" />
                                 </div>
                             </div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-select-wrapper">
                                     <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
+                                        <option value=undefined hidden="true">{{placeholder.unit}}</option>
                                         <option value="°C">°C</option>
                                     </select>
                                 </div>
@@ -27,22 +28,23 @@
                         </div>
                         <clr-input-container>
                             <label>pH value</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().ph" name="ph"/>
+                            <input clrInput type="text" [(ngModel)]="getReaction().ph" [placeholder]="placeholder.ph" name="ph"/>
                         </clr-input-container>
                         <clr-input-container>
-                            <label>puffer</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" name="buffer-type"/>
+                            <label>buffer</label>
+                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" [placeholder]="placeholder.buffer" name="buffer-type"/>
                         </clr-input-container>
                         <div class="clr-form-control clr-row">
                             <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" name="buffer-conc" />
+                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" [placeholder]="placeholder.buffer_conc" name="buffer-conc" />
                                 </div>
                             </div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">
                                 <div class="clr-select-wrapper">
                                     <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
+                                        <option value=undefined hidden="true">{{placeholder.buffer_unit}}</option>
                                         <option value="mmol/L">mmol/L</option>
                                         <option value="mmoL/L">mmoL/L</option>
                                         <option value="mg/mL">mg/mL</option>
@@ -57,7 +59,7 @@
                             </div>
                             <div class="clr-control-container clr-col-md-10 clr-col-12">
                                 <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" />
+                                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" placeholder="attribute value"/>
                                     <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                                         <clr-icon shape="trash" class="is-error"></clr-icon>
                                     </button>

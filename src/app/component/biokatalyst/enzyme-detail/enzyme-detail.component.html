@@ -5,7 +5,7 @@
             <div class="clr-control-label clr-col-12 clr-col-md-2">name</div>
             <div class="clr-control-container clr-col-md-5 clr-col-12">
                 <div class="clr-input-wrapper">
-                    <input class="clr-input" type="text" [(ngModel)]="enzyme.name" name="name" />
+                    <input class="clr-input" type="text" [(ngModel)]="enzyme.name" name="name" [placeholder]="placeholder.name" />
                 </div>
             </div>
             <div class="clr-control-container clr-control-inline clr-col-md-5 clr-col-12">
@@ -21,26 +21,27 @@
         </div>
         <clr-input-container *ngIf="enzyme.type=='variant'">
             <label> </label>
-            <input clrInput type="text" [(ngModel)]="enzyme.variant" placeholder="variant name" name="variant"/>
+            <input clrInput type="text" [(ngModel)]="enzyme.variant" [placeholder]="placeholder.variant" name="variant"/>
         </clr-input-container>
         <clr-input-container>
             <label>organism</label>
-            <input clrInput type="text" [(ngModel)]="enzyme.organism" name="organism"/>
+            <input clrInput type="text" [(ngModel)]="enzyme.organism" [placeholder]="placeholder.organism" name="organism"/>
         </clr-input-container>
         <clr-textarea-container>
             <label>amino acid sequence</label>
-            <textarea clrTextarea [(ngModel)]="enzyme.sequence" name="sequence"></textarea>
+            <textarea clrTextarea [(ngModel)]="enzyme.sequence" [placeholder]="placeholder.sequence" name="sequence"></textarea>
         </clr-textarea-container>
         <div class="clr-form-control clr-row">
             <div class="clr-control-label clr-col-12 clr-col-md-2">concentration</div>
             <div class="clr-control-container clr-col-md-5 clr-col-12">
                 <div class="clr-input-wrapper">
-                    <input class="clr-input" type="text" [(ngModel)]="enzyme.concentration" name="concentration" />
+                    <input class="clr-input" type="text" [(ngModel)]="enzyme.concentration" [placeholder]="placeholder.concentration" name="concentration" />
                 </div>
             </div>
             <div class="clr-control-container clr-col-md-5 clr-col-12">
                 <div class="clr-select-wrapper">
                       <select class="clr-select" [(ngModel)]="enzyme.unit" name="unit">
+                        <option value=undefined hidden="true">{{placeholder.unit}}</option>
                         <option value="mmol/L">mmol/L</option>
                         <option value="mmoL/L">mmoL/L</option>
                         <option value="mg/mL">mg/mL</option>
@@ -51,11 +52,11 @@
         </div>
         <clr-input-container>
             <label>formulation</label>
-            <input clrInput type="text" [(ngModel)]="enzyme.formulation" name="formulation"/>
+            <input clrInput type="text" [(ngModel)]="enzyme.formulation" [placeholder]="placeholder.formulation" name="formulation"/>
         </clr-input-container>
         <clr-input-container>
-            <label>protein concentration method</label>
-            <input clrInput type="text" [(ngModel)]="enzyme.method" name="method"/>
+            <label>protein concentration determination method</label>
+            <input clrInput type="text" [(ngModel)]="enzyme.method" [placeholder]="placeholder.method" name="method"/>
         </clr-input-container>
         <div class="clr-form-control clr-row" *ngFor="let other of enzyme.others">
             <div class="clr-control-label clr-col-12 clr-col-md-2">
@@ -63,7 +64,7 @@
             </div>
             <div class="clr-control-container clr-col-md-10 clr-col-12">
                 <div class="clr-input-wrapper">
-                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" />
+                    <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" placeholder="attribute value"/>
                     <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                         <clr-icon shape="trash" class="is-error"></clr-icon>
                     </button>

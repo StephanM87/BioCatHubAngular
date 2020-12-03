@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReactionPlaceholder } from 'src/properties/placeholder';
 import { Attribute, Condition } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
@@ -9,6 +10,7 @@ import { DataService } from '../../service/data.service';
 })
 export class ReactionComponent implements OnInit {
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
+  public placeholder = ReactionPlaceholder;
 
   constructor(public dataService: DataService) { }
 

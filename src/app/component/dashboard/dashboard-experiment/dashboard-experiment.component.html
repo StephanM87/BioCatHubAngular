@@ -14,19 +14,19 @@
                     <div class="clr-row">
                         <div class="clr-col-9">
                             <clr-input-container>
-                                <input clrInput type="text" [(ngModel)]="experiment.title" name="title" placeholder="title"/>
+                                <input clrInput type="text" [(ngModel)]="experiment.title" [placeholder]="placeholder.title" name="title"/>
                             </clr-input-container>
                         </div>
                         <div class="clr-col-3">
                             <clr-input-container>
-                                <input clrInput type="text" [ngModel]="creationDate | date:'yyyy-MM-dd'" name="date" disabled/>
+                                <input class="experiment-date" clrInput type="text" [ngModel]="creationDate | date:'yyyy-MM-dd'" name="date" disabled/>
                             </clr-input-container>
                         </div>
                     </div>
                     <div class="clr-row">
                         <div class="clr-col-12">
                             <clr-textarea-container>
-                                <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description, notes, etc."></textarea>
+                                <textarea clrTextarea [(ngModel)]="experiment.description" [placeholder]="placeholder.description" name="description"></textarea>
                             </clr-textarea-container>
                         </div>
                     </div>
@@ -47,16 +47,16 @@
                 </div>
                 <div class="card-text">
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" name="lastName" placeholder="last name" />
+                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" [placeholder]="placeholder.lastName" name="lastName" />
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" name="firstName" placeholder="first name" />
+                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" [placeholder]="placeholder.firstName" name="firstName" />
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.email" name="email" placeholder="e-mail"/>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.email" [placeholder]="placeholder.mail" name="email" />
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" name="institution" placeholder="institution"/>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" [placeholder]="placeholder.institution" name="institution" />
                     </clr-input-container>
                 </div>
             </div>

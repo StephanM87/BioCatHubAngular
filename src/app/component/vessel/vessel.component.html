@@ -6,18 +6,19 @@
             <form clrForm>
                 <clr-input-container>
                     <label>type</label>
-                    <input clrInput type="text" [(ngModel)]="getVessel().type" placeholder="vessel type" name="type"/>
+                    <input clrInput type="text" [(ngModel)]="getVessel().type" [placeholder]="placeholder.type" name="type"/>
                 </clr-input-container>
                 <div class="clr-form-control clr-row">
                     <div class="clr-control-label clr-col-12 clr-col-md-2">volume</div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" placeholder="10" name="volume" />
+                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" [placeholder]="placeholder.volume" name="volume" />
                         </div>
                     </div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-select-wrapper">
                             <select class="clr-select" [(ngModel)]="getVessel().unit" name="unit">
+                                <option value=undefined hidden="true">{{placeholder.unit}}</option>
                                 <option value="L">L</option>
                                 <option value="mL">mL</option>
                                 <option value="µL">µL</option>

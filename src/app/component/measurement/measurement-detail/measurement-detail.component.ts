@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
+import { MeasurementPlaceholder } from 'src/properties/placeholder';
 
 @Component({
   selector: 'measurement-detail',
@@ -12,6 +13,7 @@ export class MeasurementDetailComponent implements OnInit {
   @Input() measurement: Measurement;
 
   public measurementPlot: any;
+  public placeholder = MeasurementPlaceholder;
 
   constructor(public dataService: DataService, public experimentService: ExperimentService) { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VesselPlaceholder } from 'src/properties/placeholder';
 import { Attribute, Vessel } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
 
@@ -11,6 +12,7 @@ export class VesselComponent implements OnInit {
 
   public dropdown: boolean;
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
+  public placeholder = VesselPlaceholder;
 
   constructor(public dataService: DataService) { }
 

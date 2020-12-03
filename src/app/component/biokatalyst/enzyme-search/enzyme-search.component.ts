@@ -3,6 +3,7 @@ import { Enzyme, Reaction } from 'src/app/model/biocatalysis';
 import { EnzymeSearch } from 'src/app/model/serviceresult';
 import { DataService } from 'src/app/service/data.service';
 import { EnzymeService } from 'src/app/service/enzyme.service';
+import { BiokatalystPlaceholder } from 'src/properties/placeholder';
 
 @Component({
   selector: 'enzyme-search',
@@ -16,6 +17,7 @@ export class EnzymeSearchComponent implements OnInit {
   public closeButton: boolean;
   public enzymeList: EnzymeSearch[];
   public dropdown: boolean;
+  public placeholder = BiokatalystPlaceholder;
 
   constructor(public dataService: DataService, public enzymeService: EnzymeService) { 
     this.enzymeList = new Array<EnzymeSearch>();

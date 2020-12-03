@@ -1,25 +1,8 @@
 <form clrForm>
     <clr-input-container>
         <label>measured reactant</label>
-        <input clrInput type="text" [(ngModel)]="measurement.reagent" (change)="updateImage()" name="reagent"/>
+        <input clrInput type="text" [(ngModel)]="measurement.reagent" (change)="updateImage()" [placeholder]="placeholder.reactant" name="reagent"/>
     </clr-input-container>
-    <clr-input-container>
-        <label>parameter</label>
-        <input clrInput type="text" [(ngModel)]="measurement.component" name="component"/>
-    </clr-input-container>
-    <div class="clr-form-control clr-row">
-        <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
-        <div class="clr-control-container clr-col-md-5 clr-col-12">
-            <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.component_conc" name="component-conc" />
-            </div>
-        </div>
-        <div class="clr-control-container clr-col-md-5 clr-col-12">
-            <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.component_unit" name="component-unit" />
-            </div>
-        </div>
-    </div>
     <clr-radio-container clrInline>
         <label>plot</label>
         <clr-radio-wrapper>
@@ -41,12 +24,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updateImage()" name="x_name" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updateImage()" [placeholder]="placeholder.x_name" name="x_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updateImage()" name="x_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updateImage()" [placeholder]="placeholder.x_unit" name="x_unit" />
             </div>
         </div>
     </div>
@@ -54,12 +37,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">y axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updateImage()" name="y_name" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updateImage()" [placeholder]="placeholder.y_name" name="y_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updateImage()" name="y_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updateImage()" [placeholder]="placeholder.y_unit" name="y_unit" />
             </div>
         </div>
     </div>
@@ -93,12 +76,12 @@
             <td class="left input-col">
                 <input class="clr-input table-input" type="text" [(ngModel)]="element.x_value" 
                     (ngModelChange)="updateImage()" (paste)="copyData($event)" 
-                    placeholder="paste data from excel ..."/>
+                    [placeholder]="placeholder.cell"/>
             </td>
             <td class="left input-col" *ngFor="let y_value of element.y_values; index as col">
                 <input class="clr-input table-input" type="text" [(ngModel)]="element.y_values[col]" 
                     (ngModelChange)="updateImage()" (paste)="copyData($event)" 
-                    placeholder="paste data from excel ..."/>
+                    [placeholder]="placeholder.cell"/>
             </td>
         </tr>
     </tbody>
@@ -106,7 +89,7 @@
 <form clrForm clrLayout="vertical">
     <clr-textarea-container>
         <label>notes</label>
-        <textarea clrTextarea [(ngModel)]="measurement.notes" placeholder="notes, description, etc." name="notes"></textarea>
+        <textarea clrTextarea [(ngModel)]="measurement.notes" [placeholder]="placeholder.notes" name="notes"></textarea>
     </clr-textarea-container>
 </form>
 <button class="btn btn-warning delete-btn" (click)="deleteMeasurement()">delete measurement</button>
