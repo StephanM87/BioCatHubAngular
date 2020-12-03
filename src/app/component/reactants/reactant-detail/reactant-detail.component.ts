@@ -8,26 +8,18 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./reactant-detail.component.css', '../../../../assets/styles/form-styles.css']
 })
 export class ReactantDetailComponent implements OnInit {
-  @Input() reactant: Reactant;
-
-  public progress: string;
-  
+  @Input() reactant: Reactant;  
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
 
-  constructor(public dataService: DataService) {
-    this.progress = "0";
-  }
+  constructor(public dataService: DataService) { }
 
-  ngOnInit(): void {
-    this.updateProgress();
-  }
+  ngOnInit(): void { }
 
   public addAttribute(): void {
     if(this.reactant.others == undefined) {
       this.reactant.others = new Array<Attribute>();
     }
     this.reactant.others.push(new Attribute());
-    this.updateProgress();
   }
 
   public deleteAttribute(other: Attribute): void {
@@ -35,12 +27,9 @@ export class ReactantDetailComponent implements OnInit {
     if (index !== -1) {
       this.reactant.others.splice(index, 1);
     }
-    this.updateProgress();
   }
 
-  public updateProgress() {
-    let progressCount = this.dataService.getReactantProgress(this.reactant);
-    this.progress = progressCount.toFixed();
-    console.log(this.progress);
+  public getProgress(): string {
+    return this.dataService.getReactantProgress(this.reactant).toFixed();
   }
 }

@@ -11,15 +11,10 @@ export class VesselComponent implements OnInit {
 
   public dropdown: boolean;
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
-  public progress: string;
 
-  constructor(public dataService: DataService) {
-    this.progress = "0";
-  }
+  constructor(public dataService: DataService) { }
 
-  ngOnInit(): void {
-    this.updateProgress();
-  }
+  ngOnInit(): void { }
   
   public getVessel(): Vessel {
     return this.dataService.getExperiment().getVessel();
@@ -27,7 +22,6 @@ export class VesselComponent implements OnInit {
   
   public addAttribute(): void {
     this.getVessel().others.push(new Attribute());
-    this.updateProgress();
   }
 
   public deleteAttribute(other: Attribute): void {
@@ -35,12 +29,11 @@ export class VesselComponent implements OnInit {
     if (index !== -1) {
       this.getVessel().others.splice(index, 1);
     }
-    this.updateProgress()
   }
 
-  public updateProgress() {
-    let progressCount = this.dataService.getVesselProgress();
-    this.progress = progressCount.toFixed();
+  public getProgress(): string {
+    let progress = this.dataService.getVesselProgress();
+    return progress.toFixed();
   }
 
 }

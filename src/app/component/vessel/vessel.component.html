@@ -1,23 +1,23 @@
 <span class="headline">vessels & volumes</span>
 <div class="card">
     <div class="card-block">
-        <clr-progress-bar class="progress top" [clrValue]="progress" clrMax="100" [clrSuccess]="progress=='100'"></clr-progress-bar>
+        <clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
         <div class="card-text">
             <form clrForm>
                 <clr-input-container>
                     <label>type</label>
-                    <input clrInput type="text" [(ngModel)]="getVessel().type" (change)="updateProgress()" placeholder="vessel type" name="type"/>
+                    <input clrInput type="text" [(ngModel)]="getVessel().type" placeholder="vessel type" name="type"/>
                 </clr-input-container>
                 <div class="clr-form-control clr-row">
                     <div class="clr-control-label clr-col-12 clr-col-md-2">volume</div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" (change)="updateProgress()" placeholder="10" name="volume" />
+                            <input class="clr-input" type="text" [(ngModel)]="getVessel().volume" placeholder="10" name="volume" />
                         </div>
                     </div>
                     <div class="clr-control-container clr-col-md-5 clr-col-12">
                         <div class="clr-select-wrapper">
-                            <select class="clr-select" [(ngModel)]="getVessel().unit" (change)="updateProgress()" name="unit">
+                            <select class="clr-select" [(ngModel)]="getVessel().unit" name="unit">
                                 <option value="L">L</option>
                                 <option value="mL">mL</option>
                                 <option value="µL">µL</option>
@@ -31,8 +31,7 @@
                     </div>
                     <div class="clr-control-container clr-col-md-10 clr-col-12">
                         <div class="clr-input-wrapper">
-                            <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" 
-                                (change)="updateProgress()" placeholder="attribute value"/>
+                            <input class="clr-input" type="text" [(ngModel)]="other.value" [ngModelOptions]="{standalone: true}" placeholder="attribute value"/>
                             <button class="btn btn-link btn-delete-attribute" (click)="deleteAttribute(other)">
                                 <clr-icon shape="trash" class="is-error"></clr-icon>
                             </button>

@@ -10,26 +10,20 @@ export class DashboardExperimentComponent implements OnInit {
   @Input() experiment: Experiment;
   @Input() creationDate: Date;
 
-  public progressInformation: string;
-  public progressUser: string;
-
   constructor() { }
 
-  ngOnInit(): void {
-    this.updateExperimentProgress();
-    this.updateUserProgress();
-  }
+  ngOnInit(): void { }
 
-  updateExperimentProgress(): void {
+  public getProgressInformation(): string {
     let count = 0;
     count += this.validate(this.experiment.title) ? 1 : 0;
     count += this.validate(this.experiment.description) ? 1 : 0;
     count += this.creationDate != undefined ? 1 : 0;
     let progress = (count/3)*100;
-    this.progressInformation = progress.toFixed();
+    return progress.toFixed();
   }
 
-  updateUserProgress(): void {
+  public getProgressUser(): string {
     let user = this.experiment.user;
     let count = 0;
     count += this.validate(user.firstName) ? 1 : 0;
@@ -37,7 +31,7 @@ export class DashboardExperimentComponent implements OnInit {
     count += this.validate(user.email) ? 1 : 0;
     count += this.validate(user.institution) ? 1 : 0;
     let progress = (count/4)*100;
-    this.progressUser = progress.toFixed();
+    return progress.toFixed();
   }
 
   private validate(value: string): boolean {

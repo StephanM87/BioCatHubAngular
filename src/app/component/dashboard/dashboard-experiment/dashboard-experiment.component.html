@@ -2,7 +2,7 @@
     <div class="clr-col-8">
         <div class="card">
             <div class="card-block">
-                <clr-progress-bar class="progress top" [clrValue]="progressInformation" clrMax="100" [clrSuccess]="progressInformation=='100'"></clr-progress-bar>
+                <clr-progress-bar class="progress top" [clrValue]="getProgressInformation()" clrMax="100" [clrSuccess]="getProgressInformation()=='100'"></clr-progress-bar>
                 <div class="card-title">
                     <div class="clr-row">
                         <div class="clr-col-12">
@@ -14,19 +14,19 @@
                     <div class="clr-row">
                         <div class="clr-col-9">
                             <clr-input-container>
-                                <input clrInput type="text" [(ngModel)]="experiment.title" (change)="updateExperimentProgress()" name="title" placeholder="title"/>
+                                <input clrInput type="text" [(ngModel)]="experiment.title" name="title" placeholder="title"/>
                             </clr-input-container>
                         </div>
                         <div class="clr-col-3">
                             <clr-input-container>
-                                <input clrInput type="text" [ngModel]="creationDate | date:'yyyy-MM-dd'" (change)="updateExperimentProgress()" name="date" disabled/>
+                                <input clrInput type="text" [ngModel]="creationDate | date:'yyyy-MM-dd'" name="date" disabled/>
                             </clr-input-container>
                         </div>
                     </div>
                     <div class="clr-row">
                         <div class="clr-col-12">
                             <clr-textarea-container>
-                                <textarea clrTextarea [(ngModel)]="experiment.description" (change)="updateExperimentProgress()" name="description" placeholder="description, notes, etc."></textarea>
+                                <textarea clrTextarea [(ngModel)]="experiment.description" name="description" placeholder="description, notes, etc."></textarea>
                             </clr-textarea-container>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
     <div class="clr-col-4">
         <div class="card">
             <div class="card-block">
-                <clr-progress-bar class="progress top" [clrValue]="progressUser" clrMax="100" [clrSuccess]="progressUser=='100'"></clr-progress-bar>
+                <clr-progress-bar class="progress top" [clrValue]="getProgressUser()" clrMax="100" [clrSuccess]="getProgressUser()=='100'"></clr-progress-bar>
                 <div class="card-title">
                     <div class="clr-row">
                         <div class="clr-col-12">
@@ -47,16 +47,16 @@
                 </div>
                 <div class="card-text">
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" (change)="updateUserProgress()" name="lastName" placeholder="last name" />
+                        <input clrInput type="text" [(ngModel)]="experiment.user.lastName" name="lastName" placeholder="last name" />
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" (change)="updateUserProgress()" name="firstName" placeholder="first name" />
+                        <input clrInput type="text" [(ngModel)]="experiment.user.firstName" name="firstName" placeholder="first name" />
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.email" (change)="updateUserProgress()" name="email" placeholder="e-mail"/>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.email" name="email" placeholder="e-mail"/>
                     </clr-input-container>
                     <clr-input-container>
-                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" (change)="updateUserProgress()" name="institution" placeholder="institution"/>
+                        <input clrInput type="text" [(ngModel)]="experiment.user.institution" name="institution" placeholder="institution"/>
                     </clr-input-container>
                 </div>
             </div>

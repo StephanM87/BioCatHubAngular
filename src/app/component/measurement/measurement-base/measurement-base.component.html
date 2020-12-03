@@ -1,6 +1,9 @@
 <span class="headline">experimental data</span>
-<ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)">
-    <ngx-dropzone-label>upload measurement</ngx-dropzone-label>
+<ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)" (mouseover)="changeText=true" (mouseout)="changeText=false" >
+    <ngx-dropzone-label>
+        <span *ngIf="!changeText"><clr-icon shape="import" size="36"></clr-icon><br>upload measurement</span>
+        <span *ngIf="changeText">upload excel files to import measurement data (use template file below)</span>
+    </ngx-dropzone-label>
     <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
         <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
     </ngx-dropzone-preview>
@@ -10,6 +13,7 @@
 
 <div class="card" *ngIf="getMeasurements().length > 0">
     <div class="card-block" >
+        <clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
         <div class="card-text">
             <clr-tabs>
                 <clr-tab *ngFor="let measurement of getMeasurements(); let i = index" [attr.data-index]="i">
