@@ -295,15 +295,6 @@ export class DataService {
     if(this.validateString(measurement.reagent)) {
       measurementErrors.push('reactant');
     }
-    if(this.validateString(measurement.component)) {
-      measurementErrors.push('parameter');
-    }
-    if(this.validateNumber(measurement.component_conc)) {
-      measurementErrors.push('parameter value');
-    }
-    if(this.validateString(measurement.component_unit)) {
-      measurementErrors.push('parameter unit');
-    }
     if(this.validateString(measurement.x_name)) {
       measurementErrors.push('x name');
     }
@@ -326,7 +317,7 @@ export class DataService {
   }
 
   public getMeasurementProgress(measurement: Measurement): number {
-    let fields = 9;
+    let fields = 7;
     let errors = this.validateMeasurement(measurement).length;
     return this.getProgress(fields, errors);
   }

@@ -131,9 +131,6 @@ export class ExperimentalData {
 
 export class Measurement {
     reagent: string;
-    component: string;
-    component_conc: number;
-    component_unit: string;
     x_unit: string;
     x_name: string;
     y_unit: string;
@@ -144,9 +141,6 @@ export class Measurement {
 
     constructor(measurement?: Measurement) {
         this.reagent = measurement && measurement.reagent || undefined;
-        this.component = measurement && measurement.component || undefined;
-        this.component_conc = measurement && measurement.component_conc || undefined;
-        this.component_unit = measurement && measurement.component_unit || undefined;
         this.x_unit = measurement && measurement.x_unit || undefined;
         this.x_name = measurement && measurement.x_name || undefined;
         this.y_unit = measurement && measurement.y_unit || undefined;
