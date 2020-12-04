@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Measurement, Replicate } from 'src/app/model/biocatalysis';
+import { Measurement, Reactant, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
 import { MeasurementPlaceholder } from 'src/properties/placeholder';
@@ -14,6 +14,7 @@ export class MeasurementDetailComponent implements OnInit {
 
   public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
+  public reactants: string[];
 
   constructor(public dataService: DataService, public experimentService: ExperimentService) { }
 
@@ -21,6 +22,19 @@ export class MeasurementDetailComponent implements OnInit {
     if(this.measurement.replicates.length > 0) {
       this.loadMeasurementImage();
     }
+    this.setReactantList();
+  }
+
+  public setReactantList(): void {
+    this.reactants = new Array<string>();
+    this.dataService.getExperiment().getEnzymes().forEach(enzyme => {
+      enzyme.reaction.educts.forEach(reactant => {
+        this.reactants.push(reactant.name);
+      });
+      enzyme.reaction.products.forEach(reactant => {
+        this.reactants.push(reactant.name);
+      });
+    });
   }
 
   public deleteMeasurement(): void {
@@ -115,6 +129,10 @@ export class MeasurementDetailComponent implements OnInit {
     });
     this.measurement.replicates = list;
     this.updateImage();
+  }
+
+  public getProgress(): string {
+    return this.dataService.getMeasurementProgress(this.measurement).toFixed();
   }
 
 }

@@ -113,17 +113,4 @@ export class MeasurementBaseComponent implements OnInit {
     URL.revokeObjectURL(objectUrl);
   }
 
-  public getProgress(): string {
-    let count = 0;
-    let total = 0;
-    if(this.getMeasurements() != undefined) {
-      this.getMeasurements().forEach(measurement => {
-        count += this.dataService.getMeasurementProgress(measurement);
-        total += 100;
-      });
-    }
-    let progress = total > 0 ? (count/total)*100 : 0;
-    return progress.toFixed();
-  }
-
 }

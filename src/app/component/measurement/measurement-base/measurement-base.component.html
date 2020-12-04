@@ -13,7 +13,6 @@
 
 <div class="card" *ngIf="getMeasurements().length > 0">
     <div class="card-block" >
-        <clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
         <div class="card-text">
             <clr-tabs>
                 <clr-tab *ngFor="let measurement of getMeasurements(); let i = index" [attr.data-index]="i">

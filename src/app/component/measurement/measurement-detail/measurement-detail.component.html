@@ -1,8 +1,12 @@
+<clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
 <form clrForm>
-    <clr-input-container>
+    <clr-select-container>
         <label>measured reactant</label>
-        <input clrInput type="text" [(ngModel)]="measurement.reagent" (change)="updateImage()" [placeholder]="placeholder.reactant" name="reagent"/>
-    </clr-input-container>
+        <select clrSelect [(ngModel)]="measurement.reagent" (change)="updateImage()" name="reagent">
+            <option value=undefined hidden="true">{{placeholder.reactant}}</option>
+            <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
+        </select>
+    </clr-select-container>
     <clr-radio-container clrInline>
         <label>plot</label>
         <clr-radio-wrapper>
