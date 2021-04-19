@@ -1,0 +1,185 @@
+<form class="clr-form clr-form-horizontal">
+    <div class="clr-row">
+        <div class="clr-col-sm-12 clr-col-md-8">
+            <div class="clr-form-control clr-row">
+                <div class="clr-control-label clr-col-12 clr-col-md-5">changed parameter</div>
+                <div class="clr-control-container clr-col-md-7 clr-col-12">
+                    <div class="clr-select-wrapper">
+                        <select class="clr-select" name="changedparameter" [(ngModel)]="additionalexperiment.changedparameter" (change)="updateImage()" (change)="setUnitList()">
+                            <option value=undefined hidden="true">{{placeholder.changedparameter}}</option>
+                            <option [value]="parameter" *ngFor="let parameter of parameters">{{parameter}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="additionalexperiment.changedparameter == 'concentration'" class="clr-form-control clr-row">
+                <div class="clr-control-label clr-col-12 clr-col-md-5">concentration of</div>
+                <div class="clr-control-container clr-col-md-7 clr-col-12">
+                    <div class="clr-select-wrapper">
+                        <select class="clr-select" name="reactantofparameter" [(ngModel)]="additionalexperiment.reactantofparameter" (change)="updateImage()">
+                            <option value=undefined hidden="true">{{placeholder.reactant}}</option>
+                            <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="clr-form-control clr-row">
+                <div class="clr-control-label clr-col-12 clr-col-md-5">new parameter value</div>
+                <div class="clr-control-container clr-col-md-7 clr-col-12">
+                    <div class="clr-input-wrapper">
+                        <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.changedvalue" (change)="updateImage()" [placeholder]="placeholder.changedvalue" name="changedvalue" />
+                    </div>
+                </div>
+            </div>
+            <div class="clr-form-control clr-row">
+                <div class="clr-control-label clr-col-12 clr-col-md-5">unit</div>
+                <div class="clr-control-container clr-col-md-7 clr-col-12">
+                    <div class="clr-select-wrapper">
+                        <select class="clr-select" name="unit" [(ngModel)]="additionalexperiment.unit" (change)="updateImage()">
+                            <option value=undefined hidden="true">{{placeholder.unit}}</option>
+                            <option [value]="unit" *ngFor="let unit of units">{{unit}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="clr-form-control clr-row">
+                <div class="clr-control-label clr-col-12 clr-col-md-5">plot style</div>
+                <div class="clr-control-container clr-col-md-2 clr-col-12">
+                    <clr-radio-wrapper>
+                        <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <label>points</label>
+                    </clr-radio-wrapper>
+                </div>
+                <div class="clr-control-container clr-col-md-2 clr-col-12">
+                    <clr-radio-wrapper>
+                        <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <label>lines</label>
+                    </clr-radio-wrapper>  
+                </div>
+                <div class="clr-control-container clr-col-md-2 clr-col-12">
+                    <clr-radio-wrapper>
+                        <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <label>both</label>
+                    </clr-radio-wrapper>  
+                </div>
+            </div>
+            <div class="clr-form-control clr-row">
+                <label class="clr-control-label clr-col-12 clr-col-md-5">measured reactant</label>
+                <div class="clr-control-container clr-col-md-7 clr-col-12">
+                    <div class="clr-select-wrapper">
+                        <select class="clr-select" name="reagent" [(ngModel)]="additionalexperiment.measurement.reagent">
+                            <option value=undefined hidden="true">{{placeholder.reactant}}</option>
+                            <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr-col-sm-12 clr-col-md-4">
+            <ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)" (mouseover)="changeText=true" (mouseout)="changeText=false" >
+                <ngx-dropzone-label>
+                    <span *ngIf="!changeText"><clr-icon shape="import" size="36"></clr-icon><br>upload measurement</span>
+                    <span *ngIf="changeText">upload excel files to import measurement data (use template file below)</span>
+                </ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
+                    <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+        </div>
+    </div>
+
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-container clr-col-md-12 clr-col-12">
+            <app-plot [measurement]="additionalexperiment.measurement"></app-plot>
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.x_name" (change)="updateImage()" [placeholder]="placeholder.x_name" name="x_name" />
+            </div>
+        </div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.x_unit" (change)="updateImage()" [placeholder]="placeholder.x_unit" name="x_unit" />
+            </div>
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">y axis</div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.y_name" (change)="updateImage()" [placeholder]="placeholder.y_name" name="y_name" />
+            </div>
+        </div>
+        <div class="clr-control-container clr-col-md-5 clr-col-12">
+            <div class="clr-input-wrapper">
+                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.y_unit" (change)="updateImage()" [placeholder]="placeholder.y_unit" name="y_unit" />
+            </div>
+        </div>
+    </div>
+    <div class="clr-form-control clr-row">
+        <div class="clr-control-label clr-col-12 clr-col-md-2">replicates</div>
+        <div class="clr-control-container clr-col-md-10 clr-col-12">
+            <div class="replicates-editor">
+                <button class="btn btn-link editor-btn" (click)="removeReplicate()"><clr-icon shape="minus"></clr-icon></button>
+                replicates: {{getReplicaCount()}}
+                <button class="btn btn-link editor-btn" (click)="addReplicate()"><clr-icon shape="plus"></clr-icon></button>
+            </div>
+            <div class="replicates-editor">
+                <button class="btn btn-link editor-btn" (click)="deleteValues()"><clr-icon shape="minus"></clr-icon></button>
+                measurement values: {{additionalexperiment.measurement.replicates.length}}
+                <button class="btn btn-link editor-btn" (click)="addValues()"><clr-icon shape="plus"></clr-icon></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="clr-row" >
+    <div class="clr-col-12 center-col">
+        <button class="btn btn-link btn-icon btn-technologies" *ngIf="hideMeasurement" (click)="hideMeasurement=false">
+            <clr-icon shape="caret" dir="right"></clr-icon>
+            <span class="btn btn-link btn-new">measurement table</span>
+        </button>
+        <button class="btn btn-link btn-icon btn-technologies" *ngIf="!hideMeasurement" (click)="hideMeasurement=true">
+            <clr-icon shape="caret" dir="down"></clr-icon>
+            <span class="btn btn-link btn-new">measurement table</span>
+        </button>
+    </div>
+</div>
+<div class="clr-row" *ngIf="!hideMeasurement">
+    <table class="table table-noborder table-compact additionalexperiment-table">
+        <thead>
+            <tr>
+                <th class="left input-col">x</th>
+                <th class="left input-col" *ngFor="let y of additionalexperiment.measurement.replicates[0].y_values; index as i">
+                    replica {{i+1}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let element of additionalexperiment.measurement.replicates; index as row">
+                <td class="left input-col">
+                    <input class="clr-input table-input" type="text" [(ngModel)]="element.x_value" 
+                        (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                        [placeholder]="placeholder.cell"/>
+                </td>
+                <td class="left input-col" *ngFor="let y_value of element.y_values; index as col">
+                    <input class="clr-input table-input" type="text" [(ngModel)]="element.y_values[col]" 
+                        (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                        [placeholder]="placeholder.cell"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<form clrForm clrLayout="vertical">
+    <clr-textarea-container>
+        <label>notes</label>
+        <textarea clrTextarea [(ngModel)]="additionalexperiment.measurement.notes" [placeholder]="placeholder.notes" name="notes"></textarea>
+    </clr-textarea-container>
+</form>
+
+<button class="btn btn-warning delete-btn" (click)="deleteAdditionalExperiment()"><clr-icon shape="trash"></clr-icon> delete additional experiment</button>

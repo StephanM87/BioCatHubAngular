@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Attribute, Reactant } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { ReactantPlaceholder } from 'src/properties/placeholder';
+import { ConcentrationUnitDropdown, ReactantRoleDropdown } from 'src/properties/dropdown';
 
 @Component({
   selector: 'reactant-detail',
@@ -12,6 +13,8 @@ export class ReactantDetailComponent implements OnInit {
   @Input() reactant: Reactant;  
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = ReactantPlaceholder;
+  public units = ConcentrationUnitDropdown;
+  public reactantroles = ReactantRoleDropdown;
 
   constructor(public dataService: DataService) { }
 

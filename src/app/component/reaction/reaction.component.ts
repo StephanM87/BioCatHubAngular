@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReactionPlaceholder } from 'src/properties/placeholder';
 import { Attribute, Condition } from '../../model/biocatalysis';
 import { DataService } from '../../service/data.service';
+import { TemperatureUnitDropdown, ConcentrationUnitDropdown } from 'src/properties/dropdown';
 
 @Component({
   selector: 'app-reaction',
@@ -11,6 +12,8 @@ import { DataService } from '../../service/data.service';
 export class ReactionComponent implements OnInit {
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = ReactionPlaceholder;
+  public temperatureunits = TemperatureUnitDropdown;
+  public concentrationunits = ConcentrationUnitDropdown;
 
   constructor(public dataService: DataService) { }
 

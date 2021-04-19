@@ -8,6 +8,7 @@ import { MeasurementBaseComponent } from './component/measurement/measurement-ba
 import { ReactantBaseComponent } from './component/reactants/reactant-base/reactant-base.component';
 import { ReactionComponent } from './component/reaction/reaction.component';
 import { DashboardBaseComponent } from './component/dashboard/dashboard-base/dashboard-base.component';
+import { AdditionalExperimentsBaseComponent } from './additional-experiments/additional-experiments-base/additional-experiments-base.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'reaction', component: ReactionComponent },
   { path: 'measurement', component: MeasurementBaseComponent },
   { path: 'dashboard', component: DashboardBaseComponent },
-  { path: '', redirectTo: 'start', pathMatch: 'full' }
+  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: 'additionalexperiments', component: AdditionalExperimentsBaseComponent },
 ];
 
 @NgModule({

@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdditionalExperimentsModule } from './additional-experiments/additional-experiments.module';
 
 import { BiocathubComponent } from './biocathub/biocathub.component';
 import { StartpageComponent } from './component/start/startpage/startpage.component';
@@ -70,7 +71,8 @@ import { DashboardMeasurementComponent } from './component/dashboard/dashboard-m
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    AdditionalExperimentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

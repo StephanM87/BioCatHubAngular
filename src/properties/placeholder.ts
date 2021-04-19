@@ -57,3 +57,16 @@ export const ExperimentPlaceholder = {
   mail: 'e-mail',
   institution: 'institution'
 };
+
+export const AdditionalExperimentPlaceholder = {
+  reactant: 'e.g. pyruvate',
+  changedparameter: 'e.g. temperature',
+  changedvalue: 'e.g. 30',
+  unit: 'e.g. °C',
+  x_name: 'e.g. time',
+  x_unit: 'e.g. s',
+  y_name: 'e.g. concentration',
+  y_unit: 'e.g. mmol/L',
+  cell: 'paste data from excel',
+  notes: 'notes, description, etc.'
+};

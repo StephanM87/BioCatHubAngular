@@ -21,7 +21,7 @@
                                 <div class="clr-select-wrapper">
                                     <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
                                         <option value=undefined hidden="true">{{placeholder.unit}}</option>
-                                        <option value="°C">°C</option>
+                                        <option [value]="unit" *ngFor="let unit of temperatureunits">{{unit}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -45,10 +45,7 @@
                                 <div class="clr-select-wrapper">
                                     <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
                                         <option value=undefined hidden="true">{{placeholder.buffer_unit}}</option>
-                                        <option value="mmol/L">mmol/L</option>
-                                        <option value="mmoL/L">mmoL/L</option>
-                                        <option value="mg/mL">mg/mL</option>
-                                        <option value="mL">mL</option>
+                                        <option [value]="unit" *ngFor="let unit of concentrationunits">{{unit}}</option>
                                     </select>
                                 </div>
                             </div>

@@ -16,10 +16,7 @@
                 <div class="clr-select-wrapper">
                     <select class="clr-select" [(ngModel)]="reactant.unit" name="unit">
                         <option value=undefined hidden="true">{{placeholder.unit}}</option>
-                        <option value="mmol/L">mmol/L</option>
-                        <option value="mmoL/L">mmoL/L</option>
-                        <option value="mg/mL">mg/mL</option>
-                        <option value="mL">mL</option>
+                        <option [value]="unit" *ngFor="let unit of units">{{unit}}</option>
                     </select>
                 </div>
             </div>
@@ -28,6 +25,7 @@
             <label>reaction role</label>
             <select clrSelect [(ngModel)]="reactant.role" name="role">
                 <option value=undefined hidden="true">{{placeholder.role}}</option>
+                <option [value]="unit" *ngFor="let role of reactantroles">{{role}}</option>
                 <option value="substrate">substrate</option>
                 <option value="product">product</option>
                 <option value="additive">additive</option>

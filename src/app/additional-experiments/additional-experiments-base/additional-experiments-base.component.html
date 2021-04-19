@@ -1,0 +1,52 @@
+<span class="headline">additional experiments</span>
+<p class="blocksatz">
+    Here  you can add experiments, which differ from the original experiment by one parameter without entering the whole data again.
+    Chose the parameter which was changed in reference to the original experiment.
+    Reset its value and upload your new measurements.
+    BioCatHub will include everything else.
+</p>
+<div class="clr-row button-row">
+    <div class="clr-col-12">
+        <button class="btn btn-primary" (click)="uploadAllToZenodo()">
+            <clr-icon shape="upload-cloud" size="24"></clr-icon> upload all to zenodo
+        </button>
+        <button class="btn btn-primary" (click)="exportAllEnzymeML()">
+            <clr-icon shape="file-zip" size="24"></clr-icon> download all as EnzymeML
+        </button>
+        <button class="btn btn-primary" (click)="createAllPdf()">
+            <clr-icon shape="file" size="24"></clr-icon> create all as PDF
+        </button>
+    </div>
+</div>
+
+<div *ngIf="getAdditionalExperiments().length > 0">
+    <clr-accordion>
+        <clr-accordion-panel *ngFor="let additionalexperiment of getAdditionalExperiments(); let i = index" [attr.data-index]="i">
+            <clr-accordion-title>
+                Experiment {{i+1}}
+                <span *ngIf="additionalexperiment.changedparameter && additionalexperiment.changedvalue">
+                    ({{additionalexperiment.changedparameter}} = {{additionalexperiment.changedvalue}} {{additionalexperiment.unit}})
+                </span>
+            </clr-accordion-title>
+            <clr-accordion-content *clrIfExpanded>
+                <app-additional-experiments-detail [additionalexperiment]="additionalexperiment"></app-additional-experiments-detail>
+                <div>
+                    <button class="btn btn-primary" (click)="uploadToZenodo(additionalexperiment)">
+                        <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
+                    </button>
+                    <button class="btn btn-primary" (click)="exportEnzymeML(additionalexperiment)">
+                        <clr-icon shape="file-zip" size="24"></clr-icon> download EnzymeML
+                    </button>
+                    <button class="btn btn-primary" (click)="createPdf(additionalexperiment)">
+                        <clr-icon shape="file" size="24"></clr-icon> create PDF
+                    </button>
+                </div>
+            </clr-accordion-content>
+        </clr-accordion-panel>
+    </clr-accordion>
+</div>
+
+<button class="btn btn-link btn-new" (click)="newAdditionalExperiment()"><clr-icon shape="plus"></clr-icon> add additional experiment</button>
+<button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download template file</button>
+<button *ngIf="getAdditionalExperiments().length > 0" class="btn btn-warning delete-btn" (click)="deleteAll()"><clr-icon shape="trash"></clr-icon> delete all</button>
+<overlay-spinner *ngIf="loading"></overlay-spinner>

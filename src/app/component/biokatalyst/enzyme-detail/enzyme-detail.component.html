@@ -42,10 +42,7 @@
                 <div class="clr-select-wrapper">
                       <select class="clr-select" [(ngModel)]="enzyme.unit" name="unit">
                         <option value=undefined hidden="true">{{placeholder.unit}}</option>
-                        <option value="mmol/L">mmol/L</option>
-                        <option value="mmoL/L">mmoL/L</option>
-                        <option value="mg/mL">mg/mL</option>
-                        <option value="mL">mL</option>
+                        <option value="unit" *ngFor="let unit of units">{{unit}}</option>
                     </select>
                 </div>
             </div>
@@ -75,5 +72,5 @@
             <clr-icon shape="plus"></clr-icon> add attribute
         </button>
     </form>
-    <button class="btn btn-warning" (click)="deleteEnzyme()">delete biocatalyst</button>
+    <button class="btn btn-warning" (click)="deleteEnzyme()"><clr-icon shape="trash"></clr-icon> delete biocatalyst</button>
 </div>

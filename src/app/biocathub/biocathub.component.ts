@@ -100,7 +100,7 @@ export class BiocathubComponent implements OnInit {
   public updateNavigation(url: string){
     let start = (url == '/' || url == '/start');
     this.navigationVisible = !start;
-    this.timelineVisible = !(start || url == '/dashboard');
+    this.timelineVisible = !(start || url == '/dashboard' || url == '/additionalexperiments');
     if(start) {
       this.resetNavigation();
     } else {

@@ -19,9 +19,7 @@
                         <div class="clr-select-wrapper">
                             <select class="clr-select" [(ngModel)]="getVessel().unit" name="unit">
                                 <option value=undefined hidden="true">{{placeholder.unit}}</option>
-                                <option value="L">L</option>
-                                <option value="mL">mL</option>
-                                <option value="µL">µL</option>
+                                <option [value]="unit" *ngFor="let unit of units">{{unit}}</option>
                               </select>
                         </div>
                     </div>
