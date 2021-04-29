@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 import { AdditionalExperiment } from './additional-experiment-model';
-import { environment } from 'src/environments/environment';
 import { Replicate } from 'src/app/model/biocatalysis';
 import { Experiment } from 'src/app/model/experiment';
 import { TemperatureUnitDropdown, ConcentrationUnitDropdown } from 'src/properties/dropdown';
@@ -17,7 +14,7 @@ export class AdditionalExperimentService {
   parameters: Array<string>;
   units: Array<string>;
 
-  constructor(private client: HttpClient) {
+  constructor() {
     this.additionalExperiments = new Array<AdditionalExperiment>();
    }
 
@@ -80,6 +77,7 @@ export class AdditionalExperimentService {
     }
     /* Reset Measurement Data */
     experiment.experimentalData.measurements = [additionalexperiment.measurement];
+    experiment.title = additionalexperiment.title;
     return experiment;
   }
 
@@ -120,11 +118,6 @@ export class AdditionalExperimentService {
         break;
     }
     return this.units;
-  }
-
-/*  Download template file  */
-  templateFile(): Observable<Blob> {
-    return this.client.get(environment.backendUrl + '/measurement/template', {responseType: 'blob'});
   }
 
 /* Functions to handle measurement data */
@@ -169,7 +162,5 @@ export class AdditionalExperimentService {
     }
     return 0;
   }
-
-
 
 }

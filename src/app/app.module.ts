@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { HttpClientModule } from '@angular/common/http';
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,7 +75,8 @@ import { DashboardMeasurementComponent } from './component/dashboard/dashboard-m
     FormsModule,
     HttpClientModule,
     NgxDropzoneModule,
-    AdditionalExperimentsModule
+    AdditionalExperimentsModule,
+    PlotlyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

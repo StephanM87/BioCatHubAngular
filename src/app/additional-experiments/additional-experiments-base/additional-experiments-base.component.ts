@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AdditionalExperimentService } from '../additional-experiment.service';
+import { ClientService } from '../client.service';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
 import { AdditionalExperiment } from '../additional-experiment-model';
@@ -23,7 +24,8 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
 
   constructor(public additionalExperimentService: AdditionalExperimentService,
               public dataService: DataService,
-              public experimentService: ExperimentService) {
+              public experimentService: ExperimentService,
+              public clientService: ClientService) {
     this.id = dataService.getId();
     this.zenodoLink = dataService.getZenodoLink();
   }
@@ -45,6 +47,10 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
     this.getAdditionalExperiments().splice(0, this.getAdditionalExperiments().length);
   }
 
+  public deleteAdditionalExperiment(additionalexperiment: AdditionalExperiment): void {
+    this.additionalExperimentService.deleteAdditionalExperiment(additionalexperiment);
+  }
+
 /* Zenodo */
   public uploadAllToZenodo(): void {
     this.getAdditionalExperiments().forEach(additionalexperiment => {
@@ -54,7 +60,7 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
 
   public uploadToZenodo(additionalexperiment: AdditionalExperiment): void {
     this.loading = true;
-    this.experimentService.uploadExperimentToZenodo(
+    this.clientService.uploadExperimentToZenodo(
       this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalexperiment, this.initialExperiment)).subscribe(
       upload => {
         this.id = upload.id;
@@ -78,7 +84,7 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
   
   public exportEnzymeML(additionalexperiment: AdditionalExperiment): void {
     this.loading = true;
-    this.experimentService.createEnzymeML(
+    this.clientService.createEnzymeML(
       this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalexperiment, this.initialExperiment)).subscribe(
       blob => {
         this.download(blob, 'additionalexperiment.omex');
@@ -102,24 +108,11 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
 
   public createPdf(additionalexperiment: AdditionalExperiment): void {
     /** TO DO ähnlich wie in dashboard-base component
-      * dafür mit createFullExperimentFromAdditionalExperiment()*/
+      * dafür mit createFullExperimentFromAdditionalExperiment()
+      * und über ClientService laufen lassen */
   }
    
-/* Template file */
-  public templateFile(): void {
-    this.loading = true;
-    this.additionalExperimentService.templateFile().subscribe(
-      blob => {
-        this.download(blob, 'template.xlsx');
-        this.loading = false;
-      },
-      error => {
-        console.log(error);
-        this.loading = false;
-      }
-    );
-  }
-
+/* download and error */
   showError(error: any): void {
     console.log(error);
   }

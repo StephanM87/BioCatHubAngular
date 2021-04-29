@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Measurement, Replicate } from 'src/app/model/biocatalysis';
-import { Plot } from './additional-experiment-model';
+import { Plot } from 'src/app/model/plot';
 
 @Injectable({
   providedIn: 'root'

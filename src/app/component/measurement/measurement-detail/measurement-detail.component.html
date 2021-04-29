@@ -10,18 +10,22 @@
     <clr-radio-container clrInline>
         <label>plot</label>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="point" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
-            <label>point chart</label>
+            <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <label>points</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="line" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
-            <label>line chart</label>
+            <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <label>lines</label>
         </clr-radio-wrapper>
+        <clr-radio-wrapper>
+            <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <label>both</label>
+        </clr-radio-wrapper>  
     </clr-radio-container>
     <div class="clr-form-control clr-row">
-        <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
-        <div class="clr-control-container clr-col-md-10 clr-col-12">
-            <img [src]="measurementPlot">
+        <div class="clr-control-container clr-col-md-12 clr-col-12">
+            <!--<app-plot [measurement]="measurement"></app-plot>-->
+            <plotly-plot [data] = "plot.data" [layout] = "plot.layout" [useResizeHandler] = "true"></plotly-plot>
         </div>
     </div>
     <div class="clr-form-control clr-row">

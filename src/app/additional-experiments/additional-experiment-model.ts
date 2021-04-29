@@ -1,6 +1,7 @@
 import { Measurement } from '../model/biocatalysis';
 
 export class AdditionalExperiment {
+    title: string;
     changedparameter: string;
     reactantofparameter: string;
     changedvalue: number;
@@ -8,9 +9,10 @@ export class AdditionalExperiment {
     measurement: Measurement;
 
     constructor(AdditionalExperiment? : AdditionalExperiment) {
+        this.title = AdditionalExperiment?.title || undefined;
         this.changedparameter = AdditionalExperiment?.changedparameter || undefined;
         this.changedvalue = AdditionalExperiment?.changedvalue || undefined;
-        this.unit = AdditionalExperiment?.unit || undefined;
+        this.unit = AdditionalExperiment?.unit || "";
         this.measurement = AdditionalExperiment?.measurement || new Measurement;
     }
 }
@@ -30,7 +32,6 @@ class Datarows {
 }
 
 class Layout {
-    title: Title;
     xaxis: Xaxis;
     yaxis: Yaxis;
 }

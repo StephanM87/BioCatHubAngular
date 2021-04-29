@@ -5,28 +5,75 @@
         </div>
     </div>
     <div class="clr-row" >
+        <!--length for boxes can be changed with -sm, -md and -lg -->
         <div class="clr-col-2 center-col">
-            <clr-icon shape="volume" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-right">
+                <clr-icon shape="volume" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    A vessel in which the reaction took place has to be defined.
+                    This can be for example an eppendorf tube or an Erlenmeyer flask.
+                </span>
+            </a><br>
             <span class="impressum-text">1. vessels & volumes</span>
         </div>
         <div class="clr-col-2 center-col">
-            <clr-icon shape="helix" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-right">
+                <clr-icon shape="helix" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    The enzyme of the reaction has to be defined.
+                    It can be entered manually or entries from the BRENDA??? database can be searched.
+                    The concentration and other important descriptors like the aminoacid sequenze are defined.
+                </span>
+            </a><br>
             <span class="impressum-text">2. biocatalyst</span>
         </div>
         <div class="clr-col-2 center-col">
-            <clr-icon shape="flask" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-right">
+                <clr-icon shape="flask" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    The reactants of the enzyme have to be defined
+                    existing reactions of the "NAME" database can be searched.
+                    The number of substrates and products can be chosen individually.
+                    Concentration, purity and other important attributes can be defined.
+                    It is also possible to add new attributes, that are important for that experiment.
+                </span>
+            </a><br>
             <span class="impressum-text">3. reactants</span>
         </div>
         <div class="clr-col-2 center-col">
-            <clr-icon shape="thermometer" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-left">
+                <clr-icon shape="thermometer" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    To complete the information of the experiment, metadata has to be given.
+                    This inclueds the used buffer and its concentration.
+                    Also the temperature has to be defined here.
+                    It is also possible to add new, important attributes.
+                </span>
+            </a><br>
             <span class="impressum-text">4. reaction conditions</span>
         </div>
         <div class="clr-col-2 center-col">
-            <clr-icon shape="line-chart" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-left">
+                <clr-icon shape="line-chart" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    To complete the experiment, the experimental data or measurement data can be uploaded.
+                    It is possible to do this with a given excel template, via copy and paste or b manually entering it.
+                    It is possible to upload different measurement series.
+                    A plot of the data is given instantly and can be downloaded.
+                </span>
+            </a><br>
             <span class="impressum-text">5. experimental data</span>
         </div>
         <div class="clr-col-2 center-col">
-            <clr-icon shape="upload-cloud" class="is-highlight" size="36"></clr-icon><br>
+            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-lg tooltip-top-left">
+                <clr-icon shape="upload-cloud" class="is-highlight" size="36"></clr-icon>
+                <span class="tooltip-content">
+                    After everything important is included the whole experiment can be uploaded to zenodo.
+                    It is also possible to create an EnzymeML file or a PDF report.
+                    If you have additional experiments, that differ by only one parameter for example, temperature or concentration,
+                    you can add these easily under "additional experiments" and don't have to define the whole reaction from scratch.
+                </span>
+            </a><br>
             <span class="impressum-text">6. publish experiment</span>
         </div>
     </div>

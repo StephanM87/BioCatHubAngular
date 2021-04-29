@@ -7,46 +7,51 @@
 </p>
 <div class="clr-row button-row">
     <div class="clr-col-12">
-        <button class="btn btn-primary" (click)="uploadAllToZenodo()">
-            <clr-icon shape="upload-cloud" size="24"></clr-icon> upload all to zenodo
-        </button>
-        <button class="btn btn-primary" (click)="exportAllEnzymeML()">
-            <clr-icon shape="file-zip" size="24"></clr-icon> download all as EnzymeML
-        </button>
-        <button class="btn btn-primary" (click)="createAllPdf()">
-            <clr-icon shape="file" size="24"></clr-icon> create all as PDF
-        </button>
+        <clr-button-group class="btn-group">
+            <clr-button class="btn btn-success" (click)="newAdditionalExperiment()">
+                <clr-icon shape="plus" size="24"></clr-icon> add
+            </clr-button>
+            <clr-button class="btn-link btn-new" (click)="uploadAllToZenodo()">
+                <clr-icon shape="upload-cloud" size="24"></clr-icon> upload all to zenodo
+            </clr-button>
+            <clr-button class="btn-link btn-new" (click)="exportAllEnzymeML()">
+                <clr-icon shape="file-zip" size="24"></clr-icon> create all as EnzymeML
+            </clr-button>
+            <clr-button class="btn-link btn-new" (click)="createAllPdf()">
+                <clr-icon shape="file" size="24"></clr-icon> create all as PDF
+            </clr-button>
+            <clr-button class="btn btn-danger" (click)="deleteAll()">
+                <clr-icon shape="trash"></clr-icon> delete all
+            </clr-button>
+        </clr-button-group>
     </div>
 </div>
 
 <div *ngIf="getAdditionalExperiments().length > 0">
     <clr-accordion>
-        <clr-accordion-panel *ngFor="let additionalexperiment of getAdditionalExperiments(); let i = index" [attr.data-index]="i">
+        <clr-accordion-panel *ngFor="let additionalexperiment of getAdditionalExperiments()">
             <clr-accordion-title>
-                Experiment {{i+1}}
-                <span *ngIf="additionalexperiment.changedparameter && additionalexperiment.changedvalue">
-                    ({{additionalexperiment.changedparameter}} = {{additionalexperiment.changedvalue}} {{additionalexperiment.unit}})
-                </span>
+                {{additionalexperiment.title}}
             </clr-accordion-title>
             <clr-accordion-content *clrIfExpanded>
                 <app-additional-experiments-detail [additionalexperiment]="additionalexperiment"></app-additional-experiments-detail>
-                <div>
-                    <button class="btn btn-primary" (click)="uploadToZenodo(additionalexperiment)">
+                <clr-button-group class="btn-group">
+                    <clr-button class="btn-link btn-new" (click)="uploadToZenodo(additionalexperiment)">
                         <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
-                    </button>
-                    <button class="btn btn-primary" (click)="exportEnzymeML(additionalexperiment)">
-                        <clr-icon shape="file-zip" size="24"></clr-icon> download EnzymeML
-                    </button>
-                    <button class="btn btn-primary" (click)="createPdf(additionalexperiment)">
+                    </clr-button>
+                    <clr-button class="btn-link btn-new" (click)="exportEnzymeML(additionalexperiment)">
+                        <clr-icon shape="file-zip" size="24"></clr-icon> create EnzymeML
+                    </clr-button>
+                    <clr-button class="btn-link btn-new" (click)="createPdf(additionalexperiment)">
                         <clr-icon shape="file" size="24"></clr-icon> create PDF
-                    </button>
-                </div>
+                    </clr-button>
+                    <clr-button class="btn btn-danger" (click)="deleteAdditionalExperiment(additionalexperiment)">
+                        <clr-icon shape="trash"></clr-icon> delete
+                    </clr-button>
+                </clr-button-group>
             </clr-accordion-content>
         </clr-accordion-panel>
     </clr-accordion>
 </div>
 
-<button class="btn btn-link btn-new" (click)="newAdditionalExperiment()"><clr-icon shape="plus"></clr-icon> add additional experiment</button>
-<button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download template file</button>
-<button *ngIf="getAdditionalExperiments().length > 0" class="btn btn-warning delete-btn" (click)="deleteAll()"><clr-icon shape="trash"></clr-icon> delete all</button>
 <overlay-spinner *ngIf="loading"></overlay-spinner>

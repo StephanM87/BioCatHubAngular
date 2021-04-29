@@ -9,13 +9,11 @@ PlotlyModule.plotlyjs = PlotlyJS;
 
 import { AdditionalExperimentsBaseComponent } from './additional-experiments-base/additional-experiments-base.component';
 import { AdditionalExperimentsDetailComponent } from './additional-experiments-detail/additional-experiments-detail.component';
-import { PlotComponent } from './plot/plot.component';
 
 @NgModule({
   declarations: [
     AdditionalExperimentsBaseComponent,
     AdditionalExperimentsDetailComponent,
-    PlotComponent
   ],
   imports: [
     CommonModule,

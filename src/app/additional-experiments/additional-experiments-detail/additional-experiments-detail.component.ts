@@ -2,13 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as XLSX from 'xlsx';
 
 import { AdditionalExperimentService } from '../additional-experiment.service';
-import { DataService } from '../../service/data.service';
-import { ExperimentService } from '../../service/experiment.service';
-import { PlotService } from '../plot.service';
+import { ClientService } from '../client.service';
+import { DataService } from 'src/app/service/data.service';
+import { ExperimentService } from 'src/app/service/experiment.service';
+import { PlotService } from 'src/app/service/plot.service';
+
 import { AdditionalExperiment } from '../additional-experiment-model';
 import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { Experiment } from 'src/app/model/experiment';
 import { AdditionalExperimentPlaceholder } from 'src/properties/placeholder';
+import { Plot } from 'src/app/model/plot';
 
 @Component({
   selector: 'app-additional-experiments-detail',
@@ -21,7 +24,6 @@ import { AdditionalExperimentPlaceholder } from 'src/properties/placeholder';
 export class AdditionalExperimentsDetailComponent implements OnInit {
   @Input() additionalexperiment: AdditionalExperiment;
 
-  public measurementPlot: any;
   public placeholder = AdditionalExperimentPlaceholder;
   public reactants: string[];
   public parameters: string[];
@@ -31,21 +33,27 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
   public changeText: boolean;
   public hideMeasurement: boolean;
   public loading: boolean;
+  plot: Plot;
 
   constructor(public additionalExperimentService: AdditionalExperimentService,
               public dataService: DataService,
               public experimentService: ExperimentService,
-              public plotService: PlotService
+              public plotService: PlotService,
+              public clientService: ClientService
               ) { }
 
   ngOnInit(): void {
-    if(this.additionalexperiment.measurement.replicates.length > 0) {
-      this.loadMeasurementImage();
-    }
     this.initialExperiment = this.dataService.getExperiment();
     this.setReactantList();
     this.setParameterList();
     this.files = new Array<File>();
+    if (this.additionalexperiment.title == undefined) {
+      this.additionalexperiment.title = this.initialExperiment.title;
+    };
+    if(this.additionalexperiment.measurement.replicates.length > 0) {
+      this.loadPlot();
+    };
+    
   }
 
 /* Set dropdown lists for reactants, parameters and units */
@@ -116,39 +124,28 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
     };
   }
 
-/* Functions for Measurement image */
-  
+/* Functions for plotting */
+
+  public updatePlot(): void {
+    this.loadPlot();
+  }
+
+  loadPlot(): void {
+    this.plot = this.plotService.loadPlot(this.additionalexperiment.measurement);
+  }
+
+/* Functions for Updating after inserting or changing data */
+
   public updateImage(): void {
     this.plotService.loadPlot(this.additionalexperiment.measurement);
+    this.updateTitle();
   }
 
-  public aupdateImage(): void {
-    this.loadMeasurementImage();
-  }
-
-  public loadMeasurementImage(): void {
-    this.experimentService.plotMeasurement(this.additionalexperiment.measurement).subscribe(
-      blob => {
-        this.measurementPlot = this.createImageFromBlob(blob);
-      },
-      error => {
-        this.showError(error);
-      }
-    );
-  }
-
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       this.measurementPlot = reader.result;
-    }, false);
-    if (image) {
-       reader.readAsDataURL(image);
-    }
- }
-
-  public showError(error: any): void {
-    console.log(error);
+  public updateTitle(): void {
+    this.additionalexperiment.title = this.initialExperiment.title + " (" + 
+                                      this.additionalexperiment.changedparameter + " = " +
+                                      this.additionalexperiment.changedvalue + " " +
+                                      this.additionalexperiment.unit + ")";
   }
 
 /* Functions to handle measurement data (replicates and values) */
@@ -195,8 +192,32 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
     this.updateImage();
   }
 
-  public deleteAdditionalExperiment(): void {
-    this.additionalExperimentService.deleteAdditionalExperiment(this.additionalexperiment);
+  /* Template file */
+  public templateFile(): void {
+    this.loading = true;
+    this.clientService.templateFile().subscribe(
+      blob => {
+        this.download(blob, 'template.xlsx');
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
-  
+
+  showError(error: any): void {
+    console.log(error);
+  }
+
+  download(blob: Blob, fileName: string): void {
+    const a = document.createElement('a')
+    const objectUrl = URL.createObjectURL(blob)
+    a.href = objectUrl;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(objectUrl);
+  }
+
 }

@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Measurement, Reactant, Replicate } from 'src/app/model/biocatalysis';
+
+import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
+import { PlotService } from 'src/app/service/plot.service';
 import { MeasurementPlaceholder } from 'src/properties/placeholder';
+
+import { Plot } from 'src/app/model/plot';
 
 @Component({
   selector: 'measurement-detail',
@@ -15,13 +19,20 @@ export class MeasurementDetailComponent implements OnInit {
   public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
   public reactants: string[];
+  plot: Plot;
 
-  constructor(public dataService: DataService, public experimentService: ExperimentService) { }
+  constructor(public dataService: DataService,
+              public experimentService: ExperimentService,
+              public plotService: PlotService
+              ) { }
 
   ngOnInit(): void {
     if(this.measurement.replicates.length > 0) {
       this.loadMeasurementImage();
     }
+    if(this.measurement.replicates.length > 0) {
+      this.loadPlot();
+    };
     this.setReactantList();
   }
 
@@ -65,9 +76,13 @@ export class MeasurementDetailComponent implements OnInit {
   public showError(error: any): void {
     console.log(error);
   }
-
+/*
   public updateImage(): void {
     this.loadMeasurementImage();
+  }
+*/
+  public updateImage(): void {
+    this.plotService.loadPlot(this.measurement);
   }
 
   public addReplicate(): void {
@@ -133,6 +148,14 @@ export class MeasurementDetailComponent implements OnInit {
 
   public getProgress(): string {
     return this.dataService.getMeasurementProgress(this.measurement).toFixed();
+  }
+
+  public updatePlot(): void {
+    this.loadPlot();
+  }
+
+  loadPlot(): void {
+    this.plot = this.plotService.loadPlot(this.measurement);
   }
 
 }

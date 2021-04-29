@@ -63,17 +63,6 @@
                     </clr-radio-wrapper>  
                 </div>
             </div>
-            <div class="clr-form-control clr-row">
-                <label class="clr-control-label clr-col-12 clr-col-md-5">measured reactant</label>
-                <div class="clr-control-container clr-col-md-7 clr-col-12">
-                    <div class="clr-select-wrapper">
-                        <select class="clr-select" name="reagent" [(ngModel)]="additionalexperiment.measurement.reagent">
-                            <option value=undefined hidden="true">{{placeholder.reactant}}</option>
-                            <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="clr-col-sm-12 clr-col-md-4">
             <ngx-dropzone class="file-dropzone" accept=".xlsx" (change)="onSelect($event)" (mouseover)="changeText=true" (mouseout)="changeText=false" >
@@ -85,12 +74,13 @@
                     <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
                 </ngx-dropzone-preview>
             </ngx-dropzone>
+            <button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download measurement data sheet</button>
         </div>
     </div>
 
     <div class="clr-form-control clr-row">
         <div class="clr-control-container clr-col-md-12 clr-col-12">
-            <app-plot [measurement]="additionalexperiment.measurement"></app-plot>
+            <plotly-plot [data] = "plot.data" [layout] = "plot.layout" [useResizeHandler] = "true"></plotly-plot>
         </div>
     </div>
     <div class="clr-form-control clr-row">
@@ -181,5 +171,3 @@
         <textarea clrTextarea [(ngModel)]="additionalexperiment.measurement.notes" [placeholder]="placeholder.notes" name="notes"></textarea>
     </clr-textarea-container>
 </form>
-
-<button class="btn btn-warning delete-btn" (click)="deleteAdditionalExperiment()"><clr-icon shape="trash"></clr-icon> delete additional experiment</button>
