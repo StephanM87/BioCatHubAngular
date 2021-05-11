@@ -49,12 +49,42 @@ export class DashboardBaseComponent implements OnInit {
   public exportEnzymeML(): void {
     this.loading = true;
     this.experimentService.createEnzymeML(this.experiment).subscribe(
-      blob => {
-        this.download(blob, 'experiment.omex');
+      b => {
+
+
+        let experimentName 
+
+        
+        console.log(b)
+
+        let title = this.experiment.title
+        let dateYear = this.creationDate.getFullYear()
+        let dateMonth = this.creationDate.getMonth()
+        let dateDay = this.creationDate.getUTCDay()
+        let date = dateYear+"-"+dateMonth+"-"+dateDay
+        let name = date+title
+
+        if(b.type=="text/xml"){
+          
+          experimentName = name+"(noEnzymeML)"+".omex"
+        }
+
+        else if(b.type=="application/omex"){
+          experimentName = name+".omex"
+        }
+
+
+        
+
+        window.alert(experimentName)
+
+
+        this.download(b, experimentName);
         this.loading = false;
       },
       error => {
         this.showError(error);
+        window.alert(error["statusText"])
         this.loading = false;
       }
     );
