@@ -245,9 +245,6 @@ export class DataService {
       if(this.validateString(condition.unit)) {
         this.conditionValidation.push('unit');
       }
-      if(this.validateNumber(condition.ph)) {
-        this.conditionValidation.push('ph');
-      }
       let buffer = condition.buffer;
       if(buffer != undefined) {
         if(this.validateString(buffer.type)) {
