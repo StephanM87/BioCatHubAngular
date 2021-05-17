@@ -3,6 +3,8 @@ import { ExperimentalData, Measurement } from 'src/app/model/biocatalysis';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
 
+import { PlotService } from 'src/app/service/plot.service';
+
 @Component({
   selector: 'dashboard-measurement',
   templateUrl: './dashboard-measurement.component.html',
@@ -14,11 +16,13 @@ export class DashboardMeasurementComponent implements OnInit {
   public measurementPlot: Array<any>;
   public progress: string;
 
-  constructor(public experimentService: ExperimentService, public dataService: DataService) { }
+  constructor(public experimentService: ExperimentService, public dataService: DataService,
+              public plotService: PlotService) { }
 
   ngOnInit(): void {
     this.measurementPlot = new Array<any>();
-    this.loadMeasurementImage();
+    this.loadPlots();
+    //this.loadMeasurementImage();
     this.setProgress();
   }
 
@@ -35,8 +39,16 @@ export class DashboardMeasurementComponent implements OnInit {
     this.progress = progressValue.toFixed();
   }
 
+  public loadPlots(): void {
+    this.experimentalData.measurements.forEach(measurement => {
+      this.measurementPlot.push(this.plotService.loadPlot(measurement));
+    });
+  }
+
   public loadMeasurementImage(): void {
     this.experimentalData.measurements.forEach(measurement => {
+      this.plotService.loadPlot(measurement);
+      /*
       this.experimentService.plotMeasurement(measurement).subscribe(
         blob => {
           this.createImageFromBlob(blob);
@@ -44,7 +56,7 @@ export class DashboardMeasurementComponent implements OnInit {
         error => {
           console.log(error);
         }
-      );
+      );*/
     });
   }
 

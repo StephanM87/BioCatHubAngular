@@ -19,7 +19,7 @@
                 </table>
             </div>
             <div class="card-img">
-                <img [src]="measurementPlot[i]">
+                <plotly-plot [data] = "measurementPlot[i].data" [layout] = "measurementPlot[i].layout" [useResizeHandler] = "true"></plotly-plot>
             </div>
             <div class="card-text" *ngIf="measurement.notes">
                 {{measurement.notes}}

@@ -10,19 +10,24 @@
     <clr-radio-container clrInline>
         <label>plot</label>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="point" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
             <label>point chart</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="line" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
             <label>line chart</label>
         </clr-radio-wrapper>
     </clr-radio-container>
     <div class="clr-form-control clr-row">
+        <div class="clr-control-container clr-col-md-12 clr-col-12">
+            <plotly-plot [data] = "plot.data" [layout] = "plot.layout" [useResizeHandler] = "true"></plotly-plot>
+        </div>
+        <!--
         <div class="clr-control-label clr-col-12 clr-col-md-2"></div>
         <div class="clr-control-container clr-col-md-10 clr-col-12">
             <img [src]="measurementPlot">
         </div>
+        -->
     </div>
     <div class="clr-form-control clr-row">
         <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
