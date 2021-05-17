@@ -147,7 +147,7 @@ export class Measurement {
         this.y_name = measurement && measurement.y_name || undefined;
         this.replicates = measurement && measurement.replicates || new Array<Replicate>();
         this.notes = measurement && measurement.notes || undefined;
-        this.plotStyle = measurement && measurement.plotStyle || 'point';
+        this.plotStyle = measurement && measurement.plotStyle || 'markers';
     }
 }
 

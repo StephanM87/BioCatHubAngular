@@ -1,4 +1,5 @@
-import { Enzyme, Measurement, Vessel, Condition, User, ExperimentalData } from './biocatalysis';
+import { Enzyme, Vessel, Condition, User, ExperimentalData } from './biocatalysis';
+import { AdditionalExperiment } from 'src/app/additional-experiments/additional-experiment-model';
 
 export interface IExperiment {
     title: string;
@@ -8,6 +9,7 @@ export interface IExperiment {
     condition: Condition;
     experimentalData: ExperimentalData;
     user: User;
+    additionalExperiments: Array<AdditionalExperiment>;
 }
 
 export class Experiment implements IExperiment {
@@ -18,6 +20,7 @@ export class Experiment implements IExperiment {
     condition: Condition;
     experimentalData: ExperimentalData;
     user: User;
+    additionalExperiments: Array<AdditionalExperiment>;
 
     constructor(experiment? : IExperiment) {
         this.title = experiment && experiment.title || undefined;
@@ -27,6 +30,7 @@ export class Experiment implements IExperiment {
         this.condition = experiment && experiment.condition || new Condition();
         this.experimentalData = experiment && experiment.experimentalData || new ExperimentalData();
         this.user = experiment && experiment.user || new User();
+        this.additionalExperiments = experiment && experiment.additionalExperiments || new Array<AdditionalExperiment>();
     }
 
     public getTitle(): string {

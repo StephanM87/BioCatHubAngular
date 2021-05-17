@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'https://biocathubbackend.herokuapp.com/api'
+  //backendUrl: 'https://biocathubbackend.herokuapp.com/api'
+  backendUrl: 'http://localhost:5000/api'
 };
 
 /*

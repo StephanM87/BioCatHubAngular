@@ -2,48 +2,25 @@ import { Measurement } from '../model/biocatalysis';
 
 export class AdditionalExperiment {
     title: string;
-    changedparameter: string;
-    reactantofparameter: string;
-    changedvalue: number;
-    unit: string;
+    parameter: Parameter;
     measurement: Measurement;
 
     constructor(AdditionalExperiment? : AdditionalExperiment) {
         this.title = AdditionalExperiment?.title || undefined;
-        this.changedparameter = AdditionalExperiment?.changedparameter || undefined;
-        this.changedvalue = AdditionalExperiment?.changedvalue || undefined;
-        this.unit = AdditionalExperiment?.unit || "";
+        this.parameter = AdditionalExperiment?.parameter || new Parameter;
         this.measurement = AdditionalExperiment?.measurement || new Measurement;
     }
 }
 
-
-export class Plot {
-    data: Array<Datarows> ;
-    layout: Layout;
-}
-
-class Datarows {
-    x: Array<number>;
-    y: Array<Array<number>>;
-    type: string;
-    mode: string;
+class Parameter {
     name: string;
-}
-
-class Layout {
-    xaxis: Xaxis;
-    yaxis: Yaxis;
-}
-
-class Xaxis{
-    title: Title;
-}
-
-class Yaxis{
-    title: Title;
-}
-
-class Title {
-    text: string;
+    reactant: string;
+    value: number;
+    unit: string;
+    constructor(Parameter? : Parameter) {
+        this.name = Parameter?.name || undefined;
+        this.reactant = Parameter?.reactant || undefined;
+        this.value = Parameter?.value || undefined;
+        this.unit = Parameter?.unit || "";
+    }   
 }

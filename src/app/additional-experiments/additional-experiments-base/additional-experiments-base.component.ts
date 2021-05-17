@@ -4,6 +4,7 @@ import { AdditionalExperimentService } from '../additional-experiment.service';
 import { ClientService } from '../client.service';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
+
 import { AdditionalExperiment } from '../additional-experiment-model';
 import { Experiment } from 'src/app/model/experiment';
 
@@ -15,7 +16,6 @@ import { Experiment } from 'src/app/model/experiment';
 export class AdditionalExperimentsBaseComponent implements OnInit {
 
   public initialExperiment: Experiment;
-  public additionalExperiment: AdditionalExperiment;
 
   public id: string;
   public loading: boolean;
@@ -47,21 +47,21 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
     this.getAdditionalExperiments().splice(0, this.getAdditionalExperiments().length);
   }
 
-  public deleteAdditionalExperiment(additionalexperiment: AdditionalExperiment): void {
-    this.additionalExperimentService.deleteAdditionalExperiment(additionalexperiment);
+  public deleteAdditionalExperiment(additionalExperiment: AdditionalExperiment): void {
+    this.additionalExperimentService.deleteAdditionalExperiment(additionalExperiment);
   }
 
 /* Zenodo */
   public uploadAllToZenodo(): void {
-    this.getAdditionalExperiments().forEach(additionalexperiment => {
-      this.uploadToZenodo(additionalexperiment);
+    this.getAdditionalExperiments().forEach(additionalExperiment => {
+      this.uploadToZenodo(additionalExperiment);
     });
   }
 
-  public uploadToZenodo(additionalexperiment: AdditionalExperiment): void {
+  public uploadToZenodo(additionalExperiment: AdditionalExperiment): void {
     this.loading = true;
     this.clientService.uploadExperimentToZenodo(
-      this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalexperiment, this.initialExperiment)).subscribe(
+      this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalExperiment, this.initialExperiment)).subscribe(
       upload => {
         this.id = upload.id;
         this.zenodoLink = upload.zenodoLink;
@@ -77,17 +77,17 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
 
 /* EnzymeML */
   public exportAllEnzymeML(): void {
-    this.getAdditionalExperiments().forEach(additionalexperiment => {
-      this.exportEnzymeML(additionalexperiment);
+    this.getAdditionalExperiments().forEach(additionalExperiment => {
+      this.exportEnzymeML(additionalExperiment);
     });
   }
   
-  public exportEnzymeML(additionalexperiment: AdditionalExperiment): void {
+  public exportEnzymeML(additionalExperiment: AdditionalExperiment): void {
     this.loading = true;
     this.clientService.createEnzymeML(
-      this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalexperiment, this.initialExperiment)).subscribe(
+      this.additionalExperimentService.createFullExperimentFromAdditionalExperiment(additionalExperiment, this.initialExperiment)).subscribe(
       blob => {
-        this.download(blob, 'additionalexperiment.omex');
+        this.download(blob, 'additionalExperiment.omex');
         this.loading = false;
       },
       error => {
@@ -101,12 +101,12 @@ export class AdditionalExperimentsBaseComponent implements OnInit {
   public createAllPdf(): void {
     /*for Schleife über alle additionalexperiments und einzelne 
       Funktion jeweils dafür aufrufen*/
-    this.getAdditionalExperiments().forEach(additionalexperiment => {
-      this.createPdf(additionalexperiment);
+    this.getAdditionalExperiments().forEach(additionalExperiment => {
+      this.createPdf(additionalExperiment);
     });
   }
 
-  public createPdf(additionalexperiment: AdditionalExperiment): void {
+  public createPdf(additionalExperiment: AdditionalExperiment): void {
     /** TO DO ähnlich wie in dashboard-base component
       * dafür mit createFullExperimentFromAdditionalExperiment()
       * und über ClientService laufen lassen */

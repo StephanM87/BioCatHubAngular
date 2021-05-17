@@ -19,7 +19,9 @@ export class EnzymeSearchComponent implements OnInit {
   public dropdown: boolean;
   public placeholder = BiokatalystPlaceholder;
 
-  constructor(public dataService: DataService, public enzymeService: EnzymeService) { 
+  constructor(public dataService: DataService,
+              public enzymeService: EnzymeService
+              ) { 
     this.enzymeList = new Array<EnzymeSearch>();
     this.loading = false;
   }

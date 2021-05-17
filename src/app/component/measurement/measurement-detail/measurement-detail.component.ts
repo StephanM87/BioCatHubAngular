@@ -19,7 +19,7 @@ export class MeasurementDetailComponent implements OnInit {
   public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
   public reactants: string[];
-  plot: Plot;
+  public plot: Plot;
 
   constructor(public dataService: DataService,
               public experimentService: ExperimentService,
@@ -27,9 +27,6 @@ export class MeasurementDetailComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    if(this.measurement.replicates.length > 0) {
-      this.loadMeasurementImage();
-    }
     if(this.measurement.replicates.length > 0) {
       this.loadPlot();
     };
@@ -50,39 +47,6 @@ export class MeasurementDetailComponent implements OnInit {
 
   public deleteMeasurement(): void {
     this.dataService.deleteMeasurement(this.measurement);
-  }
-
-  public loadMeasurementImage(): void {
-    this.experimentService.plotMeasurement(this.measurement).subscribe(
-      blob => {
-        this.measurementPlot = this.createImageFromBlob(blob);
-      },
-      error => {
-        this.showError(error);
-      }
-    );
-  }
-
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       this.measurementPlot = reader.result;
-    }, false);
-    if (image) {
-       reader.readAsDataURL(image);
-    }
- }
-
-  public showError(error: any): void {
-    console.log(error);
-  }
-/*
-  public updateImage(): void {
-    this.loadMeasurementImage();
-  }
-*/
-  public updateImage(): void {
-    this.plotService.loadPlot(this.measurement);
   }
 
   public addReplicate(): void {
@@ -143,7 +107,7 @@ export class MeasurementDetailComponent implements OnInit {
       list.push(replica);
     });
     this.measurement.replicates = list;
-    this.updateImage();
+    this.updatePlot();
   }
 
   public getProgress(): string {

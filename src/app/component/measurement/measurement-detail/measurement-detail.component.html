@@ -2,7 +2,7 @@
 <form clrForm>
     <clr-select-container>
         <label>measured reactant</label>
-        <select clrSelect [(ngModel)]="measurement.reagent" (change)="updateImage()" name="reagent">
+        <select clrSelect [(ngModel)]="measurement.reagent" (change)="updatePlot()" name="reagent">
             <option value=undefined hidden="true">{{placeholder.reactant}}</option>
             <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
         </select>
@@ -10,21 +10,20 @@
     <clr-radio-container clrInline>
         <label>plot</label>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="measurement.plotStyle" (change)="updatePlot()" />
             <label>points</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="measurement.plotStyle" (change)="updatePlot()" />
             <label>lines</label>
         </clr-radio-wrapper>
         <clr-radio-wrapper>
-            <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="measurement.plotStyle" (change)="updateImage()" />
+            <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="measurement.plotStyle" (change)="updatePlot()" />
             <label>both</label>
         </clr-radio-wrapper>  
     </clr-radio-container>
     <div class="clr-form-control clr-row">
         <div class="clr-control-container clr-col-md-12 clr-col-12">
-            <!--<app-plot [measurement]="measurement"></app-plot>-->
             <plotly-plot [data] = "plot.data" [layout] = "plot.layout" [useResizeHandler] = "true"></plotly-plot>
         </div>
     </div>
@@ -32,12 +31,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updateImage()" [placeholder]="placeholder.x_name" name="x_name" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_name" (change)="updatePlot()" [placeholder]="placeholder.x_name" name="x_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updateImage()" [placeholder]="placeholder.x_unit" name="x_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.x_unit" (change)="updatePlot()" [placeholder]="placeholder.x_unit" name="x_unit" />
             </div>
         </div>
     </div>
@@ -45,12 +44,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">y axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updateImage()" [placeholder]="placeholder.y_name" name="y_name" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_name" (change)="updatePlot()" [placeholder]="placeholder.y_name" name="y_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updateImage()" [placeholder]="placeholder.y_unit" name="y_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="measurement.y_unit" (change)="updatePlot()" [placeholder]="placeholder.y_unit" name="y_unit" />
             </div>
         </div>
     </div>
@@ -83,12 +82,12 @@
         <tr *ngFor="let element of measurement.replicates; index as row">
             <td class="left input-col">
                 <input class="clr-input table-input" type="text" [(ngModel)]="element.x_value" 
-                    (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                    (ngModelChange)="updatePlot()" (paste)="copyData($event)" 
                     [placeholder]="placeholder.cell"/>
             </td>
             <td class="left input-col" *ngFor="let y_value of element.y_values; index as col">
                 <input class="clr-input table-input" type="text" [(ngModel)]="element.y_values[col]" 
-                    (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                    (ngModelChange)="updatePlot()" (paste)="copyData($event)" 
                     [placeholder]="placeholder.cell"/>
             </td>
         </tr>

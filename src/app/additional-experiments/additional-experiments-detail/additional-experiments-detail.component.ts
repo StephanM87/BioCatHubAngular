@@ -10,8 +10,8 @@ import { PlotService } from 'src/app/service/plot.service';
 import { AdditionalExperiment } from '../additional-experiment-model';
 import { Measurement, Replicate } from 'src/app/model/biocatalysis';
 import { Experiment } from 'src/app/model/experiment';
-import { AdditionalExperimentPlaceholder } from 'src/properties/placeholder';
 import { Plot } from 'src/app/model/plot';
+import { AdditionalExperimentPlaceholder } from 'src/properties/placeholder';
 
 @Component({
   selector: 'app-additional-experiments-detail',
@@ -22,12 +22,12 @@ import { Plot } from 'src/app/model/plot';
   ]
 })
 export class AdditionalExperimentsDetailComponent implements OnInit {
-  @Input() additionalexperiment: AdditionalExperiment;
+  @Input() additionalExperiment: AdditionalExperiment;
 
   public placeholder = AdditionalExperimentPlaceholder;
-  public reactants: string[];
-  public parameters: string[];
-  public units: string[];
+  public reactants: Array<string>;
+  public parameters: Array<string>;
+  public units: Array<string>;
   public initialExperiment: Experiment;
   public files: File[];
   public changeText: boolean;
@@ -46,12 +46,13 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
     this.initialExperiment = this.dataService.getExperiment();
     this.setReactantList();
     this.setParameterList();
+    this.setUnitList();
     this.files = new Array<File>();
-    if (this.additionalexperiment.title == undefined) {
-      this.additionalexperiment.title = this.initialExperiment.title;
+    if (this.additionalExperiment.title == undefined) {
+      this.additionalExperiment.title = this.initialExperiment.title;
     };
-    if(this.additionalexperiment.measurement.replicates.length > 0) {
-      this.loadPlot();
+    if(this.additionalExperiment.measurement.replicates.length > 0) {
+      this.updatePlot();
     };
     
   }
@@ -66,7 +67,7 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
   }
 
   public setUnitList(): void {
-    this.units = this.additionalExperimentService.setUnitList(this.additionalexperiment.changedparameter);
+    this.units = this.additionalExperimentService.setUnitList(this.additionalExperiment.parameter.name);
   }
 
 /* Upload Measurements */
@@ -120,54 +121,46 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
         measurement.y_name = element['y_name'];
         measurement.y_unit = element['y_unit'];
       }
-      this.additionalexperiment.measurement = measurement;
+      this.additionalExperiment.measurement = measurement;
     };
   }
 
 /* Functions for plotting */
 
   public updatePlot(): void {
-    this.loadPlot();
-  }
-
-  loadPlot(): void {
-    this.plot = this.plotService.loadPlot(this.additionalexperiment.measurement);
+    this.plot = this.plotService.loadPlot(this.additionalExperiment.measurement);
+    this.updateTitle();
   }
 
 /* Functions for Updating after inserting or changing data */
 
-  public updateImage(): void {
-    this.plotService.loadPlot(this.additionalexperiment.measurement);
-    this.updateTitle();
-  }
-
   public updateTitle(): void {
-    this.additionalexperiment.title = this.initialExperiment.title + " (" + 
-                                      this.additionalexperiment.changedparameter + " = " +
-                                      this.additionalexperiment.changedvalue + " " +
-                                      this.additionalexperiment.unit + ")";
+    this.additionalExperiment.title = this.initialExperiment.title + " (" + 
+                                      this.additionalExperiment.parameter.name + " = " +
+                                      this.additionalExperiment.parameter.value + " " +
+                                      this.additionalExperiment.parameter.unit + ")";
   }
 
 /* Functions to handle measurement data (replicates and values) */
   public addReplicate(): void {
-    this.additionalExperimentService.addReplicate(this.additionalexperiment.measurement);
+    this.additionalExperimentService.addReplicate(this.additionalExperiment.measurement);
   }
 
   public removeReplicate(): void {
-    this.additionalExperimentService.removeReplicate(this.additionalexperiment.measurement);
+    this.additionalExperimentService.removeReplicate(this.additionalExperiment.measurement);
   }
 
   public addValues(): void {
-    this.additionalExperimentService.addValues(this.additionalexperiment.measurement);
+    this.additionalExperimentService.addValues(this.additionalExperiment.measurement);
   }
 
   public deleteValues(): void {
-    this.additionalExperimentService.deleteValues(this.additionalexperiment.measurement);
+    this.additionalExperimentService.deleteValues(this.additionalExperiment.measurement);
   }
 
   getReplicaCount(): number {
-    if(this.additionalexperiment.measurement.replicates.length > 0) {
-      return this.additionalexperiment.measurement.replicates[0].y_values.length;
+    if(this.additionalExperiment.measurement.replicates.length > 0) {
+      return this.additionalExperiment.measurement.replicates[0].y_values.length;
     }
     return 0;
   }
@@ -188,8 +181,8 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
       }
       list.push(replica);
     });
-    this.additionalexperiment.measurement.replicates = list;
-    this.updateImage();
+    this.additionalExperiment.measurement.replicates = list;
+    this.updatePlot();
   }
 
   /* Template file */

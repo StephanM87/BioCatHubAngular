@@ -5,18 +5,18 @@
                 <div class="clr-control-label clr-col-12 clr-col-md-5">changed parameter</div>
                 <div class="clr-control-container clr-col-md-7 clr-col-12">
                     <div class="clr-select-wrapper">
-                        <select class="clr-select" name="changedparameter" [(ngModel)]="additionalexperiment.changedparameter" (change)="updateImage()" (change)="setUnitList()">
-                            <option value=undefined hidden="true">{{placeholder.changedparameter}}</option>
+                        <select class="clr-select" name="name" [(ngModel)]="additionalExperiment.parameter.name" (change)="updatePlot(); setUnitList()" (change)="setUnitList()">
+                            <option value=undefined hidden="true">{{placeholder.name}}</option>
                             <option [value]="parameter" *ngFor="let parameter of parameters">{{parameter}}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div *ngIf="additionalexperiment.changedparameter == 'concentration'" class="clr-form-control clr-row">
+            <div *ngIf="additionalExperiment.parameter.name == 'concentration'" class="clr-form-control clr-row">
                 <div class="clr-control-label clr-col-12 clr-col-md-5">concentration of</div>
                 <div class="clr-control-container clr-col-md-7 clr-col-12">
                     <div class="clr-select-wrapper">
-                        <select class="clr-select" name="reactantofparameter" [(ngModel)]="additionalexperiment.reactantofparameter" (change)="updateImage()">
+                        <select class="clr-select" name="reactant" [(ngModel)]="additionalExperiment.parameter.reactant" (change)="updatePlot()">
                             <option value=undefined hidden="true">{{placeholder.reactant}}</option>
                             <option [value]="reactant" *ngFor="let reactant of reactants">{{reactant}}</option>
                         </select>
@@ -27,7 +27,7 @@
                 <div class="clr-control-label clr-col-12 clr-col-md-5">new parameter value</div>
                 <div class="clr-control-container clr-col-md-7 clr-col-12">
                     <div class="clr-input-wrapper">
-                        <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.changedvalue" (change)="updateImage()" [placeholder]="placeholder.changedvalue" name="changedvalue" />
+                        <input class="clr-input" type="text" [(ngModel)]="additionalExperiment.parameter.value" (change)="updatePlot()" [placeholder]="placeholder.value" name="value" />
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div class="clr-control-label clr-col-12 clr-col-md-5">unit</div>
                 <div class="clr-control-container clr-col-md-7 clr-col-12">
                     <div class="clr-select-wrapper">
-                        <select class="clr-select" name="unit" [(ngModel)]="additionalexperiment.unit" (change)="updateImage()">
+                        <select class="clr-select" name="unit" [(ngModel)]="additionalExperiment.parameter.unit" (change)="updatePlot()">
                             <option value=undefined hidden="true">{{placeholder.unit}}</option>
                             <option [value]="unit" *ngFor="let unit of units">{{unit}}</option>
                         </select>
@@ -46,19 +46,19 @@
                 <div class="clr-control-label clr-col-12 clr-col-md-5">plot style</div>
                 <div class="clr-control-container clr-col-md-2 clr-col-12">
                     <clr-radio-wrapper>
-                        <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <input type="radio" clrRadio name="type" value="markers" [(ngModel)]="additionalExperiment.measurement.plotStyle" (change)="updatePlot()" />
                         <label>points</label>
                     </clr-radio-wrapper>
                 </div>
                 <div class="clr-control-container clr-col-md-2 clr-col-12">
                     <clr-radio-wrapper>
-                        <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <input type="radio" clrRadio name="type" value="lines" [(ngModel)]="additionalExperiment.measurement.plotStyle" (change)="updatePlot()" />
                         <label>lines</label>
                     </clr-radio-wrapper>  
                 </div>
                 <div class="clr-control-container clr-col-md-2 clr-col-12">
                     <clr-radio-wrapper>
-                        <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="additionalexperiment.measurement.plotStyle" (change)="updateImage()" />
+                        <input type="radio" clrRadio name="type" value="lines + markers" [(ngModel)]="additionalExperiment.measurement.plotStyle" (change)="updatePlot()" />
                         <label>both</label>
                     </clr-radio-wrapper>  
                 </div>
@@ -87,12 +87,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">x axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.x_name" (change)="updateImage()" [placeholder]="placeholder.x_name" name="x_name" />
+                <input class="clr-input" type="text" [(ngModel)]="additionalExperiment.measurement.x_name" (change)="updatePlot()" [placeholder]="placeholder.x_name" name="x_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.x_unit" (change)="updateImage()" [placeholder]="placeholder.x_unit" name="x_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="additionalExperiment.measurement.x_unit" (change)="updatePlot()" [placeholder]="placeholder.x_unit" name="x_unit" />
             </div>
         </div>
     </div>
@@ -100,12 +100,12 @@
         <div class="clr-control-label clr-col-12 clr-col-md-2">y axis</div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.y_name" (change)="updateImage()" [placeholder]="placeholder.y_name" name="y_name" />
+                <input class="clr-input" type="text" [(ngModel)]="additionalExperiment.measurement.y_name" (change)="updatePlot()" [placeholder]="placeholder.y_name" name="y_name" />
             </div>
         </div>
         <div class="clr-control-container clr-col-md-5 clr-col-12">
             <div class="clr-input-wrapper">
-                <input class="clr-input" type="text" [(ngModel)]="additionalexperiment.measurement.y_unit" (change)="updateImage()" [placeholder]="placeholder.y_unit" name="y_unit" />
+                <input class="clr-input" type="text" [(ngModel)]="additionalExperiment.measurement.y_unit" (change)="updatePlot()" [placeholder]="placeholder.y_unit" name="y_unit" />
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
             </div>
             <div class="replicates-editor">
                 <button class="btn btn-link editor-btn" (click)="deleteValues()"><clr-icon shape="minus"></clr-icon></button>
-                measurement values: {{additionalexperiment.measurement.replicates.length}}
+                measurement values: {{additionalExperiment.measurement.replicates.length}}
                 <button class="btn btn-link editor-btn" (click)="addValues()"><clr-icon shape="plus"></clr-icon></button>
             </div>
         </div>
@@ -139,25 +139,25 @@
     </div>
 </div>
 <div class="clr-row" *ngIf="!hideMeasurement">
-    <table class="table table-noborder table-compact additionalexperiment-table">
+    <table class="table table-noborder table-compact additionalExperiment-table">
         <thead>
             <tr>
                 <th class="left input-col">x</th>
-                <th class="left input-col" *ngFor="let y of additionalexperiment.measurement.replicates[0].y_values; index as i">
+                <th class="left input-col" *ngFor="let y of additionalExperiment.measurement.replicates[0].y_values; index as i">
                     replica {{i+1}}
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let element of additionalexperiment.measurement.replicates; index as row">
+            <tr *ngFor="let element of additionalExperiment.measurement.replicates; index as row">
                 <td class="left input-col">
                     <input class="clr-input table-input" type="text" [(ngModel)]="element.x_value" 
-                        (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                        (ngModelChange)="updatePlot()" (paste)="copyData($event)" 
                         [placeholder]="placeholder.cell"/>
                 </td>
                 <td class="left input-col" *ngFor="let y_value of element.y_values; index as col">
                     <input class="clr-input table-input" type="text" [(ngModel)]="element.y_values[col]" 
-                        (ngModelChange)="updateImage()" (paste)="copyData($event)" 
+                        (ngModelChange)="updatePlot()" (paste)="copyData($event)" 
                         [placeholder]="placeholder.cell"/>
                 </td>
             </tr>
@@ -168,6 +168,6 @@
 <form clrForm clrLayout="vertical">
     <clr-textarea-container>
         <label>notes</label>
-        <textarea clrTextarea [(ngModel)]="additionalexperiment.measurement.notes" [placeholder]="placeholder.notes" name="notes"></textarea>
+        <textarea clrTextarea [(ngModel)]="additionalExperiment.measurement.notes" [placeholder]="placeholder.notes" name="notes"></textarea>
     </clr-textarea-container>
 </form>

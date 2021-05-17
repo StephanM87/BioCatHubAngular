@@ -60,8 +60,8 @@ export const ExperimentPlaceholder = {
 
 export const AdditionalExperimentPlaceholder = {
   reactant: 'e.g. pyruvate',
-  changedparameter: 'e.g. temperature',
-  changedvalue: 'e.g. 30',
+  name: 'e.g. temperature',
+  value: 'e.g. 30',
   unit: 'e.g. °C',
   x_name: 'e.g. time',
   x_unit: 'e.g. s',

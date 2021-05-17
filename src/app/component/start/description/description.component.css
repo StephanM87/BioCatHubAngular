@@ -12,3 +12,6 @@
 .description {
     margin-bottom: 2rem;
 }
+.tooltip-content {
+    text-align: justify;
+}

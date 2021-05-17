@@ -29,23 +29,23 @@
 
 <div *ngIf="getAdditionalExperiments().length > 0">
     <clr-accordion>
-        <clr-accordion-panel *ngFor="let additionalexperiment of getAdditionalExperiments()">
+        <clr-accordion-panel *ngFor="let additionalExperiment of getAdditionalExperiments()">
             <clr-accordion-title>
-                {{additionalexperiment.title}}
+                {{additionalExperiment.title}}
             </clr-accordion-title>
             <clr-accordion-content *clrIfExpanded>
-                <app-additional-experiments-detail [additionalexperiment]="additionalexperiment"></app-additional-experiments-detail>
+                <app-additional-experiments-detail [additionalExperiment]="additionalExperiment"></app-additional-experiments-detail>
                 <clr-button-group class="btn-group">
-                    <clr-button class="btn-link btn-new" (click)="uploadToZenodo(additionalexperiment)">
+                    <clr-button class="btn-link btn-new" (click)="uploadToZenodo(additionalExperiment)">
                         <clr-icon shape="upload-cloud" size="24"></clr-icon> upload to zenodo
                     </clr-button>
-                    <clr-button class="btn-link btn-new" (click)="exportEnzymeML(additionalexperiment)">
+                    <clr-button class="btn-link btn-new" (click)="exportEnzymeML(additionalExperiment)">
                         <clr-icon shape="file-zip" size="24"></clr-icon> create EnzymeML
                     </clr-button>
-                    <clr-button class="btn-link btn-new" (click)="createPdf(additionalexperiment)">
+                    <clr-button class="btn-link btn-new" (click)="createPdf(additionalExperiment)">
                         <clr-icon shape="file" size="24"></clr-icon> create PDF
                     </clr-button>
-                    <clr-button class="btn btn-danger" (click)="deleteAdditionalExperiment(additionalexperiment)">
+                    <clr-button class="btn btn-danger" (click)="deleteAdditionalExperiment(additionalExperiment)">
                         <clr-icon shape="trash"></clr-icon> delete
                     </clr-button>
                 </clr-button-group>
