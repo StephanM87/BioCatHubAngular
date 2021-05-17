@@ -4,6 +4,9 @@ import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
 import { MeasurementPlaceholder } from 'src/properties/placeholder';
 
+import { PlotService } from 'src/app/service/plot.service';
+import { Plot } from 'src/app/model/plot';
+
 @Component({
   selector: 'measurement-detail',
   templateUrl: './measurement-detail.component.html',
@@ -15,12 +18,15 @@ export class MeasurementDetailComponent implements OnInit {
   public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
   public reactants: string[];
+  plot: Plot;
 
-  constructor(public dataService: DataService, public experimentService: ExperimentService) { }
+  constructor(public dataService: DataService, public experimentService: ExperimentService, 
+              public plotService: PlotService,) { }
 
   ngOnInit(): void {
     if(this.measurement.replicates.length > 0) {
       this.loadMeasurementImage();
+      this.updatePlot();
     }
     this.setReactantList();
   }
@@ -67,7 +73,11 @@ export class MeasurementDetailComponent implements OnInit {
   }
 
   public updateImage(): void {
-    this.loadMeasurementImage();
+    this.updatePlot();
+  }
+
+  public updatePlot(): void {
+    this.plot = this.plotService.loadPlot(this.measurement);
   }
 
   public addReplicate(): void {
