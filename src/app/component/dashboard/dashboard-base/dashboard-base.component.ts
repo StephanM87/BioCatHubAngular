@@ -14,7 +14,6 @@ export class DashboardBaseComponent implements OnInit {
   public id: string;
   public zenodoLink: string;
   public creationDate: Date;
-
   public showAlert = true;
   public loading: boolean;
 
@@ -72,10 +71,7 @@ export class DashboardBaseComponent implements OnInit {
         else if(b.type=="application/omex"){
           experimentName = name+".omex"
         }
-
-
         
-
         window.alert(experimentName)
 
 
