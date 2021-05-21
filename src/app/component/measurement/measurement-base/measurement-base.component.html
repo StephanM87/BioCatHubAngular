@@ -11,6 +11,7 @@
 <button class="btn btn-link btn-new" (click)="newMeasurement()"><clr-icon shape="plus"></clr-icon> add measurement</button>
 <button class="btn btn-link btn-new" (click)="templateFile()"><clr-icon shape="download"></clr-icon> download template file</button>
 
+<!--
 <div class="card" *ngIf="getMeasurements().length > 0">
     <div class="card-block" >
         <div class="card-text">
@@ -25,5 +26,21 @@
         </div>
     </div>
 </div>
+-->
+
+<div *ngIf="getMeasurements().length > 0">
+    <clr-accordion>
+        <clr-accordion-panel *ngFor="let measurement of getMeasurements(); let i = index" [attr.data-index]="i">
+            <clr-accordion-title>
+                measurement {{i+1}}
+            </clr-accordion-title>
+            <clr-accordion-content *clrIfExpanded>
+                <measurement-detail [measurement]="measurement"></measurement-detail>
+            </clr-accordion-content>
+        </clr-accordion-panel>
+    </clr-accordion>
+</div>
+
+
 
 <overlay-spinner *ngIf="loading"></overlay-spinner>

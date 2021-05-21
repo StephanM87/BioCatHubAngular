@@ -33,3 +33,7 @@
  .delete-btn {
      margin-top: 1rem;
  }
+
+ .measurement-progress {
+    height: .1875rem;
+}

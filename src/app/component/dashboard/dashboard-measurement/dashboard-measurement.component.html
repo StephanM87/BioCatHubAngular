@@ -7,23 +7,17 @@
                 <span class="dashboard-headline">experimental data</span>
             </button>
         </div>
-        <div class="card-block" *ngFor="let measurement of experimentalData.measurements; let i = index" [attr.data-index]="i">
-            <div class="card-text">
-                <table class="table table-noborder table-compact table-vertical">
-                    <tbody>
-                        <tr *ngIf="measurement.reagent" >
-                            <th>measured reactant</th>
-                            <td>{{measurement.reagent}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-img">
-                <img [src]="measurementPlot[i]">
-            </div>
-            <div class="card-text" *ngIf="measurement.notes">
-                {{measurement.notes}}
-            </div>
+        <div>
+            <clr-accordion>
+                <clr-accordion-panel *ngFor="let measurement of experimentalData.measurements; let i = index" [attr.data-index]="i">
+                    <clr-accordion-title>
+                        measurement {{i+1}}
+                    </clr-accordion-title>
+                    <clr-accordion-content *clrIfExpanded>
+                        <dashboard-measurement-plot [measurement] = "measurement"></dashboard-measurement-plot>
+                    </clr-accordion-content>
+                </clr-accordion-panel>
+            </clr-accordion>
         </div>
         <p *ngIf="experimentalData.measurements.length == 0">no experimental data</p>
     </div>

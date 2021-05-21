@@ -37,6 +37,7 @@ import { DashboardBiokatalystComponent } from './component/dashboard/dashboard-b
 import { DashboardReactantsComponent } from './component/dashboard/dashboard-reactants/dashboard-reactants.component';
 import { DashboardReactionComponent } from './component/dashboard/dashboard-reaction/dashboard-reaction.component';
 import { DashboardMeasurementComponent } from './component/dashboard/dashboard-measurement/dashboard-measurement.component';
+import { DashboardMeasurementPlotComponent } from './component/dashboard/dashboard-measurement/dashboard-measurement-plot/dashboard-measurement-plot.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { DashboardMeasurementComponent } from './component/dashboard/dashboard-m
     DashboardReactantsComponent,
     DashboardReactionComponent,
     DashboardMeasurementComponent,
+    DashboardMeasurementPlotComponent,
     InputComboComponent,
     OverlaySpinnerComponent
   ],

@@ -16,10 +16,9 @@ import { Plot } from 'src/app/model/plot';
 export class MeasurementDetailComponent implements OnInit {
   @Input() measurement: Measurement;
 
-  public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
   public reactants: string[];
-  public plot: Plot;
+  plot: Plot;
 
   constructor(public dataService: DataService,
               public experimentService: ExperimentService,
