@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { Enzyme, Measurement, Reactant, Reaction } from '../model/biocatalysis';
 import { Experiment } from '../model/experiment';
 
@@ -327,7 +328,11 @@ export class DataService {
   }
 
   private validateNumber(value: number): boolean {
-    return (value == undefined || value <= 0);
+    return (!this.isNumber(value) || value <= 0);
+  }
+
+  isNumber(n): boolean {
+    return !isNaN(parseFloat(n)) && !isNaN(n - 0);
   }
 
   private validateList(list: any[]): boolean {
