@@ -125,14 +125,11 @@ export class AdditionalExperimentsDetailComponent implements OnInit {
     };
   }
 
-/* Functions for plotting */
-
+/* Functions for Updating after inserting or changing data */
   public updatePlot(): void {
     this.plot = this.plotService.loadPlot(this.additionalExperiment.measurement);
     this.updateTitle();
   }
-
-/* Functions for Updating after inserting or changing data */
 
   public updateTitle(): void {
     this.additionalExperiment.title = this.initialExperiment.title + " (" + 

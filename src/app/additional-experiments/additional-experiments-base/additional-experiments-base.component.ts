@@ -16,7 +16,6 @@ import { Experiment } from 'src/app/model/experiment';
 export class AdditionalExperimentsBaseComponent implements OnInit {
 
   public initialExperiment: Experiment;
-
   public id: string;
   public loading: boolean;
   public zenodoLink: string;
