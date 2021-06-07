@@ -1,6 +1,14 @@
 # BioCatHub
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+
+## Dependencies
+
+To run BioCatHub you will need some external dependencies, which have to be installed by yourself. Angular CLI is very supportive for that. In addition here are some useful links for dependencies that lead to errors in the past.
+
+### plotly.js-dist
+
+To install plotly.js-dist the following two links are very helpful. The [npm documentation](https://www.npmjs.com/package/plotly.js-dist) and the [git repository](https://github.com/plotly/plotly.js).
 
 ## Development server
 
