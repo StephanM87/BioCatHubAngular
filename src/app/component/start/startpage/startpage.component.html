@@ -4,14 +4,14 @@
         <p><span class="description">web application to create, collect and share experimental data in biocatalysis</span></p>
         <p><button class="btn btn-primary" (click)="newExperiment()">start new experiment</button></p>
     </div>
-    <div class="clr-col-4">
+    <div class="clr-col-12">
         <div class="file-upload">
             <div class="clr-row">
                 <div class="clr-col-12">
                     <ngx-dropzone class="file-dropzone" accept=".omex" (change)="onSelect($event)" (mouseover)="changeText=true" (mouseout)="changeText=false">
                         <ngx-dropzone-label>
                             <span *ngIf="!changeText"><clr-icon shape="import" size="36"></clr-icon><br>import experiment</span>
-                            <span *ngIf="changeText">upload an EnzymeML file <i>(.omex)</i> to reload the data of an experiment or create a new experiment from a template</span>
+                            <span *ngIf="changeText">upload an EnzymeML document <i>(.omex)</i> to reload the data of an experiment or create a new experiment from a template</span>
                         </ngx-dropzone-label>
                         <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
                             <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
