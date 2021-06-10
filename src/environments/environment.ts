@@ -7,14 +7,15 @@
   backendUrl: 'https://biocathubbackend.herokuapp.com/api'
 };
 */
+
 export const environment = {
   production: false,
-  backendUrl: 'https://biocathubbackend.herokuapp.com/api'
+  backendUrl: '/api'
 };
 
 export const environmentEnzymeML = {
   production: false,
-  backendUrl:'http://127.0.0.1:5000'
+  backendUrl:'http://127.0.0.1:8000/'
 };
 
 /*
