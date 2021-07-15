@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  //backendUrl: 'https://biocathubbackend.herokuapp.com/api'
-  backendUrl: 'http://localhost:5000/api'
+  backendUrl: '/api'
+};
+
+export const environmentEnzymeML = {
+  production: false,
+  backendUrl:'http://127.0.0.1:8000/api'
 };
 
 /*

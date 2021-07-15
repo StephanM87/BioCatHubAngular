@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Experiment, IExperiment } from '../model/experiment';
-import { environment } from 'src/environments/environment';
+import { environment, environmentEnzymeML } from 'src/environments/environment';
 import { Deposition, Upload } from '../model/serviceresult';
 import { Measurement } from '../model/biocatalysis';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application' }),
+  Omex: new HttpHeaders()
 };
 
 @Injectable({
@@ -30,15 +31,33 @@ export class ExperimentService {
   }
 
   // EnzymeML
+/*
   createEnzymeML(experiment: IExperiment): Observable<Blob> {
     return this.client.post(environment.backendUrl + '/experiment/export', experiment, {headers: httpOptions.headers, responseType: 'blob'});
   }
+*/
+
+  createEnzymeML(experiment: IExperiment): Observable<any> {
+    return this.client.post(environmentEnzymeML.backendUrl + '/createEnzymeML', experiment, {headers: httpOptions.Omex, responseType: 'blob'});
+  }
+  
+/*  
   readEnzymeML(enzymeML: File): Observable<Experiment> {
     let formData = new FormData();
     formData.append('enzymeML', enzymeML, enzymeML.name);
     return this.client.post<Experiment>(environment.backendUrl + '/experiment/import', formData, httpOptions);
   }
+*/
 
+readEnzymeML(enzymeML: any): Observable<any> {
+  let data = {"name": "Jürgen", "alter": "32"}
+  let formData = new FormData();
+  console.log(enzymeML);
+  formData.append('enzymeML', enzymeML, enzymeML.name);
+  formData.append("hallo", JSON.stringify(data));
+  console.log(formData);
+  return this.client.post<Experiment>(environmentEnzymeML.backendUrl + '/readEnzymeML', formData, {headers: httpOptions.Omex});
+}
 
   // Measurement
   plotMeasurement(measurement: Measurement): Observable<Blob> {
