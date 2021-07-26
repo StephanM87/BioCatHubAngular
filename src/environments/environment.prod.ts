@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  backendUrl: '/api'
+  backendUrl: '/api/db-query'
 };
 
 
 export const environmentEnzymeML = {
   production: true,
-  backendUrl: ''
+  backendUrl: '/api/enzyme-ml'
 };
