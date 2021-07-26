@@ -10,12 +10,12 @@
 
 export const environment = {
   production: false,
-  backendUrl: '/api'
+  backendUrl: '/api/db-query'
 };
 
 export const environmentEnzymeML = {
   production: false,
-  backendUrl:'http://127.0.0.1:8000/'
+  backendUrl: '/api/enzyme-ml'
 };
 
 /*
