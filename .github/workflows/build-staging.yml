@@ -8,23 +8,44 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      MY_PAT: ${{ secrets.MY_PAT }}
     steps:
-      -
-        name: Set up QEMU
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: dorthrithil
           password: 3906b162-a5fb-491f-b927-f01a404af35c
-      -
-        name: Build and push
+      - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: dorthrithil/biocathub-frontend:latest
+      - name: Create a repository dispatch event to trigger workflow
+        shell: pwsh
+        run: |
+          $pat = $env:MY_PAT
+          $uri = "https://api.github.com/repos/StephanM87/BioCatHub_Linode/dispatches"
+          $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f "", $pat)))
+
+          $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+          $headers.Add("Authorization", ("Basic {0}" -f $base64AuthInfo))
+          $headers.Add("Accept", "application/vnd.github.everest-preview+json")
+          $headers.Add("Content-Type", "application/json")
+
+          $body = "{
+            `"event_type`": `"test-repository-dispatch`",
+            `"client_payload`": {
+              `"name`": `"Felix`",
+              `"home`": `"Koblenz`"
+            }
+          }"
+
+          $response = Invoke-RestMethod -Uri $uri -Headers $headers -Body $body -Method POST
+          $response | ConvertTo-Json
+
