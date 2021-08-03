@@ -30,7 +30,7 @@ jobs:
         shell: pwsh
         run: |
           $pat = $env:MY_PAT
-          $uri = "https://api.github.com/repos/StephanM87/BioCatHub_Linode/dispatches"
+          $uri = "https://api.github.com/repos/dorthrithil/test-biocathub/dispatches"
           $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f "", $pat)))
 
           $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
