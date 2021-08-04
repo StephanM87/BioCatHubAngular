@@ -31,4 +31,5 @@ jobs:
           repo: StephanM87/BioCatHub_Linode
           token: ${{ secrets.WORKFLOW_PAT }}
           inputs: '{ "home": "Koblenz", "name": "Felix" }'
+          ref: master
 
