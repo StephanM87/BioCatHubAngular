@@ -8,8 +8,6 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env:
-      MY_PAT: ${{ secrets.MY_PAT }}
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -27,26 +25,10 @@ jobs:
           push: true
           tags: dorthrithil/biocathub-frontend:latest
       - name: Create a repository dispatch event to trigger workflow
-        shell: pwsh
-        run: |
-          $pat = $env:MY_PAT
-          $uri = "https://api.github.com/repos/dorthrithil/test-biocathub/dispatches"
-          $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f "", $pat)))
-
-          $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-          $headers.Add("Authorization", ("Basic {0}" -f $base64AuthInfo))
-          $headers.Add("Accept", "application/vnd.github.everest-preview+json")
-          $headers.Add("Content-Type", "application/json")
-
-          $body = "{
-            `"event_type`": `"test-repository-dispatch`",
-            `"client_payload`": {
-              `"name`": `"Felix`",
-              `"home`": `"Koblenz`"
-            }
-          }"
-
-          $response = Invoke-RestMethod -Uri $uri -Headers $headers -Body $body -Method POST
-          $response | ConvertTo-Json
-
-
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: deploy.yaml
+          repo: StephanM87/BioCatHub_Linode
+          token: ${{ secrets.WORKFLOW_PAT }}
+          inputs: '{ "home": "Koblenz", "name": "Felix" }'
+          ref: namespaces
