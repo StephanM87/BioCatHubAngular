@@ -1,9 +1,9 @@
-name: build-staging
+name: build-production
 
 on:
   push:
     branches:
-      - 'staging'
+      - 'master'
 
 jobs:
   docker:
@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: biocathub/biocathub-frontend:next
+          tags: biocathub/biocathub-frontend:latest
       - name: Create a repository dispatch event to trigger workflow
         uses: benc-uk/workflow-dispatch@v1
         with:
@@ -31,5 +31,5 @@ jobs:
           repo: StephanM87/BioCatHub_Linode
           token: ${{ secrets.WORKFLOW_PAT }}
           ref: master
-          inputs: '{ "environment": "staging" }'
+          inputs: '{ "environment": "production" }'
 
