@@ -93,6 +93,54 @@ export class Vessel {
     }
 }
 
+
+export class Temperature {
+    value: number;
+    unit: string;
+
+    constructor(temperature?:Temperature) {
+        this.value = temperature && temperature.value || undefined
+        this.unit = temperature && temperature.unit || undefined
+    }
+}
+
+export class pH {
+    value: number;
+    measuredIn: string;
+    temperature:number;
+    tempUnit:string
+
+    constructor(ph?:pH) {
+        this.value = ph && ph.value || undefined
+        this.measuredIn = ph && ph.measuredIn || undefined
+        this.temperature = ph && ph.temperature || undefined
+        this.tempUnit = ph && ph.tempUnit || undefined
+    }
+}
+
+export class SolventSpec {
+    type: string;
+    concentration: number;
+    unit: string;
+
+    constructor(solventSpec?: SolventSpec) {
+        this.type = solventSpec && solventSpec.type || undefined;
+        this.concentration = solventSpec && solventSpec.concentration || undefined;
+        this.unit = solventSpec && solventSpec.unit || undefined
+    }
+
+}
+
+export class Solvent {
+    aqueous: Array<SolventSpec>;
+    organic: Array<SolventSpec>;
+
+    constructor(solvent?: Solvent) {
+        this.aqueous = solvent && solvent.aqueous || new Array<SolventSpec>();
+        this.organic = solvent && solvent.organic || new Array<SolventSpec>();
+    }
+}
+
 export class Buffer {
     type: string;
     concentration: number;
@@ -106,17 +154,18 @@ export class Buffer {
 }
 
 export class Condition {
-    temp: number;
-    unit: string;
-    ph: number;
+    temp: Temperature;
+    ph: pH;
     buffer: Buffer;
+    reactionSystem: string;
+    solvent:Array<Solvent>;
     others: Array<Attribute>;
 
     constructor(condition?: Condition) {
-        this.temp = condition && condition.temp || undefined;
-        this.unit = condition && condition.unit || undefined;
-        this.ph = condition && condition.ph || undefined;
+        this.temp = condition && condition.temp || new Temperature();
+        this.ph = condition && condition.ph || new pH()
         this.buffer = condition && condition.buffer || new Buffer();
+        this.reactionSystem = condition && condition.reactionSystem || undefined;
         this.others = condition && condition.others || new Array<Attribute>();
     }
 }

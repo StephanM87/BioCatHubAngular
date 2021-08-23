@@ -11,28 +11,30 @@ import { DataService } from '../../service/data.service';
 export class ReactionComponent implements OnInit {
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = ReactionPlaceholder;
+  reactionSystem: string
+  aqueousIcon = '../../../assets/Icons/Aqueous icon.png'
+  microAqueousIcon = '../../../assets/Icons/Micro-aqueous icon.png'
+
+  aqueousCSS = "Icon"
+  microAqueousCSS = "Icon"
+
 
   constructor(public dataService: DataService) { }
 
-  ngOnInit(): void { }
-  
-  public getReaction(): Condition {
-    return this.dataService.getExperiment().getReactionConditions();
+  ngOnInit(): void {
   }
   
-  public addAttribute(): void {
-    this.getReaction().others.push(new Attribute());
+
+  clickAqueous(){
+    this.reactionSystem = "aqueous"
+    this.aqueousCSS = "IconWithBoder"
+    this.microAqueousCSS = "Icon"
   }
 
-  public deleteAttribute(other: Attribute): void {
-    let index = this.getReaction().others.indexOf(other);
-    if (index !== -1) {
-      this.getReaction().others.splice(index, 1);
-    }
-  }
-
-  public getProgress(): string {
-    return this.dataService.getConditionProgress().toFixed();
-  }
+  clickMicroAqueous(){
+    this.reactionSystem="Micro-aqueous"
+    this.aqueousCSS = "Icon"
+    this.microAqueousCSS = "IconWithBoder"
+  }  
 
 }

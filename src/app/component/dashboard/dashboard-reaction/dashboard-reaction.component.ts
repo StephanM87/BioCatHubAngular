@@ -15,8 +15,8 @@ export class DashboardReactionComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.showReactionInformation = (this.reaction.temp > 0 || this.notNull(this.reaction.unit) || 
-      this.reaction.ph > 0 || this.checkBuffer(this.reaction.buffer) || this.reaction.others.length > 0);
+    this.showReactionInformation = (this.reaction.temp.value > 0 || this.notNull(this.reaction.temp.unit) || 
+      this.reaction.ph.value > 0 || this.checkBuffer(this.reaction.buffer) || this.reaction.others.length > 0);
     this.progress = this.dataService.getConditionProgress().toFixed();
   }
 
