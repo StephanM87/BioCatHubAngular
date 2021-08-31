@@ -1,3 +1,11 @@
+.organic-solvent-div{
+    width:100%
+}
+
+.FormInput {
+    width:100%
+}
+
 .Subheader{
     display:flex;
     justify-content:center;
@@ -11,4 +19,12 @@
 
 .separationLine{
     margin-top:5%
+}
+
+.reactant-progress {
+    height: .1875rem;
+}
+
+.delteSolventButton{
+    margin-top:7%
 }

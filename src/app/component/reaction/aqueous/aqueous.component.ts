@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactionPlaceholder } from 'src/properties/placeholder';
-import { Attribute, Condition } from '../../../model/biocatalysis';
+import { Attribute, Condition, SolventSpec } from '../../../model/biocatalysis';
 import { DataService } from '../../../service/data.service';
 
 @Component({
@@ -20,11 +20,19 @@ export class AqueousComponent implements OnInit {
     return this.dataService.getExperiment().getReactionConditions();
   }
   
+
+  addSolvent():void {
+    let solvent = new SolventSpec()
+    this.getReaction().solvent.aqueous.push(solvent)
+    console.log(this.getReaction())
+  }
+
+
   public addAttribute(): void {
     this.getReaction().others.push(new Attribute());
   }
 
-  public deleteAttribute(other: Attribute): void {
+    public deleteAttribute(other: Attribute): void {
     let index = this.getReaction().others.indexOf(other);
     if (index !== -1) {
       this.getReaction().others.splice(index, 1);

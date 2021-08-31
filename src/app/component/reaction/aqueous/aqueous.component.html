@@ -5,6 +5,28 @@
                 <clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
                 <div class="card-text">
                     <form clrForm>
+
+
+                        <clr-datagrid>
+
+                            <clr-dg-column>type</clr-dg-column>
+                            <clr-dg-column>concentration</clr-dg-column>
+                            <clr-dg-column>unit</clr-dg-column>
+                            <clr-dg-row>
+                                <clr-dg-row-detail [clrDgReplace]="true">
+                                    <!--Organic Solvent Component-->
+                                    <app-aqueous-solvent [solvent]="getReaction().solvent.aqueous" style="width:100%" ></app-aqueous-solvent>
+                                </clr-dg-row-detail>
+                                <clr-dg-cell>org.type</clr-dg-cell>
+                                <clr-dg-cell>org.concentration</clr-dg-cell>
+                                <clr-dg-cell>org.unit</clr-dg-cell>
+                        
+                            </clr-dg-row>
+                        
+                        </clr-datagrid>
+
+                        
+
                         <div class="clr-form-control clr-row">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">temperature</div>
                             <div class="clr-control-container clr-col-md-5 clr-col-12">

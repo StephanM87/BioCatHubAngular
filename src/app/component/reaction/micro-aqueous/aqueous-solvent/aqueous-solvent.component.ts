@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import  { DataService } from "../../../../service/data.service"
 
 @Component({
   selector: 'app-aqueous-solvent',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AqueousSolventComponent implements OnInit {
 
-  constructor() { }
+  @Input() solvent
+  constructor(private data:DataService) { }
 
   ngOnInit(): void {
+  }
+
+
+  getReaction(){
+    let org = [{type:"name", concentration:3, unit:"mmol/L"}]
+    return org
+  }
+
+  getExperiment(){
+    return this.data.getExperiment()
   }
 
 }

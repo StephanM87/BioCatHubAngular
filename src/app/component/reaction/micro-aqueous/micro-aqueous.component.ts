@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactionPlaceholder } from 'src/properties/placeholder';
-import { Attribute, Condition } from '../../../model/biocatalysis';
+import { Attribute, Condition, SolventSpec } from '../../../model/biocatalysis';
 import { DataService } from '../../../service/data.service';
 
 @Component({
@@ -11,21 +11,22 @@ import { DataService } from '../../../service/data.service';
 export class MicroAqueousComponent implements OnInit {
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = ReactionPlaceholder;
+  public users = ["jürgen", "walter", "herbert"]
 
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void { }
   
   public getReaction(): Condition {
+
     return this.dataService.getExperiment().getReactionConditions();
   }
-  
-  
-
 
   public addAttribute(): void {
     this.getReaction().others.push(new Attribute());
   }
+
+  
 
   public deleteAttribute(other: Attribute): void {
     let index = this.getReaction().others.indexOf(other);
@@ -33,9 +34,14 @@ export class MicroAqueousComponent implements OnInit {
       this.getReaction().others.splice(index, 1);
     }
   }
-
   public getProgress(): string {
     return this.dataService.getConditionProgress().toFixed();
+  }
+
+  addSolvent():void {
+    let solvent = new SolventSpec()
+    this.getReaction().solvent.organic.push(solvent)
+    console.log(this.getReaction())
   }
 
 }

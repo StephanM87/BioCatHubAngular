@@ -5,8 +5,7 @@
                 <clr-progress-bar class="progress top" [clrValue]="getProgress()" clrMax="100" [clrSuccess]="getProgress()=='100'"></clr-progress-bar>
                 <div class="card-text">
                     <form clrForm>
-                    
-                    <!-- Temperature> -->
+    <!-- Temperature> -->
                         <div class="clr-form-control clr-row">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">temperature</div>
                             <div class="clr-control-container clr-col-md-6 clr-col-12">
@@ -28,41 +27,35 @@
                             <div class="clr-col-12">
                                 <p class="p1 Subheader">organic phase</p>
                             </div>
+                        </div>                      
+                    <!-- Hier muss der Placeholder rein-->                  
+    <!-- Solvent -->
+                    
+                    
+                    <clr-datagrid>
 
-                        </div>
-                        
-                        <!-- Hier muss der Placeholder rein-->
-                        
-                        <!-- Solvent -->
+                        <clr-dg-column>type</clr-dg-column>
+                        <clr-dg-column>concentration</clr-dg-column>
+                        <clr-dg-column>unit</clr-dg-column>
+                        <clr-dg-row *ngFor="let org of getReaction().solvent.organic">
+                            
+                            <clr-dg-cell>{{org.type}}</clr-dg-cell>
+                            <clr-dg-cell>{{org.concentration}}</clr-dg-cell>
+                            <clr-dg-cell>{{org.unit}}</clr-dg-cell>
+                                <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
+    <!--Organic Solvent Component-->
+                                            <app-organic-solvent style="width:100%" [org]="org"></app-organic-solvent>
+                                </clr-dg-row-detail>
 
-                        <clr-input-container>
-                            <label>solvent type</label>
-                            <input clrInput type="text"  [placeholder]="placeholder.buffer" name="buffr-type"/>
-                        </clr-input-container>
-                        <div class="clr-form-control clr-row concentrationInput">
-                            <div class="clr-control-label clr-col-12 clr-col-md-2"> concentration </div>
-                            <div class="clr-control-container clr-col-md-4 clr-col-12">
-                                <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" [placeholder]="placeholder.buffer_conc" name="buffer-conc" />
-                                </div>
-                            </div>
-                            <div class="clr-control-container clr-col-md-4 clr-col-12">
-                                <div class="clr-select-wrapper">
-                                    <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
-                                        <option value=undefined hidden="true">{{placeholder.buffer_unit}}</option>
-                                        <option value="mmol/L">mmol/L</option>
-                                        <option value="mmoL/L">mmoL/L</option>
-                                        <option value="mg/mL">mg/mL</option>
-                                        <option value="mL">mL</option>
-                                        <option value="g">g</option>
-                                        <option value="g/g">g/g</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="separationLine">
+                        </clr-dg-row>
 
-                        <!-- Aqueous Phase description -->
+                    </clr-datagrid>
+                    <button class="btn btn-link btn-add-attribute" (click)="addSolvent()">
+                        <clr-icon shape="plus"></clr-icon> add solvent
+                    </button>
+                    <hr class="separationLine">
+                    
+    <!-- Aqueous Phase description -->
                         <div class="clr-row">
                             <div class="clr-col-12">
                                 <p class="p1 Subheader">aqueous Phase</p>
@@ -70,40 +63,27 @@
 
                         </div>
 
-                        <!-- buffer -->
+                <!-- buffer -->
+                        
+                <clr-datagrid>
 
-                        <clr-input-container>
-                            <label>buffer</label>
-                            <input clrInput type="text" [(ngModel)]="getReaction().buffer.type" [placeholder]="placeholder.buffer" name="buffer-type"/>
-                        </clr-input-container>
-                        <div class="clr-form-control clr-row concentrationInput">
-                            <div class="clr-control-label clr-col-12 clr-col-md-2"> concentration</div>
-                            <div class="clr-control-container clr-col-md-4 clr-col-12">
-                                <div class="clr-input-wrapper">
-                                    <input class="clr-input" type="text" [(ngModel)]="getReaction().buffer.concentration" [placeholder]="placeholder.buffer_conc" name="buffer-conc" />
-                                </div>
-                            </div>
-                            <div class="clr-control-container clr-col-md-4 clr-col-12">
-                                <div class="clr-select-wrapper">
-                                    <select class="clr-select" [(ngModel)]="getReaction().buffer.unit" name="buffer-unit">
-                                        <option value=undefined hidden="true">{{placeholder.buffer_unit}}</option>
-                                        <option value="mmol/L">mmol/L</option>
-                                        <option value="mmoL/L">mmoL/L</option>
-                                        <option value="mg/mL">mg/mL</option>
-                                        <option value="mL">mL</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <clr-dg-column>type</clr-dg-column>
+                    <clr-dg-column>concentration</clr-dg-column>
+                    <clr-dg-column>unit</clr-dg-column>
+                    <clr-dg-row *ngFor="let org of getReaction().solvent.organic">
+                        
+                        <clr-dg-cell>{{org.type}}</clr-dg-cell>
+                        <clr-dg-cell>{{org.concentration}}</clr-dg-cell>
+                        <clr-dg-cell>{{org.unit}}</clr-dg-cell>
+                            <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
+    <!--Aqueous Solvent Component-->
+                                <app-aqueous-solvent></app-aqueous-solvent>
+                            </clr-dg-row-detail>
 
-                        <div class="clr-row concentrationInput">
-                            <div class="clr-col-10">
-                                <clr-input-container>
-                                    <label>pH (optional)</label>
-                                    <input clrInput type="text" [(ngModel)]="getReaction().ph.value" [placeholder]="placeholder.ph" name="ph"/>
-                                </clr-input-container>
-                            </div>
-                        </div>
+                    </clr-dg-row>
+
+                </clr-datagrid>
+                        
 
                         <div class="clr-form-control clr-row" *ngFor="let other of getReaction().others">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">
@@ -124,6 +104,7 @@
                             <clr-icon shape="plus"></clr-icon> add attribute
                         </button>
                     </form>
+                    <button (click)="addSolvent()"> add organic solvent</button>
                 </div>
             </div>
         </div>

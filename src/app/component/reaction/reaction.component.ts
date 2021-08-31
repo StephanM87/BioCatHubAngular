@@ -14,6 +14,8 @@ export class ReactionComponent implements OnInit {
   reactionSystem: string
   aqueousIcon = '../../../assets/Icons/Aqueous icon.png'
   microAqueousIcon = '../../../assets/Icons/Micro-aqueous icon.png'
+  public condition:Condition
+
 
   aqueousCSS = "Icon"
   microAqueousCSS = "Icon"
@@ -22,19 +24,25 @@ export class ReactionComponent implements OnInit {
   constructor(public dataService: DataService) { }
 
   ngOnInit(): void {
+    this.condition = this.dataService.getExperiment().condition
+    
   }
+  
   
 
   clickAqueous(){
     this.reactionSystem = "aqueous"
     this.aqueousCSS = "IconWithBoder"
     this.microAqueousCSS = "Icon"
+    this.condition.reactionSystem = "aqueous"
   }
 
   clickMicroAqueous(){
     this.reactionSystem="Micro-aqueous"
     this.aqueousCSS = "Icon"
     this.microAqueousCSS = "IconWithBoder"
+    this.condition.reactionSystem = "micro-aqueous"
+
   }  
 
 }

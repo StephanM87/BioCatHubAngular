@@ -158,7 +158,7 @@ export class Condition {
     ph: pH;
     buffer: Buffer;
     reactionSystem: string;
-    solvent:Array<Solvent>;
+    solvent:Solvent;
     others: Array<Attribute>;
 
     constructor(condition?: Condition) {
@@ -166,6 +166,7 @@ export class Condition {
         this.ph = condition && condition.ph || new pH()
         this.buffer = condition && condition.buffer || new Buffer();
         this.reactionSystem = condition && condition.reactionSystem || undefined;
+        this.solvent = condition && condition.solvent || new Solvent()
         this.others = condition && condition.others || new Array<Attribute>();
     }
 }

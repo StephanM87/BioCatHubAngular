@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-organic-solvent',
@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class OrganicSolventComponent implements OnInit {
 
   constructor() { }
+
+  @Input() org
+
+  
+
 
   ngOnInit(): void {
   }

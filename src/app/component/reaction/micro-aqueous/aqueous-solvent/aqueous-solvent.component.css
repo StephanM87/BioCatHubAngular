@@ -1,0 +1,18 @@
+.Subheader{
+    display:flex;
+    justify-content:center;
+    font-weight:bold;
+    text-decoration: underline;
+}
+
+.concentrationInput  {
+    justify-content:flex-end
+}
+
+.pHVessel {
+    justify-content:flex-start
+}
+
+.separationLine{
+    margin-top:5%
+}
