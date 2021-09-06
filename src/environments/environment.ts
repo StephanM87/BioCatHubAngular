@@ -2,9 +2,20 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+/*export const environment = {
+  production: false,
+  backendUrl: 'https://biocathubbackend.herokuapp.com/api'
+};
+*/
+
 export const environment = {
   production: false,
-  backendUrl: 'http://127.0.0.1:5000/api'
+  backendUrl: '/api/db-query'
+};
+
+export const environmentEnzymeML = {
+  production: false,
+  backendUrl: '/api/enzyme-ml'
 };
 
 /*

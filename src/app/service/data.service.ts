@@ -245,19 +245,16 @@ export class DataService {
       if(this.validateString(condition.unit)) {
         this.conditionValidation.push('unit');
       }
-      if(this.validateNumber(condition.ph)) {
-        this.conditionValidation.push('ph');
-      }
       let buffer = condition.buffer;
       if(buffer != undefined) {
         if(this.validateString(buffer.type)) {
-          this.conditionValidation.push('puffer');
+          this.conditionValidation.push('buffer');
         }
         if(this.validateNumber(buffer.concentration)) {
           this.conditionValidation.push('puffer concentration');
         }
         if(this.validateString(buffer.unit)) {
-          this.conditionValidation.push('puffer unit');
+          this.conditionValidation.push('buffer unit');
         }
       }
       condition.others.forEach(attribute => {

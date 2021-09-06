@@ -1,4 +1,10 @@
 export const environment = {
   production: true,
-  backendUrl: 'https://biocathubbackend.herokuapp.com/api'
+  backendUrl: '/api/db-query'
+};
+
+
+export const environmentEnzymeML = {
+  production: true,
+  backendUrl: '/api/enzyme-ml'
 };

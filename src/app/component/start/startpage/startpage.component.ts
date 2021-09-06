@@ -38,12 +38,24 @@ export class StartpageComponent implements OnInit {
   }
   
   public uploadFiles(): void {
-    this.loading = true;
+    this.loading = false;
     if(this.files && this.files.length > 0){
       let file = this.files[0];
       this.experimentService.readEnzymeML(file).subscribe(
         experiment => {
-          this.dataService.setExperiment(new Experiment(experiment));
+
+/*          console.log(experiment)
+          this.files = new Array<any>();
+        }, error => {
+          console.log(error);
+          this.loading = false;
+        });
+      this.files = new Array<File>();
+
+*/
+
+        this.dataService.setExperiment(new Experiment(experiment));
+        console.log(experiment)
           this.dataService.setId(undefined);
           this.dataService.setZenodoLink(undefined);
           this.dataService.setCreationDate(new Date());
@@ -54,7 +66,8 @@ export class StartpageComponent implements OnInit {
           this.loading = false;
         });
       this.files = new Array<File>();
-    }
+      }
   }
 
-}
+} //}
+//}
