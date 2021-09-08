@@ -13,16 +13,16 @@
                             <span *ngIf="!changeText"><clr-icon shape="import" size="36"></clr-icon><br>import experiment</span>
                             <span *ngIf="changeText">upload an EnzymeML document <i>(.omex)</i> to reload the data of an experiment or create a new experiment from a template</span>
                         </ngx-dropzone-label>
-                        <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
-                            <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
-                        </ngx-dropzone-preview>
+                      <ngx-dropzone-preview *ngFor="let file of files" [removable]="false">
+                        <ngx-dropzone-label>{{file.name}}</ngx-dropzone-label>
+                      </ngx-dropzone-preview>
                     </ngx-dropzone>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<experiment-table></experiment-table>
-<startpage-description></startpage-description>
-<external-technologies></external-technologies>
-<overlay-spinner *ngIf="loading"></overlay-spinner>
+<app-experiment-table></app-experiment-table>
+<app-startpage-description></app-startpage-description>
+<app-external-technologies></app-external-technologies>
+<app-overlay-spinner *ngIf="loading"></app-overlay-spinner>

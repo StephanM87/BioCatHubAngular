@@ -1,29 +1,30 @@
+// TODO one file per class convention
 export class Plot {
-    data: Array<Datarows> ;
-    layout: Layout;
+  data: Array<Datarows> ;
+  layout: Layout;
 }
 
 class Datarows {
-    x: Array<number>;
-    y: Array<Array<number>>;
-    type: string;
-    mode: string;
-    name: string;
+  x: Array<number>;
+  y: Array<Array<number>>;
+  type: string;
+  mode: string;
+  name: string;
 }
 
 class Layout {
-    xaxis: Xaxis;
-    yaxis: Yaxis;
+  xaxis: Xaxis;
+  yaxis: Yaxis;
 }
 
 class Xaxis{
-    title: Title;
+  title: Title;
 }
 
 class Yaxis{
-    title: Title;
+  title: Title;
 }
 
 class Title {
-    text: string;
+  text: string;
 }

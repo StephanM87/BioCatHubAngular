@@ -23,7 +23,7 @@
 
 <div class="clr-row dashboard-row">
     <div class="clr-col-12">
-        <dashboard-experiment [experiment]="experiment" [creationDate]="creationDate"></dashboard-experiment>
+        <app-dashboard-experiment [experiment]="experiment" [creationDate]="creationDate"></app-dashboard-experiment>
     </div>
 </div>
 
@@ -31,30 +31,40 @@
     <div class="clr-col-6">
         <div class="clr-row dashboard-row">
             <div class="clr-col-6">
-                <div class="dashboard-detail"><dashboard-vessel [vessel]="experiment.vessel"></dashboard-vessel></div>
+              <div class="dashboard-detail">
+                <app-dashboard-vessel [vessel]="experiment.vessel"></app-dashboard-vessel>
+              </div>
             </div>
             <div class="clr-col-6">
-                <div class="dashboard-detail"><dashboard-reaction [reaction]="experiment.condition"></dashboard-reaction></div>
+              <div class="dashboard-detail">
+                <app-dashboard-reaction [reaction]="experiment.condition"></app-dashboard-reaction>
+              </div>
             </div>
         </div>
         <div class="clr-row dashboard-row">
             <div class="clr-col-12">
-                <div class="dashboard-detail"><dashboard-biokatalyst [enzymes]="experiment.enzymes"></dashboard-biokatalyst></div>
+              <div class="dashboard-detail">
+                <app-dashboard-biokatalyst [enzymes]="experiment.enzymes"></app-dashboard-biokatalyst>
+              </div>
             </div>
         </div>
         <div class="clr-row dashboard-row">
             <div class="clr-col-12">
-                <div class="dashboard-detail"><dashboard-reactants [enzymes]="experiment.enzymes"></dashboard-reactants></div>
+              <div class="dashboard-detail">
+                <app-dashboard-reactants [enzymes]="experiment.enzymes"></app-dashboard-reactants>
+              </div>
             </div>
         </div>
     </div>
-    <div class="clr-col-6">
-        <div class="clr-row dashboard-row dashboard-detail">
-            <div class="clr-col-12">
-                <div class="dashboard-detail"><dashboard-measurement [experimentalData]="experiment.experimentalData"></dashboard-measurement></div>
-            </div>
+  <div class="clr-col-6">
+    <div class="clr-row dashboard-row dashboard-detail">
+      <div class="clr-col-12">
+        <div class="dashboard-detail">
+          <app-dashboard-measurement [experimentalData]="experiment.experimentalData"></app-dashboard-measurement>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<overlay-spinner *ngIf="loading"></overlay-spinner>
+<app-overlay-spinner *ngIf="loading"></app-overlay-spinner>

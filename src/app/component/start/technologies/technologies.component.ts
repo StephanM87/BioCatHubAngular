@@ -1,17 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'external-technologies',
+  selector: 'app-external-technologies',
   templateUrl: './technologies.component.html',
   styleUrls: ['./technologies.component.css']
 })
-export class TechnologiesComponent implements OnInit {
+export class TechnologiesComponent {
 
   public show: boolean;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

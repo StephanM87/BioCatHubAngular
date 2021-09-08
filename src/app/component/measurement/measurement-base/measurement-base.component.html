@@ -16,14 +16,14 @@
         <div class="card-text">
             <clr-tabs>
                 <clr-tab *ngFor="let measurement of getMeasurements(); let i = index" [attr.data-index]="i">
-                    <button clrTabLink>measurement {{i+1}}</button>
-                    <clr-tab-content>
-                        <measurement-detail [measurement]="measurement"></measurement-detail>
-                    </clr-tab-content>
+                  <button clrTabLink>measurement {{i + 1}}</button>
+                  <clr-tab-content>
+                    <app-measurement-detail [measurement]="measurement"></app-measurement-detail>
+                  </clr-tab-content>
                 </clr-tab>
             </clr-tabs>
         </div>
     </div>
 </div>
 
-<overlay-spinner *ngIf="loading"></overlay-spinner>
+<app-overlay-spinner *ngIf="loading"></app-overlay-spinner>

@@ -1,39 +1,38 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Attribute, Enzyme } from 'src/app/model/biocatalysis';
-import { DataService } from 'src/app/service/data.service';
-import { EnzymePlaceholder } from 'src/properties/placeholder';
+import {Component, Input} from '@angular/core';
+import {Attribute, Enzyme} from 'src/app/model/biocatalysis';
+import {DataService} from 'src/app/service/data.service';
+import {EnzymePlaceholder} from 'src/properties/placeholder';
 
 @Component({
-  selector: 'enzyme-detail',
+  selector: 'app-enzyme-detail',
   templateUrl: './enzyme-detail.component.html',
   styleUrls: ['./enzyme-detail.component.css', '../../../../assets/styles/form-styles.css']
 })
-export class EnzymeDetailComponent implements OnInit {
-  @Input() enzyme: Enzyme; 
+export class EnzymeDetailComponent {
+  @Input() enzyme: Enzyme;
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = EnzymePlaceholder;
 
-  constructor(public dataService: DataService) { }
-
-  ngOnInit(): void { }
+  constructor(public dataService: DataService) {
+  }
 
   public addAttribute(): void {
     this.enzyme.others.push(new Attribute());
   }
 
   public deleteAttribute(other: Attribute): void {
-    let index = this.enzyme.others.indexOf(other);
+    const index = this.enzyme.others.indexOf(other);
     if (index !== -1) {
       this.enzyme.others.splice(index, 1);
     }
   }
-  
-  public deleteEnzyme() {
+
+  public deleteEnzyme(): void {
     this.dataService.getExperiment().deleteEnzyme(this.enzyme);
   }
-  
+
   public getProgress(): string {
-    let progress = this.dataService.getEnzymeProgress(this.enzyme);
+    const progress = this.dataService.getEnzymeProgress(this.enzyme);
     return progress.toFixed();
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Experiment } from 'src/app/model/experiment';
-import { DataService } from 'src/app/service/data.service';
-import { ExperimentService } from 'src/app/service/experiment.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {Experiment} from 'src/app/model/experiment';
+import {DataService} from 'src/app/service/data.service';
+import {ExperimentService} from 'src/app/service/experiment.service';
 
 
 @Component({
@@ -10,18 +10,16 @@ import { ExperimentService } from 'src/app/service/experiment.service';
   templateUrl: './startpage.component.html',
   styleUrls: ['./startpage.component.css']
 })
-export class StartpageComponent implements OnInit {
+export class StartpageComponent {
 
   public files: File[];
   public loading: boolean;
   public changeText: boolean;
 
-  constructor(private router: Router, public dataService: DataService, public experimentService: ExperimentService) {
+  constructor(private router: Router,
+              public dataService: DataService,
+              public experimentService: ExperimentService) {
     this.files = new Array<File>();
-  }
-
-  ngOnInit(): void {
-
   }
 
   public newExperiment(): void {
@@ -32,41 +30,42 @@ export class StartpageComponent implements OnInit {
     this.router.navigate(['./vessel']);
   }
 
-  public onSelect(event: any) {
+  public onSelect(event: any): void {
     this.files.push(...event.addedFiles);
     this.uploadFiles();
   }
-  
+
   public uploadFiles(): void {
     this.loading = false;
-    if(this.files && this.files.length > 0){
-      let file = this.files[0];
+    if (this.files && this.files.length > 0) {
+      const file = this.files[0];
       this.experimentService.readEnzymeML(file).subscribe(
         experiment => {
 
-/*          console.log(experiment)
-          this.files = new Array<any>();
-        }, error => {
-          console.log(error);
-          this.loading = false;
-        });
-      this.files = new Array<File>();
+          // TODO can this be deleted?
+          /*          console.log(experiment)
+                    this.files = new Array<any>();
+                  }, error => {
+                    console.log(error);
+                    this.loading = false;
+                  });
+                this.files = new Array<File>();
 
-*/
+          */
 
-        this.dataService.setExperiment(new Experiment(experiment));
-        console.log(experiment)
+          this.dataService.setExperiment(new Experiment(experiment));
+          console.log(experiment); // TODO no such logs in prod code
           this.dataService.setId(undefined);
           this.dataService.setZenodoLink(undefined);
           this.dataService.setCreationDate(new Date());
           this.router.navigate(['./dashboard']);
           this.loading = false;
         }, error => {
-          console.log(error);
+          console.error(error);
           this.loading = false;
         });
       this.files = new Array<File>();
-      }
+    }
   }
 
 } //}

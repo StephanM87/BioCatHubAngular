@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Measurement, Replicate } from 'src/app/model/biocatalysis';
-import { DataService } from 'src/app/service/data.service';
-import { ExperimentService } from 'src/app/service/experiment.service';
+import {Component, OnInit} from '@angular/core';
+import {Measurement, Replicate} from 'src/app/model/biocatalysis';
+import {DataService} from 'src/app/service/data.service';
+import {ExperimentService} from 'src/app/service/experiment.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -15,8 +15,8 @@ export class MeasurementBaseComponent implements OnInit {
   public loading: boolean;
   public changeText: boolean;
 
-  constructor(public dataService: DataService, public experimentService: ExperimentService) {
-
+  constructor(public dataService: DataService,
+              public experimentService: ExperimentService) {
   }
 
   ngOnInit(): void {
@@ -27,10 +27,10 @@ export class MeasurementBaseComponent implements OnInit {
     return this.dataService.getExperiment().getExperimentalData().measurements;
   }
 
-	public onSelect(event: any) {
+  public onSelect(event: any): void {
     this.files.push(...event.addedFiles);
     this.uploadFiles();
-	}
+  }
 
   public uploadFiles(): void {
     this.loading = true;
@@ -45,37 +45,37 @@ export class MeasurementBaseComponent implements OnInit {
     const reader: FileReader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = (e: any) => {
-      let measurement = new Measurement();
-      /* Workbook */
-      const binarystr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(binarystr, { type: 'binary' });
+      const measurement = new Measurement();
+      // Workbook
+      const binaryStr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(binaryStr, {type: 'binary'});
 
-      /* WorkSheets */
+      // WorkSheets
       const firstWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[0]];
       const secondWorkSheet: XLSX.WorkSheet = wb.Sheets[wb.SheetNames[1]];
 
-      /* Replicates */
+      // Replicates
       const replicatesData = XLSX.utils.sheet_to_json(firstWorkSheet);
-      let replicates = new Array<Replicate>();
-      replicatesData.forEach(element => {
-        let replicate = new Replicate();
-        replicate.x_value = element['x_parameter'];
-        replicate.y_values.push(element['rep_1']);
-        replicate.y_values.push(element['rep_2']);
-        replicate.y_values.push(element['rep_3']);
+      const replicates = new Array<Replicate>();
+      replicatesData.forEach((element: any) => {
+        const replicate = new Replicate();
+        replicate.x_value = element.x_parameter;
+        replicate.y_values.push(element.rep_1);
+        replicate.y_values.push(element.rep_2);
+        replicate.y_values.push(element.rep_3);
         replicates.push(replicate);
       });
       measurement.replicates = replicates;
 
-      /* Measurement */
+      // Measurement
       const measurementData = XLSX.utils.sheet_to_json(secondWorkSheet);
-      if(measurementData.length == 1){
-        let element = measurementData[0];
-        measurement.reagent = element['reactant'];
-        measurement.x_name = element['x_name'];
-        measurement.x_unit = element['x_unit'];
-        measurement.y_name = element['y_name'];
-        measurement.y_unit = element['y_unit'];
+      if (measurementData.length === 1) {
+        const element: any = measurementData[0];
+        measurement.reagent = element.reactant;
+        measurement.x_name = element.x_name;
+        measurement.x_unit = element.x_unit;
+        measurement.y_name = element.y_name;
+        measurement.y_unit = element.y_unit;
       }
       this.getMeasurements().push(measurement);
     };
@@ -83,8 +83,8 @@ export class MeasurementBaseComponent implements OnInit {
   }
 
   public newMeasurement(): void {
-    let measurement = new Measurement();
-    let replica = new Replicate();
+    const measurement = new Measurement();
+    const replica = new Replicate();
     replica.y_values = new Array<number>(3);
     measurement.replicates.push(replica);
     this.getMeasurements().push(measurement);
@@ -98,15 +98,15 @@ export class MeasurementBaseComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        console.log(error);
+        console.error(error);
         this.loading = false;
       }
     );
   }
 
   public download(blob: Blob, fileName: string): void {
-    const a = document.createElement('a')
-    const objectUrl = URL.createObjectURL(blob)
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
     a.href = objectUrl;
     a.download = fileName;
     a.click();

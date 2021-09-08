@@ -13,7 +13,7 @@
 
 <div class="reaction-container" *ngFor="let enzyme of getEnzymes(); last as isLast">
     <span class="headline">reactants of {{enzyme.name}}</span>
-    <reaction-editor class="reaction-editor" [enzyme]="enzyme"></reaction-editor>
+    <app-reaction-editor class="reaction-editor" [enzyme]="enzyme"></app-reaction-editor>
     <clr-datagrid>
         <clr-dg-column>name</clr-dg-column>
         <clr-dg-column>concentration</clr-dg-column>
@@ -25,7 +25,7 @@
             <clr-dg-cell>{{educt.role}}</clr-dg-cell>
             <clr-dg-cell><div [innerHTML]="getFormula(educt.formula)"></div></clr-dg-cell>
             <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
-                <reactant-detail class="reactant-detail" [reactant]="educt"></reactant-detail>
+              <app-reactant-detail class="reactant-detail" [reactant]="educt"></app-reactant-detail>
             </clr-dg-row-detail>
         </clr-dg-row>
         <clr-dg-row *ngFor="let product of enzyme.reaction.products">
@@ -34,7 +34,7 @@
             <clr-dg-cell>{{product.role}}</clr-dg-cell>
             <clr-dg-cell><div [innerHTML]="getFormula(product.formula)"></div></clr-dg-cell>
             <clr-dg-row-detail *clrIfExpanded [clrDgReplace]="true">
-                <reactant-detail class="reactant-detail" [reactant]="product"></reactant-detail>
+              <app-reactant-detail class="reactant-detail" [reactant]="product"></app-reactant-detail>
             </clr-dg-row-detail>
         </clr-dg-row>
         <clr-dg-placeholder>no reactants</clr-dg-placeholder>

@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Enzyme, Reactant, Reaction } from 'src/app/model/biocatalysis';
-import { ReactionSearch } from 'src/app/model/serviceresult';
-import { EnzymeService } from 'src/app/service/enzyme.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Enzyme, Reactant} from 'src/app/model/biocatalysis';
+import {ReactionSearch} from 'src/app/model/serviceresult';
+import {EnzymeService} from 'src/app/service/enzyme.service';
 
 @Component({
-  selector: 'reaction-editor',
+  selector: 'app-reaction-editor',
   templateUrl: './reaction-editor.component.html',
   styleUrls: ['./reaction-editor.component.css', '../../../../assets/styles/form-styles.css']
 })
 export class ReactionEditorComponent implements OnInit {
+
   @Input() enzyme: Enzyme;
 
   public loading: boolean;
@@ -20,16 +21,17 @@ export class ReactionEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.reactionList = this.enzymeService.getReactionSearchList(this.enzyme.ecNumber);
-  }  
+  }
 
   public getReactantCount(): number {
     return (this.enzyme.reaction.educts.length + this.enzyme.reaction.products.length);
   }
 
-  // Reaktions Search
+  // Reactions Search
   public getEnzymeReactions(): ReactionSearch[] {
     return this.reactionList;
   }
+
   public selectReaction(selected: ReactionSearch): void {
     this.loading = true;
     this.enzymeService.getReactionSpecification(selected.id).subscribe(
@@ -45,24 +47,27 @@ export class ReactionEditorComponent implements OnInit {
     );
   }
 
-  // Reaktions Editor
+  // Reactions Editor
   public addReactionSubstrate(): void {
-    let reactant = new Reactant();
+    const reactant = new Reactant();
     reactant.role = 'substrate';
     this.enzyme.reaction.educts.push(reactant);
   }
+
   public deleteReactionSubstrate(): void {
-    if(this.enzyme.reaction.educts.length > 0){
+    if (this.enzyme.reaction.educts.length > 0) {
       this.enzyme.reaction.educts.pop();
     }
   }
+
   public addReactionProduct(): void {
-    let reactant = new Reactant();
+    const reactant = new Reactant();
     reactant.role = 'product';
     this.enzyme.reaction.products.push(reactant);
   }
+
   public deleteReactionProduct(): void {
-    if(this.enzyme.reaction.products.length > 0){
+    if (this.enzyme.reaction.products.length > 0) {
       this.enzyme.reaction.products.pop();
     }
   }

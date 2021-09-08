@@ -1,30 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Measurement, Reactant, Replicate } from 'src/app/model/biocatalysis';
-import { DataService } from 'src/app/service/data.service';
-import { ExperimentService } from 'src/app/service/experiment.service';
-import { MeasurementPlaceholder } from 'src/properties/placeholder';
+import {Component, Input, OnInit} from '@angular/core';
+import {Measurement, Replicate} from 'src/app/model/biocatalysis';
+import {DataService} from 'src/app/service/data.service';
+import {ExperimentService} from 'src/app/service/experiment.service';
+import {MeasurementPlaceholder} from 'src/properties/placeholder';
 
-import { PlotService } from 'src/app/service/plot.service';
-import { Plot } from 'src/app/model/plot';
+import {PlotService} from 'src/app/service/plot.service';
+import {Plot} from 'src/app/model/plot';
 
 @Component({
-  selector: 'measurement-detail',
+  selector: 'app-measurement-detail',
   templateUrl: './measurement-detail.component.html',
   styleUrls: ['./measurement-detail.component.css', '../../../../assets/styles/form-styles.css']
 })
 export class MeasurementDetailComponent implements OnInit {
+
   @Input() measurement: Measurement;
 
   public measurementPlot: any;
   public placeholder = MeasurementPlaceholder;
   public reactants: string[];
-  plot: Plot;
+  public plot: Plot;
 
-  constructor(public dataService: DataService, public experimentService: ExperimentService, 
-              public plotService: PlotService,) { }
+  constructor(public dataService: DataService,
+              public experimentService: ExperimentService,
+              public plotService: PlotService) {
+  }
 
   ngOnInit(): void {
-    if(this.measurement.replicates.length > 0) {
+    if (this.measurement.replicates.length > 0) {
       this.loadMeasurementImage();
       this.updatePlot();
     }
@@ -50,7 +53,7 @@ export class MeasurementDetailComponent implements OnInit {
   public loadMeasurementImage(): void {
     this.experimentService.plotMeasurement(this.measurement).subscribe(
       blob => {
-        this.measurementPlot = this.createImageFromBlob(blob);
+        this.measurementPlot = this.createImageFromBlob(blob); // TODO this function doesnt return anything
       },
       error => {
         this.showError(error);
@@ -58,18 +61,18 @@ export class MeasurementDetailComponent implements OnInit {
     );
   }
 
-  createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-       this.measurementPlot = reader.result;
+  createImageFromBlob(image: Blob): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.measurementPlot = reader.result;
     }, false);
     if (image) {
-       reader.readAsDataURL(image);
+      reader.readAsDataURL(image);
     }
- }
+  }
 
   public showError(error: any): void {
-    console.log(error);
+    console.error(error);
   }
 
   public updateImage(): void {
@@ -87,7 +90,7 @@ export class MeasurementDetailComponent implements OnInit {
   }
 
   public removeReplicate(): void {
-    if(this.getReplicaCount() > 1){
+    if (this.getReplicaCount() > 1) {
       this.measurement.replicates.forEach(replica => {
         replica.y_values.pop();
       });
@@ -99,16 +102,16 @@ export class MeasurementDetailComponent implements OnInit {
   }
 
   public addValues(): void {
-    let replica = new Replicate();
+    const replica = new Replicate();
     replica.y_values = new Array<number>(this.getReplicaCount());
     this.measurement.replicates.push(replica);
   }
 
   public deleteValues(): void {
-    if(this.measurement.replicates.length > 1) {
+    if (this.measurement.replicates.length > 1) {
       this.measurement.replicates.pop();
     } else {
-      let replica = new Replicate();
+      const replica = new Replicate();
       replica.y_values = new Array<number>(3);
       this.measurement.replicates = new Array<Replicate>();
       this.measurement.replicates.push(replica);
@@ -116,24 +119,24 @@ export class MeasurementDetailComponent implements OnInit {
   }
 
   getReplicaCount(): number {
-    if(this.measurement.replicates.length > 0) {
+    if (this.measurement.replicates.length > 0) {
       return this.measurement.replicates[0].y_values.length;
     }
     return 0;
   }
 
-  public copyData(event: ClipboardEvent) {
-    let clipboardData = event.clipboardData;
-    let pastedText = clipboardData.getData('text');
-    let rows = pastedText.split('\n');
+  public copyData(event: ClipboardEvent): void {
+    const clipboardData = event.clipboardData;
+    const pastedText = clipboardData.getData('text');
+    const rows = pastedText.split('\n');
     rows.pop();
-    let list = new Array<Replicate>();
+    const list = new Array<Replicate>();
     rows.forEach(row => {
-      let cols = row.split('\t');
-      let replica = new Replicate();
-      replica.x_value = parseFloat(cols[0].replace(',','.'));
+      const cols = row.split('\t');
+      const replica = new Replicate();
+      replica.x_value = parseFloat(cols[0].replace(',', '.'));
       for (let i = 1; i < cols.length; i++) {
-        replica.y_values.push(parseFloat(cols[i].replace(',','.')));
+        replica.y_values.push(parseFloat(cols[i].replace(',', '.')));
       }
       list.push(replica);
     });

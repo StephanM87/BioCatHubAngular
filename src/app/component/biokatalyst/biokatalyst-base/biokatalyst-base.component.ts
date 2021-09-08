@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Enzyme } from 'src/app/model/biocatalysis';
-import { DataService } from 'src/app/service/data.service';
+import {Component} from '@angular/core';
+import {Enzyme} from 'src/app/model/biocatalysis';
+import {DataService} from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-biokatalyst',
   templateUrl: './biokatalyst-base.component.html',
   styleUrls: ['./biokatalyst-base.component.css']
 })
-export class BiokatalystBaseComponent implements OnInit {
+export class BiokatalystBaseComponent {
 
-  public selectedEnzyme: Enzyme;
+  public selectedEnzyme: Enzyme; // TODO not used, can we delete this?
 
-  constructor(public dataService: DataService) {}
+  constructor(public dataService: DataService) {
+  }
 
-  ngOnInit(): void {}
-
-  // Zentraler Zugriff auf die Enzyme über den Data-Service
+  // Zentraler Zugriff auf die Enzyme über den Data-Service TODO comments in english
   public getEnzymes(): Enzyme[] {
     return this.dataService.getExperiment().getEnzymes();
   }

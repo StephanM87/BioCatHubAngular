@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Enzyme, Reaction } from 'src/app/model/biocatalysis';
-import { DataService } from 'src/app/service/data.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Enzyme, Reaction} from 'src/app/model/biocatalysis';
+import {DataService} from 'src/app/service/data.service';
 
 @Component({
-  selector: 'dashboard-reactants',
+  selector: 'app-dashboard-reactants',
   templateUrl: './dashboard-reactants.component.html',
   styleUrls: ['./dashboard-reactants.component.css']
 })
 export class DashboardReactantsComponent implements OnInit {
+
   @Input() enzymes: Enzyme[];
+
   public showReactantsInformation: boolean;
   public progress: string;
 
@@ -17,28 +19,28 @@ export class DashboardReactantsComponent implements OnInit {
 
   ngOnInit(): void {
     this.showReactantsInformation = false;
-    if(this.enzymes != undefined && this.enzymes.length > 0){
+    if (this.enzymes !== undefined && this.enzymes.length > 0) {
       this.enzymes.forEach(enzyme => {
-        this.showReactantsInformation = this.showReactantsInformation || 
-          (enzyme.reaction != undefined && this.getReactantCount(enzyme.reaction) > 0);
+        this.showReactantsInformation = this.showReactantsInformation ||
+          (enzyme.reaction !== undefined && this.getReactantCount(enzyme.reaction) > 0);
       });
     }
     this.setProgress();
   }
 
-  setProgress() {
+  setProgress(): void {
     let count = 0;
     let total = 0;
-    if(this.enzymes != undefined){
+    if (this.enzymes !== undefined) {
       this.enzymes.forEach(enzyme => {
-        if(enzyme.reaction != undefined){
-          if(enzyme.reaction.educts != undefined){
+        if (enzyme.reaction !== undefined) {
+          if (enzyme.reaction.educts !== undefined) {
             enzyme.reaction.educts.forEach(reactant => {
               count += this.dataService.getReactantProgress(reactant);
               total += 100;
             });
           }
-          if(enzyme.reaction.products != undefined){
+          if (enzyme.reaction.products !== undefined) {
             enzyme.reaction.products.forEach(reactant => {
               count += this.dataService.getReactantProgress(reactant);
               total += 100;
@@ -47,10 +49,11 @@ export class DashboardReactantsComponent implements OnInit {
         }
       });
     }
-    let progressValue = total > 0 ? (count/total)*100 : 0;
+    const progressValue = total > 0 ? (count / total) * 100 : 0;
     this.progress = progressValue.toFixed();
   }
-  
+
+  // TODO not used anywhere, can this be deleted?
   public getFormula(formula: string): string {
     return this.dataService.getFormulaHtml(formula);
   }

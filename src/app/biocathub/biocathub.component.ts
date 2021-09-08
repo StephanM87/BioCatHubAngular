@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { DataService } from '../service/data.service';
+import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {DataService} from '../service/data.service';
 
 export interface NavigationElement {
   label: string,
@@ -59,29 +59,48 @@ export class BiocathubComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService) {
     this.vesselNavigation = {
       label: VESSEL, icon: 'volume', started: false, state: NOT_STARTED, error: undefined, router: VESSEL_LINK,
-      previous: undefined, next: ENZYME, previousLink: undefined, nextLink: ENZYME_LINK};
+      previous: undefined, next: ENZYME, previousLink: undefined, nextLink: ENZYME_LINK
+    };
     this.enzymeNavigation = {
       label: ENZYME, icon: 'helix', started: false, state: NOT_STARTED, error: undefined, router: ENZYME_LINK,
-      previous: VESSEL, next: REAGENT, previousLink: VESSEL_LINK, nextLink: REAGENT_LINK};
+      previous: VESSEL, next: REAGENT, previousLink: VESSEL_LINK, nextLink: REAGENT_LINK
+    };
     this.reagentNavigation = {
       label: REAGENT, icon: 'flask', started: false, state: NOT_STARTED, error: undefined, router: REAGENT_LINK,
-      previous: ENZYME, next: REACTION, previousLink: ENZYME_LINK, nextLink: REACTION_LINK};
+      previous: ENZYME, next: REACTION, previousLink: ENZYME_LINK, nextLink: REACTION_LINK
+    };
     this.reactionNavigation = {
       label: REACTION, icon: 'thermometer', started: false, state: NOT_STARTED, error: undefined, router: REACTION_LINK,
-      previous: REAGENT, next: MEASUREMENT, previousLink: REAGENT_LINK, nextLink: MEASUREMENT_LINK};
+      previous: REAGENT, next: MEASUREMENT, previousLink: REAGENT_LINK, nextLink: MEASUREMENT_LINK
+    };
     this.measurementNavigation = {
-      label: MEASUREMENT, icon: 'line-chart', started: false, state: NOT_STARTED, error: undefined, router: MEASUREMENT_LINK,
-      previous: REACTION, next: undefined, previousLink: REACTION_LINK, nextLink: undefined};
-      
-    this.navigation = [this.vesselNavigation, this.enzymeNavigation, this.reagentNavigation, this.reactionNavigation, this.measurementNavigation];
+      label: MEASUREMENT,
+      icon: 'line-chart',
+      started: false,
+      state: NOT_STARTED,
+      error: undefined,
+      router: MEASUREMENT_LINK,
+      previous: REACTION,
+      next: undefined,
+      previousLink: REACTION_LINK,
+      nextLink: undefined
+    };
+
+    this.navigation = [
+      this.vesselNavigation,
+      this.enzymeNavigation,
+      this.reagentNavigation,
+      this.reactionNavigation,
+      this.measurementNavigation
+    ];
 
     this.router.events.subscribe(val => {
-      if (val instanceof NavigationEnd){
-        let url = val.url;
+      if (val instanceof NavigationEnd) {
+        const url = val.url;
         this.validate(url);
         this.updateNavigation(url);
         this.setCurrentState(url);
-     }
+      }
     });
   }
 
@@ -97,17 +116,16 @@ export class BiocathubComponent implements OnInit {
     });
   }
 
-  public updateNavigation(url: string){
-    let start = (url == '/' || url == '/start');
+  public updateNavigation(url: string): void {
+    const start = (url === '/' || url === '/start');
     this.navigationVisible = !start;
-    this.timelineVisible = !(start || url == '/dashboard');
-    if(start) {
+    this.timelineVisible = !(start || url === '/dashboard');
+    if (start) {
       this.resetNavigation();
     } else {
       this.updateStarted(url);
       this.updateNavigationButtons(url);
     }
-    
   }
 
   public validate(url: string): void {
@@ -119,53 +137,56 @@ export class BiocathubComponent implements OnInit {
     this.updateState(this.measurementNavigation, this.dataService.measurementValidation);
   }
 
-  getErrorMessage(validation: string[]) : string {
+  getErrorMessage(validation: string[]): string {
     return validation.length > 0 ? validation.join(', ') + ' has not been defined' : undefined;
   }
 
   updateStarted(url: string): void {
-    if (url == '/vessel') {
+    // TODO use switch case
+    if (url === '/vessel') {
       this.vesselNavigation.started = true;
-    } else if (url == '/biokatalyst') {
+    } else if (url === '/biokatalyst') {
       this.enzymeNavigation.started = true;
-    } else if (url == '/reactants') {
+    } else if (url === '/reactants') {
       this.reagentNavigation.started = true;
-    } else if (url == '/reaction') {
+    } else if (url === '/reaction') {
       this.reactionNavigation.started = true;
-    } else if (url == '/measurement') {
+    } else if (url === '/measurement') {
       this.measurementNavigation.started = true;
     }
   }
 
   setCurrentState(url: string): void {
-    if (url == '/vessel') {
+    // TODO use switch case
+    if (url === '/vessel') {
       this.vesselNavigation.state = CURRENT;
-    } else if (url == '/biokatalyst') {
+    } else if (url === '/biokatalyst') {
       this.enzymeNavigation.state = CURRENT;
-    } else if (url == '/reactants') {
+    } else if (url === '/reactants') {
       this.reagentNavigation.state = CURRENT;
-    } else if (url == '/reaction') {
+    } else if (url === '/reaction') {
       this.reactionNavigation.state = CURRENT;
-    } else if (url == '/measurement') {
+    } else if (url === '/measurement') {
       this.measurementNavigation.state = CURRENT;
     }
   }
 
-  updateNavigationButtons(url: string): void{
-    if (url == '/vessel') {
+  updateNavigationButtons(url: string): void {
+    // TODO use switch case
+    if (url === '/vessel') {
       this.setNavigationButtons(this.vesselNavigation);
-    } else if (url == '/biokatalyst') {
+    } else if (url === '/biokatalyst') {
       this.setNavigationButtons(this.enzymeNavigation);
-    } else if (url == '/reactants') {
+    } else if (url === '/reactants') {
       this.setNavigationButtons(this.reagentNavigation);
-    } else if (url == '/reaction') {
+    } else if (url === '/reaction') {
       this.setNavigationButtons(this.reactionNavigation);
-    } else if (url == '/measurement') {
+    } else if (url === '/measurement') {
       this.setNavigationButtons(this.measurementNavigation);
     }
   }
 
-  setNavigationButtons(nav: NavigationElement) {
+  setNavigationButtons(nav: NavigationElement): void {
     this.previous = nav.previous;
     this.previousLink = nav.previousLink;
     this.next = nav.next;
@@ -173,7 +194,7 @@ export class BiocathubComponent implements OnInit {
   }
 
   updateState(nav: NavigationElement, errors: string[]): void {
-    if(!nav.started) {
+    if (!nav.started) {
       nav.state = NOT_STARTED;
     } else {
       nav.error = this.getErrorMessage(errors);

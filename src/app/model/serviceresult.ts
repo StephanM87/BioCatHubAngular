@@ -1,14 +1,16 @@
-import { Reaction, Reactant } from './biocatalysis';
+import {Reaction} from './biocatalysis';
+
+// TODO one file per class convention
 
 // BRENDA
 export interface EnzymeSearch {
-    ecNumber: string;
-    enzymeName: string;
+  ecNumber: string;
+  enzymeName: string;
 }
 
 export interface EnzymeSpecification {
-    ecNumber: string;
-    enzymeName: string;
+  ecNumber: string;
+  enzymeName: string;
     reaction: Reaction;
 }
 

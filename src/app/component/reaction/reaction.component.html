@@ -17,15 +17,15 @@
                                     <input class="clr-input" type="text" [(ngModel)]="getReaction().temp" [placeholder]="placeholder.temp" name="temp" />
                                 </div>
                             </div>
-                            <div class="clr-control-container clr-col-md-5 clr-col-12">
-                                <div class="clr-select-wrapper">
-                                    <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
-                                        <option value=undefined hidden="true">{{placeholder.unit}}</option>
-                                        <option value="°C">°C</option>
-                                    </select>
-                                </div>
+                          <div class="clr-control-container clr-col-md-5 clr-col-12">
+                            <div class="clr-select-wrapper">
+                              <select class="clr-select" [(ngModel)]="getReaction().unit" name="unit">
+                                <option value=undefined hidden="true">{{placeholder.unit}}</option>
+                                <option value="°C">°C</option>
+                              </select>
                             </div>
-                        </div>                    
+                          </div>
+                        </div>
                         <clr-input-container>
                             <label>pH (optional)</label>
                             <input clrInput type="text" [(ngModel)]="getReaction().ph" [placeholder]="placeholder.ph" name="ph"/>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="clr-form-control clr-row" *ngFor="let other of getReaction().others">
                             <div class="clr-control-label clr-col-12 clr-col-md-2">
-                                <input-combo [attributes]="attributes" [attribute]="other"></input-combo>
+                              <app-input-combo [attributes]="attributes" [attribute]="other"></app-input-combo>
                             </div>
                             <div class="clr-control-container clr-col-md-10 clr-col-12">
                                 <div class="clr-input-wrapper">

@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Enzyme, Reaction } from 'src/app/model/biocatalysis';
-import { EnzymeSearch } from 'src/app/model/serviceresult';
-import { DataService } from 'src/app/service/data.service';
-import { EnzymeService } from 'src/app/service/enzyme.service';
-import { BiokatalystPlaceholder } from 'src/properties/placeholder';
+import {Component} from '@angular/core';
+import {Enzyme, Reaction} from 'src/app/model/biocatalysis';
+import {EnzymeSearch} from 'src/app/model/serviceresult';
+import {DataService} from 'src/app/service/data.service';
+import {EnzymeService} from 'src/app/service/enzyme.service';
+import {BiokatalystPlaceholder} from 'src/properties/placeholder';
 
 @Component({
-  selector: 'enzyme-search',
+  selector: 'app-enzyme-search',
   templateUrl: './enzyme-search.component.html',
   styleUrls: ['./enzyme-search.component.css']
 })
-export class EnzymeSearchComponent implements OnInit {
+export class EnzymeSearchComponent {
 
   public loading: boolean;
   public searchInput: string;
@@ -19,19 +19,17 @@ export class EnzymeSearchComponent implements OnInit {
   public dropdown: boolean;
   public placeholder = BiokatalystPlaceholder;
 
-  constructor(public dataService: DataService, public enzymeService: EnzymeService) { 
+  constructor(public dataService: DataService, public enzymeService: EnzymeService) {
     this.enzymeList = new Array<EnzymeSearch>();
     this.loading = false;
   }
-
-  ngOnInit(): void {}
 
   public getEnzymes(): Enzyme[] {
     return this.dataService.getExperiment().getEnzymes();
   }
 
   public filterSearchInput(searchValue: string): void {
-    if(searchValue.trim().length == 0){
+    if (searchValue.trim().length === 0) {
       this.resetSearch();
     } else {
       this.closeButton = true;
@@ -41,7 +39,7 @@ export class EnzymeSearchComponent implements OnInit {
           this.enzymeList = data;
         },
         error => {
-          console.log(error);
+          console.error(error);
         }
       );
     }
@@ -57,7 +55,7 @@ export class EnzymeSearchComponent implements OnInit {
     this.loading = true;
     this.enzymeService.getEnzymeSpecification(selected.ecNumber).subscribe(
       specification => {
-        let enzyme = new Enzyme();
+        const enzyme = new Enzyme();
         enzyme.ecNumber = selected.ecNumber;
         enzyme.name = specification.enzymeName;
         enzyme.reaction = specification.reaction ? specification.reaction : new Reaction();
@@ -66,11 +64,11 @@ export class EnzymeSearchComponent implements OnInit {
         this.loading = false;
       },
       error => {
-        console.log(error);
+        console.error(error);
         this.resetSearch();
         this.loading = false;
       }
-      );
+    );
     this.enzymeService.addEnzymeReactions(selected.ecNumber);
   }
 

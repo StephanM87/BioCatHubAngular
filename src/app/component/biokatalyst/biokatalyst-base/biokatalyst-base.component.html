@@ -1,6 +1,9 @@
 <span class="headline">biocatalyst</span>
-<enzyme-search></enzyme-search>
-<button class="btn btn-link btn-new" (click)="newEnzyme()"><clr-icon shape="plus"></clr-icon> new biocatalyst</button>
+<app-enzyme-search></app-enzyme-search>
+<button class="btn btn-link btn-new" (click)="newEnzyme()">
+  <clr-icon shape="plus"></clr-icon>
+  new biocatalyst
+</button>
 <clr-datagrid>
     <clr-dg-column>name</clr-dg-column>
     <clr-dg-column>type</clr-dg-column>
@@ -12,7 +15,7 @@
         <clr-dg-cell>{{enzyme.organism}}</clr-dg-cell>
         <clr-dg-cell>{{enzyme.concentration}} {{enzyme.unit}}</clr-dg-cell>
         <clr-dg-row-detail *clrIfExpanded="true" [clrDgReplace]="true">
-            <enzyme-detail class="enzyme-detail" [enzyme]="enzyme"></enzyme-detail>
+          <app-enzyme-detail class="enzyme-detail" [enzyme]="enzyme"></app-enzyme-detail>
         </clr-dg-row-detail>
     </clr-dg-row>
     <clr-dg-placeholder>no biokatalysts</clr-dg-placeholder>
