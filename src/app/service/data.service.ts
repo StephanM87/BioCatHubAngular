@@ -4,9 +4,6 @@ import {Enzyme} from '../model/enzyme';
 import {Reactant} from '../model/reactant';
 import {Measurement} from '../model/measurement';
 
-// TODO use regex
-const NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
 // TODO this class is pretty big, we should try to split it up somehow
 @Injectable({providedIn: 'root'})
 export class DataService {
@@ -366,14 +363,14 @@ export class DataService {
   public getFormulaHtml(formula: string): string {
     let result = '';
     if (formula !== undefined) {
-      const cahracters = formula.split('');
-      cahracters.forEach(char => {
-        if (NUMBERS.includes(char)) {
+      const numbers = RegExp('[0-9]');
+      for (const char of formula) {
+        if (numbers.test(char)) {
           result += '<sub>' + char + '</sub>';
         } else {
           result += char;
         }
-      });
+      }
     }
     return result;
   }
