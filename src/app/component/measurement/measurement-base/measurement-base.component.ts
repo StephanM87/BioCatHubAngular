@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Measurement, Replicate} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
 import {ExperimentService} from 'src/app/service/experiment.service';
 import * as XLSX from 'xlsx';
+import {Measurement} from '../../../model/measurement';
+import {Replicate} from '../../../model/replicate';
 
 @Component({
   selector: 'app-measurement-base',

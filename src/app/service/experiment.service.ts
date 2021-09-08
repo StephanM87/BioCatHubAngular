@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Experiment, IExperiment} from '../model/experiment';
 import {environment, environmentEnzymeML} from 'src/environments/environment';
 import {Deposition, Upload} from '../model/serviceresult';
-import {Measurement} from '../model/biocatalysis';
+import {Measurement} from '../model/measurement';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application'}),

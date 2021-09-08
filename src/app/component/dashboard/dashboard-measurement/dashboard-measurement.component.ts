@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ExperimentalData} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
 
 import {PlotService} from 'src/app/service/plot.service';
+import {ExperimentalData} from '../../../model/experimental-data';
 
 @Component({
   selector: 'app-dashboard-measurement',
@@ -10,6 +10,7 @@ import {PlotService} from 'src/app/service/plot.service';
   styleUrls: ['./dashboard-measurement.component.css']
 })
 export class DashboardMeasurementComponent implements OnInit {
+
   @Input() experimentalData: ExperimentalData;
 
   public measurementPlot: Array<any>;
@@ -29,7 +30,7 @@ export class DashboardMeasurementComponent implements OnInit {
   setProgress(): void {
     let count = 0;
     let total = 0;
-    if (this.experimentalData.measurements != undefined) {
+    if (this.experimentalData.measurements !== undefined) {
       this.experimentalData.measurements.forEach(measurement => {
         count += this.dataService.getMeasurementProgress(measurement);
         total += 100;

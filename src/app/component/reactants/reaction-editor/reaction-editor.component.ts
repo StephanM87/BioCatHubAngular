@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Enzyme, Reactant} from 'src/app/model/biocatalysis';
 import {ReactionSearch} from 'src/app/model/serviceresult';
 import {EnzymeService} from 'src/app/service/enzyme.service';
+import {Enzyme} from '../../../model/enzyme';
+import {Reactant} from '../../../model/reactant';
 
 @Component({
   selector: 'app-reaction-editor',

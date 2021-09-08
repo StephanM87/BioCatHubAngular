@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import {Enzyme, Reaction} from 'src/app/model/biocatalysis';
 import {EnzymeSearch} from 'src/app/model/serviceresult';
 import {DataService} from 'src/app/service/data.service';
 import {EnzymeService} from 'src/app/service/enzyme.service';
 import {BiokatalystPlaceholder} from 'src/properties/placeholder';
+import {Enzyme} from '../../../model/enzyme';
+import {Reaction} from '../../../model/reaction';
 
 @Component({
   selector: 'app-enzyme-search',

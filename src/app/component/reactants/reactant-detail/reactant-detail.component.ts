@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {Attribute, Reactant} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
 import {ReactantPlaceholder} from 'src/properties/placeholder';
+import {Attribute} from '../../../model/attribute';
+import {Reactant} from '../../../model/reactant';
 
 @Component({
   selector: 'app-reactant-detail',

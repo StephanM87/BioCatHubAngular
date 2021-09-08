@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {Attribute, Enzyme} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
 import {EnzymePlaceholder} from 'src/properties/placeholder';
+import {Attribute} from '../../../model/attribute';
+import {Enzyme} from '../../../model/enzyme';
 
 @Component({
   selector: 'app-enzyme-detail',

@@ -1,4 +1,4 @@
-// TODO one file per class convention
+// TODO one file per class convention - but I would use an interface here as you construct this in plot service in "one piece"
 export class Plot {
   data: Array<Datarows> ;
   layout: Layout;

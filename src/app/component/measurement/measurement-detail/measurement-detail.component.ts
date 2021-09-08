@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Measurement, Replicate} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
 import {ExperimentService} from 'src/app/service/experiment.service';
 import {MeasurementPlaceholder} from 'src/properties/placeholder';
 
 import {PlotService} from 'src/app/service/plot.service';
 import {Plot} from 'src/app/model/plot';
+import {Measurement} from '../../../model/measurement';
+import {Replicate} from '../../../model/replicate';
 
 @Component({
   selector: 'app-measurement-detail',
@@ -53,7 +54,7 @@ export class MeasurementDetailComponent implements OnInit {
   public loadMeasurementImage(): void {
     this.experimentService.plotMeasurement(this.measurement).subscribe(
       blob => {
-        this.measurementPlot = this.createImageFromBlob(blob); // TODO this function doesnt return anything
+        this.measurementPlot = this.createImageFromBlob(blob); // TODO this function doesnt return anything, html to show measurementPlot is commented out, plot is shown using plotly. Can this be deleted?
       },
       error => {
         this.showError(error);

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {Enzyme} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
+import {Enzyme} from '../../../model/enzyme';
 
 @Component({
   selector: 'app-biokatalyst',
@@ -14,7 +14,7 @@ export class BiokatalystBaseComponent {
   constructor(public dataService: DataService) {
   }
 
-  // Zentraler Zugriff auf die Enzyme über den Data-Service TODO comments in english
+  // Central access to the enzymes via the Data Service
   public getEnzymes(): Enzyme[] {
     return this.dataService.getExperiment().getEnzymes();
   }

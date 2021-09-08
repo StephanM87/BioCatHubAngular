@@ -1,6 +1,10 @@
-import {Condition, Enzyme, ExperimentalData, User, Vessel} from './biocatalysis';
-
 // TODO probably unnecessary to have an interface for this class, we can use the class directly: check usage and remove if possible
+import {Enzyme} from './enzyme';
+import {Vessel} from './vessel';
+import {Condition} from './condition';
+import {ExperimentalData} from './experimental-data';
+import {User} from './user';
+
 export interface IExperiment {
   title: string;
   description: string;

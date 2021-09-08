@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Buffer, Condition} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
+import {Condition} from '../../../model/condition';
+import {BufferSolution} from '../../../model/buffer-solution';
 
 @Component({
   selector: 'app-dashboard-reaction',
@@ -27,7 +28,7 @@ export class DashboardReactionComponent implements OnInit {
     return (value !== undefined && value.trim().length > 0);
   }
 
-  checkBuffer(buffer: Buffer): boolean {
+  checkBuffer(buffer: BufferSolution): boolean {
     if (buffer !== undefined) {
       return (this.notNull(buffer.type) || buffer.concentration > 0 || this.notNull(buffer.unit));
     }

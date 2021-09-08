@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {VesselPlaceholder} from 'src/properties/placeholder';
-import {Attribute, Vessel} from '../../model/biocatalysis';
 import {DataService} from '../../service/data.service';
+import {Vessel} from '../../model/vessel';
+import {Attribute} from '../../model/attribute';
 
 @Component({
   selector: 'app-vessel',

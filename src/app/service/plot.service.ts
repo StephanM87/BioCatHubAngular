@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {Measurement, Replicate} from 'src/app/model/biocatalysis';
 import {Plot} from 'src/app/model/plot';
+import {Replicate} from '../model/replicate';
+import {Measurement} from '../model/measurement';
 
 // TODO convention: no underscore variable names in TS
 @Injectable({
@@ -36,12 +37,12 @@ export class PlotService {
   }
 
   updateDatapoints(replicates: Array<Replicate>, plotStyle: string): void {
-    let n_datarows = replicates[0].y_values.length;
-    let x_points = Array();
-    let y_datarows = Array();
+    const n_datarows = replicates[0].y_values.length;
+    const x_points = Array();
+    const y_datarows = Array();
     // Create n arrays for y data rows
     for (let k = 0; k < n_datarows; k++) {
-      let y_points = Array();
+      const y_points = Array();
       y_datarows.push(y_points);
     }
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Attribute} from 'src/app/model/biocatalysis';
+import {Attribute} from '../../../model/attribute';
 
 @Component({
   selector: 'app-input-combo',

@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {ReactionPlaceholder} from 'src/properties/placeholder';
-import {Attribute, Condition} from '../../model/biocatalysis';
 import {DataService} from '../../service/data.service';
+import {Condition} from '../../model/condition';
+import {Attribute} from '../../model/attribute';
 
 @Component({
   selector: 'app-reaction',

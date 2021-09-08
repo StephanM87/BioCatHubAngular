@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Vessel} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
+import {Vessel} from '../../../model/vessel';
 
 @Component({
   selector: 'app-dashboard-vessel',

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Enzyme, Reaction} from 'src/app/model/biocatalysis';
 import {DataService} from 'src/app/service/data.service';
+import {Enzyme} from '../../../model/enzyme';
+import {Reaction} from '../../../model/reaction';
 
 @Component({
   selector: 'app-dashboard-reactants',
