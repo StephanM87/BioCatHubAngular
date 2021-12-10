@@ -48,6 +48,10 @@ export class ExperimentService {
     return this.client.post<Experiment>(environmentEnzymeML.backendUrl + '/readEnzymeML', formData, {headers: httpOptions.Omex});
   }
 
+  retrobiocatDBCall(query){
+    return this.client.post(environment.backendUrl + '/retrobiocat', query)
+  }
+
 
   // Measurement
   plotMeasurement(measurement: Measurement): Observable<Blob> {

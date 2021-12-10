@@ -375,4 +375,10 @@ export class DataService {
     return result;
   }
 
+  // requests
+
+  public callRetrobiocat(query){
+    
+  }
+
 }

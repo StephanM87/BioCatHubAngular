@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
+import { ActivatedRoute } from '@angular/router'
+import { type } from 'os';
 
 @Component({
   selector: 'app-dashboard-base',
@@ -16,17 +18,38 @@ export class DashboardBaseComponent implements OnInit {
   public creationDate: Date;
   public showAlert = true;
   public loading: boolean;
+  public retrobiocatQuery: any
 
-  constructor(public dataService: DataService, public experimentService: ExperimentService) { 
+  constructor(public dataService: DataService, 
+              public experimentService: ExperimentService,
+              public router: ActivatedRoute) { 
     this.experiment = dataService.getExperiment();
     this.id = dataService.getId();
     this.zenodoLink = dataService.getZenodoLink();
     this.creationDate = dataService.getCreationDate();
     this.showAlert = false;
+    this.extractGETRequest()
   }
 
   ngOnInit(): void {
 
+  }
+
+// method to query retrobiocat response
+
+  private extractGETRequest(){
+    this.router.queryParams.subscribe(params => {
+      if (params){
+        console.log("params exist", params)
+        this.experimentService.retrobiocatDBCall(params).subscribe(payload => {
+          console.log(this.experiment.title)
+          let title = payload.toString()
+          this.experiment.title = title
+      })}
+      if (Object.keys(params).length === 0){ // TODO
+        alert("no params existent")
+      }
+    })
   }
 
   public uploadToZenodo(): void {
