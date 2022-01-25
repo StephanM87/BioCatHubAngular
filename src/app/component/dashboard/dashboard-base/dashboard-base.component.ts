@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Experiment } from 'src/app/model/experiment';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
-import { ActivatedRoute } from '@angular/router'
-import { type } from 'os';
+import { ActivatedRoute, Router } from '@angular/router'
+import { Enzyme } from 'src/app/model/biocatalysis'
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 
 @Component({
   selector: 'app-dashboard-base',
@@ -22,33 +24,67 @@ export class DashboardBaseComponent implements OnInit {
 
   constructor(public dataService: DataService, 
               public experimentService: ExperimentService,
-              public router: ActivatedRoute) { 
+              public router: ActivatedRoute,
+              public routertype: Router) { 
     this.experiment = dataService.getExperiment();
     this.id = dataService.getId();
     this.zenodoLink = dataService.getZenodoLink();
     this.creationDate = dataService.getCreationDate();
     this.showAlert = false;
-    this.extractGETRequest()
+    //this.extractGETRequest()
+    
   }
 
   ngOnInit(): void {
+
+    this.router.queryParams.subscribe(params => {
+      
+      if(params.name){
+        console.log(params)
+        this.extractGETRequest()
+      }
+    
+    })
+    
 
   }
 
 // method to query retrobiocat response
 
   private extractGETRequest(){
+    this.loading = true
     this.router.queryParams.subscribe(params => {
       if (params){
         console.log("params exist", params)
+        this.loading=true
         this.experimentService.retrobiocatDBCall(params).subscribe(payload => {
-          console.log(this.experiment.title)
           let title = payload.toString()
-          this.experiment.title = title
+          this.dataService.setEnzymes(payload)
+          this.experiment.title = title 
+          let newExp = []
+          for (let i in payload){
+            let others = payload[i]
+            others["others"] = []
+            newExp.push(others)       
+          }
+          console.log(newExp)
+          this.experiment.enzymes = newExp
+
+          console.log("Zeige den payload", payload)
+          console.log("die enzymes sind:", this.experiment.enzymes)
+          let snackBarRef =
+          
+
+
+          // set the enzyme object with the repose body
+
+          //this.dataService.setEnzymes(payload)
+
+          this.loading=false;
+          this.routertype.navigate(["/biokatalyst"])
+          window.alert("your values were successful imported from Retrobiocat")
+
       })}
-      if (Object.keys(params).length === 0){ // TODO
-        alert("no params existent")
-      }
     })
   }
 

@@ -49,7 +49,7 @@ export class ExperimentService {
   }
 
   retrobiocatDBCall(query){
-    return this.client.post(environment.backendUrl + '/retrobiocat', query)
+    return this.client.post(environment.backendUrl + '/minimongo/', query)
   }
 
 
