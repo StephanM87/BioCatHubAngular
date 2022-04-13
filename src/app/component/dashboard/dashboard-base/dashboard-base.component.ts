@@ -54,10 +54,17 @@ export class DashboardBaseComponent implements OnInit {
   private extractGETRequest(){
     this.loading = true
     this.router.queryParams.subscribe(params => {
-      if (params){
+        if (params){
         console.log("params exist", params)
         this.loading=true
         this.experimentService.retrobiocatDBCall(params).subscribe(payload => {
+          console.log(payload["status"])
+          if(payload["status"]=="not found"){
+            this.loading=false;
+            this.routertype.navigate(["/dashboard"])
+            window.alert("There was en error during the import")
+          }
+          else{
           let title = payload.toString()
           this.dataService.setEnzymes(payload)
           this.experiment.title = title 
@@ -72,7 +79,7 @@ export class DashboardBaseComponent implements OnInit {
 
           console.log("Zeige den payload", payload)
           console.log("die enzymes sind:", this.experiment.enzymes)
-          let snackBarRef =
+          //let snackBarRef =
           
 
 
@@ -81,8 +88,7 @@ export class DashboardBaseComponent implements OnInit {
           //this.dataService.setEnzymes(payload)
 
           this.loading=false;
-          this.routertype.navigate(["/biokatalyst"])
-          window.alert("your values were successful imported from Retrobiocat")
+          this.routertype.navigate(["/biokatalyst"])}
 
       })}
     })
