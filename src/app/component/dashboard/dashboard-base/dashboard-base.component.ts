@@ -114,11 +114,7 @@ export class DashboardBaseComponent implements OnInit {
     this.loading = true;
     this.experimentService.createEnzymeML(this.experiment).subscribe(
       b => {
-
-
         let experimentName 
-
-        
         console.log(b)
 
         let title = this.experiment.title
