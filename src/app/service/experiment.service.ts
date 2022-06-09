@@ -21,13 +21,13 @@ export class ExperimentService {
   // Experiment
   getExperimentFromZenodo(id: string): Observable<IExperiment> {
     const options = id ? { params: new HttpParams().set('id', id) } : {};
-    return this.client.get<IExperiment>(environment.backendUrl + '/experiment', options);
+    return this.client.get<IExperiment>(environment.backendUrl + '/api/zenodo/getexperiment', options);
   }
   uploadExperimentToZenodo(experiment: IExperiment): Observable<Upload> {
-    return this.client.post<Upload>(environment.backendUrl + '/experiment', experiment, httpOptions);
+    return this.client.post<Upload>(environment.backendUrl + '/api/zenodo/publishexperiment', experiment, httpOptions);
   }
   getExperimentListFromZenodo(): Observable<Array<Deposition>> {
-    return this.client.get<Deposition[]>(environment.backendUrl + '/experiment/list');
+    return this.client.get<Deposition[]>(environment.backendUrl + '/api/zenodo/getallexperiments');
   }
 
   // EnzymeML
