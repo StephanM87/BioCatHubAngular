@@ -3,7 +3,7 @@ import { Experiment } from 'src/app/model/experiment';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
 import { ActivatedRoute } from '@angular/router'
-import { type } from 'os';
+//import { type } from 'os';
 
 @Component({
   selector: 'app-dashboard-base',
