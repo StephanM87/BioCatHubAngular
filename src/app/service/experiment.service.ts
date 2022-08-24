@@ -37,7 +37,7 @@ export class ExperimentService {
   }*/
 
   createEnzymeML(experiment: IExperiment): Observable<any> {
-    return this.client.post(environmentEnzymeML.backendUrl + '/createEnzymeML', experiment, {headers: httpOptions.Omex, responseType: 'blob'});
+    return this.client.post(environmentEnzymeML.backendUrl + '/create_enzymeml', experiment, {headers: httpOptions.Omex, responseType: 'blob'});
   }
   readEnzymeML(enzymeML: any): Observable<any> {
     let data = {"name": "Jürgen", "alter": "32"}
@@ -46,7 +46,7 @@ export class ExperimentService {
     formData.append('enzymeML', enzymeML, enzymeML.name);
     formData.append("hallo", JSON.stringify(data));
     console.log(formData);
-    return this.client.post<Experiment>(environmentEnzymeML.backendUrl + '/readEnzymeML', formData, {headers: httpOptions.Omex});
+    return this.client.post<Experiment>(environmentEnzymeML.backendUrl + '/read_enzymeml', formData, {headers: httpOptions.Omex});
   }
 
   retrobiocatDBCall(query){
@@ -62,6 +62,8 @@ export class ExperimentService {
   templateFile(): Observable<Blob> {
     return this.client.get(environment.backendUrl + '/measurement/template', {responseType: 'blob'});
   }
+
+
 
   // TODO: Service für PDF Dateien
 

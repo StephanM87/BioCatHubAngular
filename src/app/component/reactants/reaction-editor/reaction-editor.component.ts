@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Enzyme, Reactant, Reaction } from 'src/app/model/biocatalysis';
 import { ReactionSearch } from 'src/app/model/serviceresult';
 import { EnzymeService } from 'src/app/service/enzyme.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'reaction-editor',
@@ -13,6 +14,7 @@ export class ReactionEditorComponent implements OnInit {
 
   public loading: boolean;
   public reactionList: ReactionSearch[];
+  public environment = environment
 
   constructor(public enzymeService: EnzymeService) {
     this.loading = false;

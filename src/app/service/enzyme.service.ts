@@ -48,4 +48,8 @@ export class EnzymeService {
     return this.client.get<Reaction>(environment.backendUrl + '/reaction', options);
   }
 
+  getReactantsImage(smiles){
+    console.log("JPOOPPPPPPPPPPPPPPP")
+    return this.client.get('http://127.0.0.1:8000/CCC')
+  }
 }

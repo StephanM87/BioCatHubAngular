@@ -47,7 +47,7 @@ export class DashboardBaseComponent implements OnInit {
           this.experiment.title = title
       })}
       if (Object.keys(params).length === 0){ // TODO
-        alert("no params existent")
+        alert("Retrobiohub no params existent")
       }
     })
   }

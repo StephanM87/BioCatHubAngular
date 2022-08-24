@@ -31,12 +31,12 @@
                                     </tr>
                                     <tr>
                                         <ng-container *ngFor="let educt of enzyme.reaction.educts; last as isLast">
-                                            <td><img src={{educt.imageUrl}} *ngIf="educt.imageUrl"><span *ngIf="!educt.imageUrl">{{educt.name}}</span></td>
+                                            <td><img [src]="environment.bchSmilesToStructurePath + educt.smiles" *ngIf="educt.smiles"><span *ngIf="!educt.smiles">{{educt.smiles}}</span></td>
                                             <td class="reaction-operation" *ngIf="!isLast">+</td>
                                         </ng-container>
                                         <td class="reaction-operation">⇌</td>
                                         <ng-container *ngFor="let product of enzyme.reaction.products; last as isLast">
-                                            <td><img src={{product.imageUrl}} *ngIf="product.imageUrl"><span *ngIf="!product.imageUrl">{{product.name}}</span></td>
+                                            <td><img [src]="environment.bchSmilesToStructurePath + product.smiles" *ngIf="product.smiles"><span *ngIf="!product.smiles">{{products.smiles}}</span></td>
                                             <td class="reaction-operation" *ngIf="!isLast">+</td>
                                         </ng-container>
                                     </tr>
@@ -73,6 +73,17 @@
                                             <td><clr-input-container>
                                                     <input clrInput class="reaction-input" type="text" [(ngModel)]="product.name" />
                                             </clr-input-container></td>
+                                            <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                        </ng-container>
+                                    </tr>
+                                    <tr>
+                                        <ng-container *ngFor="let educt of enzyme.reaction.educts; last as isLast">
+                                            <td><img [src]="environment.bchSmilesToStructurePath + educt.smiles" *ngIf="educt.smiles"><span *ngIf="!educt.smiles">{{educt.smiles}}</span></td>
+                                            <td class="reaction-operation" *ngIf="!isLast">+</td>
+                                        </ng-container>
+                                        <td class="reaction-operation">⇌</td>
+                                        <ng-container *ngFor="let product of enzyme.reaction.products; last as isLast">
+                                            <td><img [src]="environment.bchSmilesToStructurePath + product.smiles" *ngIf="product.smiles"><span *ngIf="!product.smiles">{{products.smiles}}</span></td>
                                             <td class="reaction-operation" *ngIf="!isLast">+</td>
                                         </ng-container>
                                     </tr>
