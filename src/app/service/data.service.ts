@@ -34,6 +34,10 @@ export class DataService {
     this.experiment = experiment;
   }
 
+  public setEnzymes(enzymes): void {
+    this.experiment.enzymes = enzymes
+  }
+
   public getCreationDate(): Date {
     return this.date;
   }
@@ -312,6 +316,8 @@ export class DataService {
     }
     return measurementErrors;
   }
+
+
 
   public getMeasurementProgress(measurement: Measurement): number {
     let fields = 7;

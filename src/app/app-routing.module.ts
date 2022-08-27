@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'reaction', component: ReactionComponent },
   { path: 'measurement', component: MeasurementBaseComponent },
   { path: 'dashboard', component: DashboardBaseComponent },
-  {path: 'retrobiocat', component:DashboardBaseComponent},
+  {path: 'rbh', component:DashboardBaseComponent},
   { path: '', redirectTo: 'start', pathMatch: 'full' }
 ];
 
