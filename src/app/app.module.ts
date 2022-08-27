@@ -37,11 +37,11 @@ import { DashboardBiokatalystComponent } from './component/dashboard/dashboard-b
 import { DashboardReactantsComponent } from './component/dashboard/dashboard-reactants/dashboard-reactants.component';
 import { DashboardReactionComponent } from './component/dashboard/dashboard-reaction/dashboard-reaction.component';
 import { DashboardMeasurementComponent } from './component/dashboard/dashboard-measurement/dashboard-measurement.component';
-import { AqueousComponent } from './component/reaction/aqueous/aqueous.component';
-import { MicroAqueousComponent } from './component/reaction/micro-aqueous/micro-aqueous.component';
-import { OrganicSolventComponent } from './component/reaction/micro-aqueous/organic-solvent/organic-solvent.component';
-import { AqueousSolventComponent } from './component/reaction/micro-aqueous/aqueous-solvent/aqueous-solvent.component';
-
+//import {ReactionComponent} from './component/reaction/reaction.component'
+//import { AqueousComponent } from './component/reaction/aqueous/aqueous.component';
+//import { MicroAqueousComponent } from './component/reaction/micro-aqueous/micro-aqueous.component';
+//import { OrganicSolventComponent } from './component/reaction/micro-aqueous/organic-solvent/organic-solvent.component';
+//import { AqueousSolventComponent } from './component/reaction/micro-aqueous/aqueous-solvent/aqueous-solvent.component';
 
 
 @NgModule({
@@ -71,10 +71,6 @@ import { AqueousSolventComponent } from './component/reaction/micro-aqueous/aque
     DashboardMeasurementComponent,
     InputComboComponent,
     OverlaySpinnerComponent,
-    AqueousComponent,
-    MicroAqueousComponent,
-    OrganicSolventComponent,
-    AqueousSolventComponent,
 
   ],
   imports: [

@@ -11,38 +11,28 @@ import { DataService } from '../../service/data.service';
 export class ReactionComponent implements OnInit {
   public attributes: string[] = ['attribute 1', 'attribute 2', 'attribute 3', 'attribute 4'];
   public placeholder = ReactionPlaceholder;
-  reactionSystem: string
-  aqueousIcon = '../../../assets/Icons/Aqueous icon.png'
-  microAqueousIcon = '../../../assets/Icons/Micro-aqueous icon.png'
-  public condition:Condition
-
-
-  aqueousCSS = "Icon"
-  microAqueousCSS = "Icon"
-
 
   constructor(public dataService: DataService) { }
 
-  ngOnInit(): void {
-    this.condition = this.dataService.getExperiment().condition
-    
+  ngOnInit(): void { }
+  
+  public getReaction(): Condition {
+    return this.dataService.getExperiment().getReactionConditions();
   }
   
-  
-
-  clickAqueous(){
-    this.reactionSystem = "aqueous"
-    this.aqueousCSS = "IconWithBoder"
-    this.microAqueousCSS = "Icon"
-    this.condition.reactionSystem = "aqueous"
+  public addAttribute(): void {
+    this.getReaction().others.push(new Attribute());
   }
 
-  clickMicroAqueous(){
-    this.reactionSystem="Micro-aqueous"
-    this.aqueousCSS = "Icon"
-    this.microAqueousCSS = "IconWithBoder"
-    this.condition.reactionSystem = "micro-aqueous"
+  public deleteAttribute(other: Attribute): void {
+    let index = this.getReaction().others.indexOf(other);
+    if (index !== -1) {
+      this.getReaction().others.splice(index, 1);
+    }
+  }
 
-  }  
+  public getProgress(): string {
+    return this.dataService.getConditionProgress().toFixed();
+  }
 
 }

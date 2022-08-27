@@ -239,10 +239,10 @@ export class DataService {
     this.conditionValidation = new Array<string>();
     let condition = this.getExperiment().getReactionConditions();
     if(condition != undefined) {
-      if(this.validateNumber(condition.temp.value)) {
+      if(this.validateNumber(condition.temp)) {
         this.conditionValidation.push('temp');
       }
-      if(this.validateString(condition.temp.unit)) {
+      if(this.validateString(condition.unit)) {
         this.conditionValidation.push('unit');
       }
       let buffer = condition.buffer;

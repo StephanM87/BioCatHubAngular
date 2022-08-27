@@ -21,14 +21,14 @@ export class ExperimentService {
   // Experiment
   getExperimentFromZenodo(id: string): Observable<IExperiment> {
     const options = id ? { params: new HttpParams().set('id', id) } : {};
-    return this.client.get<IExperiment>(environment.backendUrl + '/zenodo/getexperiment', options);
+    return this.client.get<IExperiment>(environmentEnzymeML.backendUrl + '/zenodo/getexperiment', options);
   }
   uploadExperimentToZenodo(experiment: IExperiment): Observable<Upload> {
     //console.log(experiment)
-    return this.client.post<Upload>(environment.backendUrl + '/zenodo/publishexperiment', experiment, httpOptions);
+    return this.client.post<Upload>(environmentEnzymeML.backendUrl + '/zenodo/publishexperiment', experiment, httpOptions);
   }
   getExperimentListFromZenodo(): Observable<Array<Deposition>> {
-    return this.client.get<Deposition[]>(environment.backendUrl + '/zenodo/getallexperiments');
+    return this.client.get<Deposition[]>(environmentEnzymeML.backendUrl + '/zenodo');
   }
 
   // EnzymeML
@@ -50,7 +50,7 @@ export class ExperimentService {
   }
 
   retrobiocatDBCall(query){
-    return this.client.post(environment.backendUrl + '/retrobiocat', query)
+    return this.client.post(environmentEnzymeML.backendUrl + '/retrobiocat', query)
   }
 
 

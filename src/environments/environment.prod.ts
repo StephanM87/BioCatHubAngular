@@ -1,10 +1,11 @@
 export const environment = {
   production: true,
-  backendUrl: '/'
+  backendUrl: '/api',
+  bchSmilesToStructurePath:'smiles/'
 };
 
 
 export const environmentEnzymeML = {
   production: true,
-  backendUrl: '/api'
+  backendUrl: '/enzml'
 };

@@ -154,19 +154,17 @@ export class Buffer {
 }
 
 export class Condition {
-    temp: Temperature;
-    ph: pH;
+    temp: number;
+    unit: string;
+    ph: number;
     buffer: Buffer;
-    reactionSystem: string;
-    solvent:Solvent;
     others: Array<Attribute>;
 
     constructor(condition?: Condition) {
-        this.temp = condition && condition.temp || new Temperature();
-        this.ph = condition && condition.ph || new pH()
+        this.temp = condition && condition.temp || undefined;
+        this.unit = condition && condition.unit || undefined;
+        this.ph = condition && condition.ph || undefined;
         this.buffer = condition && condition.buffer || new Buffer();
-        this.reactionSystem = condition && condition.reactionSystem || undefined;
-        this.solvent = condition && condition.solvent || new Solvent()
         this.others = condition && condition.others || new Array<Attribute>();
     }
 }
