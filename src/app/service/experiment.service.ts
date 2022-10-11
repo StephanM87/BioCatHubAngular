@@ -8,7 +8,8 @@ import { Measurement } from '../model/biocatalysis';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application' }),
-  Omex: new HttpHeaders()
+  Omex: new HttpHeaders(),
+  headers_json: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -19,17 +20,34 @@ export class ExperimentService {
   constructor(private client: HttpClient) { }
 
   // Experiment
-  getExperimentFromZenodo(id: string): Observable<IExperiment> {
-    const options = id ? { params: new HttpParams().set('id', id) } : {};
-    return this.client.get<IExperiment>(environmentEnzymeML.backendUrl + '/zenodo/getexperiment', options);
+  getExperimentFromZenodo(id: string, key:String): Observable<IExperiment> {
+    if (key == null){
+      const options = id ? { params: new HttpParams().set('id', id) } : {};
+      return this.client.get<IExperiment>(environmentEnzymeML.backendUrl + '/zenodo/getexperiment', options);
   }
+    else if(key != null){
+      let data = {id:id, access_token:key}
+      return this.client.post<IExperiment>(environmentEnzymeML.backendUrl + '/zenodo/getexperiment',JSON.stringify(data), {headers:httpOptions.headers_json});
+
+    }
+
+
+}
   uploadExperimentToZenodo(experiment: IExperiment): Observable<Upload> {
     //console.log(experiment)
-    return this.client.post<Upload>(environmentEnzymeML.backendUrl + '/zenodo/publishexperiment', experiment, httpOptions);
+    let data = {experiment:experiment, access_token:null}
+    return this.client.post<Upload>(environmentEnzymeML.backendUrl + '/zenodo/publishexperiment', data, httpOptions);
   }
   getExperimentListFromZenodo(): Observable<Array<Deposition>> {
     return this.client.get<Deposition[]>(environmentEnzymeML.backendUrl + '/zenodo');
   }
+
+  getProjectListFromZenodo(key): Observable<Array<Deposition>> {
+    let project_token = {access_token:key}
+
+    return this.client.post<Deposition[]>(environmentEnzymeML.backendUrl + '/zenodo', JSON.stringify(project_token), {headers:httpOptions.headers_json});
+  }
+
 
   // EnzymeML
   /*createEnzymeML(experiment: IExperiment): Observable<Blob> {

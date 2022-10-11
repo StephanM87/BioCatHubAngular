@@ -1,5 +1,12 @@
-<span class="headline">published experiments</span>
+<span class="headline">Available Experiments</span>
 
+
+<div>
+    <label>add Zenodo Repository</label>
+    <input type="text" clrInput placeholder="My input" [(ngModel)]="key"> 
+    <button (click)="loadProjectFromZenodo()" class="btn btn-primary">Load Project</button>
+    <span> how to connect a Zenodo Repository?</span>
+</div>
 
 <div class="experiment-table">
     <clr-datagrid [(clrDgSingleSelected)]="selectedExperiment">

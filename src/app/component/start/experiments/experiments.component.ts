@@ -13,9 +13,10 @@ import { ExperimentService } from 'src/app/service/experiment.service';
 export class ExperimentsComponent implements OnInit {
 
   public loading: boolean;
-  
+  key:String
   public experiments: Deposition[];
   public selectedExperiment: Deposition;
+
 
   constructor(private router: Router, public dataService: DataService, public experimentService: ExperimentService) { }
 
@@ -35,7 +36,7 @@ export class ExperimentsComponent implements OnInit {
 
   public showExperiment(): void {
     this.loading = true;
-    this.experimentService.getExperimentFromZenodo(this.selectedExperiment.id).subscribe(
+    this.experimentService.getExperimentFromZenodo(this.selectedExperiment.id, this.key).subscribe(
       json => {
         let experiment = new Experiment(json);
         this.dataService.setId(this.selectedExperiment.id);
@@ -50,6 +51,25 @@ export class ExperimentsComponent implements OnInit {
       }
     );
   }
+
+
+  public loadProjectFromZenodo(){
+    this.loading = true;
+    this.experimentService.getProjectListFromZenodo(this.key).subscribe(
+      experiments => {
+        this.experiments = experiments;
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
+    console.log(this.key)
+
+
+  }
+
 
   public showDashboard(experiment: Experiment): void {
     this.dataService.setExperiment(experiment);
