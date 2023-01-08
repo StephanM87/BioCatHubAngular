@@ -25,12 +25,12 @@ export class DataService {
   }
 
   // Getter & Setter
-
+  
   public getExperiment(): Experiment {
     return this.experiment;
   }
 
-  public setExperiment(experiment: Experiment): void {
+  public setExperiment(experiment): void {
     this.experiment = experiment;
   }
 
@@ -61,6 +61,16 @@ export class DataService {
   public setId(id: string): void {
     this.id = id;
   }
+
+
+  // Retrobiohub setter
+
+  public setExperimentalData(data):void{
+    this.experiment.experimentalData = data;
+  }
+
+
+
 
   // Validation
 

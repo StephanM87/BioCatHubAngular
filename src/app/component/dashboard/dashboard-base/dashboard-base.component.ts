@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Experiment } from 'src/app/model/experiment';
+import { Experiment, IExperiment } from 'src/app/model/experiment';
 import { DataService } from 'src/app/service/data.service';
 import { ExperimentService } from 'src/app/service/experiment.service';
+import { PlotService } from 'src/app/service/plot.service';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Enzyme } from 'src/app/model/biocatalysis'
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 //import { type } from 'os';
 
 @Component({
@@ -34,8 +36,8 @@ export class DashboardBaseComponent implements OnInit {
     //this.extractGETRequest()
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void { // #TODO #31
+    /*
       this.router.queryParams.subscribe(params => {
       
         if(params.name){
@@ -44,7 +46,7 @@ export class DashboardBaseComponent implements OnInit {
         }
       
       })
-
+      */
   }
 
   public setEnzymes(enzymes): void {
@@ -54,7 +56,7 @@ export class DashboardBaseComponent implements OnInit {
 // method to query retrobiocat response
 
 
-
+/*
 
 private extractGETRequest(){
   this.loading = true
@@ -70,6 +72,18 @@ private extractGETRequest(){
           window.alert("There was en error during the import")
         }
         else{
+        if (payload["experimentalData"]){
+          console.log("HURRRRRRRRRRRRAAA")
+          console.log(payload)
+          this.dataService.setExperiment(new Experiment(payload))
+          this.dataService.setEnzymes(payload["enzymes"])
+          //this.dataService.setExperimentalData(payload["experimentalData"])
+          this.routertype.navigate(["/dashboard"])
+  
+          this.loading=false;
+        }
+        else{
+          console.log(payload)
         let title = payload.toString()
         this.dataService.setEnzymes(payload)
         this.experiment.title = title 
@@ -93,12 +107,13 @@ private extractGETRequest(){
         //this.dataService.setEnzymes(payload)
 
         this.loading=false;
-        this.routertype.navigate(["/biokatalyst"])}
+        this.routertype.navigate(["/biokatalyst"])}}
 
     })}
   })
 }
 
+*/
 
   public uploadToZenodo(): void {
     this.loading = true;
